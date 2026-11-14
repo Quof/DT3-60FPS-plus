@@ -22,63 +22,65 @@ spot key1   # a colored key, at 1359,287
 spot key2   # a colored key, at 815,239
 spot key3   # a colored key, at 575,303
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 48,480 [rb 0]
-  out 0,448 [rb 0]   -
-  out 0,448 [rb 1]   -
-  loc 6 13           link:1 | belmont:1
-  loc 1 40           event:rGame6_FireExtra/key1,event:rGame6_FireExtra/key2,event:rGame6_FireExtra/key3
-  spot key1          never
-  spot key2          djump,gdash | adash,gdash
-  spot key3          never
+  out 0,448 [rb 0] -
+  out 0,448 [rb 1] -
+  loc 6 13       link:1 | belmont:1
+  loc 1 40       event:rGame6_FireExtra/key1,event:rGame6_FireExtra/key2,event:rGame6_FireExtra/key3
+  spot key1      never
+  spot key2      never
+  spot key3      never
 from in 48,480 [rb 1]
-  out 0,448 [rb 0]   djump
-  out 0,448 [rb 1]   -
-  loc 6 13           link:1 | belmont:1
-  loc 1 40           event:rGame6_FireExtra/key1,event:rGame6_FireExtra/key2,event:rGame6_FireExtra/key3
-  spot key1          never
-  spot key2          djump,gdash | adash,gdash
-  spot key3          never
+  out 0,448 [rb 0] djump,adash
+  out 0,448 [rb 1] -
+  loc 6 13       link:1 | belmont:1
+  loc 1 40       event:rGame6_FireExtra/key1,event:rGame6_FireExtra/key2,event:rGame6_FireExtra/key3
+  spot key1      never
+  spot key2      never
+  spot key3      never
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 48,480 [rb 0] -> out 0,448 [rb 0]: -
      [blue blocks solid] coming in at 48,480
-   1. coming in: holding nothing, from 48,480; lands at 48,481
+   1. coming in: holding nothing, from 48,480; lands at 48,481 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 0-454, y 401-481
    2. standing at 0,481, goes into it
       -> out 0,448 [rb 0]
 how in 48,480 [rb 0] -> out 0,448 [rb 1]: -
      [blue blocks solid] coming in at 48,480
-   1. coming in: holding nothing, from 48,480; lands at 48,481
+   1. coming in: holding nothing, from 48,480; lands at 48,481 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 0-454, y 401-481
-   2. running right, jump (held 21 ticks), holding right, from 272,401; lands at 546,504
-      -> [blue blocks solid] standing at x 538-758, y 449-513
-   3. running right, jump (held 21 ticks), holding right, from 624,449; lands at 830,433
-      -> [blue blocks solid] standing at x 810-918, y 433-449
-   4. jump (held 21 ticks), holding right, from 814,444; lands at 945,377
-      -> [blue blocks solid] standing at x 938-1254, y 257-385
+   2. running right, jump (held 21 ticks), holding right, from 272,401; lands at 546,504 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 538-758, y 449-512
+   3. running right, jump (held 21 ticks), holding right, from 624,449; lands at 830,433 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 810-918, y 433-448
+   4. jump (held 21 ticks), holding right, from 814,444; lands at 945,377 {move ch=1 dir=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 938-1254, y 257-384
    5. jump at 1162,257 and hit the block at 1168,192 from below: [red blocks solid]
       -> [red blocks solid] standing at x 983-1254, y 257-369
-   6. jump (held 21 ticks), holding left, from 1136,261; lands at 1012,193
-      -> [red blocks solid] standing at x 522-1062, y 193-209
-   7. jump (held 2 ticks), holding left, from 522,209; lands at 455,177
+   6. jump (held 21 ticks), holding left, from 1136,261; lands at 1012,193 {move ch=1 dir=-1 jumpAt=0}
+      -> [red blocks solid] standing at x 522-1062, y 193-208
+   7. jump (held 2 ticks), holding left, from 522,208; lands at 455,177 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [red blocks solid] standing at x 455-470, y 177-192
-   8. jump (held 21 ticks), holding left, from 455,177; lands at 91,481
+   8. jump (held 21 ticks), holding left, from 455,177; lands at 91,481 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 0-454, y 401-481
    9. standing at 0,481, goes into it
       -> out 0,448 [rb 1]
 how in 48,480 [rb 0] -> loc 6 13: link:1
      [blue blocks solid] coming in at 48,480
-   1. coming in: holding nothing, from 48,480; lands at 48,481
+   1. coming in: holding nothing, from 48,480; lands at 48,481 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 0-454, y 401-481
-   2. walk off the edge, holding right once in the air, from 32,481; lands at 574,668
+   2. walk off the edge, holding right once in the air, from 32,481; lands at 574,668 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 455-726, y 641-752
-   3. walk off the edge, holding right, then left after 1 ticks in the air, from 455,650, through the breakable wall at 592,784; lands at 706,849   [link:1]
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 455,650, through the breakable wall at 592,784; lands at 706,849 {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}   [link:1]
       -> [blue blocks solid] standing at x 586-726, y 849 (where a gate is)
    4. walk from 586,849 to 585,849
       -> [blue blocks solid] standing at x 551-585, y 849
@@ -86,11 +88,11 @@ how in 48,480 [rb 0] -> loc 6 13: link:1
       -> loc 6 13
 how in 48,480 [rb 0] -> loc 6 13: belmont:1
      [blue blocks solid] coming in at 48,480
-   1. coming in: holding nothing, from 48,480; lands at 48,481
+   1. coming in: holding nothing, from 48,480; lands at 48,481 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 0-454, y 401-481
-   2. walk off the edge, holding right once in the air, from 32,481; lands at 574,668
+   2. walk off the edge, holding right once in the air, from 32,481; lands at 574,668 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 455-726, y 641-752
-   3. walk off the edge, holding right, then left after 1 ticks in the air, from 455,650, through the breakable wall at 592,784; lands at 706,849   [belmont:1]
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 455,650, through the breakable wall at 592,784; lands at 706,849 {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}   [belmont:1]
       -> [blue blocks solid] standing at x 586-726, y 849 (where a gate is)
    4. walk from 586,849 to 585,849
       -> [blue blocks solid] standing at x 551-585, y 849
@@ -98,97 +100,97 @@ how in 48,480 [rb 0] -> loc 6 13: belmont:1
       -> loc 6 13
 how in 48,480 [rb 0] -> loc 1 40: event:rGame6_FireExtra/key1,event:rGame6_FireExtra/key2,event:rGame6_FireExtra/key3
      [blue blocks solid] coming in at 48,480
-   1. coming in: holding nothing, from 48,480; lands at 48,481
+   1. coming in: holding nothing, from 48,480; lands at 48,481 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 0-454, y 401-481
-   2. walk off the edge, holding right once in the air, from 32,481; lands at 574,668
+   2. walk off the edge, holding right once in the air, from 32,481; lands at 574,668 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 455-726, y 641-752
-   3. walk off the edge, holding right once in the air, from 455,650; lands at 815,821
+   3. walk off the edge, holding right once in the air, from 455,650; lands at 815,821 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 727-1257, y 785-849
-   4. walk off the edge, holding right once in the air, from 727,849, through the barrier at 1264,736, the barrier at 1280,736, the barrier at 1296,736, ...; touches it on the way   [event:rGame6_FireExtra/key1,event:rGame6_FireExtra/key2,event:rGame6_FireExtra/key3]
+   4. walk off the edge, holding right once in the air, from 727,849, through the barrier at 1264,736, the barrier at 1280,736, the barrier at 1296,736, ...; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}   [event:rGame6_FireExtra/key1,event:rGame6_FireExtra/key2,event:rGame6_FireExtra/key3]
       -> loc 1 40
 how in 48,480 [rb 0] -> spot key2: djump,gdash
      [blue blocks solid] coming in at 48,480
-   1. coming in: holding nothing, from 48,480; lands at 48,481
+   1. coming in: holding nothing, from 48,480; lands at 48,481 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 0-454, y 401-481
-   2. running right, jump (held 21 ticks), holding right, from 272,401; lands at 546,504
-      -> [blue blocks solid] standing at x 538-758, y 449-513
-   3. running right, jump (held 21 ticks), holding right, from 624,449; lands at 830,433
-      -> [blue blocks solid] standing at x 810-918, y 433-449
-   4. jump (held 21 ticks), holding right, from 814,444; lands at 945,377
-      -> [blue blocks solid] standing at x 938-1254, y 257-385
+   2. running right, jump (held 21 ticks), holding right, from 272,401; lands at 546,504 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 538-758, y 449-512
+   3. running right, jump (held 21 ticks), holding right, from 624,449; lands at 830,433 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 810-918, y 433-448
+   4. jump (held 21 ticks), holding right, from 814,444; lands at 945,377 {move ch=1 dir=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 938-1254, y 257-384
    5. jump at 1162,257 and hit the block at 1168,192 from below: [red blocks solid]
       -> [red blocks solid] standing at x 983-1254, y 257-369
-   6. walk off the edge, holding right once in the air, from 983,369; lands at 1357,383
-      -> [red blocks solid] standing at x 1082-1385, y 369-529
-   7. jump (held 6 ticks), holding left, from 1082,529; lands at 987,481
+   6. walk off the edge, holding right once in the air, from 983,369; lands at 1355,384 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 1082-1385, y 369-528
+   7. jump (held 6 ticks), holding left, from 1082,528; lands at 987,481 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> [red blocks solid] standing at x 919-1014, y 481
-   8. jump (held 2 ticks), holding left, from 919,481; lands at 910,440
-      -> [red blocks solid] standing at x 810-918, y 433-449
-   9. jump (held 21 ticks), holding left, from 810,449; lands at 679,385
+   8. jump (held 2 ticks), holding left, from 919,481; lands at 910,440 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
+      -> [red blocks solid] standing at x 810-918, y 433-448
+   9. jump (held 21 ticks), holding left, from 810,448; lands at 686,385 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 666-710, y 385
-  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 670,385; lands at 706,321
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 670,385; lands at 706,321 {move ch=1 dir=-1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [red blocks solid] standing at x 698-742, y 321
-  11. dash right (Jerry), jump (held 21 ticks), holding right, double jump at tick 12, from 702,321; touches it on the way   [djump,gdash]
+  11. dash right (Jerry), jump (held 21 ticks), holding right, double jump at tick 12, from 702,321; touches it on the way {move ch=0 dir=1 jumpAt=2 djAt=12 gdAt=0}   [djump,gdash]
       -> spot key2
 how in 48,480 [rb 0] -> spot key2: adash,gdash
      [blue blocks solid] coming in at 48,480
-   1. coming in: holding nothing, from 48,480; lands at 48,481
+   1. coming in: holding nothing, from 48,480; lands at 48,481 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 0-454, y 401-481
-   2. running right, jump (held 21 ticks), holding right, from 272,401; lands at 546,504
-      -> [blue blocks solid] standing at x 538-758, y 449-513
-   3. running right, jump (held 21 ticks), holding right, from 624,449; lands at 830,433
-      -> [blue blocks solid] standing at x 810-918, y 433-449
-   4. jump (held 21 ticks), holding right, from 814,444; lands at 945,377
-      -> [blue blocks solid] standing at x 938-1254, y 257-385
+   2. running right, jump (held 21 ticks), holding right, from 272,401; lands at 546,504 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 538-758, y 449-512
+   3. running right, jump (held 21 ticks), holding right, from 624,449; lands at 830,433 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 810-918, y 433-448
+   4. jump (held 21 ticks), holding right, from 814,444; lands at 945,377 {move ch=1 dir=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 938-1254, y 257-384
    5. jump at 1162,257 and hit the block at 1168,192 from below: [red blocks solid]
       -> [red blocks solid] standing at x 983-1254, y 257-369
-   6. walk off the edge, holding right once in the air, from 983,369; lands at 1357,383
-      -> [red blocks solid] standing at x 1082-1385, y 369-529
-   7. jump (held 6 ticks), holding left, from 1082,529; lands at 987,481
+   6. walk off the edge, holding right once in the air, from 983,369; lands at 1355,384 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 1082-1385, y 369-528
+   7. jump (held 6 ticks), holding left, from 1082,528; lands at 987,481 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> [red blocks solid] standing at x 919-1014, y 481
-   8. jump (held 2 ticks), holding left, from 919,481; lands at 910,440
-      -> [red blocks solid] standing at x 810-918, y 433-449
-   9. jump (held 21 ticks), holding left, from 810,449; lands at 679,385
+   8. jump (held 2 ticks), holding left, from 919,481; lands at 910,440 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
+      -> [red blocks solid] standing at x 810-918, y 433-448
+   9. jump (held 21 ticks), holding left, from 810,448; lands at 686,385 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 666-710, y 385
-  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 670,385; lands at 706,321
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 670,385; lands at 706,321 {move ch=1 dir=-1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [red blocks solid] standing at x 698-742, y 321
-  11. dash right (Jerry), jump (held 21 ticks), holding right, air dash (Jerry) at tick 12, from 702,321; touches it on the way   [adash,gdash]
+  11. dash right (Jerry), jump (held 21 ticks), holding right, air dash (Jerry) at tick 12, from 702,321; touches it on the way {move ch=0 dir=1 jumpAt=2 adAt=12 gdAt=0}   [adash,gdash]
       -> spot key2
 how in 48,480 [rb 1] -> out 0,448 [rb 0]: djump
      [red blocks solid] coming in at 48,480
-   1. coming in: holding nothing, from 48,480; lands at 48,481
+   1. coming in: holding nothing, from 48,480; lands at 48,481 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 0-454, y 401-481
-   2. running right, jump (held 21 ticks), holding right, from 272,401; lands at 546,504
-      -> [red blocks solid] standing at x 538-758, y 449-513
-   3. jump (held 6 ticks), holding right, from 720,469; lands at 832,433
-      -> [red blocks solid] standing at x 810-918, y 433-449
-   4. walk off the edge, holding right once in the air, from 810,449; lands at 982,481
+   2. running right, jump (held 21 ticks), holding right, from 272,401; lands at 546,504 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [red blocks solid] standing at x 538-758, y 449-512
+   3. jump (held 6 ticks), holding right, from 720,469; lands at 832,433 {move ch=1 dir=1 jumpAt=0 jumpHold=6}
+      -> [red blocks solid] standing at x 810-918, y 433-448
+   4. walk off the edge, holding right once in the air, from 810,448; lands at 982,481 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 919-1014, y 481
-   5. walk off the edge, holding right once in the air, from 919,481; lands at 1091,519
-      -> [red blocks solid] standing at x 1082-1385, y 369-529
-   6. jump (held 21 ticks), holding left, double jump at tick 15, from 1344,389; lands at 1249,283   [djump]
+   5. walk off the edge, holding right once in the air, from 919,481; lands at 1091,519 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 1082-1385, y 369-528
+   6. jump (held 21 ticks), holding left, double jump at tick 15, from 1344,389; lands at 1249,283 {move ch=1 dir=-1 jumpAt=0 djAt=15}   [djump]
       -> [red blocks solid] standing at x 983-1254, y 257-369
    7. jump at 1162,257 and hit the block at 1168,192 from below: [blue blocks solid]
-      -> [blue blocks solid] standing at x 938-1254, y 257-385
-   8. jump (held 2 ticks), holding left, from 938,385; lands at 670,716
+      -> [blue blocks solid] standing at x 938-1254, y 257-384
+   8. jump (held 2 ticks), holding left, from 938,384; lands at 670,716 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 455-726, y 641-752
-   9. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 496,641; lands at 421,456
+   9. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 496,641; lands at 421,456 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 maxT=120 afterBounce=1}
       -> [blue blocks solid] standing at x 0-454, y 401-481
   10. standing at 0,481, goes into it
       -> out 0,448 [rb 0]
 how in 48,480 [rb 1] -> out 0,448 [rb 1]: -
      [red blocks solid] coming in at 48,480
-   1. coming in: holding nothing, from 48,480; lands at 48,481
+   1. coming in: holding nothing, from 48,480; lands at 48,481 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 0-454, y 401-481
    2. standing at 0,481, goes into it
       -> out 0,448 [rb 1]
 how in 48,480 [rb 1] -> loc 6 13: link:1
      [red blocks solid] coming in at 48,480
-   1. coming in: holding nothing, from 48,480; lands at 48,481
+   1. coming in: holding nothing, from 48,480; lands at 48,481 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 0-454, y 401-481
-   2. running right, jump (held 21 ticks), holding right, from 272,401; lands at 546,504
-      -> [red blocks solid] standing at x 538-758, y 449-513
-   3. running right, walk off the edge, holding right, then nothing after 1 ticks in the air, from 640,449; lands at 807,817
+   2. running right, jump (held 21 ticks), holding right, from 272,401; lands at 546,504 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [red blocks solid] standing at x 538-758, y 449-512
+   3. running right, walk off the edge, holding right, then nothing after 1 ticks in the air, from 640,449; lands at 807,817 {move ch=1 dir=1 run=1 h2=0 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 727-1257, y 785-849
    4. walk from 727,849 to 726,849 into the breakable wall at 592,784   [link:1]
       -> [red blocks solid] standing at x 586-726, y 849 (where a gate is)
@@ -198,11 +200,11 @@ how in 48,480 [rb 1] -> loc 6 13: link:1
       -> loc 6 13
 how in 48,480 [rb 1] -> loc 6 13: belmont:1
      [red blocks solid] coming in at 48,480
-   1. coming in: holding nothing, from 48,480; lands at 48,481
+   1. coming in: holding nothing, from 48,480; lands at 48,481 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 0-454, y 401-481
-   2. running right, jump (held 21 ticks), holding right, from 272,401; lands at 546,504
-      -> [red blocks solid] standing at x 538-758, y 449-513
-   3. running right, walk off the edge, holding right, then nothing after 1 ticks in the air, from 640,449; lands at 807,817
+   2. running right, jump (held 21 ticks), holding right, from 272,401; lands at 546,504 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [red blocks solid] standing at x 538-758, y 449-512
+   3. running right, walk off the edge, holding right, then nothing after 1 ticks in the air, from 640,449; lands at 807,817 {move ch=1 dir=1 run=1 h2=0 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 727-1257, y 785-849
    4. walk from 727,849 to 726,849 into the breakable wall at 592,784   [belmont:1]
       -> [red blocks solid] standing at x 586-726, y 849 (where a gate is)
@@ -212,35 +214,35 @@ how in 48,480 [rb 1] -> loc 6 13: belmont:1
       -> loc 6 13
 how in 48,480 [rb 1] -> loc 1 40: event:rGame6_FireExtra/key1,event:rGame6_FireExtra/key2,event:rGame6_FireExtra/key3
      [red blocks solid] coming in at 48,480
-   1. coming in: holding nothing, from 48,480; lands at 48,481
+   1. coming in: holding nothing, from 48,480; lands at 48,481 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 0-454, y 401-481
-   2. running right, jump (held 21 ticks), holding right, from 272,401; lands at 546,504
-      -> [red blocks solid] standing at x 538-758, y 449-513
-   3. running right, walk off the edge, holding right, then nothing after 1 ticks in the air, from 640,449; lands at 807,817
+   2. running right, jump (held 21 ticks), holding right, from 272,401; lands at 546,504 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [red blocks solid] standing at x 538-758, y 449-512
+   3. running right, walk off the edge, holding right, then nothing after 1 ticks in the air, from 640,449; lands at 807,817 {move ch=1 dir=1 run=1 h2=0 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 727-1257, y 785-849
-   4. walk off the edge, holding right once in the air, from 727,849, through the barrier at 1264,736, the barrier at 1280,736, the barrier at 1296,736, ...; touches it on the way   [event:rGame6_FireExtra/key1,event:rGame6_FireExtra/key2,event:rGame6_FireExtra/key3]
+   4. walk off the edge, holding right once in the air, from 727,849, through the barrier at 1264,736, the barrier at 1280,736, the barrier at 1296,736, ...; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}   [event:rGame6_FireExtra/key1,event:rGame6_FireExtra/key2,event:rGame6_FireExtra/key3]
       -> loc 1 40
 how in 48,480 [rb 1] -> spot key2: djump,gdash
      [red blocks solid] coming in at 48,480
-   1. coming in: holding nothing, from 48,480; lands at 48,481
+   1. coming in: holding nothing, from 48,480; lands at 48,481 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 0-454, y 401-481
-   2. running right, jump (held 21 ticks), holding right, from 272,401; lands at 546,504
-      -> [red blocks solid] standing at x 538-758, y 449-513
-   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 608,453; lands at 677,385
+   2. running right, jump (held 21 ticks), holding right, from 272,401; lands at 546,504 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [red blocks solid] standing at x 538-758, y 449-512
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 608,453; lands at 677,385 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=8}
       -> [red blocks solid] standing at x 666-710, y 385
-   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 670,385; lands at 706,321
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 670,385; lands at 706,321 {move ch=1 dir=-1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [red blocks solid] standing at x 698-742, y 321
-   5. dash right (Jerry), jump (held 21 ticks), holding right, double jump at tick 12, from 702,321; touches it on the way   [djump,gdash]
+   5. dash right (Jerry), jump (held 21 ticks), holding right, double jump at tick 12, from 702,321; touches it on the way {move ch=0 dir=1 jumpAt=2 djAt=12 gdAt=0}   [djump,gdash]
       -> spot key2
 how in 48,480 [rb 1] -> spot key2: adash,gdash
      [red blocks solid] coming in at 48,480
-   1. coming in: holding nothing, from 48,480; lands at 48,481
+   1. coming in: holding nothing, from 48,480; lands at 48,481 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 0-454, y 401-481
-   2. running right, jump (held 21 ticks), holding right, from 272,401; lands at 546,504
-      -> [red blocks solid] standing at x 538-758, y 449-513
-   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 608,453; lands at 677,385
+   2. running right, jump (held 21 ticks), holding right, from 272,401; lands at 546,504 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [red blocks solid] standing at x 538-758, y 449-512
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 608,453; lands at 677,385 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=8}
       -> [red blocks solid] standing at x 666-710, y 385
-   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 670,385; lands at 706,321
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 670,385; lands at 706,321 {move ch=1 dir=-1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [red blocks solid] standing at x 698-742, y 321
-   5. dash right (Jerry), jump (held 21 ticks), holding right, air dash (Jerry) at tick 12, from 702,321; touches it on the way   [adash,gdash]
+   5. dash right (Jerry), jump (held 21 ticks), holding right, air dash (Jerry) at tick 12, from 702,321; touches it on the way {move ch=0 dir=1 jumpAt=2 adAt=12 gdAt=0}   [adash,gdash]
       -> spot key2

@@ -14,181 +14,287 @@ out 4048,1344   # to rHPF_H at 48,320; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 48,160
-  out 0,128       -
-  out 4048,1344   belmont:1 | link:1 | megaman:1 | samus:1
+  out 0,128      -
+  out 4048,1344  belmont:1 | link:1 | megaman:1 | samus:1
 from in 4016,1376
-  out 0,128       djump,adash,samus:2
-  out 4048,1344   -
+  out 0,128      djump,samus:2
+  out 4048,1344  -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 48,160 -> out 0,128: -
      coming in at 48,160
-   1. coming in: holding nothing, from 48,160; lands at 48,161
+   1. coming in: holding nothing, from 48,160; lands at 48,161 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-166, y 161
    2. standing at 0,161, goes into it
       -> out 0,128
 how in 48,160 -> out 4048,1344: belmont:1
      coming in at 48,160
-   1. coming in: holding nothing, from 48,160; lands at 48,161
+   1. coming in: holding nothing, from 48,160; lands at 48,161 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-166, y 161
-   2. running right, jump (held 21 ticks), holding right, from 112,161; lands at 325,321
+   2. running right, jump (held 21 ticks), holding right, from 112,161; lands at 325,321 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 295-390, y 321
-   3. running right, jump (held 21 ticks), holding right, from 382,321; lands at 588,321
+   3. running right, jump (held 21 ticks), holding right, from 382,321; lands at 588,321 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 570-614, y 321
-   4. jump (held 21 ticks), holding right, from 570,321; lands at 701,257
+   4. jump (held 21 ticks), holding right, from 570,321; lands at 701,257 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 666-710, y 257
-   5. running right, jump (held 21 ticks), holding right, from 702,257; lands at 871,353
+   5. running right, jump (held 21 ticks), holding right, from 702,257; lands at 871,353 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 839-1030, y 353
-   6. walk off the edge, holding right once in the air, from 839,353; lands at 1145,497
+   6. walk off the edge, holding right once in the air, from 839,353; lands at 1145,497 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> standing at x 1114-1145, y 497
-   7. walk off the edge, holding left, then right after 1 ticks in the air, from 1114,497, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 1193,673   [belmont:1]
+   7. walk off the edge, holding left, then right after 1 ticks in the air, from 1114,497, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 1193,673 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [belmont:1]
       -> standing at x 1175-2153, y 673
-   8. running right, walk off the edge, holding right once in the air, from 1584,673, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 2310,801   [belmont:1]
+   8. running right, walk off the edge, holding right once in the air, from 1584,673, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 2310,801 {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [belmont:1]
       -> standing at x 2247-2470, y 801
-   9. running right, jump (held 6 ticks), holding right, from 2400,801; lands at 2562,801
+   9. running right, jump (held 6 ticks), holding right, from 2400,801; lands at 2562,801 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> standing at x 2554-2726, y 801
-  10. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2554,801; lands at 2772,1185
+  10. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2554,801; lands at 2772,1185 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
       -> standing at x 2727-2937, y 1185
-  11. running right, jump (held 21 ticks), holding right, from 2864,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 3070,1185   [belmont:1]
+  11. running right, jump (held 21 ticks), holding right, from 2864,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 3070,1185 {move ch=1 dir=1 run=1 jumpAt=0}   [belmont:1]
       -> standing at x 2999-3353, y 1185
-  12. walk off the edge, holding right once in the air, from 2999,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 3599,1377   [belmont:1]
+  12. walk off the edge, holding right once in the air, from 2999,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 3599,1377 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}   [belmont:1]
       -> standing at x 3495-4064, y 1377
   13. standing at 4046,1377, goes into it
       -> out 4048,1344
 how in 48,160 -> out 4048,1344: link:1
      coming in at 48,160
-   1. coming in: holding nothing, from 48,160; lands at 48,161
+   1. coming in: holding nothing, from 48,160; lands at 48,161 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-166, y 161
-   2. running right, jump (held 21 ticks), holding right, from 112,161; lands at 325,321
+   2. running right, jump (held 21 ticks), holding right, from 112,161; lands at 325,321 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 295-390, y 321
-   3. running right, jump (held 21 ticks), holding right, from 382,321; lands at 588,321
+   3. running right, jump (held 21 ticks), holding right, from 382,321; lands at 588,321 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 570-614, y 321
-   4. jump (held 21 ticks), holding right, from 570,321; lands at 701,257
+   4. jump (held 21 ticks), holding right, from 570,321; lands at 701,257 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 666-710, y 257
-   5. running right, jump (held 21 ticks), holding right, from 702,257; lands at 871,353
+   5. running right, jump (held 21 ticks), holding right, from 702,257; lands at 871,353 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 839-1030, y 353
-   6. walk off the edge, holding right once in the air, from 839,353; lands at 1145,497
+   6. walk off the edge, holding right once in the air, from 839,353; lands at 1145,497 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> standing at x 1114-1145, y 497
-   7. walk off the edge, holding left, then right after 1 ticks in the air, from 1114,497, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 1193,673   [link:1]
+   7. walk off the edge, holding left, then right after 1 ticks in the air, from 1114,497, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 1193,673 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [link:1]
       -> standing at x 1175-2153, y 673
-   8. running right, walk off the edge, holding right once in the air, from 1584,673, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 2310,801   [link:1]
+   8. running right, walk off the edge, holding right once in the air, from 1584,673, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 2310,801 {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [link:1]
       -> standing at x 2247-2470, y 801
-   9. running right, jump (held 6 ticks), holding right, from 2400,801; lands at 2562,801
+   9. running right, jump (held 6 ticks), holding right, from 2400,801; lands at 2562,801 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> standing at x 2554-2726, y 801
-  10. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2554,801; lands at 2772,1185
+  10. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2554,801; lands at 2772,1185 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
       -> standing at x 2727-2937, y 1185
-  11. running right, jump (held 21 ticks), holding right, from 2864,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 3070,1185   [link:1]
+  11. running right, jump (held 21 ticks), holding right, from 2864,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 3070,1185 {move ch=1 dir=1 run=1 jumpAt=0}   [link:1]
       -> standing at x 2999-3353, y 1185
-  12. walk off the edge, holding right once in the air, from 2999,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 3599,1377   [link:1]
+  12. walk off the edge, holding right once in the air, from 2999,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 3599,1377 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}   [link:1]
       -> standing at x 3495-4064, y 1377
   13. standing at 4046,1377, goes into it
       -> out 4048,1344
 how in 48,160 -> out 4048,1344: megaman:1
      coming in at 48,160
-   1. coming in: holding nothing, from 48,160; lands at 48,161
+   1. coming in: holding nothing, from 48,160; lands at 48,161 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-166, y 161
-   2. running right, jump (held 21 ticks), holding right, from 112,161; lands at 325,321
+   2. running right, jump (held 21 ticks), holding right, from 112,161; lands at 325,321 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 295-390, y 321
-   3. running right, jump (held 21 ticks), holding right, from 382,321; lands at 588,321
+   3. running right, jump (held 21 ticks), holding right, from 382,321; lands at 588,321 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 570-614, y 321
-   4. jump (held 21 ticks), holding right, from 570,321; lands at 701,257
+   4. jump (held 21 ticks), holding right, from 570,321; lands at 701,257 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 666-710, y 257
-   5. running right, jump (held 21 ticks), holding right, from 702,257; lands at 871,353
+   5. running right, jump (held 21 ticks), holding right, from 702,257; lands at 871,353 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 839-1030, y 353
-   6. walk off the edge, holding right once in the air, from 839,353; lands at 1145,497
+   6. walk off the edge, holding right once in the air, from 839,353; lands at 1145,497 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> standing at x 1114-1145, y 497
-   7. walk off the edge, holding left, then right after 1 ticks in the air, from 1114,497, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 1193,673   [megaman:1]
+   7. walk off the edge, holding left, then right after 1 ticks in the air, from 1114,497, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 1193,673 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [megaman:1]
       -> standing at x 1175-2153, y 673
-   8. running right, walk off the edge, holding right once in the air, from 1584,673, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 2310,801   [megaman:1]
+   8. running right, walk off the edge, holding right once in the air, from 1584,673, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 2310,801 {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [megaman:1]
       -> standing at x 2247-2470, y 801
-   9. running right, jump (held 6 ticks), holding right, from 2400,801; lands at 2562,801
+   9. running right, jump (held 6 ticks), holding right, from 2400,801; lands at 2562,801 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> standing at x 2554-2726, y 801
-  10. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2554,801; lands at 2772,1185
+  10. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2554,801; lands at 2772,1185 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
       -> standing at x 2727-2937, y 1185
-  11. running right, jump (held 21 ticks), holding right, from 2864,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 3070,1185   [megaman:1]
+  11. running right, jump (held 21 ticks), holding right, from 2864,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 3070,1185 {move ch=1 dir=1 run=1 jumpAt=0}   [megaman:1]
       -> standing at x 2999-3353, y 1185
-  12. walk off the edge, holding right once in the air, from 2999,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 3599,1377   [megaman:1]
+  12. walk off the edge, holding right once in the air, from 2999,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 3599,1377 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}   [megaman:1]
       -> standing at x 3495-4064, y 1377
   13. standing at 4046,1377, goes into it
       -> out 4048,1344
 how in 48,160 -> out 4048,1344: samus:1
      coming in at 48,160
-   1. coming in: holding nothing, from 48,160; lands at 48,161
+   1. coming in: holding nothing, from 48,160; lands at 48,161 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-166, y 161
-   2. running right, jump (held 21 ticks), holding right, from 112,161; lands at 325,321
+   2. running right, jump (held 21 ticks), holding right, from 112,161; lands at 325,321 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 295-390, y 321
-   3. running right, jump (held 21 ticks), holding right, from 382,321; lands at 588,321
+   3. running right, jump (held 21 ticks), holding right, from 382,321; lands at 588,321 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 570-614, y 321
-   4. jump (held 21 ticks), holding right, from 570,321; lands at 701,257
+   4. jump (held 21 ticks), holding right, from 570,321; lands at 701,257 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 666-710, y 257
-   5. running right, jump (held 21 ticks), holding right, from 702,257; lands at 871,353
+   5. running right, jump (held 21 ticks), holding right, from 702,257; lands at 871,353 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 839-1030, y 353
-   6. walk off the edge, holding right once in the air, from 839,353; lands at 1145,497
+   6. walk off the edge, holding right once in the air, from 839,353; lands at 1145,497 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> standing at x 1114-1145, y 497
-   7. walk off the edge, holding left, then right after 1 ticks in the air, from 1114,497, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 1193,673   [samus:1]
+   7. walk off the edge, holding left, then right after 1 ticks in the air, from 1114,497, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 1193,673 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [samus:1]
       -> standing at x 1175-2153, y 673
-   8. running right, walk off the edge, holding right once in the air, from 1584,673, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 2310,801   [samus:1]
+   8. running right, walk off the edge, holding right once in the air, from 1584,673, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 2310,801 {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [samus:1]
       -> standing at x 2247-2470, y 801
-   9. running right, jump (held 6 ticks), holding right, from 2400,801; lands at 2562,801
+   9. running right, jump (held 6 ticks), holding right, from 2400,801; lands at 2562,801 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> standing at x 2554-2726, y 801
-  10. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2554,801; lands at 2772,1185
+  10. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2554,801; lands at 2772,1185 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
       -> standing at x 2727-2937, y 1185
-  11. running right, jump (held 21 ticks), holding right, from 2864,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 3070,1185   [samus:1]
+  11. running right, jump (held 21 ticks), holding right, from 2864,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 3070,1185 {move ch=1 dir=1 run=1 jumpAt=0}   [samus:1]
       -> standing at x 2999-3353, y 1185
-  12. walk off the edge, holding right once in the air, from 2999,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 3599,1377   [samus:1]
+  12. walk off the edge, holding right once in the air, from 2999,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 3599,1377 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}   [samus:1]
       -> standing at x 3495-4064, y 1377
   13. standing at 4046,1377, goes into it
       -> out 4048,1344
-how in 4016,1376 -> out 0,128: djump,adash,samus:2
+how in 4016,1376 -> out 0,128: djump,belmont:1
      coming in at 4016,1376
-   1. coming in: holding nothing, from 4016,1376; lands at 4016,1377
+   1. coming in: holding nothing, from 4016,1376; lands at 4016,1377 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 3495-4064, y 1377
-   2. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, double jump at tick 18, from 3495,1377; lands at 3385,1185   [djump]
+   2. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, double jump at tick 18, from 3495,1377; lands at 3385,1185 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 djAt=18 maxT=120 afterBounce=1}   [djump]
       -> standing at x 3383-3494, y 1185
-   3. jump (held 2 ticks), holding left, from 3383,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 3281,1185   [samus:1]
+   3. jump (held 2 ticks), holding left, from 3383,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 3281,1185 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [belmont:1]
       -> standing at x 2999-3353, y 1185
-   4. jump (held 21 ticks), holding left, from 2999,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 2874,1185   [samus:1]
+   4. jump (held 21 ticks), holding left, from 2999,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 2874,1185 {move ch=1 dir=-1 jumpAt=0}   [belmont:1]
       -> standing at x 2727-2937, y 1185
-   5. jump (held 21 ticks), holding left, double jump at tick 10, from 2912,1185; lands at 2744,1105   [djump]
+   5. jump (held 21 ticks), holding left, double jump at tick 10, from 2912,1185; lands at 2744,1105 {move ch=1 dir=-1 jumpAt=0 djAt=10}   [djump]
       -> standing at x 2727-2758, y 1105
-   6. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, turn into the Morph Ball where the body meets a wall or ceiling, from 2727,1105; lands at 2841,945   [samus:2]
-      -> as the Morph Ball at x 2810-2841, y 945
-   7. turn back from the Morph Ball at 2810,945
+   6. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right 12 ticks after, from 2730,1105; lands at 2818,945 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=12 maxT=120 afterBounce=1}
       -> standing at x 2810-2841, y 945
-   8. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 2818,945; lands at 2642,801
+   7. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 2818,945; lands at 2642,801 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 maxT=120 afterBounce=1}
       -> standing at x 2554-2726, y 801
-   9. jump (held 2 ticks), holding left, from 2554,801; lands at 2452,801
+   8. jump (held 2 ticks), holding left, from 2554,801; lands at 2452,801 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 2247-2470, y 801
-  10. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 2247,801; lands at 2230,769
+   9. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 2247,801; lands at 2230,769 {move ch=1 dir=-1 run=1 jumpAt=0 h2=0 hDelay=2}
       -> standing at x 2202-2246, y 769
-  11. jump (held 21 ticks), holding left, double jump at tick 15, from 2202,769, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 2125,673   [djump,samus:1]
+  10. jump (held 21 ticks), holding left, double jump at tick 15, from 2202,769, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 2125,673 {move ch=1 dir=-1 jumpAt=0 djAt=15}   [djump,belmont:1]
       -> standing at x 1175-2153, y 673
-  12. jump (held 2 ticks), holding left, from 1175,673, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 1031,673   [samus:1]
+  11. jump (held 2 ticks), holding left, from 1175,673, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 1031,673 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [belmont:1]
       -> standing at x 1031-1145, y 673
-  13. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, air dash (Jerry) at tick 16, from 1072,673; lands at 1145,497   [adash]
-      -> standing at x 1114-1145, y 497
-  14. jump (held 2 ticks), holding left, from 1114,497; lands at 914,353
+  12. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left 6 ticks after, from 1072,673; lands at 913,353 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
       -> standing at x 839-1030, y 353
-  15. jump (held 6 ticks), holding left, from 839,353; lands at 679,417
+  13. jump (held 6 ticks), holding left, from 839,353; lands at 679,417 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 391-793, y 417
-  16. jump (held 21 ticks), holding left, double jump at tick 15, from 391,417; lands at 333,321   [djump]
+  14. jump (held 21 ticks), holding left, double jump at tick 15, from 391,417; lands at 333,321 {move ch=1 dir=-1 jumpAt=0 djAt=15}   [djump]
       -> standing at x 295-390, y 321
-  17. jump (held 21 ticks), holding left, from 295,321; lands at 179,257
+  15. jump (held 21 ticks), holding left, from 295,321; lands at 179,257 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 167-198, y 257
-  18. jump (held 21 ticks), holding left, double jump at tick 15, from 167,257; lands at 109,161   [djump]
+  16. jump (held 21 ticks), holding left, double jump at tick 15, from 167,257; lands at 109,161 {move ch=1 dir=-1 jumpAt=0 djAt=15}   [djump]
       -> standing at x 0-166, y 161
-  19. standing at 0,161, goes into it
+  17. standing at 0,161, goes into it
+      -> out 0,128
+how in 4016,1376 -> out 0,128: djump,link:1
+     coming in at 4016,1376
+   1. coming in: holding nothing, from 4016,1376; lands at 4016,1377 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 3495-4064, y 1377
+   2. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, double jump at tick 18, from 3495,1377; lands at 3385,1185 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 djAt=18 maxT=120 afterBounce=1}   [djump]
+      -> standing at x 3383-3494, y 1185
+   3. jump (held 2 ticks), holding left, from 3383,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 3281,1185 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [link:1]
+      -> standing at x 2999-3353, y 1185
+   4. jump (held 21 ticks), holding left, from 2999,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 2874,1185 {move ch=1 dir=-1 jumpAt=0}   [link:1]
+      -> standing at x 2727-2937, y 1185
+   5. jump (held 21 ticks), holding left, double jump at tick 10, from 2912,1185; lands at 2744,1105 {move ch=1 dir=-1 jumpAt=0 djAt=10}   [djump]
+      -> standing at x 2727-2758, y 1105
+   6. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right 12 ticks after, from 2730,1105; lands at 2818,945 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=12 maxT=120 afterBounce=1}
+      -> standing at x 2810-2841, y 945
+   7. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 2818,945; lands at 2642,801 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 maxT=120 afterBounce=1}
+      -> standing at x 2554-2726, y 801
+   8. jump (held 2 ticks), holding left, from 2554,801; lands at 2452,801 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
+      -> standing at x 2247-2470, y 801
+   9. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 2247,801; lands at 2230,769 {move ch=1 dir=-1 run=1 jumpAt=0 h2=0 hDelay=2}
+      -> standing at x 2202-2246, y 769
+  10. jump (held 21 ticks), holding left, double jump at tick 15, from 2202,769, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 2125,673 {move ch=1 dir=-1 jumpAt=0 djAt=15}   [djump,link:1]
+      -> standing at x 1175-2153, y 673
+  11. jump (held 2 ticks), holding left, from 1175,673, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 1031,673 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [link:1]
+      -> standing at x 1031-1145, y 673
+  12. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left 6 ticks after, from 1072,673; lands at 913,353 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 839-1030, y 353
+  13. jump (held 6 ticks), holding left, from 839,353; lands at 679,417 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
+      -> standing at x 391-793, y 417
+  14. jump (held 21 ticks), holding left, double jump at tick 15, from 391,417; lands at 333,321 {move ch=1 dir=-1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 295-390, y 321
+  15. jump (held 21 ticks), holding left, from 295,321; lands at 179,257 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 167-198, y 257
+  16. jump (held 21 ticks), holding left, double jump at tick 15, from 167,257; lands at 109,161 {move ch=1 dir=-1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 0-166, y 161
+  17. standing at 0,161, goes into it
+      -> out 0,128
+how in 4016,1376 -> out 0,128: djump,megaman:1
+     coming in at 4016,1376
+   1. coming in: holding nothing, from 4016,1376; lands at 4016,1377 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 3495-4064, y 1377
+   2. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, double jump at tick 18, from 3495,1377; lands at 3385,1185 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 djAt=18 maxT=120 afterBounce=1}   [djump]
+      -> standing at x 3383-3494, y 1185
+   3. jump (held 2 ticks), holding left, from 3383,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 3281,1185 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [megaman:1]
+      -> standing at x 2999-3353, y 1185
+   4. jump (held 21 ticks), holding left, from 2999,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 2874,1185 {move ch=1 dir=-1 jumpAt=0}   [megaman:1]
+      -> standing at x 2727-2937, y 1185
+   5. jump (held 21 ticks), holding left, double jump at tick 10, from 2912,1185; lands at 2744,1105 {move ch=1 dir=-1 jumpAt=0 djAt=10}   [djump]
+      -> standing at x 2727-2758, y 1105
+   6. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right 12 ticks after, from 2730,1105; lands at 2818,945 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=12 maxT=120 afterBounce=1}
+      -> standing at x 2810-2841, y 945
+   7. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 2818,945; lands at 2642,801 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 maxT=120 afterBounce=1}
+      -> standing at x 2554-2726, y 801
+   8. jump (held 2 ticks), holding left, from 2554,801; lands at 2452,801 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
+      -> standing at x 2247-2470, y 801
+   9. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 2247,801; lands at 2230,769 {move ch=1 dir=-1 run=1 jumpAt=0 h2=0 hDelay=2}
+      -> standing at x 2202-2246, y 769
+  10. jump (held 21 ticks), holding left, double jump at tick 15, from 2202,769, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 2125,673 {move ch=1 dir=-1 jumpAt=0 djAt=15}   [djump,megaman:1]
+      -> standing at x 1175-2153, y 673
+  11. jump (held 2 ticks), holding left, from 1175,673, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 1031,673 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [megaman:1]
+      -> standing at x 1031-1145, y 673
+  12. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left 6 ticks after, from 1072,673; lands at 913,353 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 839-1030, y 353
+  13. jump (held 6 ticks), holding left, from 839,353; lands at 679,417 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
+      -> standing at x 391-793, y 417
+  14. jump (held 21 ticks), holding left, double jump at tick 15, from 391,417; lands at 333,321 {move ch=1 dir=-1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 295-390, y 321
+  15. jump (held 21 ticks), holding left, from 295,321; lands at 179,257 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 167-198, y 257
+  16. jump (held 21 ticks), holding left, double jump at tick 15, from 167,257; lands at 109,161 {move ch=1 dir=-1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 0-166, y 161
+  17. standing at 0,161, goes into it
+      -> out 0,128
+how in 4016,1376 -> out 0,128: djump,samus:1
+     coming in at 4016,1376
+   1. coming in: holding nothing, from 4016,1376; lands at 4016,1377 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 3495-4064, y 1377
+   2. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, double jump at tick 18, from 3495,1377; lands at 3385,1185 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 djAt=18 maxT=120 afterBounce=1}   [djump]
+      -> standing at x 3383-3494, y 1185
+   3. jump (held 2 ticks), holding left, from 3383,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 3281,1185 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [samus:1]
+      -> standing at x 2999-3353, y 1185
+   4. jump (held 21 ticks), holding left, from 2999,1185, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 2874,1185 {move ch=1 dir=-1 jumpAt=0}   [samus:1]
+      -> standing at x 2727-2937, y 1185
+   5. jump (held 21 ticks), holding left, double jump at tick 10, from 2912,1185; lands at 2744,1105 {move ch=1 dir=-1 jumpAt=0 djAt=10}   [djump]
+      -> standing at x 2727-2758, y 1105
+   6. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right 12 ticks after, from 2730,1105; lands at 2818,945 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=12 maxT=120 afterBounce=1}
+      -> standing at x 2810-2841, y 945
+   7. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 2818,945; lands at 2642,801 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 maxT=120 afterBounce=1}
+      -> standing at x 2554-2726, y 801
+   8. jump (held 2 ticks), holding left, from 2554,801; lands at 2452,801 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
+      -> standing at x 2247-2470, y 801
+   9. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 2247,801; lands at 2230,769 {move ch=1 dir=-1 run=1 jumpAt=0 h2=0 hDelay=2}
+      -> standing at x 2202-2246, y 769
+  10. jump (held 21 ticks), holding left, double jump at tick 15, from 2202,769, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 2125,673 {move ch=1 dir=-1 jumpAt=0 djAt=15}   [djump,samus:1]
+      -> standing at x 1175-2153, y 673
+  11. jump (held 2 ticks), holding left, from 1175,673, through the oRndTrap at 2976,1024, the oRndTrap at 3360,1056, the oRndTrap at 1152,544, ...; lands at 1031,673 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [samus:1]
+      -> standing at x 1031-1145, y 673
+  12. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left 6 ticks after, from 1072,673; lands at 913,353 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 839-1030, y 353
+  13. jump (held 6 ticks), holding left, from 839,353; lands at 679,417 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
+      -> standing at x 391-793, y 417
+  14. jump (held 21 ticks), holding left, double jump at tick 15, from 391,417; lands at 333,321 {move ch=1 dir=-1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 295-390, y 321
+  15. jump (held 21 ticks), holding left, from 295,321; lands at 179,257 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 167-198, y 257
+  16. jump (held 21 ticks), holding left, double jump at tick 15, from 167,257; lands at 109,161 {move ch=1 dir=-1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 0-166, y 161
+  17. standing at 0,161, goes into it
       -> out 0,128
 how in 4016,1376 -> out 4048,1344: -
      coming in at 4016,1376
-   1. coming in: holding nothing, from 4016,1376; lands at 4016,1377
+   1. coming in: holding nothing, from 4016,1376; lands at 4016,1377 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 3495-4064, y 1377
    2. standing at 4046,1377, goes into it
       -> out 4048,1344

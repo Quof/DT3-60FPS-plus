@@ -17,285 +17,417 @@ out 2632,64   # to rMario1_HFb at 128,256; the player presses up at it
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 2 4   # treasure chest 4, at 3232,115
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 72,288 [rb 0]
-  out 64,256 [rb 0]    -
-  out 2632,64 [rb 0]   -
-  loc 2 4              never
+  out 64,256 [rb 0] -
+  out 2632,64 [rb 0] -
+  loc 2 4        djump,adash,gdash
 from in 72,288 [rb 1]
-  out 64,256 [rb 0]    -
-  out 64,256 [rb 1]    -
-  out 2632,64 [rb 0]   -
-  loc 2 4              never
+  out 64,256 [rb 0] -
+  out 64,256 [rb 1] -
+  out 2632,64 [rb 0] -
+  loc 2 4        djump,adash,gdash
 from in 2640,96 [rb 0]
-  out 64,256 [rb 0]    -
-  out 2632,64 [rb 0]   -
-  loc 2 4              never
+  out 64,256 [rb 0] -
+  out 2632,64 [rb 0] -
+  loc 2 4        djump,adash,gdash
 from in 2640,96 [rb 1]
-  out 64,256 [rb 0]    -
-  out 2632,64 [rb 0]   -
-  out 2632,64 [rb 1]   -
-  loc 2 4              never
+  out 64,256 [rb 0] -
+  out 2632,64 [rb 0] -
+  out 2632,64 [rb 1] -
+  loc 2 4        djump,adash,gdash
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 72,288 [rb 0] -> out 64,256 [rb 0]: -
      [bricks whole, blue blocks solid] coming in at 72,288
-   1. coming in: holding nothing, from 72,288; lands at 72,289
+   1. coming in: holding nothing, from 72,288; lands at 72,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [bricks whole, blue blocks solid] standing at x 39-505, y 289
    2. standing at 62,289, presses up at it
       -> out 64,256 [rb 0]
 how in 72,288 [rb 0] -> out 2632,64 [rb 0]: -
      [bricks whole, blue blocks solid] coming in at 72,288
-   1. coming in: holding nothing, from 72,288; lands at 72,289
+   1. coming in: holding nothing, from 72,288; lands at 72,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [bricks whole, blue blocks solid] standing at x 39-505, y 289
-   2. running right, jump (held 21 ticks), holding right, from 368,289; lands at 522,225
+   2. running right, jump (held 21 ticks), holding right, from 368,289; lands at 522,225 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, blue blocks solid] standing at x 506-742, y 225
-   3. running right, jump (held 6 ticks), holding right, from 672,225; lands at 856,257
+   3. running right, jump (held 6 ticks), holding right, from 672,225; lands at 856,257 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [bricks whole, blue blocks solid] standing at x 826-998, y 257
-   4. walk off the edge, holding right once in the air, from 826,257; lands at 1060,289
+   4. walk off the edge, holding right once in the air, from 826,257; lands at 1060,289 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [bricks whole, blue blocks solid] standing at x 999-1254, y 289
-   5. running right, jump (held 21 ticks), holding right, from 1088,289; lands at 1301,289
+   5. running right, jump (held 21 ticks), holding right, from 1088,289; lands at 1301,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, blue blocks solid] standing at x 1292-1492, y 289-291
-   6. running right, jump (held 21 ticks), holding right, from 1328,289; lands at 1534,289
+   6. running right, jump (held 21 ticks), holding right, from 1328,289; lands at 1534,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, blue blocks solid] standing at x 1516-1716, y 289-291
-   7. running right, jump (held 21 ticks), holding right, from 1568,289; lands at 1774,289
+   7. running right, jump (held 21 ticks), holding right, from 1568,289; lands at 1774,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, blue blocks solid] standing at x 1740-1940, y 289-291
-   8. running right, jump (held 21 ticks), holding right, from 1776,289; lands at 1972,289
+   8. running right, jump (held 21 ticks), holding right, from 1776,289; lands at 1972,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, blue blocks solid] standing at x 1964-2164, y 289-291
-   9. running right, jump (held 6 ticks), holding right, from 2160,289; lands at 2344,321
+   9. running right, jump (held 6 ticks), holding right, from 2160,289; lands at 2344,321 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [bricks whole, blue blocks solid] standing at x 2311-2457, y 321
-  10. running right, jump (held 21 ticks), holding right, from 2368,321; lands at 2551,289
+  10. running right, jump (held 21 ticks), holding right, from 2368,321; lands at 2551,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, blue blocks solid] standing at x 2503-2886, y 289
-  11. running right, jump (held 21 ticks), holding right, from 2672,289; lands at 2826,225
+  11. running right, jump (held 21 ticks), holding right, from 2672,289; lands at 2826,225 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, blue blocks solid] standing at x 2810-2854, y 225
-  12. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 2810,225; lands at 2780,161
+  12. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 2810,225; lands at 2780,161 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
       -> [bricks whole, blue blocks solid] standing at x 2746-2790, y 161
-  13. jump (held 21 ticks), holding left, from 2746,161; lands at 2654,97
+  13. jump (held 21 ticks), holding left, from 2746,161; lands at 2654,97 {move ch=1 dir=-1 jumpAt=0}
       -> [bricks whole, blue blocks solid] standing at x 2631-2726, y 97
   14. standing at 2631,97, presses up at it
       -> out 2632,64 [rb 0]
+how in 72,288 [rb 0] -> loc 2 4: djump,adash,gdash
+     [bricks whole, blue blocks solid] coming in at 72,288
+   1. coming in: holding nothing, from 72,288; lands at 72,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [bricks whole, blue blocks solid] standing at x 39-505, y 289
+   2. running right, jump (held 21 ticks), holding right, from 368,289; lands at 522,225 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [bricks whole, blue blocks solid] standing at x 506-742, y 225
+   3. running right, jump (held 6 ticks), holding right, from 672,225; lands at 856,257 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [bricks whole, blue blocks solid] standing at x 826-998, y 257
+   4. walk off the edge, holding right once in the air, from 826,257; lands at 1060,289 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [bricks whole, blue blocks solid] standing at x 999-1254, y 289
+   5. running right, jump (held 21 ticks), holding right, from 1088,289; lands at 1301,289 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [bricks whole, blue blocks solid] standing at x 1292-1492, y 289-291
+   6. running right, jump (held 21 ticks), holding right, from 1328,289; lands at 1534,289 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [bricks whole, blue blocks solid] standing at x 1516-1716, y 289-291
+   7. running right, jump (held 21 ticks), holding right, from 1568,289; lands at 1774,289 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [bricks whole, blue blocks solid] standing at x 1740-1940, y 289-291
+   8. running right, jump (held 21 ticks), holding right, from 1776,289; lands at 1972,289 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [bricks whole, blue blocks solid] standing at x 1964-2164, y 289-291
+   9. running right, jump (held 6 ticks), holding right, from 2160,289; lands at 2344,321 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [bricks whole, blue blocks solid] standing at x 2311-2457, y 321
+  10. running right, jump (held 21 ticks), holding right, from 2368,321; lands at 2551,289 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [bricks whole, blue blocks solid] standing at x 2503-2886, y 289
+  11. running right, jump (held 2 ticks), holding right, from 2848,289; lands at 2973,289 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [bricks whole, blue blocks solid] standing at x 2938-3046, y 289
+  12. jump (held 21 ticks), holding right, from 2938,289; lands at 3121,289 {move ch=1 dir=1 jumpAt=0}
+      -> [bricks whole, blue blocks solid] standing at x 3098-3206, y 289
+  13. jump (held 21 ticks), holding right, from 3098,289; lands at 3281,289 {move ch=1 dir=1 jumpAt=0}
+      -> [bricks whole, blue blocks solid] standing at x 3258-3398, y 289
+  14. running right, jump (held 21 ticks), holding right, from 3312,289; lands at 3525,289 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [bricks whole, blue blocks solid] standing at x 3514-3625, y 289
+  15. jump at 3610,289 and hit the block at 3616,224 from below: [bricks whole, red blocks solid]
+      -> [bricks whole, red blocks solid] standing at x 3546-3625, y 289
+  16. jump (held 21 ticks), holding right, from 3546,289; lands at 3657,225 {move ch=1 dir=1 jumpAt=0}
+      -> [bricks whole, red blocks solid] standing at x 3610-3657, y 225
+  17. jump (held 2 ticks), holding right, from 3614,225; lands at 3679,193 {move ch=1 dir=1 jumpAt=0 jumpHold=2}
+      -> [bricks whole, red blocks solid] standing at x 3658-3705, y 193
+  18. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 3658,193; lands at 3607,145 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
+      -> [bricks whole, red blocks solid] standing at x 3594-3622, y 145
+  19. dash-hop left (Claire), holding left, double jump at tick 6, air dash (Claire) at tick 20, from 3596,145; lands at 3239,129 {move ch=1 dir=-1 djAt=6 adAt=20 gdAt=0 maxT=120}   [djump,adash,gdash]
+      -> [bricks whole, red blocks solid] standing at x 3194-3270, y 129
+  20. standing at 3222,129, touches it
+      -> loc 2 4
 how in 72,288 [rb 1] -> out 64,256 [rb 0]: -
      [bricks whole, red blocks solid] coming in at 72,288
-   1. coming in: holding nothing, from 72,288; lands at 72,289
+   1. coming in: holding nothing, from 72,288; lands at 72,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [bricks whole, red blocks solid] standing at x 39-505, y 289
-   2. running right, jump (held 21 ticks), holding right, from 368,289; lands at 522,225
+   2. running right, jump (held 21 ticks), holding right, from 368,289; lands at 522,225 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, red blocks solid] standing at x 506-742, y 225
-   3. running right, jump (held 6 ticks), holding right, from 672,225; lands at 856,257
+   3. running right, jump (held 6 ticks), holding right, from 672,225; lands at 856,257 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [bricks whole, red blocks solid] standing at x 826-998, y 257
-   4. walk off the edge, holding right once in the air, from 826,257; lands at 1060,289
+   4. walk off the edge, holding right once in the air, from 826,257; lands at 1060,289 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [bricks whole, red blocks solid] standing at x 999-1254, y 289
-   5. running right, jump (held 21 ticks), holding right, from 1088,289; lands at 1301,289
+   5. running right, jump (held 21 ticks), holding right, from 1088,289; lands at 1301,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, red blocks solid] standing at x 1292-1492, y 289-291
-   6. running right, jump (held 21 ticks), holding right, from 1328,289; lands at 1534,289
+   6. running right, jump (held 21 ticks), holding right, from 1328,289; lands at 1534,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, red blocks solid] standing at x 1516-1716, y 289-291
-   7. running right, jump (held 21 ticks), holding right, from 1568,289; lands at 1774,289
+   7. running right, jump (held 21 ticks), holding right, from 1568,289; lands at 1774,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, red blocks solid] standing at x 1740-1940, y 289-291
-   8. running right, jump (held 21 ticks), holding right, from 1776,289; lands at 1972,289
+   8. running right, jump (held 21 ticks), holding right, from 1776,289; lands at 1972,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, red blocks solid] standing at x 1964-2164, y 289-291
-   9. running right, jump (held 6 ticks), holding right, from 2160,289; lands at 2344,321
+   9. running right, jump (held 6 ticks), holding right, from 2160,289; lands at 2344,321 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [bricks whole, red blocks solid] standing at x 2311-2441, y 321
-  10. running right, jump (held 21 ticks), holding right, from 2416,321; lands at 2457,257
+  10. running right, jump (held 21 ticks), holding right, from 2416,321; lands at 2457,257 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, red blocks solid] standing at x 2442-2457, y 257
-  11. jump (held 2 ticks), holding left, from 2442,257; lands at 2377,225
+  11. jump (held 2 ticks), holding left, from 2442,257; lands at 2377,225 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, red blocks solid] standing at x 2375-2406, y 225
-  12. jump (held 6 ticks), holding left, from 2375,225; lands at 2316,177
+  12. jump (held 6 ticks), holding left, from 2375,225; lands at 2316,177 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> [bricks whole, red blocks solid] standing at x 2247-2374, y 177
-  13. running right, jump (held 21 ticks), holding right, from 2272,177; lands at 2426,113
+  13. running right, jump (held 21 ticks), holding right, from 2272,177; lands at 2426,113 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, red blocks solid] standing at x 2410-2486, y 113
-  14. walk off the edge, holding right once in the air, from 2410,113; lands at 2641,289
+  14. walk off the edge, holding right once in the air, from 2410,113; lands at 2641,289 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [bricks whole, red blocks solid] standing at x 2618-2726, y 289
-  15. jump (held 21 ticks), holding right, from 2618,289; lands at 2801,289
+  15. jump (held 21 ticks), holding right, from 2618,289; lands at 2801,289 {move ch=1 dir=1 jumpAt=0}
       -> [bricks whole, red blocks solid] standing at x 2778-3366, y 289
-  16. running right, jump (held 21 ticks), holding right, from 3344,289; lands at 3557,289
+  16. running right, jump (held 21 ticks), holding right, from 3344,289; lands at 3557,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, red blocks solid] standing at x 3546-3625, y 289
   17. jump at 3610,289 and hit the block at 3616,224 from below: [bricks whole, blue blocks solid]
       -> [bricks whole, blue blocks solid] standing at x 3514-3625, y 289
-  18. running left, jump (held 2 ticks), holding left, from 3514,289; lands at 3389,289
+  18. running left, jump (held 2 ticks), holding left, from 3514,289; lands at 3389,289 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 3258-3398, y 289
-  19. jump (held 2 ticks), holding left, from 3258,289; lands at 3156,289
+  19. jump (held 2 ticks), holding left, from 3258,289; lands at 3156,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 3098-3206, y 289
-  20. jump (held 2 ticks), holding left, from 3098,289; lands at 2996,289
+  20. jump (held 2 ticks), holding left, from 3098,289; lands at 2996,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 2938-3046, y 289
-  21. jump (held 2 ticks), holding left, from 2938,289; lands at 2840,289
+  21. jump (held 2 ticks), holding left, from 2938,289; lands at 2840,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 2503-2886, y 289
-  22. jump (held 6 ticks), holding left, from 2503,289; lands at 2357,321
+  22. jump (held 6 ticks), holding left, from 2503,289; lands at 2357,321 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> [bricks whole, blue blocks solid] standing at x 2311-2457, y 321
-  23. running left, jump (held 21 ticks), holding left, from 2311,321; lands at 2157,289
+  23. running left, jump (held 21 ticks), holding left, from 2311,321; lands at 2157,289 {move ch=1 dir=-1 run=1 jumpAt=0}
       -> [bricks whole, blue blocks solid] standing at x 1964-2164, y 289-291
-  24. jump (held 2 ticks), holding left, from 1964,289; lands at 1862,289
+  24. jump (held 2 ticks), holding left, from 1964,289; lands at 1862,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 1740-1940, y 289-291
-  25. jump (held 2 ticks), holding left, from 1740,289; lands at 1638,289
+  25. jump (held 2 ticks), holding left, from 1740,289; lands at 1638,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 1516-1716, y 289-291
-  26. jump (held 2 ticks), holding left, from 1516,289; lands at 1414,289
+  26. jump (held 2 ticks), holding left, from 1516,289; lands at 1414,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 1292-1492, y 289-291
-  27. jump (held 2 ticks), holding left, from 1292,289; lands at 1190,289
+  27. jump (held 2 ticks), holding left, from 1292,289; lands at 1190,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 999-1254, y 289
-  28. jump (held 2 ticks), holding left, from 999,289; lands at 956,257
+  28. jump (held 2 ticks), holding left, from 999,289; lands at 956,257 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 826-998, y 257
-  29. jump (held 6 ticks), holding left, from 826,257; lands at 709,225
+  29. jump (held 6 ticks), holding left, from 826,257; lands at 709,225 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> [bricks whole, blue blocks solid] standing at x 506-742, y 225
-  30. walk off the edge, holding left once in the air, from 506,225; lands at 426,289
+  30. walk off the edge, holding left once in the air, from 506,225; lands at 426,289 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [bricks whole, blue blocks solid] standing at x 39-505, y 289
   31. standing at 62,289, presses up at it
       -> out 64,256 [rb 0]
 how in 72,288 [rb 1] -> out 64,256 [rb 1]: -
      [bricks whole, red blocks solid] coming in at 72,288
-   1. coming in: holding nothing, from 72,288; lands at 72,289
+   1. coming in: holding nothing, from 72,288; lands at 72,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [bricks whole, red blocks solid] standing at x 39-505, y 289
    2. standing at 62,289, presses up at it
       -> out 64,256 [rb 1]
 how in 72,288 [rb 1] -> out 2632,64 [rb 0]: -
      [bricks whole, red blocks solid] coming in at 72,288
-   1. coming in: holding nothing, from 72,288; lands at 72,289
+   1. coming in: holding nothing, from 72,288; lands at 72,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [bricks whole, red blocks solid] standing at x 39-505, y 289
-   2. running right, jump (held 21 ticks), holding right, from 368,289; lands at 522,225
+   2. running right, jump (held 21 ticks), holding right, from 368,289; lands at 522,225 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, red blocks solid] standing at x 506-742, y 225
-   3. running right, jump (held 6 ticks), holding right, from 672,225; lands at 856,257
+   3. running right, jump (held 6 ticks), holding right, from 672,225; lands at 856,257 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [bricks whole, red blocks solid] standing at x 826-998, y 257
-   4. walk off the edge, holding right once in the air, from 826,257; lands at 1060,289
+   4. walk off the edge, holding right once in the air, from 826,257; lands at 1060,289 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [bricks whole, red blocks solid] standing at x 999-1254, y 289
-   5. running right, jump (held 21 ticks), holding right, from 1088,289; lands at 1301,289
+   5. running right, jump (held 21 ticks), holding right, from 1088,289; lands at 1301,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, red blocks solid] standing at x 1292-1492, y 289-291
-   6. running right, jump (held 21 ticks), holding right, from 1328,289; lands at 1534,289
+   6. running right, jump (held 21 ticks), holding right, from 1328,289; lands at 1534,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, red blocks solid] standing at x 1516-1716, y 289-291
-   7. running right, jump (held 21 ticks), holding right, from 1568,289; lands at 1774,289
+   7. running right, jump (held 21 ticks), holding right, from 1568,289; lands at 1774,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, red blocks solid] standing at x 1740-1940, y 289-291
-   8. running right, jump (held 21 ticks), holding right, from 1776,289; lands at 1972,289
+   8. running right, jump (held 21 ticks), holding right, from 1776,289; lands at 1972,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, red blocks solid] standing at x 1964-2164, y 289-291
-   9. running right, jump (held 6 ticks), holding right, from 2160,289; lands at 2344,321
+   9. running right, jump (held 6 ticks), holding right, from 2160,289; lands at 2344,321 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [bricks whole, red blocks solid] standing at x 2311-2441, y 321
-  10. running right, jump (held 21 ticks), holding right, from 2416,321; lands at 2457,257
+  10. running right, jump (held 21 ticks), holding right, from 2416,321; lands at 2457,257 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, red blocks solid] standing at x 2442-2457, y 257
-  11. jump (held 2 ticks), holding left, from 2442,257; lands at 2377,225
+  11. jump (held 2 ticks), holding left, from 2442,257; lands at 2377,225 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, red blocks solid] standing at x 2375-2406, y 225
-  12. jump (held 6 ticks), holding left, from 2375,225; lands at 2316,177
+  12. jump (held 6 ticks), holding left, from 2375,225; lands at 2316,177 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> [bricks whole, red blocks solid] standing at x 2247-2374, y 177
-  13. running right, jump (held 21 ticks), holding right, from 2272,177; lands at 2426,113
+  13. running right, jump (held 21 ticks), holding right, from 2272,177; lands at 2426,113 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, red blocks solid] standing at x 2410-2486, y 113
-  14. walk off the edge, holding right once in the air, from 2410,113; lands at 2641,289
+  14. walk off the edge, holding right once in the air, from 2410,113; lands at 2641,289 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [bricks whole, red blocks solid] standing at x 2618-2726, y 289
-  15. jump (held 21 ticks), holding right, from 2618,289; lands at 2801,289
+  15. jump (held 21 ticks), holding right, from 2618,289; lands at 2801,289 {move ch=1 dir=1 jumpAt=0}
       -> [bricks whole, red blocks solid] standing at x 2778-3366, y 289
-  16. running right, jump (held 21 ticks), holding right, from 3344,289; lands at 3557,289
+  16. running right, jump (held 21 ticks), holding right, from 3344,289; lands at 3557,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, red blocks solid] standing at x 3546-3625, y 289
   17. jump at 3610,289 and hit the block at 3616,224 from below: [bricks whole, blue blocks solid]
       -> [bricks whole, blue blocks solid] standing at x 3514-3625, y 289
-  18. running left, jump (held 2 ticks), holding left, from 3514,289; lands at 3389,289
+  18. running left, jump (held 2 ticks), holding left, from 3514,289; lands at 3389,289 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 3258-3398, y 289
-  19. jump (held 2 ticks), holding left, from 3258,289; lands at 3156,289
+  19. jump (held 2 ticks), holding left, from 3258,289; lands at 3156,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 3098-3206, y 289
-  20. jump (held 2 ticks), holding left, from 3098,289; lands at 2996,289
+  20. jump (held 2 ticks), holding left, from 3098,289; lands at 2996,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 2938-3046, y 289
-  21. jump (held 21 ticks), holding left, from 2946,289; lands at 2815,225
+  21. jump (held 21 ticks), holding left, from 2946,289; lands at 2815,225 {move ch=1 dir=-1 jumpAt=0}
       -> [bricks whole, blue blocks solid] standing at x 2810-2854, y 225
-  22. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 2810,225; lands at 2780,161
+  22. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 2810,225; lands at 2780,161 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
       -> [bricks whole, blue blocks solid] standing at x 2746-2790, y 161
-  23. jump (held 21 ticks), holding left, from 2746,161; lands at 2654,97
+  23. jump (held 21 ticks), holding left, from 2746,161; lands at 2654,97 {move ch=1 dir=-1 jumpAt=0}
       -> [bricks whole, blue blocks solid] standing at x 2631-2726, y 97
   24. standing at 2631,97, presses up at it
       -> out 2632,64 [rb 0]
+how in 72,288 [rb 1] -> loc 2 4: djump,adash,gdash
+     [bricks whole, red blocks solid] coming in at 72,288
+   1. coming in: holding nothing, from 72,288; lands at 72,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [bricks whole, red blocks solid] standing at x 39-505, y 289
+   2. running right, jump (held 21 ticks), holding right, from 368,289; lands at 522,225 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [bricks whole, red blocks solid] standing at x 506-742, y 225
+   3. running right, jump (held 6 ticks), holding right, from 672,225; lands at 856,257 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [bricks whole, red blocks solid] standing at x 826-998, y 257
+   4. walk off the edge, holding right once in the air, from 826,257; lands at 1060,289 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [bricks whole, red blocks solid] standing at x 999-1254, y 289
+   5. running right, jump (held 21 ticks), holding right, from 1088,289; lands at 1301,289 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [bricks whole, red blocks solid] standing at x 1292-1492, y 289-291
+   6. running right, jump (held 21 ticks), holding right, from 1328,289; lands at 1534,289 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [bricks whole, red blocks solid] standing at x 1516-1716, y 289-291
+   7. running right, jump (held 21 ticks), holding right, from 1568,289; lands at 1774,289 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [bricks whole, red blocks solid] standing at x 1740-1940, y 289-291
+   8. running right, jump (held 21 ticks), holding right, from 1776,289; lands at 1972,289 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [bricks whole, red blocks solid] standing at x 1964-2164, y 289-291
+   9. running right, jump (held 6 ticks), holding right, from 2160,289; lands at 2344,321 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [bricks whole, red blocks solid] standing at x 2311-2441, y 321
+  10. running right, jump (held 21 ticks), holding right, from 2416,321; lands at 2457,257 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [bricks whole, red blocks solid] standing at x 2442-2457, y 257
+  11. jump (held 2 ticks), holding left, from 2442,257; lands at 2377,225 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
+      -> [bricks whole, red blocks solid] standing at x 2375-2406, y 225
+  12. jump (held 6 ticks), holding left, from 2375,225; lands at 2316,177 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
+      -> [bricks whole, red blocks solid] standing at x 2247-2374, y 177
+  13. running right, jump (held 21 ticks), holding right, from 2272,177; lands at 2426,113 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [bricks whole, red blocks solid] standing at x 2410-2486, y 113
+  14. walk off the edge, holding right once in the air, from 2410,113; lands at 2641,289 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [bricks whole, red blocks solid] standing at x 2618-2726, y 289
+  15. jump (held 21 ticks), holding right, from 2618,289; lands at 2801,289 {move ch=1 dir=1 jumpAt=0}
+      -> [bricks whole, red blocks solid] standing at x 2778-3366, y 289
+  16. running right, jump (held 21 ticks), holding right, from 3264,289; lands at 3477,289 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [bricks whole, red blocks solid] standing at x 3466-3526, y 289
+  17. jump (held 21 ticks), holding right, from 3488,289; lands at 3619,225 {move ch=1 dir=1 jumpAt=0}
+      -> [bricks whole, red blocks solid] standing at x 3610-3657, y 225
+  18. jump (held 2 ticks), holding right, from 3614,225; lands at 3679,193 {move ch=1 dir=1 jumpAt=0 jumpHold=2}
+      -> [bricks whole, red blocks solid] standing at x 3658-3705, y 193
+  19. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 3658,193; lands at 3607,145 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
+      -> [bricks whole, red blocks solid] standing at x 3594-3622, y 145
+  20. dash-hop left (Claire), holding left, double jump at tick 6, air dash (Claire) at tick 20, from 3596,145; lands at 3239,129 {move ch=1 dir=-1 djAt=6 adAt=20 gdAt=0 maxT=120}   [djump,adash,gdash]
+      -> [bricks whole, red blocks solid] standing at x 3194-3270, y 129
+  21. standing at 3222,129, touches it
+      -> loc 2 4
 how in 2640,96 [rb 0] -> out 64,256 [rb 0]: -
      [bricks whole, blue blocks solid] coming in at 2640,96
-   1. coming in: holding nothing, from 2640,96; lands at 2640,97
+   1. coming in: holding nothing, from 2640,96; lands at 2640,97 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [bricks whole, blue blocks solid] standing at x 2631-2726, y 97
-   2. walk off the edge, holding right, then left after 1 ticks in the air, from 2631,97; lands at 2646,289
+   2. walk off the edge, holding right, then left after 1 ticks in the air, from 2631,97; lands at 2646,289 {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}
       -> [bricks whole, blue blocks solid] standing at x 2503-2886, y 289
-   3. jump (held 6 ticks), holding left, from 2503,289; lands at 2357,321
-      -> [bricks whole, blue blocks solid] standing at x 2311-2457, y 321
-   4. running left, jump (held 21 ticks), holding left, from 2311,321; lands at 2157,289
+   3. jump (held 2 ticks), holding left, from 2503,289; lands at 2460,257 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
+      -> [bricks whole, blue blocks solid] standing at x 2442-2502, y 257
+   4. running left, jump (held 2 ticks), holding left, from 2442,257; lands at 2295,289 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
+      -> [bricks whole, blue blocks solid] standing at x 2202-2310, y 289
+   5. jump (held 2 ticks), holding left, from 2202,289; lands at 2100,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 1964-2164, y 289-291
-   5. jump (held 2 ticks), holding left, from 1964,289; lands at 1862,289
+   6. jump (held 2 ticks), holding left, from 1964,289; lands at 1862,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 1740-1940, y 289-291
-   6. jump (held 2 ticks), holding left, from 1740,289; lands at 1638,289
+   7. jump (held 2 ticks), holding left, from 1740,289; lands at 1638,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 1516-1716, y 289-291
-   7. jump (held 2 ticks), holding left, from 1516,289; lands at 1414,289
+   8. jump (held 2 ticks), holding left, from 1516,289; lands at 1414,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 1292-1492, y 289-291
-   8. jump (held 2 ticks), holding left, from 1292,289; lands at 1190,289
+   9. jump (held 2 ticks), holding left, from 1292,289; lands at 1190,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 999-1254, y 289
-   9. jump (held 2 ticks), holding left, from 999,289; lands at 956,257
+  10. jump (held 2 ticks), holding left, from 999,289; lands at 956,257 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 826-998, y 257
-  10. jump (held 6 ticks), holding left, from 826,257; lands at 709,225
+  11. jump (held 6 ticks), holding left, from 826,257; lands at 709,225 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> [bricks whole, blue blocks solid] standing at x 506-742, y 225
-  11. walk off the edge, holding left once in the air, from 506,225; lands at 426,289
+  12. walk off the edge, holding left once in the air, from 506,225; lands at 426,289 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [bricks whole, blue blocks solid] standing at x 39-505, y 289
-  12. standing at 62,289, presses up at it
+  13. standing at 62,289, presses up at it
       -> out 64,256 [rb 0]
 how in 2640,96 [rb 0] -> out 2632,64 [rb 0]: -
      [bricks whole, blue blocks solid] coming in at 2640,96
-   1. coming in: holding nothing, from 2640,96; lands at 2640,97
+   1. coming in: holding nothing, from 2640,96; lands at 2640,97 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [bricks whole, blue blocks solid] standing at x 2631-2726, y 97
    2. standing at 2631,97, presses up at it
       -> out 2632,64 [rb 0]
+how in 2640,96 [rb 0] -> loc 2 4: djump,adash,gdash
+     [bricks whole, blue blocks solid] coming in at 2640,96
+   1. coming in: holding nothing, from 2640,96; lands at 2640,97 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [bricks whole, blue blocks solid] standing at x 2631-2726, y 97
+   2. running right, jump (held 21 ticks), holding right, from 2718,97; lands at 2946,289 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [bricks whole, blue blocks solid] standing at x 2938-3046, y 289
+   3. jump (held 21 ticks), holding right, from 2938,289; lands at 3121,289 {move ch=1 dir=1 jumpAt=0}
+      -> [bricks whole, blue blocks solid] standing at x 3098-3206, y 289
+   4. jump (held 21 ticks), holding right, from 3098,289; lands at 3281,289 {move ch=1 dir=1 jumpAt=0}
+      -> [bricks whole, blue blocks solid] standing at x 3258-3398, y 289
+   5. running right, jump (held 21 ticks), holding right, from 3312,289; lands at 3525,289 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [bricks whole, blue blocks solid] standing at x 3514-3625, y 289
+   6. jump at 3610,289 and hit the block at 3616,224 from below: [bricks whole, red blocks solid]
+      -> [bricks whole, red blocks solid] standing at x 3546-3625, y 289
+   7. jump (held 21 ticks), holding right, from 3546,289; lands at 3657,225 {move ch=1 dir=1 jumpAt=0}
+      -> [bricks whole, red blocks solid] standing at x 3610-3657, y 225
+   8. jump (held 2 ticks), holding right, from 3614,225; lands at 3679,193 {move ch=1 dir=1 jumpAt=0 jumpHold=2}
+      -> [bricks whole, red blocks solid] standing at x 3658-3705, y 193
+   9. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 3658,193; lands at 3607,145 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
+      -> [bricks whole, red blocks solid] standing at x 3594-3622, y 145
+  10. dash-hop left (Claire), holding left, double jump at tick 6, air dash (Claire) at tick 20, from 3596,145; lands at 3239,129 {move ch=1 dir=-1 djAt=6 adAt=20 gdAt=0 maxT=120}   [djump,adash,gdash]
+      -> [bricks whole, red blocks solid] standing at x 3194-3270, y 129
+  11. standing at 3222,129, touches it
+      -> loc 2 4
 how in 2640,96 [rb 1] -> out 64,256 [rb 0]: -
      [bricks whole, red blocks solid] coming in at 2640,96
-   1. coming in: holding nothing, from 2640,96; lands at 2640,97
+   1. coming in: holding nothing, from 2640,96; lands at 2640,97 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [bricks whole, red blocks solid] standing at x 2631-2726, y 97
-   2. walk off the edge, holding right once in the air, from 2631,97; lands at 2894,289
+   2. walk off the edge, holding right once in the air, from 2631,97; lands at 2894,289 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [bricks whole, red blocks solid] standing at x 2778-3366, y 289
-   3. running right, jump (held 21 ticks), holding right, from 3344,289; lands at 3557,289
+   3. running right, jump (held 21 ticks), holding right, from 3344,289; lands at 3557,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, red blocks solid] standing at x 3546-3625, y 289
    4. jump at 3610,289 and hit the block at 3616,224 from below: [bricks whole, blue blocks solid]
       -> [bricks whole, blue blocks solid] standing at x 3514-3625, y 289
-   5. running left, jump (held 2 ticks), holding left, from 3514,289; lands at 3389,289
+   5. running left, jump (held 2 ticks), holding left, from 3514,289; lands at 3389,289 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 3258-3398, y 289
-   6. jump (held 2 ticks), holding left, from 3258,289; lands at 3156,289
+   6. jump (held 2 ticks), holding left, from 3258,289; lands at 3156,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 3098-3206, y 289
-   7. jump (held 2 ticks), holding left, from 3098,289; lands at 2996,289
+   7. jump (held 2 ticks), holding left, from 3098,289; lands at 2996,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 2938-3046, y 289
-   8. jump (held 2 ticks), holding left, from 2938,289; lands at 2840,289
+   8. jump (held 2 ticks), holding left, from 2938,289; lands at 2840,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 2503-2886, y 289
-   9. jump (held 6 ticks), holding left, from 2503,289; lands at 2357,321
+   9. jump (held 6 ticks), holding left, from 2503,289; lands at 2357,321 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> [bricks whole, blue blocks solid] standing at x 2311-2457, y 321
-  10. running left, jump (held 21 ticks), holding left, from 2311,321; lands at 2157,289
+  10. running left, jump (held 21 ticks), holding left, from 2311,321; lands at 2157,289 {move ch=1 dir=-1 run=1 jumpAt=0}
       -> [bricks whole, blue blocks solid] standing at x 1964-2164, y 289-291
-  11. jump (held 2 ticks), holding left, from 1964,289; lands at 1862,289
+  11. jump (held 2 ticks), holding left, from 1964,289; lands at 1862,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 1740-1940, y 289-291
-  12. jump (held 2 ticks), holding left, from 1740,289; lands at 1638,289
+  12. jump (held 2 ticks), holding left, from 1740,289; lands at 1638,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 1516-1716, y 289-291
-  13. jump (held 2 ticks), holding left, from 1516,289; lands at 1414,289
+  13. jump (held 2 ticks), holding left, from 1516,289; lands at 1414,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 1292-1492, y 289-291
-  14. jump (held 2 ticks), holding left, from 1292,289; lands at 1190,289
+  14. jump (held 2 ticks), holding left, from 1292,289; lands at 1190,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 999-1254, y 289
-  15. jump (held 2 ticks), holding left, from 999,289; lands at 956,257
+  15. jump (held 2 ticks), holding left, from 999,289; lands at 956,257 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 826-998, y 257
-  16. jump (held 6 ticks), holding left, from 826,257; lands at 709,225
+  16. jump (held 6 ticks), holding left, from 826,257; lands at 709,225 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> [bricks whole, blue blocks solid] standing at x 506-742, y 225
-  17. walk off the edge, holding left once in the air, from 506,225; lands at 426,289
+  17. walk off the edge, holding left once in the air, from 506,225; lands at 426,289 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [bricks whole, blue blocks solid] standing at x 39-505, y 289
   18. standing at 62,289, presses up at it
       -> out 64,256 [rb 0]
 how in 2640,96 [rb 1] -> out 2632,64 [rb 0]: -
      [bricks whole, red blocks solid] coming in at 2640,96
-   1. coming in: holding nothing, from 2640,96; lands at 2640,97
+   1. coming in: holding nothing, from 2640,96; lands at 2640,97 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [bricks whole, red blocks solid] standing at x 2631-2726, y 97
-   2. walk off the edge, holding right once in the air, from 2631,97; lands at 2894,289
+   2. walk off the edge, holding right once in the air, from 2631,97; lands at 2894,289 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [bricks whole, red blocks solid] standing at x 2778-3366, y 289
-   3. running right, jump (held 21 ticks), holding right, from 3344,289; lands at 3557,289
+   3. running right, jump (held 21 ticks), holding right, from 3344,289; lands at 3557,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [bricks whole, red blocks solid] standing at x 3546-3625, y 289
    4. jump at 3610,289 and hit the block at 3616,224 from below: [bricks whole, blue blocks solid]
       -> [bricks whole, blue blocks solid] standing at x 3514-3625, y 289
-   5. running left, jump (held 2 ticks), holding left, from 3514,289; lands at 3389,289
+   5. running left, jump (held 2 ticks), holding left, from 3514,289; lands at 3389,289 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 3258-3398, y 289
-   6. jump (held 2 ticks), holding left, from 3258,289; lands at 3156,289
+   6. jump (held 2 ticks), holding left, from 3258,289; lands at 3156,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 3098-3206, y 289
-   7. jump (held 2 ticks), holding left, from 3098,289; lands at 2996,289
+   7. jump (held 2 ticks), holding left, from 3098,289; lands at 2996,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole, blue blocks solid] standing at x 2938-3046, y 289
-   8. jump (held 21 ticks), holding left, from 2946,289; lands at 2815,225
+   8. jump (held 21 ticks), holding left, from 2946,289; lands at 2815,225 {move ch=1 dir=-1 jumpAt=0}
       -> [bricks whole, blue blocks solid] standing at x 2810-2854, y 225
-   9. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 2810,225; lands at 2780,161
+   9. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 2810,225; lands at 2780,161 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
       -> [bricks whole, blue blocks solid] standing at x 2746-2790, y 161
-  10. jump (held 21 ticks), holding left, from 2746,161; lands at 2654,97
+  10. jump (held 21 ticks), holding left, from 2746,161; lands at 2654,97 {move ch=1 dir=-1 jumpAt=0}
       -> [bricks whole, blue blocks solid] standing at x 2631-2726, y 97
   11. standing at 2631,97, presses up at it
       -> out 2632,64 [rb 0]
 how in 2640,96 [rb 1] -> out 2632,64 [rb 1]: -
      [bricks whole, red blocks solid] coming in at 2640,96
-   1. coming in: holding nothing, from 2640,96; lands at 2640,97
+   1. coming in: holding nothing, from 2640,96; lands at 2640,97 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [bricks whole, red blocks solid] standing at x 2631-2726, y 97
    2. standing at 2631,97, presses up at it
       -> out 2632,64 [rb 1]
+how in 2640,96 [rb 1] -> loc 2 4: djump,adash,gdash
+     [bricks whole, red blocks solid] coming in at 2640,96
+   1. coming in: holding nothing, from 2640,96; lands at 2640,97 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [bricks whole, red blocks solid] standing at x 2631-2726, y 97
+   2. walk off the edge, holding right once in the air, from 2631,97; lands at 2894,289 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [bricks whole, red blocks solid] standing at x 2778-3366, y 289
+   3. running right, jump (held 21 ticks), holding right, from 3264,289; lands at 3477,289 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [bricks whole, red blocks solid] standing at x 3466-3526, y 289
+   4. jump (held 21 ticks), holding right, from 3488,289; lands at 3619,225 {move ch=1 dir=1 jumpAt=0}
+      -> [bricks whole, red blocks solid] standing at x 3610-3657, y 225
+   5. jump (held 2 ticks), holding right, from 3614,225; lands at 3679,193 {move ch=1 dir=1 jumpAt=0 jumpHold=2}
+      -> [bricks whole, red blocks solid] standing at x 3658-3705, y 193
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 3658,193; lands at 3607,145 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
+      -> [bricks whole, red blocks solid] standing at x 3594-3622, y 145
+   7. dash-hop left (Claire), holding left, double jump at tick 6, air dash (Claire) at tick 20, from 3596,145; lands at 3239,129 {move ch=1 dir=-1 djAt=6 adAt=20 gdAt=0 maxT=120}   [djump,adash,gdash]
+      -> [bricks whole, red blocks solid] standing at x 3194-3270, y 129
+   8. standing at 3222,129, touches it
+      -> loc 2 4

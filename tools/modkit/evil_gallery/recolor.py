@@ -50,11 +50,22 @@ def in_band(h, lo, hi):
     return lo <= h < hi if lo <= hi else (h >= lo or h < hi)
 
 
+def auto_palette(images=None, target=345, pull=0.6, sat=1.0, val=0.75):
+    """the palette for a boss without one of its own: every hue pulled pull of the way toward target (crimson) along
+    the shorter way round, darker (val), saturation times sat; greys darkened the same, with a little of target. (images
+    isn't needed: the pull keeps each boss's own colours apart, just darker and redder)"""
+    return {"pull": target, "f": pull, "sat": sat, "val": val, "grey": (1.0, val * 0.96, target, 0.18)}
+
+
 def recolor_px(px, pal):
     r, g, b, a = px
     if a == 0: return px
     h, s, v = colorsys.rgb_to_hsv(r / 255.0, g / 255.0, b / 255.0)
     if v < DARK: return px
+    if "pull" in pal and s >= GREY:
+        d = ((pal["pull"] - h * 360 + 180) % 360) - 180
+        r2, g2, b2 = colorsys.hsv_to_rgb(((h * 360 + d * pal["f"]) % 360) / 360.0, min(1.0, s * pal["sat"]), min(1.0, v * pal["val"]))
+        return (int(r2 * 255 + 0.5), int(g2 * 255 + 0.5), int(b2 * 255 + 0.5), a)
     if s < GREY:
         sm, vm, th, tw = pal["grey"]
         v = min(1.0, v * vm)

@@ -14,6 +14,8 @@ out 1552,688   # to rNGC_RB_B at 72,160; the player presses up at it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -23,28 +25,38 @@ from in 120,208
   out 112,176    -
   out 1552,688   -
 from in 1560,720
-  out 112,176    never
+  out 112,176    -
   out 1552,688   -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 120,208 -> out 112,176: -
      coming in at 120,208
-   1. coming in: holding nothing, from 120,208; lands at 120,209
+   1. coming in: holding nothing, from 120,208; lands at 120,209 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 39-854, y 209
    2. standing at 110,209, presses up at it
       -> out 112,176
 how in 120,208 -> out 1552,688: -
      coming in at 120,208
-   1. coming in: holding nothing, from 120,208; lands at 120,209
+   1. coming in: holding nothing, from 120,208; lands at 120,209 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 39-854, y 209
-   2. running right, walk off the edge, holding right, then nothing after 1 ticks in the air, from 496,209; lands at 895,721
+   2. running right, walk off the edge, holding right, then nothing after 1 ticks in the air, from 496,209; lands at 895,721 {move ch=1 dir=1 run=1 h2=0 hDelay=1 noInputTillAir=1}
       -> standing at x 87-1641, y 721
    3. standing at 1550,721, presses up at it
       -> out 1552,688
+how in 1560,720 -> out 112,176: -
+     coming in at 1560,720
+   1. coming in: holding nothing, from 1560,720; lands at 1560,721 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 87-1641, y 721
+   2. step onto the elevator at 842,721
+      -> riding the elevator at x 880 (its bar from y 208 to 720)
+   3. ride the elevator to where its bar is at y 208, and step off it to 842,209
+      -> standing at x 39-854, y 209
+   4. standing at 110,209, presses up at it
+      -> out 112,176
 how in 1560,720 -> out 1552,688: -
      coming in at 1560,720
-   1. coming in: holding nothing, from 1560,720; lands at 1560,721
+   1. coming in: holding nothing, from 1560,720; lands at 1560,721 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 87-1641, y 721
    2. standing at 1550,721, presses up at it
       -> out 1552,688

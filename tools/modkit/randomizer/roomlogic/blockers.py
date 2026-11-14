@@ -10,7 +10,7 @@ for line in open(os.path.join(HERE, "roomlogic.txt"), encoding="utf-8"):
 for line in open(os.path.join(HERE, "roomlogic.txt"), encoding="utf-8"):
     f = line.split()
     if len(f) >= 5 and f[0] == "loc" and f[3] == "never" and room_need.get(f[4], "never") != "never": stuck.add(f[4])
-for line in open(os.path.join(HERE, "work", "roomlogic_regions.txt"), encoding="utf-8"):
+for line in open(os.path.join(HERE, "work", "fps30", "roomlogic_regions.txt"), encoding="utf-8"):
     f = line.split()
     if f[0] == "exit" and f[-1] == "never" and room_need.get(f[1], "never") != "never" and room_need.get(f[4], "never") == "never":
         stuck.add(f[1])

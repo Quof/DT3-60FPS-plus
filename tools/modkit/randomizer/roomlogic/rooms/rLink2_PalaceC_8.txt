@@ -15,6 +15,8 @@ out 1832,368   # to rLink2_PalaceC_9 at 1840,128; the player goes into it
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 3 8   # arrow quiver 8, at 1783,214
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -33,27 +35,27 @@ from in 1840,336
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 48,304 -> out 0,272: -
      coming in at 48,304
-   1. coming in: holding nothing, from 48,304; lands at 48,305
+   1. coming in: holding nothing, from 48,304; lands at 48,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-1830, y 305
    2. standing at 0,305, goes into it
       -> out 0,272
 how in 48,304 -> out 1832,368: -
      coming in at 48,304
-   1. coming in: holding nothing, from 48,304; lands at 48,305
+   1. coming in: holding nothing, from 48,304; lands at 48,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-1830, y 305
-   2. running right, walk off the edge, holding right once in the air, from 1184,305; touches it on the way
+   2. running right, walk off the edge, holding right once in the air, from 1184,305; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}
       -> out 1832,368
 how in 48,304 -> loc 3 8: djump
      coming in at 48,304
-   1. coming in: holding nothing, from 48,304; lands at 48,305
+   1. coming in: holding nothing, from 48,304; lands at 48,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-1830, y 305
-   2. jump (held 21 ticks), holding right, double jump at tick 15, from 1552,305; touches it on the way   [djump]
+   2. jump (held 21 ticks), holding right, double jump at tick 15, from 1552,305; touches it on the way {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
       -> loc 3 8
 how in 48,304 -> loc 3 8: adash
      coming in at 48,304
-   1. coming in: holding nothing, from 48,304; lands at 48,305
+   1. coming in: holding nothing, from 48,304; lands at 48,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-1830, y 305
-   2. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1552,305; touches it on the way   [adash]
+   2. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1552,305; touches it on the way {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
       -> loc 3 8
 how in 1840,336 -> out 0,272: -
      coming in at 1840,336
@@ -69,7 +71,7 @@ how in 1840,336 -> out 1832,368: -
       -> riding the elevator at x 1840 (its bar from y 291 to 416)
    2. ride the elevator to where its bar is at y 304, and step off it to 1818,305
       -> standing at x 0-1830, y 305
-   3. running right, walk off the edge, holding right once in the air, from 1184,305; touches it on the way
+   3. running right, walk off the edge, holding right once in the air, from 1184,305; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}
       -> out 1832,368
 how in 1840,336 -> loc 3 8: djump
      coming in at 1840,336
@@ -77,7 +79,7 @@ how in 1840,336 -> loc 3 8: djump
       -> riding the elevator at x 1840 (its bar from y 291 to 416)
    2. ride the elevator to where its bar is at y 304, and step off it to 1818,305
       -> standing at x 0-1830, y 305
-   3. jump (held 21 ticks), holding right, double jump at tick 15, from 1552,305; touches it on the way   [djump]
+   3. jump (held 21 ticks), holding right, double jump at tick 15, from 1552,305; touches it on the way {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
       -> loc 3 8
 how in 1840,336 -> loc 3 8: adash
      coming in at 1840,336
@@ -85,5 +87,5 @@ how in 1840,336 -> loc 3 8: adash
       -> riding the elevator at x 1840 (its bar from y 291 to 416)
    2. ride the elevator to where its bar is at y 304, and step off it to 1818,305
       -> standing at x 0-1830, y 305
-   3. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1552,305; touches it on the way   [adash]
+   3. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1552,305; touches it on the way {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
       -> loc 3 8

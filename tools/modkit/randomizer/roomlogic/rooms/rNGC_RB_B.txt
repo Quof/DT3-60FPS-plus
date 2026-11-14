@@ -15,6 +15,8 @@ out 352,2288   # to rNGC_RB_C at 88,608; the player presses up at it
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 11 1   # bomb upgrade 1, at 101,2311
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -33,47 +35,43 @@ from in 360,2320
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 72,160 -> out 64,128: -
      coming in at 72,160
-   1. coming in: holding nothing, from 72,160; lands at 72,161
+   1. coming in: holding nothing, from 72,160; lands at 72,161 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 39-134, y 161
    2. standing at 62,161, presses up at it
       -> out 64,128
 how in 72,160 -> out 352,2288: -
      coming in at 72,160
-   1. coming in: holding nothing, from 72,160; lands at 72,161
+   1. coming in: holding nothing, from 72,160; lands at 72,161 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 39-134, y 161
-   2. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 39,161; lands at 207,513
-      -> standing at x 186-441, y 513
-   3. walk off the edge, holding left, then right after 1 ticks in the air, from 186,513; lands at 207,865
-      -> standing at x 186-441, y 865
-   4. walk off the edge, holding left, then right after 1 ticks in the air, from 186,865; lands at 207,1217
+   2. step onto the elevator at 122,161
+      -> riding the elevator at x 160 (its bar from y 160 to 2272)
+   3. ride the elevator to where its bar is at y 1216, and step off it to 186,1217
       -> standing at x 186-409, y 1217
-   5. running left, walk off the edge, holding left once in the air, from 186,1217; lands at 135,2321
+   4. running left, walk off the edge, holding left once in the air, from 186,1217; lands at 135,2321 {move ch=1 dir=-1 run=1 hDelay=1 noInputTillAir=1}
       -> standing at x 135-409, y 2321
-   6. standing at 350,2321, presses up at it
+   5. standing at 350,2321, presses up at it
       -> out 352,2288
 how in 72,160 -> loc 11 1: samus:6
      coming in at 72,160
-   1. coming in: holding nothing, from 72,160; lands at 72,161
+   1. coming in: holding nothing, from 72,160; lands at 72,161 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 39-134, y 161
-   2. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 39,161; lands at 207,513
-      -> standing at x 186-441, y 513
-   3. walk off the edge, holding left, then right after 1 ticks in the air, from 186,513; lands at 207,865
-      -> standing at x 186-441, y 865
-   4. walk off the edge, holding left, then right after 1 ticks in the air, from 186,865; lands at 207,1217
+   2. step onto the elevator at 122,161
+      -> riding the elevator at x 160 (its bar from y 160 to 2272)
+   3. ride the elevator to where its bar is at y 1216, and step off it to 186,1217
       -> standing at x 186-409, y 1217
-   5. running left, walk off the edge, holding left once in the air, from 186,1217; lands at 135,2321
+   4. running left, walk off the edge, holding left once in the air, from 186,1217; lands at 135,2321 {move ch=1 dir=-1 run=1 hDelay=1 noInputTillAir=1}
       -> standing at x 135-409, y 2321
-   6. running left, jump (held 21 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 135,2321, through the Metroid block at 112,2304, the Metroid block at 96,2304; touches it on the way   [samus:6]
+   5. running left, jump (held 21 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 135,2321, through the Metroid block at 112,2304, the Metroid block at 96,2304; touches it on the way {move ch=1 dir=-1 run=1 jumpAt=0 autoMorph=1}   [samus:6]
       -> loc 11 1
 how in 360,2320 -> out 352,2288: -
      coming in at 360,2320
-   1. coming in: holding nothing, from 360,2320; lands at 360,2321
+   1. coming in: holding nothing, from 360,2320; lands at 360,2321 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 135-409, y 2321
    2. standing at 350,2321, presses up at it
       -> out 352,2288
 how in 360,2320 -> loc 11 1: samus:6
      coming in at 360,2320
-   1. coming in: holding nothing, from 360,2320; lands at 360,2321
+   1. coming in: holding nothing, from 360,2320; lands at 360,2321 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 135-409, y 2321
-   2. running left, jump (held 21 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 135,2321, through the Metroid block at 112,2304, the Metroid block at 96,2304; touches it on the way   [samus:6]
+   2. running left, jump (held 21 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 135,2321, through the Metroid block at 112,2304, the Metroid block at 96,2304; touches it on the way {move ch=1 dir=-1 run=1 jumpAt=0 autoMorph=1}   [samus:6]
       -> loc 11 1

@@ -17,83 +17,625 @@ out 32,192   # to rLowFacS at 176,384; the player presses up at it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 32,192
-  out 9584,256   never
+  out 9584,256   djump,adash,mario | djump,gdash,mario
   out 32,288     -
   out 32,192     -
 from in 128,48
-  out 9584,256   never
+  out 9584,256   djump,adash,mario | djump,gdash,mario
   out 32,288     -
   out 32,192     -
 from in 9552,288
   out 9584,256   -
-  out 32,288     never
-  out 32,192     never
+  out 32,288     djump,adash,mario
+  out 32,192     djump,adash,mario
 from in 32,288
-  out 9584,256   never
+  out 9584,256   djump,adash,mario | djump,gdash,mario
   out 32,288     -
   out 32,192     djump | adash
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 32,192 -> out 9584,256: adash,mario
+     coming in at 32,192
+   1. coming in: holding nothing, from 32,192; lands at 32,193 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-70, y 193
+   2. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 0,193; lands at 153,289 {move ch=1 dir=-1 run=1 jumpAt=0 h2=-1 hDelay=6}
+      -> standing at x 0-262, y 289
+   3. running right, jump (held 21 ticks), holding right, from 176,289; lands at 330,225 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 314-390, y 225
+   4. jump (held 21 ticks), holding right, from 314,225; lands at 482,193 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 474-550, y 193
+   5. jump (held 2 ticks), holding right, air dash (Jerry) at tick 14, from 548,193; comes down on the flying enemy at 816,213 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=0 jumpHold=2 adAt=14 maxT=120}   [adash,mario]
+      -> just stomped the oRedParatroopa at 816,213 (Jerry)
+   6. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 12, from 816,214; lands at 1128,225 {move ch=0 dir=1 adAt=12 maxT=120 fromFlyer=0}   [adash]
+      -> standing at x 1098-1174, y 225
+   7. jump (held 21 ticks), holding right, from 1098,225; lands at 1325,289 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 1290-1609, y 289
+   8. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1392,289; lands at 1704,289 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 1655-2169, y 289
+   9. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 2064,289; comes down on the flying enemy at 2309,209 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,mario]
+      -> just stomped the oBulletBill at 2309,209 (Jerry)
+  10. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 12, from 2309,210; lands at 2649,289 {move ch=0 dir=1 adAt=12 maxT=120 fromFlyer=48}   [adash]
+      -> standing at x 2602-2649, y 289
+  11. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, air dash (Jerry) at tick 10, from 2640,289; lands at 3109,305 {move ch=0 dir=1 jumpAt=0 jumpHold=60 adAt=10 maxT=120 afterBounce=1 stomp=1}   [adash,mario]
+      -> standing at x 3095-3145, y 305
+  12. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 3120,305; lands at 3353,225 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 3338-3414, y 225
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 3392,225; lands at 3729,257 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 3706-3782, y 257
+  14. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 3744,257; comes down on the flying enemy at 4032,213 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,mario]
+      -> just stomped the oRedParatroopa at 4032,213 (Jerry)
+  15. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 6, from 4032,214; comes down on the flying enemy at 4256,197 and stomps it (the Mario Ability Set) {move ch=0 dir=1 adAt=6 maxT=120 fromFlyer=8}   [adash,mario]
+      -> just stomped the oRedParatroopa at 4256,197 (Jerry)
+  16. just stomped the flying enemy, the jump or up held: holding nothing, then right after 4 ticks, air dash (Jerry) at tick 2, from 4256,198; comes down on the flying enemy at 4448,229 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=4 adAt=2 maxT=120 fromFlyer=10}   [adash,mario]
+      -> just stomped the oRedParatroopa at 4448,229 (Jerry)
+  17. just stomped the flying enemy, the jump or up held: holding nothing, then right after 8 ticks, air dash (Jerry) at tick 6, from 4448,230; comes down on the flying enemy at 4624,197 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=8 adAt=6 maxT=120 fromFlyer=12}   [adash,mario]
+      -> just stomped the oRedParatroopa at 4624,197 (Jerry)
+  18. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 6, from 4624,198; lands at 4863,193 {move ch=0 dir=1 adAt=6 maxT=120 fromFlyer=14}   [adash]
+      -> standing at x 4810-4886, y 193
+  19. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 4810,193; lands at 5160,289 {move ch=0 dir=1 adAt=6 noInputTillAir=1 adClear=1}   [adash]
+      -> standing at x 5066-5334, y 289
+  20. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, air dash (Jerry) at tick 10, from 5216,289; lands at 5680,289 {move ch=0 dir=1 jumpAt=0 jumpHold=60 adAt=10 maxT=120 afterBounce=1 stomp=1}   [adash,mario]
+      -> standing at x 5623-5689, y 289
+  21. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, from 5648,289; lands at 6219,273 {move ch=1 dir=1 jumpAt=0 jumpHold=60 maxT=120 afterBounce=1 stomp=1}   [mario]
+      -> standing at x 6202-6230, y 273
+  22. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 6202,273; lands at 6492,289 {move ch=0 dir=1 jumpAt=0 adAt=10}   [adash]
+      -> standing at x 6407-6518, y 289
+  23. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 6407,289; lands at 6662,257 {move ch=0 dir=1 jumpAt=0 adAt=10}   [adash]
+      -> standing at x 6650-6678, y 257
+  24. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 6670,257; lands at 6964,225 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 6954-6982, y 225
+  25. jump (held 21 ticks), holding right, from 6954,225; lands at 7181,289 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 7162-7190, y 289
+  26. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 7182,289; comes down on the flying enemy at 7429,209 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,mario]
+      -> just stomped the oBulletBill at 7429,209 (Jerry)
+  27. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 6, from 7429,210; comes down on the flying enemy at 7717,289 and stomps it (the Mario Ability Set) {move ch=0 dir=1 adAt=6 maxT=120 fromFlyer=116}   [adash,mario]
+      -> just stomped the oBulletBill at 7717,289 (Jerry)
+  28. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 14, from 7717,290; lands at 8016,257 {move ch=0 dir=1 adAt=14 maxT=120 fromFlyer=124}   [adash]
+      -> standing at x 7994-8070, y 257
+  29. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, air dash (Jerry) at tick 10, from 8062,257; lands at 8469,177 {move ch=0 dir=1 jumpAt=0 jumpHold=60 adAt=10 maxT=120 afterBounce=1 stomp=1}   [adash,mario]
+      -> standing at x 8458-8534, y 177
+  30. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 8458,177; lands at 8722,161 {move ch=0 dir=1 jumpAt=0 adAt=10}   [adash]
+      -> standing at x 8698-8774, y 161
+  31. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, air dash (Jerry) at tick 10, from 8698,161; lands at 9157,177 {move ch=0 dir=1 jumpAt=0 jumpHold=60 adAt=10 maxT=120 afterBounce=1 stomp=1}   [adash,mario]
+      -> standing at x 9130-9206, y 177
+  32. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 9198,177; touches it on the way {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> out 9584,256
+how in 32,192 -> out 9584,256: djump,gdash,mario
+     coming in at 32,192
+   1. coming in: holding nothing, from 32,192; lands at 32,193 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-70, y 193
+   2. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 0,193; lands at 153,289 {move ch=1 dir=-1 run=1 jumpAt=0 h2=-1 hDelay=6}
+      -> standing at x 0-262, y 289
+   3. running right, jump (held 21 ticks), holding right, from 176,289; lands at 330,225 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 314-390, y 225
+   4. jump (held 21 ticks), holding right, from 314,225; lands at 482,193 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 474-550, y 193
+   5. running right, jump (held 2 ticks), holding right, double jump at tick 16, from 548,193; comes down on the flying enemy at 816,213 and stomps it (the Mario Ability Set) {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2 djAt=16 maxT=120}   [djump,mario]
+      -> just stomped the oRedParatroopa at 816,213 (Claire)
+   6. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 18, from 816,214; lands at 1131,225 {move ch=1 dir=1 djAt=18 maxT=120 fromFlyer=1}   [djump]
+      -> standing at x 1098-1174, y 225
+   7. jump (held 21 ticks), holding right, from 1098,225; lands at 1325,289 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 1290-1609, y 289
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 1424,289; lands at 1702,289 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 1655-2169, y 289
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 2096,289; lands at 2323,209 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 2314-2342, y 209
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 2314,209; lands at 2643,289 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 2602-2649, y 289
+  11. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, double jump at tick 12, from 2641,289; lands at 3110,305 {move ch=1 dir=1 jumpAt=0 jumpHold=60 djAt=12 maxT=120 afterBounce=1 stomp=1}   [djump,mario]
+      -> standing at x 3095-3145, y 305
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 3120,305; lands at 3347,225 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 3338-3414, y 225
+  13. running right, jump (held 5 ticks), holding right, double jump at tick 16, from 3412,225; lands at 3713,257 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=5 djAt=16 maxT=120}   [djump]
+      -> standing at x 3706-3782, y 257
+  14. dash right (Jerry), jump (held 21 ticks), holding right, double jump at tick 12, from 3728,257; comes down on the flying enemy at 4032,213 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=2 djAt=12 gdAt=0}   [djump,gdash,mario]
+      -> just stomped the oRedParatroopa at 4032,213 (Jerry)
+  15. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 14, from 4032,214; comes down on the flying enemy at 4256,197 and stomps it (the Mario Ability Set) {move ch=0 dir=1 djAt=14 maxT=120 fromFlyer=8}   [djump,mario]
+      -> just stomped the oRedParatroopa at 4256,197 (Jerry)
+  16. just stomped the flying enemy, the jump or up held: holding nothing, then right after 16 ticks, double jump at tick 26, from 4256,198; comes down on the flying enemy at 4448,229 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=16 djAt=26 maxT=120 fromFlyer=10}   [djump,mario]
+      -> just stomped the oRedParatroopa at 4448,229 (Jerry)
+  17. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 14, from 4448,230; comes down on the flying enemy at 4624,197 and stomps it (the Mario Ability Set) {move ch=0 dir=1 djAt=14 maxT=120 fromFlyer=12}   [djump,mario]
+      -> just stomped the oRedParatroopa at 4624,197 (Jerry)
+  18. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 12, from 4624,198; lands at 4866,193 {move ch=0 dir=1 djAt=12 maxT=120 fromFlyer=14}   [djump]
+      -> standing at x 4810-4886, y 193
+  19. jump (held 21 ticks), holding right, double jump at tick 10, from 4810,193; lands at 5103,289 {move ch=1 dir=1 jumpAt=0 djAt=10}   [djump]
+      -> standing at x 5066-5334, y 289
+  20. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, double jump at tick 12, from 5200,289; lands at 5661,289 {move ch=1 dir=1 jumpAt=0 jumpHold=60 djAt=12 maxT=120 afterBounce=1 stomp=1}   [djump,mario]
+      -> standing at x 5623-5689, y 289
+  21. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, from 5648,289; lands at 6219,273 {move ch=1 dir=1 jumpAt=0 jumpHold=60 maxT=120 afterBounce=1 stomp=1}   [mario]
+      -> standing at x 6202-6230, y 273
+  22. jump (held 21 ticks), holding right, from 6202,273; comes down on the flying enemy at 6373,241 and stomps it (the Mario Ability Set) {move ch=1 dir=1 jumpAt=0}   [mario]
+      -> just stomped the oBulletBill at 6373,241 (Claire)
+  23. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 18, from 6373,242; comes down on the flying enemy at 6681,257 and stomps it (the Mario Ability Set) {move ch=1 dir=1 djAt=18 maxT=120 fromFlyer=57}   [djump,mario]
+      -> just stomped the oBulletBill at 6681,257 (Claire)
+  24. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 18, from 6681,258; lands at 6966,225 {move ch=1 dir=1 djAt=18 maxT=120 fromFlyer=91}   [djump]
+      -> standing at x 6954-6982, y 225
+  25. jump (held 21 ticks), holding right, from 6954,225; lands at 7181,289 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 7162-7190, y 289
+  26. dash right (Jerry), jump (held 21 ticks), holding right, double jump at tick 12, from 7162,289; comes down on the flying enemy at 7429,209 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=2 djAt=12 gdAt=0}   [djump,gdash,mario]
+      -> just stomped the oBulletBill at 7429,209 (Jerry)
+  27. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 18, from 7429,210; lands at 7744,289 {move ch=0 dir=1 djAt=18 maxT=120 fromFlyer=116}   [djump]
+      -> standing at x 7722-7750, y 289
+  28. dash right (Jerry), jump (held 21 ticks), holding right, double jump at tick 12, from 7722,289; lands at 8033,257 {move ch=0 dir=1 jumpAt=2 djAt=12 gdAt=0}   [djump,gdash]
+      -> standing at x 7994-8070, y 257
+  29. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, double jump at tick 12, from 8062,257; lands at 8472,177 {move ch=1 dir=1 jumpAt=0 jumpHold=60 djAt=12 maxT=120 afterBounce=1 stomp=1}   [djump,mario]
+      -> standing at x 8458-8534, y 177
+  30. dash right (Jerry), jump (held 21 ticks), holding right, double jump at tick 12, from 8496,177; lands at 8846,225 {move ch=0 dir=1 jumpAt=2 djAt=12 gdAt=0}   [djump,gdash]
+      -> standing at x 8826-8902, y 225
+  31. dash right (Jerry), jump (held 21 ticks), holding right, double jump at tick 12, from 8848,225; lands at 9146,177 {move ch=0 dir=1 jumpAt=2 djAt=12 gdAt=0}   [djump,gdash]
+      -> standing at x 9130-9206, y 177
+  32. dash-hop right (Claire), holding right, double jump at tick 8, from 9198,177; touches it on the way {move ch=1 dir=1 djAt=8 gdAt=0}   [djump,gdash]
+      -> out 9584,256
 how in 32,192 -> out 32,288: -
      coming in at 32,192
-   1. coming in: holding nothing, from 32,192; lands at 32,193
+   1. coming in: holding nothing, from 32,192; lands at 32,193 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-70, y 193
-   2. walk off the edge, holding right, then left after 1 ticks in the air, from 0,193; touches it on the way
+   2. walk off the edge, holding right, then left after 1 ticks in the air, from 0,193; touches it on the way {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}
       -> out 32,288
 how in 32,192 -> out 32,192: -
      coming in at 32,192
-   1. coming in: holding nothing, from 32,192; lands at 32,193
+   1. coming in: holding nothing, from 32,192; lands at 32,193 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-70, y 193
    2. standing at 0,193, presses up at it
       -> out 32,192
+how in 128,48 -> out 9584,256: adash,mario
+     coming in at 128,48
+   1. coming in: holding nothing, from 128,48; lands at 128,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-262, y 289
+   2. running right, jump (held 21 ticks), holding right, from 176,289; lands at 330,225 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 314-390, y 225
+   3. jump (held 21 ticks), holding right, from 314,225; lands at 482,193 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 474-550, y 193
+   4. jump (held 2 ticks), holding right, air dash (Jerry) at tick 14, from 548,193; comes down on the flying enemy at 816,213 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=0 jumpHold=2 adAt=14 maxT=120}   [adash,mario]
+      -> just stomped the oRedParatroopa at 816,213 (Jerry)
+   5. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 12, from 816,214; lands at 1128,225 {move ch=0 dir=1 adAt=12 maxT=120 fromFlyer=0}   [adash]
+      -> standing at x 1098-1174, y 225
+   6. jump (held 21 ticks), holding right, from 1098,225; lands at 1325,289 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 1290-1609, y 289
+   7. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1392,289; lands at 1704,289 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 1655-2169, y 289
+   8. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 2064,289; comes down on the flying enemy at 2309,209 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,mario]
+      -> just stomped the oBulletBill at 2309,209 (Jerry)
+   9. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 12, from 2309,210; lands at 2649,289 {move ch=0 dir=1 adAt=12 maxT=120 fromFlyer=48}   [adash]
+      -> standing at x 2602-2649, y 289
+  10. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, air dash (Jerry) at tick 10, from 2640,289; lands at 3109,305 {move ch=0 dir=1 jumpAt=0 jumpHold=60 adAt=10 maxT=120 afterBounce=1 stomp=1}   [adash,mario]
+      -> standing at x 3095-3145, y 305
+  11. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 3120,305; lands at 3353,225 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 3338-3414, y 225
+  12. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 3392,225; lands at 3729,257 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 3706-3782, y 257
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 3744,257; comes down on the flying enemy at 4032,213 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,mario]
+      -> just stomped the oRedParatroopa at 4032,213 (Jerry)
+  14. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 6, from 4032,214; comes down on the flying enemy at 4256,197 and stomps it (the Mario Ability Set) {move ch=0 dir=1 adAt=6 maxT=120 fromFlyer=8}   [adash,mario]
+      -> just stomped the oRedParatroopa at 4256,197 (Jerry)
+  15. just stomped the flying enemy, the jump or up held: holding nothing, then right after 4 ticks, air dash (Jerry) at tick 2, from 4256,198; comes down on the flying enemy at 4448,229 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=4 adAt=2 maxT=120 fromFlyer=10}   [adash,mario]
+      -> just stomped the oRedParatroopa at 4448,229 (Jerry)
+  16. just stomped the flying enemy, the jump or up held: holding nothing, then right after 8 ticks, air dash (Jerry) at tick 6, from 4448,230; comes down on the flying enemy at 4624,197 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=8 adAt=6 maxT=120 fromFlyer=12}   [adash,mario]
+      -> just stomped the oRedParatroopa at 4624,197 (Jerry)
+  17. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 6, from 4624,198; lands at 4863,193 {move ch=0 dir=1 adAt=6 maxT=120 fromFlyer=14}   [adash]
+      -> standing at x 4810-4886, y 193
+  18. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 4810,193; lands at 5160,289 {move ch=0 dir=1 adAt=6 noInputTillAir=1 adClear=1}   [adash]
+      -> standing at x 5066-5334, y 289
+  19. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, air dash (Jerry) at tick 10, from 5216,289; lands at 5680,289 {move ch=0 dir=1 jumpAt=0 jumpHold=60 adAt=10 maxT=120 afterBounce=1 stomp=1}   [adash,mario]
+      -> standing at x 5623-5689, y 289
+  20. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, from 5648,289; lands at 6219,273 {move ch=1 dir=1 jumpAt=0 jumpHold=60 maxT=120 afterBounce=1 stomp=1}   [mario]
+      -> standing at x 6202-6230, y 273
+  21. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 6202,273; lands at 6492,289 {move ch=0 dir=1 jumpAt=0 adAt=10}   [adash]
+      -> standing at x 6407-6518, y 289
+  22. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 6407,289; lands at 6662,257 {move ch=0 dir=1 jumpAt=0 adAt=10}   [adash]
+      -> standing at x 6650-6678, y 257
+  23. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 6670,257; lands at 6964,225 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 6954-6982, y 225
+  24. jump (held 21 ticks), holding right, from 6954,225; lands at 7181,289 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 7162-7190, y 289
+  25. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 7182,289; comes down on the flying enemy at 7429,209 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,mario]
+      -> just stomped the oBulletBill at 7429,209 (Jerry)
+  26. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 6, from 7429,210; comes down on the flying enemy at 7717,289 and stomps it (the Mario Ability Set) {move ch=0 dir=1 adAt=6 maxT=120 fromFlyer=116}   [adash,mario]
+      -> just stomped the oBulletBill at 7717,289 (Jerry)
+  27. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 14, from 7717,290; lands at 8016,257 {move ch=0 dir=1 adAt=14 maxT=120 fromFlyer=124}   [adash]
+      -> standing at x 7994-8070, y 257
+  28. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, air dash (Jerry) at tick 10, from 8062,257; lands at 8469,177 {move ch=0 dir=1 jumpAt=0 jumpHold=60 adAt=10 maxT=120 afterBounce=1 stomp=1}   [adash,mario]
+      -> standing at x 8458-8534, y 177
+  29. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 8458,177; lands at 8722,161 {move ch=0 dir=1 jumpAt=0 adAt=10}   [adash]
+      -> standing at x 8698-8774, y 161
+  30. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, air dash (Jerry) at tick 10, from 8698,161; lands at 9157,177 {move ch=0 dir=1 jumpAt=0 jumpHold=60 adAt=10 maxT=120 afterBounce=1 stomp=1}   [adash,mario]
+      -> standing at x 9130-9206, y 177
+  31. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 9198,177; touches it on the way {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> out 9584,256
+how in 128,48 -> out 9584,256: djump,gdash,mario
+     coming in at 128,48
+   1. coming in: holding nothing, from 128,48; lands at 128,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-262, y 289
+   2. running right, jump (held 21 ticks), holding right, from 176,289; lands at 330,225 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 314-390, y 225
+   3. jump (held 21 ticks), holding right, from 314,225; lands at 482,193 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 474-550, y 193
+   4. running right, jump (held 2 ticks), holding right, double jump at tick 16, from 548,193; comes down on the flying enemy at 816,213 and stomps it (the Mario Ability Set) {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2 djAt=16 maxT=120}   [djump,mario]
+      -> just stomped the oRedParatroopa at 816,213 (Claire)
+   5. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 18, from 816,214; lands at 1131,225 {move ch=1 dir=1 djAt=18 maxT=120 fromFlyer=1}   [djump]
+      -> standing at x 1098-1174, y 225
+   6. jump (held 21 ticks), holding right, from 1098,225; lands at 1325,289 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 1290-1609, y 289
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1424,289; lands at 1702,289 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 1655-2169, y 289
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 2096,289; lands at 2323,209 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 2314-2342, y 209
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 2314,209; lands at 2643,289 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 2602-2649, y 289
+  10. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, double jump at tick 12, from 2641,289; lands at 3110,305 {move ch=1 dir=1 jumpAt=0 jumpHold=60 djAt=12 maxT=120 afterBounce=1 stomp=1}   [djump,mario]
+      -> standing at x 3095-3145, y 305
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 3120,305; lands at 3347,225 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 3338-3414, y 225
+  12. running right, jump (held 5 ticks), holding right, double jump at tick 16, from 3412,225; lands at 3713,257 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=5 djAt=16 maxT=120}   [djump]
+      -> standing at x 3706-3782, y 257
+  13. dash right (Jerry), jump (held 21 ticks), holding right, double jump at tick 12, from 3728,257; comes down on the flying enemy at 4032,213 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=2 djAt=12 gdAt=0}   [djump,gdash,mario]
+      -> just stomped the oRedParatroopa at 4032,213 (Jerry)
+  14. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 14, from 4032,214; comes down on the flying enemy at 4256,197 and stomps it (the Mario Ability Set) {move ch=0 dir=1 djAt=14 maxT=120 fromFlyer=8}   [djump,mario]
+      -> just stomped the oRedParatroopa at 4256,197 (Jerry)
+  15. just stomped the flying enemy, the jump or up held: holding nothing, then right after 16 ticks, double jump at tick 26, from 4256,198; comes down on the flying enemy at 4448,229 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=16 djAt=26 maxT=120 fromFlyer=10}   [djump,mario]
+      -> just stomped the oRedParatroopa at 4448,229 (Jerry)
+  16. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 14, from 4448,230; comes down on the flying enemy at 4624,197 and stomps it (the Mario Ability Set) {move ch=0 dir=1 djAt=14 maxT=120 fromFlyer=12}   [djump,mario]
+      -> just stomped the oRedParatroopa at 4624,197 (Jerry)
+  17. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 12, from 4624,198; lands at 4866,193 {move ch=0 dir=1 djAt=12 maxT=120 fromFlyer=14}   [djump]
+      -> standing at x 4810-4886, y 193
+  18. jump (held 21 ticks), holding right, double jump at tick 10, from 4810,193; lands at 5103,289 {move ch=1 dir=1 jumpAt=0 djAt=10}   [djump]
+      -> standing at x 5066-5334, y 289
+  19. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, double jump at tick 12, from 5200,289; lands at 5661,289 {move ch=1 dir=1 jumpAt=0 jumpHold=60 djAt=12 maxT=120 afterBounce=1 stomp=1}   [djump,mario]
+      -> standing at x 5623-5689, y 289
+  20. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, from 5648,289; lands at 6219,273 {move ch=1 dir=1 jumpAt=0 jumpHold=60 maxT=120 afterBounce=1 stomp=1}   [mario]
+      -> standing at x 6202-6230, y 273
+  21. jump (held 21 ticks), holding right, from 6202,273; comes down on the flying enemy at 6373,241 and stomps it (the Mario Ability Set) {move ch=1 dir=1 jumpAt=0}   [mario]
+      -> just stomped the oBulletBill at 6373,241 (Claire)
+  22. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 18, from 6373,242; comes down on the flying enemy at 6681,257 and stomps it (the Mario Ability Set) {move ch=1 dir=1 djAt=18 maxT=120 fromFlyer=57}   [djump,mario]
+      -> just stomped the oBulletBill at 6681,257 (Claire)
+  23. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 18, from 6681,258; lands at 6966,225 {move ch=1 dir=1 djAt=18 maxT=120 fromFlyer=91}   [djump]
+      -> standing at x 6954-6982, y 225
+  24. jump (held 21 ticks), holding right, from 6954,225; lands at 7181,289 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 7162-7190, y 289
+  25. dash right (Jerry), jump (held 21 ticks), holding right, double jump at tick 12, from 7162,289; comes down on the flying enemy at 7429,209 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=2 djAt=12 gdAt=0}   [djump,gdash,mario]
+      -> just stomped the oBulletBill at 7429,209 (Jerry)
+  26. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 18, from 7429,210; lands at 7744,289 {move ch=0 dir=1 djAt=18 maxT=120 fromFlyer=116}   [djump]
+      -> standing at x 7722-7750, y 289
+  27. dash right (Jerry), jump (held 21 ticks), holding right, double jump at tick 12, from 7722,289; lands at 8033,257 {move ch=0 dir=1 jumpAt=2 djAt=12 gdAt=0}   [djump,gdash]
+      -> standing at x 7994-8070, y 257
+  28. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, double jump at tick 12, from 8062,257; lands at 8472,177 {move ch=1 dir=1 jumpAt=0 jumpHold=60 djAt=12 maxT=120 afterBounce=1 stomp=1}   [djump,mario]
+      -> standing at x 8458-8534, y 177
+  29. dash right (Jerry), jump (held 21 ticks), holding right, double jump at tick 12, from 8496,177; lands at 8846,225 {move ch=0 dir=1 jumpAt=2 djAt=12 gdAt=0}   [djump,gdash]
+      -> standing at x 8826-8902, y 225
+  30. dash right (Jerry), jump (held 21 ticks), holding right, double jump at tick 12, from 8848,225; lands at 9146,177 {move ch=0 dir=1 jumpAt=2 djAt=12 gdAt=0}   [djump,gdash]
+      -> standing at x 9130-9206, y 177
+  31. dash-hop right (Claire), holding right, double jump at tick 8, from 9198,177; touches it on the way {move ch=1 dir=1 djAt=8 gdAt=0}   [djump,gdash]
+      -> out 9584,256
 how in 128,48 -> out 32,288: -
      coming in at 128,48
-   1. coming in: holding left, from 128,48; lands at 30,193
+   1. coming in: holding left, from 128,48; lands at 30,193 {move ch=1 dir=1 h1=-1 h2=-1 entering=1}
       -> standing at x 0-70, y 193
-   2. walk off the edge, holding right, then left after 1 ticks in the air, from 0,193; touches it on the way
+   2. walk off the edge, holding right, then left after 1 ticks in the air, from 0,193; touches it on the way {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}
       -> out 32,288
 how in 128,48 -> out 32,192: -
      coming in at 128,48
-   1. coming in: holding left, from 128,48; lands at 30,193
+   1. coming in: holding left, from 128,48; lands at 30,193 {move ch=1 dir=1 h1=-1 h2=-1 entering=1}
       -> standing at x 0-70, y 193
    2. standing at 0,193, presses up at it
       -> out 32,192
 how in 9552,288 -> out 9584,256: -
      coming in at 9552,288
-   1. coming in: holding nothing, from 9552,288; lands at 9552,289
+   1. coming in: holding nothing, from 9552,288; lands at 9552,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 9415-9600, y 289
-   2. jump (held 2 ticks), holding left, from 9415,289; lands at 9372,257
+   2. jump (held 2 ticks), holding left, from 9415,289; lands at 9372,257 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 9306-9414, y 257
-   3. running right, jump (held 21 ticks), holding right, from 9360,257; touches it on the way
+   3. running right, jump (held 21 ticks), holding right, from 9360,257; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0}
+      -> out 9584,256
+how in 9552,288 -> out 32,288: djump,adash,mario
+     coming in at 9552,288
+   1. coming in: holding nothing, from 9552,288; lands at 9552,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 9415-9600, y 289
+   2. jump (held 2 ticks), holding left, from 9415,289; lands at 9372,257 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
+      -> standing at x 9306-9414, y 257
+   3. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Jerry) at tick 12, from 9306,257; lands at 9181,177 {move ch=0 dir=-1 jumpAt=0 h1=0 hDelay=12 adAt=12}   [adash]
+      -> standing at x 9130-9206, y 177
+   4. running left, jump (held 21 ticks), holding left, from 9130,177; lands at 8895,225 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 8826-8902, y 225
+   5. walk off the edge, holding left once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 8826,225; lands at 8608,273 {move ch=0 dir=-1 adAt=6 noInputTillAir=1 adClear=1}   [adash]
+      -> standing at x 8554-8630, y 273
+   6. running left, jump (held 21 ticks), holding left, air dash (Claire) at tick 8, from 8560,273; lands at 8367,257 {move ch=1 dir=-1 run=1 jumpAt=0 adAt=8}   [adash]
+      -> standing at x 8362-8438, y 257
+   7. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 8362,257; lands at 8064,257 {move ch=0 dir=-1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 7994-8070, y 257
+   8. running left, jump (held 21 ticks), holding left, air dash (Claire) at tick 8, from 7994,257; lands at 7737,289 {move ch=1 dir=-1 run=1 jumpAt=0 adAt=8}   [adash]
+      -> standing at x 7722-7750, y 289
+   9. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Claire) at tick 12, from 7722,289; lands at 7567,289 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=12 adAt=12}   [adash]
+      -> standing at x 7562-7590, y 289
+  10. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Claire) at tick 12, from 7562,289; lands at 7454,209 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=12 adAt=12}   [adash]
+      -> standing at x 7434-7462, y 209
+  11. running left, jump (held 21 ticks), holding left, from 7434,209; lands at 7182,289 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 7162-7190, y 289
+  12. running left, jump (held 21 ticks), holding left, air dash (Jerry) at tick 8, from 7162,289; lands at 6959,225 {move ch=0 dir=-1 run=1 jumpAt=0 adAt=8}   [adash]
+      -> standing at x 6954-6982, y 225
+  13. jump (held 21 ticks), holding left, air dash (Claire) at tick 16, from 6954,225; lands at 6663,257 {move ch=1 dir=-1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 6650-6678, y 257
+  14. running left, jump (held 21 ticks), holding left, air dash (Jerry) at tick 8, from 6650,257; lands at 6399,241 {move ch=0 dir=-1 run=1 jumpAt=0 adAt=8}   [adash]
+      -> standing at x 6378-6406, y 241
+  15. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 6378,241; lands at 6138,209 {move ch=0 dir=-1 jumpAt=0 adAt=10}   [adash]
+      -> standing at x 6122-6150, y 209
+  16. running left, jump (held 21 ticks), holding left, air dash (Claire) at tick 8, from 6122,209; lands at 5872,225 {move ch=1 dir=-1 run=1 jumpAt=0 adAt=8}   [adash]
+      -> standing at x 5866-5894, y 225
+  17. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 5866,225; lands at 5595,257 {move ch=0 dir=-1 jumpAt=0 adAt=10}   [adash]
+      -> standing at x 5511-5622, y 257
+  18. jump (held 21 ticks), holding left, from 5511,257; lands at 5321,289 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 5066-5334, y 289
+  19. jump (held 2 ticks), holding left, from 5066,289; lands at 5001,257 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
+      -> standing at x 4938-5014, y 257
+  20. jump (held 21 ticks), holding left, from 4938,257; lands at 4814,193 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 4810-4886, y 193
+  21. running left, jump (held 14 ticks), holding left, air dash (Jerry) at tick 26, from 4812,193; comes down on the flying enemy at 4448,229 and stomps it (the Mario Ability Set) {move ch=0 dir=-1 run=1 jumpAt=0 jumpHold=14 adAt=26 maxT=120}   [adash,mario]
+      -> just stomped the oRedParatroopa at 4448,229 (Jerry)
+  22. just stomped the flying enemy, the jump or up held: holding left, then nothing after 12 ticks, air dash (Jerry) at tick 6, from 4448,230; comes down on the flying enemy at 4256,197 and stomps it (the Mario Ability Set) {move ch=0 dir=-1 h2=0 hDelay=12 adAt=6 maxT=120 fromFlyer=12}   [adash,mario]
+      -> just stomped the oRedParatroopa at 4256,197 (Jerry)
+  23. just stomped the flying enemy, neither the jump nor up held: holding left, air dash (Jerry) at tick 10, from 4256,198; comes down on the flying enemy at 4032,213 and stomps it (the Mario Ability Set) {move ch=0 dir=-1 adAt=10 maxT=120 fromFlyer=10 lowBounce=1}   [adash,mario]
+      -> just stomped the oRedParatroopa at 4032,213 (Jerry)
+  24. just stomped the flying enemy, neither the jump nor up held: holding left, air dash (Jerry) at tick 12, from 4032,214; lands at 3772,257 {move ch=0 dir=-1 adAt=12 maxT=120 fromFlyer=8 lowBounce=1}   [adash]
+      -> standing at x 3706-3782, y 257
+  25. running left, jump (held 14 ticks), holding left, air dash (Jerry) at tick 20, from 3708,257; lands at 3401,225 {move ch=0 dir=-1 run=1 jumpAt=0 jumpHold=14 adAt=20 maxT=120}   [adash]
+      -> standing at x 3338-3414, y 225
+  26. jump (held 60 ticks), onto a Mario enemy on the ground, holding left and jump, bounced off it (the Mario Ability Set), then holding left, from 3338,225; lands at 3163,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=60 maxT=120 afterBounce=1 stomp=1}   [mario]
+      -> standing at x 3146-3190, y 289
+  27. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 3146,289; lands at 2867,257 {move ch=0 dir=-1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 2858-2902, y 257
+  28. jump (held 60 ticks), onto a Mario enemy on the ground, holding left and jump, bounced off it (the Mario Ability Set), then holding left, air dash (Jerry) at tick 10, from 2858,257; lands at 2411,289 {move ch=0 dir=-1 jumpAt=0 jumpHold=60 adAt=10 maxT=120 afterBounce=1 stomp=1}   [adash,mario]
+      -> standing at x 2343-2518, y 289
+  29. jump (held 60 ticks), onto a Mario enemy on the ground, holding left and jump, bounced off it (the Mario Ability Set), then holding left, air dash (Jerry) at tick 10, from 2448,289; comes down on the flying enemy at 2345,209 and stomps it (the Mario Ability Set) {move ch=0 dir=-1 jumpAt=0 jumpHold=60 adAt=10 maxT=120 afterBounce=1 stomp=1}   [adash,mario]
+      -> just stomped the oBulletBill at 2345,209 (Jerry)
+  30. just stomped the flying enemy, the jump or up held: holding left, from 2345,210; lands at 2135,289 {move ch=0 dir=-1 maxT=120 fromFlyer=50}
+      -> standing at x 1655-2169, y 289
+  31. jump (held 60 ticks), onto a Mario enemy on the ground, holding left and jump, bounced off it (the Mario Ability Set), then holding left, from 1655,289; lands at 1508,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=60 maxT=120 afterBounce=1 stomp=1}   [mario]
+      -> standing at x 1290-1609, y 289
+  32. jump (held 21 ticks), holding left, from 1290,289; lands at 1159,225 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 1098-1174, y 225
+  33. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1098,225; comes down on the flying enemy at 816,213 and stomps it (the Mario Ability Set) {move ch=0 dir=-1 jumpAt=0 adAt=16}   [adash,mario]
+      -> just stomped the oRedParatroopa at 816,213 (Jerry)
+  34. just stomped the flying enemy, the jump or up held: holding left, double jump at tick 14, air dash (Jerry) at tick 2, from 816,214; lands at 534,193 {move ch=0 dir=-1 djAt=14 adAt=2 maxT=120 fromFlyer=0}   [djump,adash]
+      -> standing at x 474-550, y 193
+  35. jump (held 2 ticks), holding left, from 474,193; lands at 350,225 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
+      -> standing at x 314-390, y 225
+  36. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 314,225; lands at 35,193 {move ch=0 dir=-1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 0-70, y 193
+  37. walk off the edge, holding right, then left after 1 ticks in the air, from 0,193; touches it on the way {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}
+      -> out 32,288
+how in 9552,288 -> out 32,192: djump,adash,mario
+     coming in at 9552,288
+   1. coming in: holding nothing, from 9552,288; lands at 9552,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 9415-9600, y 289
+   2. jump (held 2 ticks), holding left, from 9415,289; lands at 9372,257 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
+      -> standing at x 9306-9414, y 257
+   3. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Jerry) at tick 12, from 9306,257; lands at 9181,177 {move ch=0 dir=-1 jumpAt=0 h1=0 hDelay=12 adAt=12}   [adash]
+      -> standing at x 9130-9206, y 177
+   4. running left, jump (held 21 ticks), holding left, from 9130,177; lands at 8895,225 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 8826-8902, y 225
+   5. walk off the edge, holding left once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 8826,225; lands at 8608,273 {move ch=0 dir=-1 adAt=6 noInputTillAir=1 adClear=1}   [adash]
+      -> standing at x 8554-8630, y 273
+   6. running left, jump (held 21 ticks), holding left, air dash (Claire) at tick 8, from 8560,273; lands at 8367,257 {move ch=1 dir=-1 run=1 jumpAt=0 adAt=8}   [adash]
+      -> standing at x 8362-8438, y 257
+   7. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 8362,257; lands at 8064,257 {move ch=0 dir=-1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 7994-8070, y 257
+   8. running left, jump (held 21 ticks), holding left, air dash (Claire) at tick 8, from 7994,257; lands at 7737,289 {move ch=1 dir=-1 run=1 jumpAt=0 adAt=8}   [adash]
+      -> standing at x 7722-7750, y 289
+   9. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Claire) at tick 12, from 7722,289; lands at 7567,289 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=12 adAt=12}   [adash]
+      -> standing at x 7562-7590, y 289
+  10. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Claire) at tick 12, from 7562,289; lands at 7454,209 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=12 adAt=12}   [adash]
+      -> standing at x 7434-7462, y 209
+  11. running left, jump (held 21 ticks), holding left, from 7434,209; lands at 7182,289 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 7162-7190, y 289
+  12. running left, jump (held 21 ticks), holding left, air dash (Jerry) at tick 8, from 7162,289; lands at 6959,225 {move ch=0 dir=-1 run=1 jumpAt=0 adAt=8}   [adash]
+      -> standing at x 6954-6982, y 225
+  13. jump (held 21 ticks), holding left, air dash (Claire) at tick 16, from 6954,225; lands at 6663,257 {move ch=1 dir=-1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 6650-6678, y 257
+  14. running left, jump (held 21 ticks), holding left, air dash (Jerry) at tick 8, from 6650,257; lands at 6399,241 {move ch=0 dir=-1 run=1 jumpAt=0 adAt=8}   [adash]
+      -> standing at x 6378-6406, y 241
+  15. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 6378,241; lands at 6138,209 {move ch=0 dir=-1 jumpAt=0 adAt=10}   [adash]
+      -> standing at x 6122-6150, y 209
+  16. running left, jump (held 21 ticks), holding left, air dash (Claire) at tick 8, from 6122,209; lands at 5872,225 {move ch=1 dir=-1 run=1 jumpAt=0 adAt=8}   [adash]
+      -> standing at x 5866-5894, y 225
+  17. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 5866,225; lands at 5595,257 {move ch=0 dir=-1 jumpAt=0 adAt=10}   [adash]
+      -> standing at x 5511-5622, y 257
+  18. jump (held 21 ticks), holding left, from 5511,257; lands at 5321,289 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 5066-5334, y 289
+  19. jump (held 2 ticks), holding left, from 5066,289; lands at 5001,257 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
+      -> standing at x 4938-5014, y 257
+  20. jump (held 21 ticks), holding left, from 4938,257; lands at 4814,193 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 4810-4886, y 193
+  21. running left, jump (held 14 ticks), holding left, air dash (Jerry) at tick 26, from 4812,193; comes down on the flying enemy at 4448,229 and stomps it (the Mario Ability Set) {move ch=0 dir=-1 run=1 jumpAt=0 jumpHold=14 adAt=26 maxT=120}   [adash,mario]
+      -> just stomped the oRedParatroopa at 4448,229 (Jerry)
+  22. just stomped the flying enemy, the jump or up held: holding left, then nothing after 12 ticks, air dash (Jerry) at tick 6, from 4448,230; comes down on the flying enemy at 4256,197 and stomps it (the Mario Ability Set) {move ch=0 dir=-1 h2=0 hDelay=12 adAt=6 maxT=120 fromFlyer=12}   [adash,mario]
+      -> just stomped the oRedParatroopa at 4256,197 (Jerry)
+  23. just stomped the flying enemy, neither the jump nor up held: holding left, air dash (Jerry) at tick 10, from 4256,198; comes down on the flying enemy at 4032,213 and stomps it (the Mario Ability Set) {move ch=0 dir=-1 adAt=10 maxT=120 fromFlyer=10 lowBounce=1}   [adash,mario]
+      -> just stomped the oRedParatroopa at 4032,213 (Jerry)
+  24. just stomped the flying enemy, neither the jump nor up held: holding left, air dash (Jerry) at tick 12, from 4032,214; lands at 3772,257 {move ch=0 dir=-1 adAt=12 maxT=120 fromFlyer=8 lowBounce=1}   [adash]
+      -> standing at x 3706-3782, y 257
+  25. running left, jump (held 14 ticks), holding left, air dash (Jerry) at tick 20, from 3708,257; lands at 3401,225 {move ch=0 dir=-1 run=1 jumpAt=0 jumpHold=14 adAt=20 maxT=120}   [adash]
+      -> standing at x 3338-3414, y 225
+  26. jump (held 60 ticks), onto a Mario enemy on the ground, holding left and jump, bounced off it (the Mario Ability Set), then holding left, from 3338,225; lands at 3163,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=60 maxT=120 afterBounce=1 stomp=1}   [mario]
+      -> standing at x 3146-3190, y 289
+  27. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 3146,289; lands at 2867,257 {move ch=0 dir=-1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 2858-2902, y 257
+  28. jump (held 60 ticks), onto a Mario enemy on the ground, holding left and jump, bounced off it (the Mario Ability Set), then holding left, air dash (Jerry) at tick 10, from 2858,257; lands at 2411,289 {move ch=0 dir=-1 jumpAt=0 jumpHold=60 adAt=10 maxT=120 afterBounce=1 stomp=1}   [adash,mario]
+      -> standing at x 2343-2518, y 289
+  29. jump (held 60 ticks), onto a Mario enemy on the ground, holding left and jump, bounced off it (the Mario Ability Set), then holding left, air dash (Jerry) at tick 10, from 2448,289; comes down on the flying enemy at 2345,209 and stomps it (the Mario Ability Set) {move ch=0 dir=-1 jumpAt=0 jumpHold=60 adAt=10 maxT=120 afterBounce=1 stomp=1}   [adash,mario]
+      -> just stomped the oBulletBill at 2345,209 (Jerry)
+  30. just stomped the flying enemy, the jump or up held: holding left, from 2345,210; lands at 2135,289 {move ch=0 dir=-1 maxT=120 fromFlyer=50}
+      -> standing at x 1655-2169, y 289
+  31. jump (held 60 ticks), onto a Mario enemy on the ground, holding left and jump, bounced off it (the Mario Ability Set), then holding left, from 1655,289; lands at 1508,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=60 maxT=120 afterBounce=1 stomp=1}   [mario]
+      -> standing at x 1290-1609, y 289
+  32. jump (held 21 ticks), holding left, from 1290,289; lands at 1159,225 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 1098-1174, y 225
+  33. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1098,225; comes down on the flying enemy at 816,213 and stomps it (the Mario Ability Set) {move ch=0 dir=-1 jumpAt=0 adAt=16}   [adash,mario]
+      -> just stomped the oRedParatroopa at 816,213 (Jerry)
+  34. just stomped the flying enemy, the jump or up held: holding left, double jump at tick 14, air dash (Jerry) at tick 2, from 816,214; lands at 534,193 {move ch=0 dir=-1 djAt=14 adAt=2 maxT=120 fromFlyer=0}   [djump,adash]
+      -> standing at x 474-550, y 193
+  35. jump (held 2 ticks), holding left, from 474,193; lands at 350,225 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
+      -> standing at x 314-390, y 225
+  36. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 314,225; lands at 35,193 {move ch=0 dir=-1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 0-70, y 193
+  37. standing at 0,193, presses up at it
+      -> out 32,192
+how in 32,288 -> out 9584,256: adash,mario
+     coming in at 32,288
+   1. coming in: holding nothing, from 32,288; lands at 32,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-262, y 289
+   2. running right, jump (held 21 ticks), holding right, from 176,289; lands at 330,225 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 314-390, y 225
+   3. jump (held 21 ticks), holding right, from 314,225; lands at 482,193 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 474-550, y 193
+   4. jump (held 2 ticks), holding right, air dash (Jerry) at tick 14, from 548,193; comes down on the flying enemy at 816,213 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=0 jumpHold=2 adAt=14 maxT=120}   [adash,mario]
+      -> just stomped the oRedParatroopa at 816,213 (Jerry)
+   5. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 12, from 816,214; lands at 1128,225 {move ch=0 dir=1 adAt=12 maxT=120 fromFlyer=0}   [adash]
+      -> standing at x 1098-1174, y 225
+   6. jump (held 21 ticks), holding right, from 1098,225; lands at 1325,289 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 1290-1609, y 289
+   7. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1392,289; lands at 1704,289 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 1655-2169, y 289
+   8. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 2064,289; comes down on the flying enemy at 2309,209 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,mario]
+      -> just stomped the oBulletBill at 2309,209 (Jerry)
+   9. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 12, from 2309,210; lands at 2649,289 {move ch=0 dir=1 adAt=12 maxT=120 fromFlyer=48}   [adash]
+      -> standing at x 2602-2649, y 289
+  10. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, air dash (Jerry) at tick 10, from 2640,289; lands at 3109,305 {move ch=0 dir=1 jumpAt=0 jumpHold=60 adAt=10 maxT=120 afterBounce=1 stomp=1}   [adash,mario]
+      -> standing at x 3095-3145, y 305
+  11. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 3120,305; lands at 3353,225 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 3338-3414, y 225
+  12. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 3392,225; lands at 3729,257 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 3706-3782, y 257
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 3744,257; comes down on the flying enemy at 4032,213 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,mario]
+      -> just stomped the oRedParatroopa at 4032,213 (Jerry)
+  14. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 6, from 4032,214; comes down on the flying enemy at 4256,197 and stomps it (the Mario Ability Set) {move ch=0 dir=1 adAt=6 maxT=120 fromFlyer=8}   [adash,mario]
+      -> just stomped the oRedParatroopa at 4256,197 (Jerry)
+  15. just stomped the flying enemy, the jump or up held: holding nothing, then right after 4 ticks, air dash (Jerry) at tick 2, from 4256,198; comes down on the flying enemy at 4448,229 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=4 adAt=2 maxT=120 fromFlyer=10}   [adash,mario]
+      -> just stomped the oRedParatroopa at 4448,229 (Jerry)
+  16. just stomped the flying enemy, the jump or up held: holding nothing, then right after 8 ticks, air dash (Jerry) at tick 6, from 4448,230; comes down on the flying enemy at 4624,197 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=8 adAt=6 maxT=120 fromFlyer=12}   [adash,mario]
+      -> just stomped the oRedParatroopa at 4624,197 (Jerry)
+  17. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 6, from 4624,198; lands at 4863,193 {move ch=0 dir=1 adAt=6 maxT=120 fromFlyer=14}   [adash]
+      -> standing at x 4810-4886, y 193
+  18. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 4810,193; lands at 5160,289 {move ch=0 dir=1 adAt=6 noInputTillAir=1 adClear=1}   [adash]
+      -> standing at x 5066-5334, y 289
+  19. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, air dash (Jerry) at tick 10, from 5216,289; lands at 5680,289 {move ch=0 dir=1 jumpAt=0 jumpHold=60 adAt=10 maxT=120 afterBounce=1 stomp=1}   [adash,mario]
+      -> standing at x 5623-5689, y 289
+  20. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, from 5648,289; lands at 6219,273 {move ch=1 dir=1 jumpAt=0 jumpHold=60 maxT=120 afterBounce=1 stomp=1}   [mario]
+      -> standing at x 6202-6230, y 273
+  21. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 6202,273; lands at 6492,289 {move ch=0 dir=1 jumpAt=0 adAt=10}   [adash]
+      -> standing at x 6407-6518, y 289
+  22. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 6407,289; lands at 6662,257 {move ch=0 dir=1 jumpAt=0 adAt=10}   [adash]
+      -> standing at x 6650-6678, y 257
+  23. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 6670,257; lands at 6964,225 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 6954-6982, y 225
+  24. jump (held 21 ticks), holding right, from 6954,225; lands at 7181,289 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 7162-7190, y 289
+  25. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 7182,289; comes down on the flying enemy at 7429,209 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,mario]
+      -> just stomped the oBulletBill at 7429,209 (Jerry)
+  26. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 6, from 7429,210; comes down on the flying enemy at 7717,289 and stomps it (the Mario Ability Set) {move ch=0 dir=1 adAt=6 maxT=120 fromFlyer=116}   [adash,mario]
+      -> just stomped the oBulletBill at 7717,289 (Jerry)
+  27. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 14, from 7717,290; lands at 8016,257 {move ch=0 dir=1 adAt=14 maxT=120 fromFlyer=124}   [adash]
+      -> standing at x 7994-8070, y 257
+  28. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, air dash (Jerry) at tick 10, from 8062,257; lands at 8469,177 {move ch=0 dir=1 jumpAt=0 jumpHold=60 adAt=10 maxT=120 afterBounce=1 stomp=1}   [adash,mario]
+      -> standing at x 8458-8534, y 177
+  29. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 8458,177; lands at 8722,161 {move ch=0 dir=1 jumpAt=0 adAt=10}   [adash]
+      -> standing at x 8698-8774, y 161
+  30. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, air dash (Jerry) at tick 10, from 8698,161; lands at 9157,177 {move ch=0 dir=1 jumpAt=0 jumpHold=60 adAt=10 maxT=120 afterBounce=1 stomp=1}   [adash,mario]
+      -> standing at x 9130-9206, y 177
+  31. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 9198,177; touches it on the way {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> out 9584,256
+how in 32,288 -> out 9584,256: djump,gdash,mario
+     coming in at 32,288
+   1. coming in: holding nothing, from 32,288; lands at 32,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-262, y 289
+   2. running right, jump (held 21 ticks), holding right, from 176,289; lands at 330,225 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 314-390, y 225
+   3. jump (held 21 ticks), holding right, from 314,225; lands at 482,193 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 474-550, y 193
+   4. running right, jump (held 2 ticks), holding right, double jump at tick 16, from 548,193; comes down on the flying enemy at 816,213 and stomps it (the Mario Ability Set) {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2 djAt=16 maxT=120}   [djump,mario]
+      -> just stomped the oRedParatroopa at 816,213 (Claire)
+   5. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 18, from 816,214; lands at 1131,225 {move ch=1 dir=1 djAt=18 maxT=120 fromFlyer=1}   [djump]
+      -> standing at x 1098-1174, y 225
+   6. jump (held 21 ticks), holding right, from 1098,225; lands at 1325,289 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 1290-1609, y 289
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1424,289; lands at 1702,289 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 1655-2169, y 289
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 2096,289; lands at 2323,209 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 2314-2342, y 209
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 2314,209; lands at 2643,289 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 2602-2649, y 289
+  10. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, double jump at tick 12, from 2641,289; lands at 3110,305 {move ch=1 dir=1 jumpAt=0 jumpHold=60 djAt=12 maxT=120 afterBounce=1 stomp=1}   [djump,mario]
+      -> standing at x 3095-3145, y 305
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 3120,305; lands at 3347,225 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 3338-3414, y 225
+  12. running right, jump (held 5 ticks), holding right, double jump at tick 16, from 3412,225; lands at 3713,257 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=5 djAt=16 maxT=120}   [djump]
+      -> standing at x 3706-3782, y 257
+  13. dash right (Jerry), jump (held 21 ticks), holding right, double jump at tick 12, from 3728,257; comes down on the flying enemy at 4032,213 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=2 djAt=12 gdAt=0}   [djump,gdash,mario]
+      -> just stomped the oRedParatroopa at 4032,213 (Jerry)
+  14. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 14, from 4032,214; comes down on the flying enemy at 4256,197 and stomps it (the Mario Ability Set) {move ch=0 dir=1 djAt=14 maxT=120 fromFlyer=8}   [djump,mario]
+      -> just stomped the oRedParatroopa at 4256,197 (Jerry)
+  15. just stomped the flying enemy, the jump or up held: holding nothing, then right after 16 ticks, double jump at tick 26, from 4256,198; comes down on the flying enemy at 4448,229 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=16 djAt=26 maxT=120 fromFlyer=10}   [djump,mario]
+      -> just stomped the oRedParatroopa at 4448,229 (Jerry)
+  16. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 14, from 4448,230; comes down on the flying enemy at 4624,197 and stomps it (the Mario Ability Set) {move ch=0 dir=1 djAt=14 maxT=120 fromFlyer=12}   [djump,mario]
+      -> just stomped the oRedParatroopa at 4624,197 (Jerry)
+  17. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 12, from 4624,198; lands at 4866,193 {move ch=0 dir=1 djAt=12 maxT=120 fromFlyer=14}   [djump]
+      -> standing at x 4810-4886, y 193
+  18. jump (held 21 ticks), holding right, double jump at tick 10, from 4810,193; lands at 5103,289 {move ch=1 dir=1 jumpAt=0 djAt=10}   [djump]
+      -> standing at x 5066-5334, y 289
+  19. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, double jump at tick 12, from 5200,289; lands at 5661,289 {move ch=1 dir=1 jumpAt=0 jumpHold=60 djAt=12 maxT=120 afterBounce=1 stomp=1}   [djump,mario]
+      -> standing at x 5623-5689, y 289
+  20. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, from 5648,289; lands at 6219,273 {move ch=1 dir=1 jumpAt=0 jumpHold=60 maxT=120 afterBounce=1 stomp=1}   [mario]
+      -> standing at x 6202-6230, y 273
+  21. jump (held 21 ticks), holding right, from 6202,273; comes down on the flying enemy at 6373,241 and stomps it (the Mario Ability Set) {move ch=1 dir=1 jumpAt=0}   [mario]
+      -> just stomped the oBulletBill at 6373,241 (Claire)
+  22. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 18, from 6373,242; comes down on the flying enemy at 6681,257 and stomps it (the Mario Ability Set) {move ch=1 dir=1 djAt=18 maxT=120 fromFlyer=57}   [djump,mario]
+      -> just stomped the oBulletBill at 6681,257 (Claire)
+  23. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 18, from 6681,258; lands at 6966,225 {move ch=1 dir=1 djAt=18 maxT=120 fromFlyer=91}   [djump]
+      -> standing at x 6954-6982, y 225
+  24. jump (held 21 ticks), holding right, from 6954,225; lands at 7181,289 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 7162-7190, y 289
+  25. dash right (Jerry), jump (held 21 ticks), holding right, double jump at tick 12, from 7162,289; comes down on the flying enemy at 7429,209 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=2 djAt=12 gdAt=0}   [djump,gdash,mario]
+      -> just stomped the oBulletBill at 7429,209 (Jerry)
+  26. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 18, from 7429,210; lands at 7744,289 {move ch=0 dir=1 djAt=18 maxT=120 fromFlyer=116}   [djump]
+      -> standing at x 7722-7750, y 289
+  27. dash right (Jerry), jump (held 21 ticks), holding right, double jump at tick 12, from 7722,289; lands at 8033,257 {move ch=0 dir=1 jumpAt=2 djAt=12 gdAt=0}   [djump,gdash]
+      -> standing at x 7994-8070, y 257
+  28. jump (held 60 ticks), onto a Mario enemy on the ground, holding right and jump, bounced off it (the Mario Ability Set), then holding right, double jump at tick 12, from 8062,257; lands at 8472,177 {move ch=1 dir=1 jumpAt=0 jumpHold=60 djAt=12 maxT=120 afterBounce=1 stomp=1}   [djump,mario]
+      -> standing at x 8458-8534, y 177
+  29. dash right (Jerry), jump (held 21 ticks), holding right, double jump at tick 12, from 8496,177; lands at 8846,225 {move ch=0 dir=1 jumpAt=2 djAt=12 gdAt=0}   [djump,gdash]
+      -> standing at x 8826-8902, y 225
+  30. dash right (Jerry), jump (held 21 ticks), holding right, double jump at tick 12, from 8848,225; lands at 9146,177 {move ch=0 dir=1 jumpAt=2 djAt=12 gdAt=0}   [djump,gdash]
+      -> standing at x 9130-9206, y 177
+  31. dash-hop right (Claire), holding right, double jump at tick 8, from 9198,177; touches it on the way {move ch=1 dir=1 djAt=8 gdAt=0}   [djump,gdash]
       -> out 9584,256
 how in 32,288 -> out 32,288: -
      coming in at 32,288
-   1. coming in: holding nothing, from 32,288; lands at 32,289
+   1. coming in: holding nothing, from 32,288; lands at 32,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-262, y 289
    2. standing at 0,289, presses up at it
       -> out 32,288
 how in 32,288 -> out 32,192: djump
      coming in at 32,288
-   1. coming in: holding nothing, from 32,288; lands at 32,289
+   1. coming in: holding nothing, from 32,288; lands at 32,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-262, y 289
-   2. jump (held 21 ticks), holding left, double jump at tick 15, from 80,289; lands at 13,193   [djump]
+   2. jump (held 21 ticks), holding left, double jump at tick 15, from 80,289; lands at 13,193 {move ch=1 dir=-1 jumpAt=0 djAt=15}   [djump]
       -> standing at x 0-70, y 193
    3. standing at 0,193, presses up at it
       -> out 32,192
 how in 32,288 -> out 32,192: adash
      coming in at 32,288
-   1. coming in: holding nothing, from 32,288; lands at 32,289
+   1. coming in: holding nothing, from 32,288; lands at 32,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-262, y 289
-   2. running right, jump (held 21 ticks), holding right, from 176,289; lands at 330,225
+   2. running right, jump (held 21 ticks), holding right, from 176,289; lands at 330,225 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 314-390, y 225
-   3. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 314,225; lands at 35,193   [adash]
+   3. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 314,225; lands at 35,193 {move ch=0 dir=-1 jumpAt=0 adAt=16}   [adash]
       -> standing at x 0-70, y 193
    4. standing at 0,193, presses up at it
       -> out 32,192

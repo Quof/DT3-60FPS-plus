@@ -21,35 +21,37 @@ out menu:rMega4_Shop   # to rMega4_Shop at 160,312; the player chooses it from t
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 0,0
-  out menu:rMega4_StormA         -
-  out menu:rMega4_OstrichA       -
-  out menu:rMega4_ToxicJungleA   -
-  out menu:rMega4_SigmaA1        -
-  out menu:rMega4_SigmaB1        -
-  out menu:rMega4_SigmaC1        -
-  out menu:rMega4_Gate           -
-  out menu:rMega4_Shop           -
+  out menu:rMega4_StormA -
+  out menu:rMega4_OstrichA -
+  out menu:rMega4_ToxicJungleA -
+  out menu:rMega4_SigmaA1 -
+  out menu:rMega4_SigmaB1 -
+  out menu:rMega4_SigmaC1 -
+  out menu:rMega4_Gate -
+  out menu:rMega4_Shop -
 from in 1856,240
-  out menu:rMega4_StormA         -
-  out menu:rMega4_OstrichA       -
-  out menu:rMega4_ToxicJungleA   -
-  out menu:rMega4_SigmaA1        -
-  out menu:rMega4_SigmaB1        -
-  out menu:rMega4_SigmaC1        -
-  out menu:rMega4_Gate           -
-  out menu:rMega4_Shop           -
+  out menu:rMega4_StormA -
+  out menu:rMega4_OstrichA -
+  out menu:rMega4_ToxicJungleA -
+  out menu:rMega4_SigmaA1 -
+  out menu:rMega4_SigmaB1 -
+  out menu:rMega4_SigmaC1 -
+  out menu:rMega4_Gate -
+  out menu:rMega4_Shop -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 0,0 -> out menu:rMega4_StormA: -
      coming in at 0,0
-   1. coming in: holding nothing, from 0,0; touches it on the way
+   1. coming in: holding nothing, from 0,0; touches it on the way {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> out menu:rMega4_StormA
 how in 0,0 -> out menu:rMega4_OstrichA: -
      coming in at 0,0

@@ -17,6 +17,8 @@ out 1680,256   # to rBelmont3_4F at 48,288; the player goes into it
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 9 43   # weapon upgrade 43, at 543,215
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -42,25 +44,25 @@ from in 1648,288
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 48,288 -> out 0,256: -
      coming in at 48,288
-   1. coming in: holding nothing, from 48,288; lands at 48,289
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-166, y 289
    2. standing at 0,289, goes into it
       -> out 0,256
 how in 48,288 -> out 904,80: -
      coming in at 48,288
-   1. coming in: holding nothing, from 48,288; lands at 48,289
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-166, y 289
-   2. running right, jump (held 21 ticks), holding right, from 64,289; lands at 255,257
+   2. running right, jump (held 21 ticks), holding right, from 64,289; lands at 255,257 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 218-294, y 257
-   3. jump (held 21 ticks), holding right, from 256,257; lands at 461,289
-      -> standing at x 438-523, y 289-291
-   4. step onto moving platform 1 at 438,289
+   3. jump (held 21 ticks), holding right, from 240,257; lands at 445,289 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 434-523, y 289-291
+   4. step onto moving platform 1 at 434,289
       -> riding moving platform 1 (waiting for it where it goes)
    5. ride moving platform 1 and step off at 565,289
-      -> standing at x 565-650, y 289-291
-   6. running right, jump (held 6 ticks), holding right, from 645,289; lands at 785,257
+      -> standing at x 565-654, y 289-291
+   6. running right, jump (held 6 ticks), holding right, from 646,289; lands at 786,257 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> standing at x 730-806, y 257
-   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 730,257; lands at 806,192
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 730,257; lands at 806,192 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=8}
       -> standing at x 794-854, y 192-194
    8. step onto moving platform 2 at 794,192
       -> riding moving platform 2 (waiting for it where it goes)
@@ -70,367 +72,367 @@ how in 48,288 -> out 904,80: -
       -> out 904,80
 how in 48,288 -> out 1680,256: belmont:1
      coming in at 48,288
-   1. coming in: holding nothing, from 48,288; lands at 48,289
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-166, y 289
-   2. running right, jump (held 21 ticks), holding right, from 64,289; lands at 255,257
+   2. running right, jump (held 21 ticks), holding right, from 64,289; lands at 255,257 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 218-294, y 257
-   3. jump (held 21 ticks), holding right, from 256,257; lands at 461,289
-      -> standing at x 438-523, y 289-291
-   4. step onto moving platform 1 at 438,289
+   3. jump (held 21 ticks), holding right, from 240,257; lands at 445,289 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 434-523, y 289-291
+   4. step onto moving platform 1 at 434,289
       -> riding moving platform 1 (waiting for it where it goes)
    5. ride moving platform 1 and step off at 565,289
-      -> standing at x 565-650, y 289-291
-   6. running right, jump (held 21 ticks), holding right, from 645,289; lands at 851,289
+      -> standing at x 565-654, y 289-291
+   6. running right, jump (held 21 ticks), holding right, from 646,289; lands at 852,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 807-1337, y 257-289
-   7. running right, walk off the edge, holding right once in the air, from 960,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; touches it on the way   [belmont:1]
+   7. running right, walk off the edge, holding right once in the air, from 960,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [belmont:1]
       -> out 1680,256
 how in 48,288 -> out 1680,256: link:1
      coming in at 48,288
-   1. coming in: holding nothing, from 48,288; lands at 48,289
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-166, y 289
-   2. running right, jump (held 21 ticks), holding right, from 64,289; lands at 255,257
+   2. running right, jump (held 21 ticks), holding right, from 64,289; lands at 255,257 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 218-294, y 257
-   3. jump (held 21 ticks), holding right, from 256,257; lands at 461,289
-      -> standing at x 438-523, y 289-291
-   4. step onto moving platform 1 at 438,289
+   3. jump (held 21 ticks), holding right, from 240,257; lands at 445,289 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 434-523, y 289-291
+   4. step onto moving platform 1 at 434,289
       -> riding moving platform 1 (waiting for it where it goes)
    5. ride moving platform 1 and step off at 565,289
-      -> standing at x 565-650, y 289-291
-   6. running right, jump (held 21 ticks), holding right, from 645,289; lands at 851,289
+      -> standing at x 565-654, y 289-291
+   6. running right, jump (held 21 ticks), holding right, from 646,289; lands at 852,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 807-1337, y 257-289
-   7. running right, walk off the edge, holding right once in the air, from 960,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; touches it on the way   [link:1]
+   7. running right, walk off the edge, holding right once in the air, from 960,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [link:1]
       -> out 1680,256
 how in 48,288 -> out 1680,256: megaman:1
      coming in at 48,288
-   1. coming in: holding nothing, from 48,288; lands at 48,289
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-166, y 289
-   2. running right, jump (held 21 ticks), holding right, from 64,289; lands at 255,257
+   2. running right, jump (held 21 ticks), holding right, from 64,289; lands at 255,257 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 218-294, y 257
-   3. jump (held 21 ticks), holding right, from 256,257; lands at 461,289
-      -> standing at x 438-523, y 289-291
-   4. step onto moving platform 1 at 438,289
+   3. jump (held 21 ticks), holding right, from 240,257; lands at 445,289 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 434-523, y 289-291
+   4. step onto moving platform 1 at 434,289
       -> riding moving platform 1 (waiting for it where it goes)
    5. ride moving platform 1 and step off at 565,289
-      -> standing at x 565-650, y 289-291
-   6. running right, jump (held 21 ticks), holding right, from 645,289; lands at 851,289
+      -> standing at x 565-654, y 289-291
+   6. running right, jump (held 21 ticks), holding right, from 646,289; lands at 852,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 807-1337, y 257-289
-   7. running right, walk off the edge, holding right once in the air, from 960,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; touches it on the way   [megaman:1]
+   7. running right, walk off the edge, holding right once in the air, from 960,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [megaman:1]
       -> out 1680,256
 how in 48,288 -> out 1680,256: samus:1
      coming in at 48,288
-   1. coming in: holding nothing, from 48,288; lands at 48,289
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-166, y 289
-   2. running right, jump (held 21 ticks), holding right, from 64,289; lands at 255,257
+   2. running right, jump (held 21 ticks), holding right, from 64,289; lands at 255,257 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 218-294, y 257
-   3. jump (held 21 ticks), holding right, from 256,257; lands at 461,289
-      -> standing at x 438-523, y 289-291
-   4. step onto moving platform 1 at 438,289
+   3. jump (held 21 ticks), holding right, from 240,257; lands at 445,289 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 434-523, y 289-291
+   4. step onto moving platform 1 at 434,289
       -> riding moving platform 1 (waiting for it where it goes)
    5. ride moving platform 1 and step off at 565,289
-      -> standing at x 565-650, y 289-291
-   6. running right, jump (held 21 ticks), holding right, from 645,289; lands at 851,289
+      -> standing at x 565-654, y 289-291
+   6. running right, jump (held 21 ticks), holding right, from 646,289; lands at 852,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 807-1337, y 257-289
-   7. running right, walk off the edge, holding right once in the air, from 960,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; touches it on the way   [samus:1]
+   7. running right, walk off the edge, holding right once in the air, from 960,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [samus:1]
       -> out 1680,256
 how in 48,288 -> loc 9 43: link:1
      coming in at 48,288
-   1. coming in: holding nothing, from 48,288; lands at 48,289
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-166, y 289
-   2. running right, jump (held 21 ticks), holding right, from 144,289; lands at 357,289
+   2. running right, jump (held 21 ticks), holding right, from 144,289; lands at 357,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 346-422, y 289
-   3. running right, jump (held 21 ticks), holding right, from 384,289, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; touches it on the way   [link:1]
+   3. running right, jump (held 21 ticks), holding right, from 384,289, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0}   [link:1]
       -> loc 9 43
 how in 48,288 -> loc 9 43: belmont:1
      coming in at 48,288
-   1. coming in: holding nothing, from 48,288; lands at 48,289
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-166, y 289
-   2. running right, jump (held 21 ticks), holding right, from 144,289; lands at 357,289
+   2. running right, jump (held 21 ticks), holding right, from 144,289; lands at 357,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 346-422, y 289
-   3. running right, jump (held 21 ticks), holding right, from 384,289, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; touches it on the way   [belmont:1]
+   3. running right, jump (held 21 ticks), holding right, from 384,289, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0}   [belmont:1]
       -> loc 9 43
 how in 912,112 -> out 0,256: -
      coming in at 912,112
-   1. coming in: holding nothing, from 912,112; lands at 912,113
+   1. coming in: holding nothing, from 912,112; lands at 912,113 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 794-937, y 113-117
-   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 794,115; lands at 677,289
+   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 794,115; lands at 677,289 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
       -> standing at x 666-729, y 289
-   3. running left, walk off the edge, holding left once in the air, from 666,289; lands at 635,289
-      -> standing at x 565-650, y 289-291
+   3. walk off the edge, holding left once in the air, from 666,289; lands at 643,289 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> standing at x 565-654, y 289-291
    4. step onto moving platform 1 at 565,289
       -> riding moving platform 1 (waiting for it where it goes)
-   5. ride moving platform 1 and step off at 438,289
-      -> standing at x 438-523, y 289-291
-   6. jump (held 21 ticks), holding left, from 438,289; lands at 270,257
-      -> standing at x 218-294, y 257
-   7. walk off the edge, holding left once in the air, from 218,257; lands at 153,289
+   5. ride moving platform 1 and step off at 434,289
+      -> standing at x 434-523, y 289-291
+   6. running left, walk off the edge, holding left once in the air, from 434,289; lands at 412,289 {move ch=1 dir=-1 run=1 hDelay=1 noInputTillAir=1}
+      -> standing at x 346-422, y 289
+   7. jump (held 21 ticks), holding left, from 346,289; lands at 156,289 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-166, y 289
    8. standing at 0,289, goes into it
       -> out 0,256
 how in 912,112 -> out 904,80: -
      coming in at 912,112
-   1. coming in: holding nothing, from 912,112; lands at 912,113
+   1. coming in: holding nothing, from 912,112; lands at 912,113 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 794-937, y 113-117
    2. standing at 902,113, presses up at it
       -> out 904,80
 how in 912,112 -> out 1680,256: belmont:1
      coming in at 912,112
-   1. coming in: holding nothing, from 912,112; lands at 912,113
+   1. coming in: holding nothing, from 912,112; lands at 912,113 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 794-937, y 113-117
-   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 794,115; lands at 762,257
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 794,115; lands at 762,257 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
       -> standing at x 730-806, y 257
-   3. walk off the edge, holding right once in the air, from 730,257; lands at 869,289
+   3. walk off the edge, holding right once in the air, from 730,257; lands at 869,289 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> standing at x 807-1337, y 257-289
-   4. running right, walk off the edge, holding right once in the air, from 960,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; touches it on the way   [belmont:1]
+   4. running right, walk off the edge, holding right once in the air, from 960,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [belmont:1]
       -> out 1680,256
 how in 912,112 -> out 1680,256: link:1
      coming in at 912,112
-   1. coming in: holding nothing, from 912,112; lands at 912,113
+   1. coming in: holding nothing, from 912,112; lands at 912,113 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 794-937, y 113-117
-   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 794,115; lands at 762,257
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 794,115; lands at 762,257 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
       -> standing at x 730-806, y 257
-   3. walk off the edge, holding right once in the air, from 730,257; lands at 869,289
+   3. walk off the edge, holding right once in the air, from 730,257; lands at 869,289 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> standing at x 807-1337, y 257-289
-   4. running right, walk off the edge, holding right once in the air, from 960,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; touches it on the way   [link:1]
+   4. running right, walk off the edge, holding right once in the air, from 960,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [link:1]
       -> out 1680,256
 how in 912,112 -> out 1680,256: megaman:1
      coming in at 912,112
-   1. coming in: holding nothing, from 912,112; lands at 912,113
+   1. coming in: holding nothing, from 912,112; lands at 912,113 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 794-937, y 113-117
-   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 794,115; lands at 762,257
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 794,115; lands at 762,257 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
       -> standing at x 730-806, y 257
-   3. walk off the edge, holding right once in the air, from 730,257; lands at 869,289
+   3. walk off the edge, holding right once in the air, from 730,257; lands at 869,289 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> standing at x 807-1337, y 257-289
-   4. running right, walk off the edge, holding right once in the air, from 960,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; touches it on the way   [megaman:1]
+   4. running right, walk off the edge, holding right once in the air, from 960,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [megaman:1]
       -> out 1680,256
 how in 912,112 -> out 1680,256: samus:1
      coming in at 912,112
-   1. coming in: holding nothing, from 912,112; lands at 912,113
+   1. coming in: holding nothing, from 912,112; lands at 912,113 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 794-937, y 113-117
-   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 794,115; lands at 762,257
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 794,115; lands at 762,257 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
       -> standing at x 730-806, y 257
-   3. walk off the edge, holding right once in the air, from 730,257; lands at 869,289
+   3. walk off the edge, holding right once in the air, from 730,257; lands at 869,289 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> standing at x 807-1337, y 257-289
-   4. running right, walk off the edge, holding right once in the air, from 960,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; touches it on the way   [samus:1]
+   4. running right, walk off the edge, holding right once in the air, from 960,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [samus:1]
       -> out 1680,256
 how in 912,112 -> loc 9 43: link:1
      coming in at 912,112
-   1. coming in: holding nothing, from 912,112; lands at 912,113
+   1. coming in: holding nothing, from 912,112; lands at 912,113 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 794-937, y 113-117
-   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 794,115; lands at 677,289
+   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 794,115; lands at 677,289 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
       -> standing at x 666-729, y 289
-   3. running left, walk off the edge, holding left once in the air, from 666,289; lands at 635,289
-      -> standing at x 565-650, y 289-291
+   3. walk off the edge, holding left once in the air, from 666,289; lands at 643,289 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> standing at x 565-654, y 289-291
    4. step onto moving platform 1 at 565,289
       -> riding moving platform 1 (waiting for it where it goes)
-   5. ride moving platform 1 and step off at 438,289
-      -> standing at x 438-523, y 289-291
-   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 438,289; lands at 357,289
+   5. ride moving platform 1 and step off at 434,289
+      -> standing at x 434-523, y 289-291
+   6. running left, walk off the edge, holding left once in the air, from 434,289; lands at 412,289 {move ch=1 dir=-1 run=1 hDelay=1 noInputTillAir=1}
       -> standing at x 346-422, y 289
-   7. running right, jump (held 21 ticks), holding right, from 384,289, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; touches it on the way   [link:1]
+   7. running right, jump (held 21 ticks), holding right, from 384,289, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0}   [link:1]
       -> loc 9 43
 how in 912,112 -> loc 9 43: belmont:1
      coming in at 912,112
-   1. coming in: holding nothing, from 912,112; lands at 912,113
+   1. coming in: holding nothing, from 912,112; lands at 912,113 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 794-937, y 113-117
-   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 794,115; lands at 677,289
+   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 794,115; lands at 677,289 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
       -> standing at x 666-729, y 289
-   3. running left, walk off the edge, holding left once in the air, from 666,289; lands at 635,289
-      -> standing at x 565-650, y 289-291
+   3. walk off the edge, holding left once in the air, from 666,289; lands at 643,289 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> standing at x 565-654, y 289-291
    4. step onto moving platform 1 at 565,289
       -> riding moving platform 1 (waiting for it where it goes)
-   5. ride moving platform 1 and step off at 438,289
-      -> standing at x 438-523, y 289-291
-   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 438,289; lands at 357,289
+   5. ride moving platform 1 and step off at 434,289
+      -> standing at x 434-523, y 289-291
+   6. running left, walk off the edge, holding left once in the air, from 434,289; lands at 412,289 {move ch=1 dir=-1 run=1 hDelay=1 noInputTillAir=1}
       -> standing at x 346-422, y 289
-   7. running right, jump (held 21 ticks), holding right, from 384,289, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; touches it on the way   [belmont:1]
+   7. running right, jump (held 21 ticks), holding right, from 384,289, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0}   [belmont:1]
       -> loc 9 43
 how in 1648,288 -> out 0,256: belmont:1
      coming in at 1648,288
-   1. coming in: holding nothing, from 1648,288; lands at 1648,289
+   1. coming in: holding nothing, from 1648,288; lands at 1648,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 1647-1696, y 289
-   2. walk from 1647,289 to 1646,289 into the oRndTrap at 1624,224   [belmont:1]
-      -> standing at x 1618-1646, y 289 (where a gate is)
-   3. walk off the edge, holding left once in the air, from 1618,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1056,289   [belmont:1]
+   2. jump (held 2 ticks), holding left, from 1647,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1545,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [belmont:1]
+      -> standing at x 1367-1617, y 289
+   3. jump (held 2 ticks), holding left, from 1367,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1316,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [belmont:1]
       -> standing at x 807-1337, y 257-289
-   4. jump (held 6 ticks), holding left, from 807,289; lands at 683,289
+   4. jump (held 6 ticks), holding left, from 807,289; lands at 683,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 666-729, y 289
-   5. jump (held 21 ticks), holding left, from 666,289, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; lands at 535,225   [belmont:1]
+   5. jump (held 21 ticks), holding left, from 666,289, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; lands at 535,225 {move ch=1 dir=-1 jumpAt=0}   [belmont:1]
       -> standing at x 522-566, y 225 (where a gate is)
-   6. jump (held 2 ticks), holding left, from 522,225, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; lands at 376,289   [belmont:1]
+   6. jump (held 2 ticks), holding left, from 522,225, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; lands at 376,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [belmont:1]
       -> standing at x 346-422, y 289
-   7. jump (held 21 ticks), holding left, from 346,289; lands at 156,289
+   7. jump (held 21 ticks), holding left, from 346,289; lands at 156,289 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-166, y 289
    8. standing at 0,289, goes into it
       -> out 0,256
 how in 1648,288 -> out 0,256: link:1
      coming in at 1648,288
-   1. coming in: holding nothing, from 1648,288; lands at 1648,289
+   1. coming in: holding nothing, from 1648,288; lands at 1648,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 1647-1696, y 289
-   2. walk from 1647,289 to 1646,289 into the oRndTrap at 1624,224   [link:1]
-      -> standing at x 1618-1646, y 289 (where a gate is)
-   3. walk off the edge, holding left once in the air, from 1618,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1056,289   [link:1]
+   2. jump (held 2 ticks), holding left, from 1647,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1545,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [link:1]
+      -> standing at x 1367-1617, y 289
+   3. jump (held 2 ticks), holding left, from 1367,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1316,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [link:1]
       -> standing at x 807-1337, y 257-289
-   4. jump (held 6 ticks), holding left, from 807,289; lands at 683,289
+   4. jump (held 6 ticks), holding left, from 807,289; lands at 683,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 666-729, y 289
-   5. jump (held 21 ticks), holding left, from 666,289, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; lands at 535,225   [link:1]
+   5. jump (held 21 ticks), holding left, from 666,289, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; lands at 535,225 {move ch=1 dir=-1 jumpAt=0}   [link:1]
       -> standing at x 522-566, y 225 (where a gate is)
-   6. jump (held 2 ticks), holding left, from 522,225, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; lands at 376,289   [link:1]
+   6. jump (held 2 ticks), holding left, from 522,225, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; lands at 376,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [link:1]
       -> standing at x 346-422, y 289
-   7. jump (held 21 ticks), holding left, from 346,289; lands at 156,289
+   7. jump (held 21 ticks), holding left, from 346,289; lands at 156,289 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-166, y 289
    8. standing at 0,289, goes into it
       -> out 0,256
 how in 1648,288 -> out 0,256: megaman:1
      coming in at 1648,288
-   1. coming in: holding nothing, from 1648,288; lands at 1648,289
+   1. coming in: holding nothing, from 1648,288; lands at 1648,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 1647-1696, y 289
-   2. walk from 1647,289 to 1646,289 into the oRndTrap at 1624,224   [megaman:1]
-      -> standing at x 1618-1646, y 289 (where a gate is)
-   3. walk off the edge, holding left once in the air, from 1618,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1056,289   [megaman:1]
+   2. jump (held 2 ticks), holding left, from 1647,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1545,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [megaman:1]
+      -> standing at x 1367-1617, y 289
+   3. jump (held 2 ticks), holding left, from 1367,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1316,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [megaman:1]
       -> standing at x 807-1337, y 257-289
-   4. jump (held 6 ticks), holding left, from 807,289; lands at 683,289
+   4. jump (held 6 ticks), holding left, from 807,289; lands at 683,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 666-729, y 289
-   5. running left, walk off the edge, holding left once in the air, from 666,289; lands at 635,289
-      -> standing at x 565-650, y 289-291
+   5. walk off the edge, holding left once in the air, from 666,289; lands at 643,289 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> standing at x 565-654, y 289-291
    6. step onto moving platform 1 at 565,289
       -> riding moving platform 1 (waiting for it where it goes)
-   7. ride moving platform 1 and step off at 438,289
-      -> standing at x 438-523, y 289-291
-   8. jump (held 21 ticks), holding left, from 438,289; lands at 270,257
-      -> standing at x 218-294, y 257
-   9. walk off the edge, holding left once in the air, from 218,257; lands at 153,289
+   7. ride moving platform 1 and step off at 434,289
+      -> standing at x 434-523, y 289-291
+   8. running left, walk off the edge, holding left once in the air, from 434,289; lands at 412,289 {move ch=1 dir=-1 run=1 hDelay=1 noInputTillAir=1}
+      -> standing at x 346-422, y 289
+   9. jump (held 21 ticks), holding left, from 346,289; lands at 156,289 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-166, y 289
   10. standing at 0,289, goes into it
       -> out 0,256
 how in 1648,288 -> out 0,256: samus:1
      coming in at 1648,288
-   1. coming in: holding nothing, from 1648,288; lands at 1648,289
+   1. coming in: holding nothing, from 1648,288; lands at 1648,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 1647-1696, y 289
-   2. walk from 1647,289 to 1646,289 into the oRndTrap at 1624,224   [samus:1]
-      -> standing at x 1618-1646, y 289 (where a gate is)
-   3. walk off the edge, holding left once in the air, from 1618,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1056,289   [samus:1]
+   2. jump (held 2 ticks), holding left, from 1647,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1545,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [samus:1]
+      -> standing at x 1367-1617, y 289
+   3. jump (held 2 ticks), holding left, from 1367,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1316,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [samus:1]
       -> standing at x 807-1337, y 257-289
-   4. jump (held 6 ticks), holding left, from 807,289; lands at 683,289
+   4. jump (held 6 ticks), holding left, from 807,289; lands at 683,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 666-729, y 289
-   5. running left, walk off the edge, holding left once in the air, from 666,289; lands at 635,289
-      -> standing at x 565-650, y 289-291
+   5. walk off the edge, holding left once in the air, from 666,289; lands at 643,289 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> standing at x 565-654, y 289-291
    6. step onto moving platform 1 at 565,289
       -> riding moving platform 1 (waiting for it where it goes)
-   7. ride moving platform 1 and step off at 438,289
-      -> standing at x 438-523, y 289-291
-   8. jump (held 21 ticks), holding left, from 438,289; lands at 270,257
-      -> standing at x 218-294, y 257
-   9. walk off the edge, holding left once in the air, from 218,257; lands at 153,289
+   7. ride moving platform 1 and step off at 434,289
+      -> standing at x 434-523, y 289-291
+   8. running left, walk off the edge, holding left once in the air, from 434,289; lands at 412,289 {move ch=1 dir=-1 run=1 hDelay=1 noInputTillAir=1}
+      -> standing at x 346-422, y 289
+   9. jump (held 21 ticks), holding left, from 346,289; lands at 156,289 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-166, y 289
   10. standing at 0,289, goes into it
       -> out 0,256
 how in 1648,288 -> out 904,80: belmont:1
      coming in at 1648,288
-   1. coming in: holding nothing, from 1648,288; lands at 1648,289
+   1. coming in: holding nothing, from 1648,288; lands at 1648,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 1647-1696, y 289
-   2. walk from 1647,289 to 1646,289 into the oRndTrap at 1624,224   [belmont:1]
-      -> standing at x 1618-1646, y 289 (where a gate is)
-   3. walk off the edge, holding left once in the air, from 1618,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1056,289   [belmont:1]
+   2. jump (held 2 ticks), holding left, from 1647,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1545,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [belmont:1]
+      -> standing at x 1367-1617, y 289
+   3. jump (held 2 ticks), holding left, from 1367,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1316,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [belmont:1]
       -> standing at x 807-1337, y 257-289
-   4. jump (held 2 ticks), holding left, from 807,289; lands at 764,257
+   4. jump (held 2 ticks), holding left, from 807,289; lands at 764,257 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 730-806, y 257
-   5. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 730,257; lands at 806,192
+   5. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 730,257; lands at 806,192 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=8}
       -> standing at x 794-854, y 192-194
-   6. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 846,192; lands at 846,176
+   6. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 846,192; lands at 846,176 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=8}
       -> standing at x 794-854, y 176-178
-   7. jump (held 21 ticks), holding right, from 794,176; lands at 914,113
+   7. jump (held 21 ticks), holding right, from 794,176; lands at 914,113 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 794-937, y 113-117
    8. standing at 902,113, presses up at it
       -> out 904,80
 how in 1648,288 -> out 904,80: link:1
      coming in at 1648,288
-   1. coming in: holding nothing, from 1648,288; lands at 1648,289
+   1. coming in: holding nothing, from 1648,288; lands at 1648,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 1647-1696, y 289
-   2. walk from 1647,289 to 1646,289 into the oRndTrap at 1624,224   [link:1]
-      -> standing at x 1618-1646, y 289 (where a gate is)
-   3. walk off the edge, holding left once in the air, from 1618,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1056,289   [link:1]
+   2. jump (held 2 ticks), holding left, from 1647,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1545,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [link:1]
+      -> standing at x 1367-1617, y 289
+   3. jump (held 2 ticks), holding left, from 1367,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1316,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [link:1]
       -> standing at x 807-1337, y 257-289
-   4. jump (held 2 ticks), holding left, from 807,289; lands at 764,257
+   4. jump (held 2 ticks), holding left, from 807,289; lands at 764,257 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 730-806, y 257
-   5. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 730,257; lands at 806,192
+   5. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 730,257; lands at 806,192 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=8}
       -> standing at x 794-854, y 192-194
-   6. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 846,192; lands at 846,176
+   6. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 846,192; lands at 846,176 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=8}
       -> standing at x 794-854, y 176-178
-   7. jump (held 21 ticks), holding right, from 794,176; lands at 914,113
+   7. jump (held 21 ticks), holding right, from 794,176; lands at 914,113 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 794-937, y 113-117
    8. standing at 902,113, presses up at it
       -> out 904,80
 how in 1648,288 -> out 904,80: megaman:1
      coming in at 1648,288
-   1. coming in: holding nothing, from 1648,288; lands at 1648,289
+   1. coming in: holding nothing, from 1648,288; lands at 1648,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 1647-1696, y 289
-   2. walk from 1647,289 to 1646,289 into the oRndTrap at 1624,224   [megaman:1]
-      -> standing at x 1618-1646, y 289 (where a gate is)
-   3. walk off the edge, holding left once in the air, from 1618,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1056,289   [megaman:1]
+   2. jump (held 2 ticks), holding left, from 1647,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1545,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [megaman:1]
+      -> standing at x 1367-1617, y 289
+   3. jump (held 2 ticks), holding left, from 1367,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1316,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [megaman:1]
       -> standing at x 807-1337, y 257-289
-   4. jump (held 2 ticks), holding left, from 807,289; lands at 764,257
+   4. jump (held 2 ticks), holding left, from 807,289; lands at 764,257 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 730-806, y 257
-   5. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 730,257; lands at 806,192
+   5. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 730,257; lands at 806,192 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=8}
       -> standing at x 794-854, y 192-194
-   6. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 846,192; lands at 846,176
+   6. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 846,192; lands at 846,176 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=8}
       -> standing at x 794-854, y 176-178
-   7. jump (held 21 ticks), holding right, from 794,176; lands at 914,113
+   7. jump (held 21 ticks), holding right, from 794,176; lands at 914,113 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 794-937, y 113-117
    8. standing at 902,113, presses up at it
       -> out 904,80
 how in 1648,288 -> out 904,80: samus:1
      coming in at 1648,288
-   1. coming in: holding nothing, from 1648,288; lands at 1648,289
+   1. coming in: holding nothing, from 1648,288; lands at 1648,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 1647-1696, y 289
-   2. walk from 1647,289 to 1646,289 into the oRndTrap at 1624,224   [samus:1]
-      -> standing at x 1618-1646, y 289 (where a gate is)
-   3. walk off the edge, holding left once in the air, from 1618,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1056,289   [samus:1]
+   2. jump (held 2 ticks), holding left, from 1647,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1545,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [samus:1]
+      -> standing at x 1367-1617, y 289
+   3. jump (held 2 ticks), holding left, from 1367,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1316,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [samus:1]
       -> standing at x 807-1337, y 257-289
-   4. jump (held 2 ticks), holding left, from 807,289; lands at 764,257
+   4. jump (held 2 ticks), holding left, from 807,289; lands at 764,257 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 730-806, y 257
-   5. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 730,257; lands at 806,192
+   5. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 730,257; lands at 806,192 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=8}
       -> standing at x 794-854, y 192-194
-   6. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 846,192; lands at 846,176
+   6. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 846,192; lands at 846,176 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=8}
       -> standing at x 794-854, y 176-178
-   7. jump (held 21 ticks), holding right, from 794,176; lands at 914,113
+   7. jump (held 21 ticks), holding right, from 794,176; lands at 914,113 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 794-937, y 113-117
    8. standing at 902,113, presses up at it
       -> out 904,80
 how in 1648,288 -> out 1680,256: -
      coming in at 1648,288
-   1. coming in: holding nothing, from 1648,288; lands at 1648,289
+   1. coming in: holding nothing, from 1648,288; lands at 1648,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 1647-1696, y 289
    2. standing at 1678,289, goes into it
       -> out 1680,256
 how in 1648,288 -> loc 9 43: link:1
      coming in at 1648,288
-   1. coming in: holding nothing, from 1648,288; lands at 1648,289
+   1. coming in: holding nothing, from 1648,288; lands at 1648,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 1647-1696, y 289
-   2. walk from 1647,289 to 1646,289 into the oRndTrap at 1624,224   [link:1]
-      -> standing at x 1618-1646, y 289 (where a gate is)
-   3. walk off the edge, holding left once in the air, from 1618,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1056,289   [link:1]
+   2. jump (held 2 ticks), holding left, from 1647,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1545,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [link:1]
+      -> standing at x 1367-1617, y 289
+   3. jump (held 2 ticks), holding left, from 1367,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1316,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [link:1]
       -> standing at x 807-1337, y 257-289
-   4. jump (held 6 ticks), holding left, from 807,289; lands at 683,289
+   4. jump (held 6 ticks), holding left, from 807,289; lands at 683,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 666-729, y 289
-   5. jump (held 21 ticks), holding left, from 666,289, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; lands at 535,225   [link:1]
+   5. jump (held 21 ticks), holding left, from 666,289, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; lands at 535,225 {move ch=1 dir=-1 jumpAt=0}   [link:1]
       -> standing at x 522-566, y 225 (where a gate is)
-   6. jump (held 2 ticks), holding left, from 522,225, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; lands at 376,289   [link:1]
+   6. jump (held 2 ticks), holding left, from 522,225, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; lands at 376,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [link:1]
       -> standing at x 346-422, y 289
-   7. running right, jump (held 21 ticks), holding right, from 384,289, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; touches it on the way   [link:1]
+   7. running right, jump (held 21 ticks), holding right, from 384,289, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0}   [link:1]
       -> loc 9 43
 how in 1648,288 -> loc 9 43: belmont:1
      coming in at 1648,288
-   1. coming in: holding nothing, from 1648,288; lands at 1648,289
+   1. coming in: holding nothing, from 1648,288; lands at 1648,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 1647-1696, y 289
-   2. walk from 1647,289 to 1646,289 into the oRndTrap at 1624,224   [belmont:1]
-      -> standing at x 1618-1646, y 289 (where a gate is)
-   3. walk off the edge, holding left once in the air, from 1618,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1056,289   [belmont:1]
+   2. jump (held 2 ticks), holding left, from 1647,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1545,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [belmont:1]
+      -> standing at x 1367-1617, y 289
+   3. jump (held 2 ticks), holding left, from 1367,289, through the oRndTrap at 1344,224, the oRndTrap at 1624,224; lands at 1316,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [belmont:1]
       -> standing at x 807-1337, y 257-289
-   4. jump (held 6 ticks), holding left, from 807,289; lands at 683,289
+   4. jump (held 6 ticks), holding left, from 807,289; lands at 683,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 666-729, y 289
-   5. jump (held 21 ticks), holding left, from 666,289, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; lands at 535,225   [belmont:1]
+   5. jump (held 21 ticks), holding left, from 666,289, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; lands at 535,225 {move ch=1 dir=-1 jumpAt=0}   [belmont:1]
       -> standing at x 522-566, y 225 (where a gate is)
-   6. jump (held 2 ticks), holding left, from 522,225, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; lands at 376,289   [belmont:1]
+   6. jump (held 2 ticks), holding left, from 522,225, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; lands at 376,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [belmont:1]
       -> standing at x 346-422, y 289
-   7. running right, jump (held 21 ticks), holding right, from 384,289, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; touches it on the way   [belmont:1]
+   7. running right, jump (held 21 ticks), holding right, from 384,289, through the breakable wall at 528,160, the breakable wall at 528,176, the breakable wall at 528,192, ...; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0}   [belmont:1]
       -> loc 9 43

@@ -73,11 +73,12 @@ LEFT_OUT = ("rSF_", "rDisco")
 KEEP_UNREACHED = {"rDiscoA", "rDiscoB", "rDiscoC", "rWarshipZ_F", "rWarshipZ_G", "rSamus5_EscapeA"}
 # doors that became doors in a later build (a way in the logic hadn't had ways from: CHAOS Weapons Facility 1's from the
 # left, given them by overrides.txt in b106; Doom Castle 13's way on to 14 and Subconscious Filter 3's and 4's, in b117;
-# The Vault 20's and 21's ways right, past their moving platforms, and so 22's, in b118): they come after all the
-# others, so the others keep their order (a save's shuffle is by the ends' order: erflat's ER_LEGACY), each by one of
-# its exits
+# The Vault 20's and 21's ways right, past their moving platforms, and so 22's, in b118; Gate 5's Lv0_B-Lv0_I door and
+# Main 36-37's, in b124, the room logic made from the rooms as the game makes them): they come after all the others, so
+# the others keep their order (a save's shuffle is by the ends' order: erflat's ER_LEGACY), each by one of its exits
 LATE_DOORS = [("rWepFacA", "0,256"), ("rGame6_CoDM", "2384,240"), ("rSF_C", "6224,192"), ("rSF_D", "6224,448"),
-              ("rVault_20", "3504,240"), ("rVault_21", "4432,240"), ("rVault_22", "1520,240")]
+              ("rVault_20", "3504,240"), ("rVault_21", "4432,240"), ("rVault_22", "1520,240"),
+              ("rSamus5_Lv0_B", "0,768"), ("rMain_36", "4336,-16")]
 # areas whose own doors (both ends in it) no mode shuffles: the Distortion, which a Randomizer game has the player go
 # through as Jeremy's mech, as the story does (rndgen's MECH_ROOMS, the roomStart hook), while the logic's ways through
 # its rooms are Jerry's and Claire's. So it's a dead end with no places behind its gate's door, which stays shuffled

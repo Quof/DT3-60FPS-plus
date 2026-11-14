@@ -15,6 +15,8 @@ out 3600,320   # to rHPF_J at 48,352; the player goes into it
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 8 16   # internetz mod 16, at 2223,103
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -33,71 +35,71 @@ from in 3568,352
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 48,352 -> out 0,320: -
      coming in at 48,352
-   1. coming in: holding nothing, from 48,352; lands at 48,353
+   1. coming in: holding nothing, from 48,352; lands at 48,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-217, y 353
    2. standing at 0,353, goes into it
       -> out 0,320
 how in 48,352 -> out 3600,320: djump
      coming in at 48,352
-   1. coming in: holding nothing, from 48,352; lands at 48,353
+   1. coming in: holding nothing, from 48,352; lands at 48,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-217, y 353
-   2. running right, jump (held 21 ticks), holding right, from 80,353; lands at 271,321
+   2. running right, jump (held 21 ticks), holding right, from 80,353; lands at 271,321 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 218-646, y 321
-   3. walk off the edge, holding right once in the air, from 218,321; lands at 709,353
+   3. walk off the edge, holding right once in the air, from 218,321; lands at 709,353 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> standing at x 647-1017, y 353
    4. get beside the push rock (from 768,288), at 758,353
       -> beside the push rock (from 768,288), to push it
    5. push the rock (from 768,288) to 768,288 and climb onto it
       -> on the push rock (from 768,288), pushed to 768,288 (its top at y 288)
-   6. jump (held 21 ticks), holding right, double jump at tick 15, from 831,289; lands at 1028,193   [djump]
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 831,289; lands at 1028,193 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
       -> standing at x 1018-1222, y 193
-   7. walk off the edge, holding right once in the air, from 1018,193; lands at 1362,353
+   7. walk off the edge, holding right once in the air, from 1018,193; lands at 1362,353 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> standing at x 1223-2073, y 353
-   8. jump (held 21 ticks), holding right, double jump at tick 15, from 1888,353; lands at 2085,257   [djump]
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 1888,353; lands at 2085,257 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
       -> standing at x 2074-2246, y 257
-   9. walk off the edge, holding right once in the air, from 2074,257; lands at 2330,321
+   9. walk off the edge, holding right once in the air, from 2074,257; lands at 2330,321 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> standing at x 2247-2694, y 321
   10. get beside the push rock (from 2400,256), at 2390,321
       -> beside the push rock (from 2400,256), to push it
   11. push the rock (from 2400,256) to 2552,256 and climb onto it
       -> on the push rock (from 2400,256), pushed to 2552,256 (its top at y 256)
-  12. jump (held 21 ticks), holding right, double jump at tick 15, from 2615,257; lands at 2849,193   [djump]
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 2615,257; lands at 2849,193 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
       -> standing at x 2842-2950, y 193
-  13. walk off the edge, holding right once in the air, from 2842,193; lands at 3091,353
+  13. walk off the edge, holding right once in the air, from 2842,193; lands at 3091,353 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> standing at x 3047-3616, y 353
   14. standing at 3598,353, goes into it
       -> out 3600,320
 how in 3568,352 -> out 0,320: djump
      coming in at 3568,352
-   1. coming in: holding nothing, from 3568,352; lands at 3568,353
+   1. coming in: holding nothing, from 3568,352; lands at 3568,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 3047-3616, y 353
-   2. jump (held 21 ticks), holding left, from 3047,353; lands at 2974,289
+   2. jump (held 21 ticks), holding left, from 3047,353; lands at 2974,289 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 2970-3046, y 289
-   3. jump (held 21 ticks), holding left, double jump at tick 15, from 2970,289; lands at 2893,193   [djump]
+   3. jump (held 21 ticks), holding left, double jump at tick 15, from 2970,289; lands at 2893,193 {move ch=1 dir=-1 jumpAt=0 djAt=15}   [djump]
       -> standing at x 2842-2950, y 193
-   4. jump (held 2 ticks), holding left, from 2842,193; lands at 2659,321
+   4. jump (held 2 ticks), holding left, from 2842,193; lands at 2659,321 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 2247-2694, y 321
-   5. jump (held 21 ticks), holding left, from 2247,321; lands at 2174,257
+   5. jump (held 21 ticks), holding left, from 2247,321; lands at 2174,257 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 2074-2246, y 257
-   6. walk off the edge, holding left once in the air, from 2074,257; lands at 1972,353
+   6. walk off the edge, holding left once in the air, from 2074,257; lands at 1972,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> standing at x 1223-2073, y 353
    7. get beside the push rock (from 1440,288), at 1430,353
       -> beside the push rock (from 1440,288), to push it
    8. push the rock (from 1440,288) to 1216,288 and climb onto it
       -> on the push rock (from 1440,288), pushed to 1216,288 (its top at y 288)
-   9. jump (held 21 ticks), holding left, double jump at tick 15, from 1247,289; lands at 1165,193   [djump]
+   9. jump (held 21 ticks), holding left, double jump at tick 15, from 1247,289; lands at 1165,193 {move ch=1 dir=-1 jumpAt=0 djAt=15}   [djump]
       -> standing at x 1018-1222, y 193
-  10. walk off the edge, holding left once in the air, from 1018,193; lands at 879,353
+  10. walk off the edge, holding left once in the air, from 1018,193; lands at 879,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> standing at x 647-1017, y 353
-  11. jump (held 2 ticks), holding left, from 647,353; lands at 604,321
+  11. jump (held 2 ticks), holding left, from 647,353; lands at 604,321 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 218-646, y 321
-  12. walk off the edge, holding left once in the air, from 218,321; lands at 160,353
+  12. walk off the edge, holding left once in the air, from 218,321; lands at 160,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> standing at x 0-217, y 353
   13. standing at 0,353, goes into it
       -> out 0,320
 how in 3568,352 -> out 3600,320: -
      coming in at 3568,352
-   1. coming in: holding nothing, from 3568,352; lands at 3568,353
+   1. coming in: holding nothing, from 3568,352; lands at 3568,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 3047-3616, y 353
    2. standing at 3598,353, goes into it
       -> out 3600,320

@@ -14,6 +14,8 @@ out 2032,272   # to rLink2_PalaceA_9 at 48,304; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -30,29 +32,29 @@ from in 2000,304
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 48,336 -> out 40,368: -
      coming in at 48,336
-   1. coming in: holding nothing, from 48,336; touches it on the way
+   1. coming in: holding nothing, from 48,336; touches it on the way {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> out 40,368
 how in 2000,304 -> out 40,368: -
      coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 1799-2048, y 305
-   2. jump (held 21 ticks), holding left, from 1799,305; lands at 1694,241
+   2. jump (held 21 ticks), holding left, from 1799,305; lands at 1694,241 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 1178-1766, y 241
-   3. walk off the edge, holding left once in the air, from 1178,241; lands at 1120,273
+   3. walk off the edge, holding left once in the air, from 1178,241; lands at 1120,273 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> standing at x 1050-1177, y 273
-   4. jump (held 21 ticks), holding left, from 1050,273; lands at 860,273
+   4. jump (held 21 ticks), holding left, from 1050,273; lands at 860,273 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 506-870, y 273
-   5. jump (held 2 ticks), holding left, from 506,273; lands at 404,273
+   5. jump (held 2 ticks), holding left, from 506,273; lands at 404,273 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 378-454, y 273
-   6. running left, jump (held 2 ticks), holding left, from 378,273; lands at 253,273
+   6. running left, jump (held 2 ticks), holding left, from 378,273; lands at 253,273 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> standing at x 199-262, y 273
-   7. jump (held 21 ticks), holding left, from 199,273; lands at 126,209
+   7. jump (held 21 ticks), holding left, from 199,273; lands at 126,209 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 58-198, y 209
-   8. walk off the edge, holding left once in the air, from 58,209; touches it on the way
+   8. walk off the edge, holding left once in the air, from 58,209; touches it on the way {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> out 40,368
 how in 2000,304 -> out 2032,272: -
      coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 1799-2048, y 305
    2. standing at 2030,305, goes into it
       -> out 2032,272

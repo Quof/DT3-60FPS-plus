@@ -16,6 +16,8 @@ out 2720,224   # to rBelmont3_3E at 48,448; the player goes into it
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 9 52   # weapon upgrade 52, at 2207,295
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -34,13 +36,13 @@ from in 2688,256
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 48,224 -> out 0,192: -
      [sliding blocks as placed] coming in at 48,224
-   1. coming in: holding nothing, from 48,224; lands at 48,225
+   1. coming in: holding nothing, from 48,224; lands at 48,225 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [sliding blocks as placed] standing at x 0-134, y 225
    2. standing at 0,225, goes into it
       -> out 0,192
 how in 2688,256 -> out 2720,224: -
      [sliding blocks as placed] coming in at 2688,256
-   1. coming in: holding nothing, from 2688,256; lands at 2688,257
+   1. coming in: holding nothing, from 2688,256; lands at 2688,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [sliding blocks as placed] standing at x 2602-2736, y 257
    2. standing at 2718,257, goes into it
       -> out 2720,224

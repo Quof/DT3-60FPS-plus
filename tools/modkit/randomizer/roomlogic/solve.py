@@ -12,7 +12,7 @@ usage:
   python solve.py --explain <place>          the ways to a place, room by room: <place> is "loc 10 59" or its name
                                              ("skill point 59")
   python solve.py --room <room>              what each way in, way out and place of a room needs from the start
-  python solve.py --check <roomlogic.txt>    compare with another result (RoomLogic.exe's own: work\\roomlogic_check.txt)
+  python solve.py --check <roomlogic.txt>    compare with another result (RoomLogic.exe's own: work\\fps30\\roomlogic_check.txt)
   python solve.py --no-overrides             leave overrides.txt out
   python solve.py --option <name>            count an option's ways (requirements "option <name>") as there
 
@@ -45,16 +45,17 @@ OUT = os.path.join(HERE, "roomlogic.txt")
 # the items the logic counts, in RoomLogic.cs's order (Req.Names); djump, adash, gdash, mario and varia are one item
 # each (varia: the Varia Suit; cursed: the Trial Master's three cursed equipment pieces; instr: the Nightmare Gates'
 # instruments, items only with the new game's option Instrument Randomization: events.txt's ir+ lines; air: the Air
-# Upgrades, which only overrides.txt's also lines for the underwater rooms take, not RoomLogic.cs)
+# Upgrades, which only overrides.txt's require lines for the underwater rooms take, not RoomLogic.cs)
 ITEMS = ["djump", "adash", "gdash", "hijump", "mario", "link", "belmont", "megaman", "samus", "gamej", "gamec", "varia", "cursed",
          "instr", "air"]
 SINGLE = {"djump", "adash", "gdash", "mario", "varia"}
 
 # the Access Gates and their Program Chips (the new game's option Chip Randomizer): each gate's portal, and the Nightmare
-# Gate portal beside it, is gone through only with that gate's Program Chip (overrides.txt's need lines for them, wherever
-# Entrance Rando has the portal lead; nothing else into a gate's rooms takes one). Gate N's rooms are the ones whose names
-# start with its prefix (each gate's own area in the game). A chip is a key of its own here, key CHIP_KEY+N ("chip N" in
-# the files): no locked door's objectNum is that high. With the option off the player has every chip from the start
+# Gate portal beside it, is gone through only with that gate's Program Chip (overrides.txt's "require <room> out <exit>"
+# lines for them, wherever Entrance Rando has the portal lead; nothing else into a gate's rooms takes one). Gate N's rooms
+# are the ones whose names start with its prefix (each gate's own area in the game). A chip is a key of its own here, key
+# CHIP_KEY+N ("chip N" in the files): no locked door's objectNum is that high. With the option off the player has every
+# chip from the start
 GATE_PREFIX = {1: "rMario1_", 2: "rLink2_", 3: "rBelmont3_", 4: "rMega4_", 5: "rSamus5_", 6: "rGame6_"}
 CHIP_KEY = 50
 
@@ -300,120 +301,234 @@ def has_link(conn, room, out):
     return (room, out) in conn.links or (room, out) in conn.links_st
 
 
-def load_overrides(rooms, conn, path=OVERRIDES):
-    """applies overrides.txt to the rooms' tables and the connections (see the file for its lines), and bosses.txt.
-    Returns how many lines"""
+# ---------------------------------------------------------------- overrides.txt
+# (what the build holds an add line to: a way of its that leaves out something every one of the simulation's ways there
+# takes would take that requirement away, which only a drop line may do. These are what a hatch, a barrier, enemies, a
+# locked door, a portal and a switch take: a weapon, a key, a Program Chip, an event)
+WEAPONS = ("link", "belmont", "megaman", "samus")
+
+
+def has_weapon(a):
+    return any(a.c[ITEMS.index(w)] > 0 for w in WEAPONS)
+
+
+def gate_needs(alts):
+    """of a weapon, keys, Program Chips and events, what every one of the alternatives takes: {"attack", "key 15",
+    "chip 3", "event rVault_1/switch1"} (none for never). A weapon: every alternative takes an ability set's item, and one
+    takes just a set's first (its plain attack); the sets' later items for moving (the Morph Ball, the Strike Chain) come
+    with the first, the sets being progressive, so ways that take only those aren't counted as taking a weapon"""
+    if not alts: return set()
+    out = {"chip %d" % (k - CHIP_KEY) if k > CHIP_KEY else "key %d" % k for k in frozenset.intersection(*[a.k for a in alts])}
+    out |= {"event " + o[6:] for o in frozenset.intersection(*[a.o for a in alts]) if o.startswith("event:")}
+    if all(has_weapon(a) for a in alts) and any(a.c[ITEMS.index(w)] == 1 for a in alts for w in WEAPONS): out.add("attack")
+    return out
+
+
+def takes(a, g):
+    """an alternative takes one of gate_needs' requirements"""
+    kind, _, v = g.partition(" ")
+    if kind == "attack": return has_weapon(a)
+    if kind == "key": return int(v) in a.k
+    if kind == "chip": return CHIP_KEY + int(v) in a.k
+    return "event:" + v in a.o
+
+
+def gate_words(text, where):
+    """what a drop line says the add lines leave out (attack, key N, chip N, event NAME), as gate_needs has them"""
+    toks = text.replace(",", " ").replace(":", " ").split()
+    out, i = set(), 0
+    while i < len(toks):
+        w = toks[i].lower()
+        if w == "attack":
+            out.add(w); i += 1
+        elif w in ("key", "chip", "event") and i + 1 < len(toks) and (w == "event" or toks[i + 1].isdigit()):
+            out.add("%s %s" % (w, toks[i + 1])); i += 2
+        else: raise SystemExit("%s: a drop line's requirements are attack, key N, chip N and event NAME: %r" % (where, text.strip()))
+    if not out: raise SystemExit("%s: 'drop ... : <requirements> because <why>' with no requirements" % where)
+    return out
+
+
+def override_target(r, names, right, where):
+    """an override line's target in room r: ("out", id, None) (left in the state the player came in in), ("loc", type,
+    number) or ("spot", tag); None for "*" (each way out, place and spot)"""
+    if right == ["*"]: return None
+    if right[0] == "out" and len(right) == 2:
+        if right[1] not in r.outs: raise SystemExit("%s: %s has no way out %r" % (where, r.name, right[1]))
+        return ("out", right[1], None)
+    if right[0] == "spot" and len(right) == 2 and right[1] in r.spots: return ("spot", right[1])
+    if right[0] == "loc" and len(right) == 3 and right[1].isdigit() and right[2].isdigit(): key = (int(right[1]), int(right[2]))
+    elif right[0] == "loc" and " ".join(right[1:]).lower() in names: key = names[" ".join(right[1:]).lower()]
+    else: raise SystemExit("%s: '%s' isn't a way out ('out <x,y>'), a place ('loc <type> <number>' or its name), a spot "
+                           "('spot <tag>') or '*'" % (where, " ".join(right)))
+    if key not in r.locs: raise SystemExit("%s: %s has no place %s" % (where, r.name, " ".join(right[1:])))
+    return ("loc",) + key
+
+
+def override_way(rooms, names, text, where):
+    """an add, drop or require line's '<room> from <way in> to <target>' (or 'area <number> from * to *'): [(room, its
+    way in or "*", target, None for "*")]"""
+    toks = text.split()
+    if toks[:1] == ["area"]:
+        if len(toks) != 6 or not toks[1].isdigit() or toks[2:] != ["from", "*", "to", "*"]:
+            raise SystemExit("%s: 'area <number> from * to *'" % where)
+        these = [r for r in rooms.values() if r.area_num == int(toks[1])]
+        if not these: raise SystemExit("%s: no room in area %s" % (where, toks[1]))
+        return [(r, "*", None) for r in these]
+    # (the way in may have a carried state after it, "48,480 [water 3]": coming in in that state only)
+    to = toks.index("to") if "to" in toks else -1
+    if len(toks) < 5 or toks[1] != "from" or to < 3 or (to > 3 and not (toks[3].startswith("[") and toks[to - 1].endswith("]"))):
+        raise SystemExit("%s: '<room> from <x,y> to <way out or place>' ('from *': from every way in; 'to *': to every way "
+                         "out, place and spot)" % where)
+    if toks[0] not in rooms: raise SystemExit("%s: no room %r (rooms\\ has a file a room)" % (where, toks[0]))
+    r = rooms[toks[0]]
+    if toks[2] != "*" and toks[2] not in r.ins: raise SystemExit("%s: %s has no way in %r" % (where, r.name, toks[2]))
+    inid = " ".join(toks[2:to])
+    if to > 3 and (toks[2] == "*" or not override_rows(r, inid, None)):
+        raise SystemExit("%s: %s has no way in %r" % (where, r.name, inid))
+    return [(r, inid, override_target(r, names, toks[to + 1:], where))]
+
+
+def way_in(inid):
+    """an override line's way in: (x,y or "*", its state, or None: each state)"""
+    toks = inid.split()
+    return (toks[0], split_state(toks[1:])[0]) if len(toks) > 1 else (toks[0], None)
+
+
+def override_rows(r, inid, target):
+    """the rows an add or drop line is for: from the way in (in each of the states the table has it in, or the one the
+    line names; "*": each way in) to the target (None: each way out, place and spot), a way out left in the state the
+    player came in in"""
+    xy, st = way_in(inid)
+    ways = r.ways(None if xy == "*" else xy) or [(i, ()) for i in (r.ins if xy == "*" else [xy])]
+    ways = [w for w in ways if st is None or w[1] == st]
+    rows = []
+    for w in ways:
+        if target is None:
+            rows += [(w, ("out", o, w[1])) for o in r.outs] + [(w, ("loc",) + l) for l in r.locs] + [(w, ("spot", sp)) for sp in r.spots]
+        else: rows.append((w, target if target[0] != "out" else ("out", target[1], w[1])))
+    return rows
+
+
+def require_rows(r, inid, target):
+    """the rows a require line is for: every way the table has from the way in ("*": each) to the target (None: each),
+    whatever state it's left in"""
+    xy, st = way_in(inid)
+    return [(w, t) for (w, t) in r.table if (xy == "*" or w[0] == xy) and (st is None or w[1] == st)
+            and (target is None or t == target or (target[0] == "out" and t[0] == "out" and t[1] == target[1]))]
+
+
+def load_overrides(rooms, conn, path=OVERRIDES, touched=None):
+    """applies overrides.txt to the rooms' tables and the connections (the top of the file says what its lines do), and
+    bosses.txt. Stops when an add line has a way that leaves out a weapon, a key, a Program Chip or an event every one of
+    the simulation's ways there takes, with no drop line saying why (gate_needs). touched: a pair of dicts, ({(room, way,
+    target): [(line, command)]}, {(room, out): [(line, command)]}), to get the rows and exits each line changes. Returns
+    how many lines"""
     if not os.path.exists(path): return load_bosses(rooms, conn)
+    rows_t, exits_t = touched if touched is not None else (collections.defaultdict(list), collections.defaultdict(list))
     names = place_names(rooms)
+    sim = {}           # (room, row) -> the simulation's alternatives there (its file's, before any line here)
+    adds = []          # (line, its way, (room, row), alternatives): the add lines' ways, for the check
+    dropped = set()    # (room, row): the simulation's ways there dropped by a drop line
+    left_out = collections.defaultdict(set)   # (room, row) -> what a drop line says the add lines there leave out
+    gone, require, only = [], [], []
     n = 0
-    gone = []          # (the outoflogic lines' places: put out of logic after the rest, whatever else gives them a way)
-    also = []          # (the also lines: (room, what every way through it needs as well), after the rest too)
-    only = []          # (the only lines: (room, the items it leaves the player), after the set and add lines)
     for ln, raw in enumerate(open(path, encoding="utf-8"), 1):
         line = raw.split("#", 1)[0].strip()
         if not line: continue
         where = "overrides.txt line %d" % ln
         f = line.split(None, 1)
-        cmd = f[0].lower()
-        if cmd in ("set", "add"):
-            head, _, req = f[1].partition(":")
-            if not _: raise SystemExit("%s: no ':'" % where)
-            hf = head.split("->")
-            if len(hf) != 2: raise SystemExit("%s: '<room> in <x,y> -> <way out or place>'" % where)
-            left, right = hf[0].split(), hf[1].split()
-            if len(left) != 3 or left[1] != "in": raise SystemExit("%s: '<room> in <x,y>' (or 'in *')" % where)
-            room = left[0]
-            if room not in rooms: raise SystemExit("%s: no room %r (rooms\\ has a file a room)" % (where, room))
-            r = rooms[room]
-            if right[0] == "out" and len(right) == 2:
-                if right[1] not in r.outs: raise SystemExit("%s: %s has no way out %r" % (where, room, right[1]))
-                target = ("out", right[1], None)   # (left in the state it's come in in: below)
-            elif right[0] == "loc" and len(right) == 3 and right[1].isdigit() and right[2].isdigit():
-                target = ("loc", int(right[1]), int(right[2]))
-            elif right[0] == "loc" and " ".join(right[1:]).lower() in names:
-                k = names[" ".join(right[1:]).lower()]; target = ("loc",) + k
-            elif right[0] == "spot" and len(right) == 2 and right[1] in r.spots:
-                target = ("spot", right[1])
-            else: raise SystemExit("%s: '%s' isn't a way out ('out <x,y>') or a place ('loc <type> <number>' or its name)" % (where, hf[1].strip()))
-            if target[0] == "loc" and (target[1], target[2]) not in r.locs: raise SystemExit("%s: %s has no place %s" % (where, room, hf[1].strip()))
-            if left[2] != "*" and left[2] not in r.ins: raise SystemExit("%s: %s has no way in %r" % (where, room, left[2]))
-            # (each of the way in's states, in a room that carries one; a way out is left in the same state)
-            ways = r.ways(None if left[2] == "*" else left[2])
-            if not ways: ways = [(i, ()) for i in (r.ins if left[2] == "*" else [left[2]])]
-            alts = parse(req, where)
-            for w in ways:
-                t = target if target[0] in ("loc", "spot") else ("out", target[1], w[1])
-                if cmd == "set": r.table[(w, t)] = list(alts)
-                else:
-                    cur = r.table.setdefault((w, t), [])
-                    for a in alts: add(cur, a)
-            n += 1
-        elif cmd in ("room", "area"):
-            # every way through the room (or every room of the area): from each way in (in each state) to each way out
-            # (left in the same state), place and spot, needing this, in place of what the room's file says
-            head, _, req = f[1].partition(":")
-            if not _: raise SystemExit("%s: no ':'" % where)
-            what = head.strip()
-            if cmd == "room":
-                if what not in rooms: raise SystemExit("%s: no room %r" % (where, what))
-                these = [rooms[what]]
-            else:
-                if not what.isdigit(): raise SystemExit("%s: 'area <number> : <requirements>'" % where)
-                these = [r for r in rooms.values() if r.area_num == int(what)]
-                if not these: raise SystemExit("%s: no room in area %s" % (where, what))
-            alts = parse(req, where)
-            for r in these:
-                ways = r.ways() or [(i, ()) for i in r.ins]
-                for w in ways:
-                    for o in r.outs: r.table[(w, ("out", o, w[1]))] = list(alts)
-                    for l in r.locs: r.table[(w, ("loc",) + l)] = list(alts)
-                    for sp in r.spots: r.table[(w, ("spot", sp))] = list(alts)
-            n += 1
-        elif cmd == "need":
-            head, _, req = f[1].partition(":")
+        cmd, rest = f[0].lower(), (f[1] if len(f) > 1 else "")
+        if cmd == "require" and rest.split()[1:2] == ["out"]:
+            head, sep, req = rest.partition(":")
             hf = head.split()
-            if len(hf) != 3 or hf[1] != "out": raise SystemExit("%s: 'need <room> out <x,y> : <requirements>'" % where)
+            if not sep or len(hf) != 3: raise SystemExit("%s: 'require <room> out <x,y> : <requirements>'" % where)
             if not has_link(conn, hf[0], hf[2]): raise SystemExit("%s: no exit %s out %s in connections.txt" % (where, hf[0], hf[2]))
-            conn.need[(hf[0], hf[2])] = parse(req, where); n += 1
+            key = (hf[0], hf[2])
+            conn.need[key] = product(conn.need[key], parse(req, where)) if key in conn.need else parse(req, where)
+            exits_t[key].append((ln, cmd)); n += 1
+        elif cmd in ("add", "drop", "require"):
+            head = rest
+            if cmd == "drop":
+                head, sep, why = rest.partition(" because ")
+                if not sep or not why.strip():
+                    raise SystemExit("%s: 'drop <room> from <x,y> to <way out or place> because <why>'" % where)
+            head, sep, req = head.partition(":")
+            if cmd != "drop" and not sep: raise SystemExit("%s: no ':'" % where)
+            alts = parse(req, where) if cmd != "drop" else None
+            words = gate_words(req, where) if cmd == "drop" and sep else None
+            for r, inid, target in override_way(rooms, names, head, where):
+                if cmd == "require":
+                    require.append((ln, r, inid, target, alts)); continue
+                for row in override_rows(r, inid, target):
+                    key = (r.name, row)
+                    if key not in sim: sim[key] = list(r.table.get(row, []))
+                    if words:
+                        left_out[key] |= words; continue
+                    if cmd == "add":
+                        cur = r.table.setdefault(row, [])
+                        for a in alts: add(cur, a)
+                        adds.append((where, head.strip(), key, alts))
+                    else:
+                        r.table[row] = []; dropped.add(key)
+                    rows_t[(r.name,) + row].append((ln, cmd))
+            n += 1
         elif cmd == "link":
-            hf = f[1].split()
+            hf = rest.split()
             if len(hf) != 7 or hf[1] != "out" or hf[3] != "->" or hf[5] != "in":
                 raise SystemExit("%s: 'link <room> out <x,y> -> <room> in <x,y>'" % where)
             if hf[0] not in rooms or hf[2] not in rooms[hf[0]].outs: raise SystemExit("%s: %s has no way out %r" % (where, hf[0], hf[2]))
             if hf[4] not in rooms or hf[6] not in rooms[hf[4]].ins: raise SystemExit("%s: %s has no way in %r" % (where, hf[4], hf[6]))
             # (in every state: in place of the ways the connections give it)
-            conn.links[(hf[0], hf[2])] = (hf[4], hf[6]); conn.links_st.pop((hf[0], hf[2]), None); n += 1
+            conn.links[(hf[0], hf[2])] = (hf[4], hf[6]); conn.links_st.pop((hf[0], hf[2]), None)
+            exits_t[(hf[0], hf[2])].append((ln, cmd)); n += 1
         elif cmd == "outoflogic":
-            gone.append(outoflogic_line(rooms, names, f[1] if len(f) > 1 else "", where)[1]); n += 1
-        elif cmd == "also":
-            head, _, req = (f[1] if len(f) > 1 else "").partition(":")
-            if not _ or head.strip() not in rooms: raise SystemExit("%s: 'also <room> : <requirements>' (a room rooms\\ has)" % where)
-            also.append((head.strip(), parse(req, where))); n += 1
+            gone.append((ln, outoflogic_line(rooms, names, rest, where)[1])); n += 1
         elif cmd == "only":
-            head, _, req = (f[1] if len(f) > 1 else "").partition(":")
+            head, sep, req = rest.partition(":")
             names_ = req.replace(",", " ").lower().split()
-            if not _ or head.strip() not in rooms or not names_:
+            if not sep or head.strip() not in rooms or not names_:
                 raise SystemExit("%s: 'only <room> : <items>' (a room rooms\\ has)" % where)
             bad = [nm for nm in names_ if nm not in ITEMS]
             if bad: raise SystemExit("%s: 'only' takes items (%s), not %s" % (where, ", ".join(ITEMS), ", ".join(bad)))
-            only.append((head.strip(), {ITEMS.index(nm) for nm in names_})); n += 1
+            only.append((ln, head.strip(), {ITEMS.index(nm) for nm in names_})); n += 1
+        elif cmd in ("set", "room", "area", "need", "also"):
+            raise SystemExit("%s: there are no %s lines any more: a way the simulation has wrong is 'drop ... because <why>' "
+                             "and then 'add ...' (for set, room and area), a requirement on top is 'require ...' (for need "
+                             "and also): the top of overrides.txt says how" % (where, cmd))
         else:
-            raise SystemExit("%s: unknown line %r (set, add, room, area, need, link, also, only or outoflogic)" % (where, cmd))
+            raise SystemExit("%s: unknown line %r (add, drop, require, link, only or outoflogic)" % (where, cmd))
     # (a room's only lines: the room's code takes the player's other abilities and sets away there, so a way through it
     # that needs one isn't there; keys and events stay as they are)
-    for room, keep in only:
+    for ln, room, keep in only:
         r = rooms[room]
         for key in list(r.table):
             r.table[key] = [a for a in r.table[key] if all(c == 0 or i in keep for i, c in enumerate(a.c))]
-    # (a room's also lines: every way through it needs that as well, on top of what the lines before have it need)
-    for room, extra in also:
-        r = rooms[room]
-        for key in list(r.table): r.table[key] = product(r.table[key], extra)
+            rows_t[(room,) + key].append((ln, "only"))
+    # (the require lines: every way there needs that as well, on top of what the lines before have it need)
+    for ln, r, inid, target, extra in require:
+        for key in require_rows(r, inid, target):
+            r.table[key] = product(r.table[key], extra)
+            rows_t[(r.name,) + key].append((ln, "require"))
     # (a place out of logic: no way to it from any way in of any room it's in)
-    for key in gone:
+    for ln, key in gone:
         for r in rooms.values():
             if key not in r.locs: continue
-            for w in (r.ways() or [(i, ()) for i in r.ins]): r.table[(w, ("loc",) + key)] = []
+            for w in (r.ways() or [(i, ()) for i in r.ins]):
+                r.table[(w, ("loc",) + key)] = []
+                rows_t[(r.name, w, ("loc",) + key)].append((ln, "outoflogic"))
+    # (the check: an add line's way with less than every one of the simulation's ways there takes, of a weapon, a key, a
+    # Program Chip and an event, needs a drop line saying why: the whole way's (its simulation dropped), or that)
+    bad = collections.OrderedDict()
+    for where, head, key, alts in adds:
+        if key in dropped: continue
+        need = gate_needs(sim[key])
+        out = {g for a in alts for g in need if not takes(a, g)} - left_out[key]
+        if out: bad.setdefault((where, head), set()).update(out)
+    if bad:
+        raise SystemExit("overrides.txt: an add line whose way leaves out what every one of the simulation's ways there takes "
+                         "(the room's file): if the game really doesn't need it there, a drop line before it says why, "
+                         "'drop <the same way> : <what> because <why>'\n" + "\n".join(
+                             "  %s: %s: leaves out %s" % (where, head, ", ".join(sorted(out))) for (where, head), out in bad.items()))
     return n + load_bosses(rooms, conn)
 
 
@@ -725,7 +840,16 @@ def write_result(rooms, res, path=OUT):
     for name in sorted(rooms):
         alts = room_needs(rooms, res, name)
         L.append("room %s %s" % (name, "|".join(str(a) for a in alts) if alts else "never"))
-    with open(path, "w", encoding="utf-8", newline="\n") as f: f.write("\n".join(L) + "\n")
+    #with open(path, "w", encoding="utf-8", newline="\n") as f: f.write("\n".join(L) + "\n")
+    # (another program, an editor or a search indexer, may hold the file a moment: tried again for up to a minute)
+    import time
+    for tries in range(60):
+        try:
+            with open(path, "w", encoding="utf-8", newline="\n") as f: f.write("\n".join(L) + "\n")
+            break
+        except OSError:
+            if tries == 59: raise
+            time.sleep(1)
     return reached, len(res.places)
 
 

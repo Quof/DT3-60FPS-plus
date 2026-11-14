@@ -17,47 +17,49 @@ out 2032,272   # to rVault_13 at 48,304; the player goes into it
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 2 38   # treasure chest 38, at 1856,99
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 48,240 [rb 0]
-  out 0,208 [rb 0]      -
-  out 0,208 [rb 1]      megaman:1 | samus:1 | link:1 | belmont:1
-  out 2032,272 [rb 0]   -
-  out 2032,272 [rb 1]   link:1 | belmont:1 | megaman:1 | samus:1
-  loc 2 38              never
+  out 0,208 [rb 0] -
+  out 0,208 [rb 1] megaman:1 | samus:1 | link:1 | belmont:1
+  out 2032,272 [rb 0] -
+  out 2032,272 [rb 1] link:1 | belmont:1 | megaman:1 | samus:1
+  loc 2 38       never
 from in 48,240 [rb 1]
-  out 0,208 [rb 0]      megaman:1 | samus:1 | link:1 | belmont:1
-  out 0,208 [rb 1]      -
-  out 2032,272 [rb 0]   megaman:1 | samus:1 | link:1 | belmont:1
-  out 2032,272 [rb 1]   megaman:1 | samus:1 | link:1 | belmont:1
-  loc 2 38              never
+  out 0,208 [rb 0] megaman:1 | samus:1 | link:1 | belmont:1
+  out 0,208 [rb 1] -
+  out 2032,272 [rb 0] megaman:1 | samus:1 | link:1 | belmont:1
+  out 2032,272 [rb 1] megaman:1 | samus:1 | link:1 | belmont:1
+  loc 2 38       never
 from in 2000,304 [rb 0]
-  out 0,208 [rb 0]      -
-  out 0,208 [rb 1]      link:1 | belmont:1 | megaman:1 | samus:1
-  out 2032,272 [rb 0]   -
-  out 2032,272 [rb 1]   link:1 | belmont:1 | megaman:1 | samus:1
-  loc 2 38              never
+  out 0,208 [rb 0] -
+  out 0,208 [rb 1] link:1 | belmont:1 | megaman:1 | samus:1
+  out 2032,272 [rb 0] -
+  out 2032,272 [rb 1] link:1 | belmont:1 | megaman:1 | samus:1
+  loc 2 38       never
 from in 2000,304 [rb 1]
-  out 0,208 [rb 0]      link:1 | belmont:1 | megaman:1 | samus:1
-  out 0,208 [rb 1]      link:1 | belmont:1 | megaman:1 | samus:1
-  out 2032,272 [rb 0]   link:1 | belmont:1 | megaman:1 | samus:1
-  out 2032,272 [rb 1]   -
-  loc 2 38              never
+  out 0,208 [rb 0] link:1 | belmont:1 | megaman:1 | samus:1
+  out 0,208 [rb 1] link:1 | belmont:1 | megaman:1 | samus:1
+  out 2032,272 [rb 0] link:1 | belmont:1 | megaman:1 | samus:1
+  out 2032,272 [rb 1] -
+  loc 2 38       never
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 48,240 [rb 0] -> out 0,208 [rb 0]: -
      [blue blocks solid] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 0-198, y 241
    2. standing at 0,241, goes into it
       -> out 0,208 [rb 0]
 how in 48,240 [rb 0] -> out 0,208 [rb 1]: megaman:1
      [blue blocks solid] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 0-198, y 241
    2. shoot the switch at 104,136 from 0,241 (at the top of a jump): [red blocks solid]   [megaman:1]
       -> [red blocks solid] standing at x 0-198, y 241
@@ -65,7 +67,7 @@ how in 48,240 [rb 0] -> out 0,208 [rb 1]: megaman:1
       -> out 0,208 [rb 1]
 how in 48,240 [rb 0] -> out 0,208 [rb 1]: samus:1
      [blue blocks solid] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 0-198, y 241
    2. shoot the switch at 104,136 from 0,241 (at the top of a jump): [red blocks solid]   [samus:1]
       -> [red blocks solid] standing at x 0-198, y 241
@@ -73,7 +75,7 @@ how in 48,240 [rb 0] -> out 0,208 [rb 1]: samus:1
       -> out 0,208 [rb 1]
 how in 48,240 [rb 0] -> out 0,208 [rb 1]: link:1
      [blue blocks solid] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 0-198, y 241
    2. hit the switch at 104,136 from 56,241 (jumping if need be): [red blocks solid]   [link:1]
       -> [red blocks solid] standing at x 0-198, y 241
@@ -81,7 +83,7 @@ how in 48,240 [rb 0] -> out 0,208 [rb 1]: link:1
       -> out 0,208 [rb 1]
 how in 48,240 [rb 0] -> out 0,208 [rb 1]: belmont:1
      [blue blocks solid] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 0-198, y 241
    2. hit the switch at 104,136 from 56,241 (jumping if need be): [red blocks solid]   [belmont:1]
       -> [red blocks solid] standing at x 0-198, y 241
@@ -89,149 +91,149 @@ how in 48,240 [rb 0] -> out 0,208 [rb 1]: belmont:1
       -> out 0,208 [rb 1]
 how in 48,240 [rb 0] -> out 2032,272 [rb 0]: -
      [blue blocks solid] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 0-198, y 241
-   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177
+   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177 {move ch=1 dir=1 jumpAt=0}
       -> [blue blocks solid] standing at x 154-390, y 177
-   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113
+   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113 {move ch=1 dir=1 jumpAt=0}
       -> [blue blocks solid] standing at x 186-840, y 113
-   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113
+   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 889-1158, y 113
-   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241
+   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 1161-1286, y 241
-   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241
+   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1338-1544, y 241
-   7. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241
+   7. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1594-1719, y 241
-   8. jump (held 21 ticks), holding right, from 1616,241; lands at 1730,177
+   8. jump (held 21 ticks), holding right, from 1616,241; lands at 1730,177 {move ch=1 dir=1 jumpAt=0}
       -> [blue blocks solid] standing at x 1658-1798, y 177
-   9. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177
+   9. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-  10. walk off the edge, holding right once in the air, from 1850,177; touches it on the way
+  10. walk off the edge, holding right once in the air, from 1850,177; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2032,272 [rb 0]
 how in 48,240 [rb 0] -> out 2032,272 [rb 1]: link:1
      [blue blocks solid] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 0-198, y 241
-   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177
+   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177 {move ch=1 dir=1 jumpAt=0}
       -> [blue blocks solid] standing at x 154-390, y 177
-   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113
+   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113 {move ch=1 dir=1 jumpAt=0}
       -> [blue blocks solid] standing at x 186-840, y 113
-   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113
+   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 889-1158, y 113
-   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241
+   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 1161-1286, y 241
-   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241
+   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1338-1544, y 241
-   7. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241
+   7. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1594-1719, y 241
-   8. jump (held 21 ticks), holding right, from 1616,241; lands at 1730,177
+   8. jump (held 21 ticks), holding right, from 1616,241; lands at 1730,177 {move ch=1 dir=1 jumpAt=0}
       -> [blue blocks solid] standing at x 1658-1798, y 177
-   9. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177
+   9. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-  10. walk off the edge, holding right, then left after 1 ticks in the air, from 1850,177; lands at 1929,273
+  10. walk off the edge, holding right, then left after 1 ticks in the air, from 1850,177; lands at 1929,273 {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 1929-1945, y 273
   11. hit the switch at 1872,224 from 1929,273 (jumping if need be): [red blocks solid]   [link:1]
       -> [red blocks solid] standing at x 1929-1945, y 273
-  12. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+  12. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [red blocks solid] standing at x 1946-1990, y 241
-  13. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177
+  13. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1895-1928, y 177
-  14. walk off the edge, holding right once in the air, from 1895,177; touches it on the way
+  14. walk off the edge, holding right once in the air, from 1895,177; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2032,272 [rb 1]
 how in 48,240 [rb 0] -> out 2032,272 [rb 1]: belmont:1
      [blue blocks solid] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 0-198, y 241
-   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177
+   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177 {move ch=1 dir=1 jumpAt=0}
       -> [blue blocks solid] standing at x 154-390, y 177
-   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113
+   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113 {move ch=1 dir=1 jumpAt=0}
       -> [blue blocks solid] standing at x 186-840, y 113
-   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113
+   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 889-1158, y 113
-   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241
+   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 1161-1286, y 241
-   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241
+   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1338-1544, y 241
-   7. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241
+   7. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1594-1719, y 241
-   8. jump (held 21 ticks), holding right, from 1616,241; lands at 1730,177
+   8. jump (held 21 ticks), holding right, from 1616,241; lands at 1730,177 {move ch=1 dir=1 jumpAt=0}
       -> [blue blocks solid] standing at x 1658-1798, y 177
-   9. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177
+   9. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-  10. walk off the edge, holding right, then left after 1 ticks in the air, from 1850,177; lands at 1929,273
+  10. walk off the edge, holding right, then left after 1 ticks in the air, from 1850,177; lands at 1929,273 {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 1929-1945, y 273
   11. hit the switch at 1872,224 from 1929,273 (jumping if need be): [red blocks solid]   [belmont:1]
       -> [red blocks solid] standing at x 1929-1945, y 273
-  12. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+  12. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [red blocks solid] standing at x 1946-1990, y 241
-  13. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177
+  13. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1895-1928, y 177
-  14. walk off the edge, holding right once in the air, from 1895,177; touches it on the way
+  14. walk off the edge, holding right once in the air, from 1895,177; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2032,272 [rb 1]
 how in 48,240 [rb 0] -> out 2032,272 [rb 1]: megaman:1
      [blue blocks solid] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 0-198, y 241
-   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177
+   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177 {move ch=1 dir=1 jumpAt=0}
       -> [blue blocks solid] standing at x 154-390, y 177
-   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113
+   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113 {move ch=1 dir=1 jumpAt=0}
       -> [blue blocks solid] standing at x 186-840, y 113
-   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113
+   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 889-1158, y 113
-   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241
+   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 1161-1286, y 241
-   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241
+   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1338-1544, y 241
-   7. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241
+   7. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1594-1719, y 241
-   8. jump (held 21 ticks), holding right, from 1616,241; lands at 1730,177
+   8. jump (held 21 ticks), holding right, from 1616,241; lands at 1730,177 {move ch=1 dir=1 jumpAt=0}
       -> [blue blocks solid] standing at x 1658-1798, y 177
-   9. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177
+   9. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-  10. walk off the edge, holding right, then left after 1 ticks in the air, from 1850,177; lands at 1929,273
+  10. walk off the edge, holding right, then left after 1 ticks in the air, from 1850,177; lands at 1929,273 {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 1929-1945, y 273
   11. hit the switch at 1872,224 from 1929,273 (jumping if need be): [red blocks solid]   [megaman:1]
       -> [red blocks solid] standing at x 1929-1945, y 273
-  12. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+  12. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [red blocks solid] standing at x 1946-1990, y 241
-  13. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177
+  13. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1895-1928, y 177
-  14. walk off the edge, holding right once in the air, from 1895,177; touches it on the way
+  14. walk off the edge, holding right once in the air, from 1895,177; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2032,272 [rb 1]
 how in 48,240 [rb 0] -> out 2032,272 [rb 1]: samus:1
      [blue blocks solid] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 0-198, y 241
-   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177
+   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177 {move ch=1 dir=1 jumpAt=0}
       -> [blue blocks solid] standing at x 154-390, y 177
-   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113
+   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113 {move ch=1 dir=1 jumpAt=0}
       -> [blue blocks solid] standing at x 186-840, y 113
-   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113
+   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 889-1158, y 113
-   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241
+   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 1161-1286, y 241
-   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241
+   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1338-1544, y 241
-   7. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241
+   7. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1594-1719, y 241
-   8. jump (held 21 ticks), holding right, from 1616,241; lands at 1730,177
+   8. jump (held 21 ticks), holding right, from 1616,241; lands at 1730,177 {move ch=1 dir=1 jumpAt=0}
       -> [blue blocks solid] standing at x 1658-1798, y 177
-   9. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177
+   9. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-  10. walk off the edge, holding right, then left after 1 ticks in the air, from 1850,177; lands at 1929,273
+  10. walk off the edge, holding right, then left after 1 ticks in the air, from 1850,177; lands at 1929,273 {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 1929-1945, y 273
   11. hit the switch at 1872,224 from 1929,273 (jumping if need be): [red blocks solid]   [samus:1]
       -> [red blocks solid] standing at x 1929-1945, y 273
-  12. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+  12. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [red blocks solid] standing at x 1946-1990, y 241
-  13. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177
+  13. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1895-1928, y 177
-  14. walk off the edge, holding right once in the air, from 1895,177; touches it on the way
+  14. walk off the edge, holding right once in the air, from 1895,177; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2032,272 [rb 1]
 how in 48,240 [rb 1] -> out 0,208 [rb 0]: megaman:1
      [red blocks solid] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 0-198, y 241
    2. shoot the switch at 104,136 from 0,241 (at the top of a jump): [blue blocks solid]   [megaman:1]
       -> [blue blocks solid] standing at x 0-198, y 241
@@ -239,7 +241,7 @@ how in 48,240 [rb 1] -> out 0,208 [rb 0]: megaman:1
       -> out 0,208 [rb 0]
 how in 48,240 [rb 1] -> out 0,208 [rb 0]: samus:1
      [red blocks solid] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 0-198, y 241
    2. shoot the switch at 104,136 from 0,241 (at the top of a jump): [blue blocks solid]   [samus:1]
       -> [blue blocks solid] standing at x 0-198, y 241
@@ -247,7 +249,7 @@ how in 48,240 [rb 1] -> out 0,208 [rb 0]: samus:1
       -> out 0,208 [rb 0]
 how in 48,240 [rb 1] -> out 0,208 [rb 0]: link:1
      [red blocks solid] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 0-198, y 241
    2. hit the switch at 104,136 from 56,241 (jumping if need be): [blue blocks solid]   [link:1]
       -> [blue blocks solid] standing at x 0-198, y 241
@@ -255,7 +257,7 @@ how in 48,240 [rb 1] -> out 0,208 [rb 0]: link:1
       -> out 0,208 [rb 0]
 how in 48,240 [rb 1] -> out 0,208 [rb 0]: belmont:1
      [red blocks solid] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 0-198, y 241
    2. hit the switch at 104,136 from 56,241 (jumping if need be): [blue blocks solid]   [belmont:1]
       -> [blue blocks solid] standing at x 0-198, y 241
@@ -263,557 +265,557 @@ how in 48,240 [rb 1] -> out 0,208 [rb 0]: belmont:1
       -> out 0,208 [rb 0]
 how in 48,240 [rb 1] -> out 0,208 [rb 1]: -
      [red blocks solid] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 0-198, y 241
    2. standing at 0,241, goes into it
       -> out 0,208 [rb 1]
 how in 48,240 [rb 1] -> out 2032,272 [rb 0]: megaman:1
      [red blocks solid] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 0-198, y 241
-   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177
+   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 154-390, y 177
-   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113
+   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 186-840, y 113
-   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113
+   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [red blocks solid] standing at x 889-1158, y 113
-   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241
+   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 1161-1286, y 241
-   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241
+   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [red blocks solid] standing at x 1338-1544, y 241
-   7. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241
+   7. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [red blocks solid] standing at x 1594-1719, y 241
    8. shoot (or throw at) the switch at 1304,200 from 1631,241, and while the shot flies, jump (held 21 ticks), holding right; lands at 1730,177 (tick 20): [blue blocks solid]   [megaman:1]
       -> [blue blocks solid] standing at x 1658-1798, y 177
-   9. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177
+   9. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-  10. walk off the edge, holding right once in the air, from 1850,177; touches it on the way
+  10. walk off the edge, holding right once in the air, from 1850,177; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2032,272 [rb 0]
 how in 48,240 [rb 1] -> out 2032,272 [rb 0]: samus:1
      [red blocks solid] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 0-198, y 241
-   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177
+   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 154-390, y 177
-   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113
+   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 186-840, y 113
-   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113
+   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [red blocks solid] standing at x 889-1158, y 113
-   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241
+   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 1161-1286, y 241
-   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241
+   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [red blocks solid] standing at x 1338-1544, y 241
-   7. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241
+   7. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [red blocks solid] standing at x 1594-1719, y 241
    8. shoot (or throw at) the switch at 1304,200 from 1631,241, and while the shot flies, jump (held 21 ticks), holding right; lands at 1730,177 (tick 20): [blue blocks solid]   [samus:1]
       -> [blue blocks solid] standing at x 1658-1798, y 177
-   9. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177
+   9. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-  10. walk off the edge, holding right once in the air, from 1850,177; touches it on the way
+  10. walk off the edge, holding right once in the air, from 1850,177; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2032,272 [rb 0]
 how in 48,240 [rb 1] -> out 2032,272 [rb 0]: link:1
      [red blocks solid] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 0-198, y 241
-   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177
+   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 154-390, y 177
-   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113
+   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 186-840, y 113
-   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113
+   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [red blocks solid] standing at x 889-1158, y 113
-   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241
+   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 1161-1286, y 241
-   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241
+   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [red blocks solid] standing at x 1338-1544, y 241
    7. hit the switch at 1304,200 from 1338,241 (jumping if need be): [blue blocks solid]   [link:1]
       -> [blue blocks solid] standing at x 1338-1544, y 241
-   8. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241
+   8. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1594-1719, y 241
-   9. jump (held 21 ticks), holding right, from 1616,241; lands at 1730,177
+   9. jump (held 21 ticks), holding right, from 1616,241; lands at 1730,177 {move ch=1 dir=1 jumpAt=0}
       -> [blue blocks solid] standing at x 1658-1798, y 177
-  10. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177
+  10. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-  11. walk off the edge, holding right once in the air, from 1850,177; touches it on the way
+  11. walk off the edge, holding right once in the air, from 1850,177; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2032,272 [rb 0]
 how in 48,240 [rb 1] -> out 2032,272 [rb 0]: belmont:1
      [red blocks solid] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 0-198, y 241
-   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177
+   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 154-390, y 177
-   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113
+   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 186-840, y 113
-   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113
+   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [red blocks solid] standing at x 889-1158, y 113
-   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241
+   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 1161-1286, y 241
-   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241
+   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [red blocks solid] standing at x 1338-1544, y 241
    7. hit the switch at 1304,200 from 1338,241 (jumping if need be): [blue blocks solid]   [belmont:1]
       -> [blue blocks solid] standing at x 1338-1544, y 241
-   8. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241
+   8. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1594-1719, y 241
-   9. jump (held 21 ticks), holding right, from 1616,241; lands at 1730,177
+   9. jump (held 21 ticks), holding right, from 1616,241; lands at 1730,177 {move ch=1 dir=1 jumpAt=0}
       -> [blue blocks solid] standing at x 1658-1798, y 177
-  10. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177
+  10. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-  11. walk off the edge, holding right once in the air, from 1850,177; touches it on the way
+  11. walk off the edge, holding right once in the air, from 1850,177; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2032,272 [rb 0]
 how in 48,240 [rb 1] -> out 2032,272 [rb 1]: megaman:1
      [red blocks solid] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 0-198, y 241
-   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177
+   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 154-390, y 177
-   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113
+   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 186-840, y 113
-   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113
+   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [red blocks solid] standing at x 889-1158, y 113
-   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241
+   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 1161-1286, y 241
-   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241
+   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [red blocks solid] standing at x 1338-1544, y 241
-   7. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241
+   7. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [red blocks solid] standing at x 1594-1719, y 241
    8. shoot (or throw at) the switch at 1304,200 from 1631,241, and while the shot flies, jump (held 21 ticks), holding right; lands at 1730,177 (tick 20): [blue blocks solid]   [megaman:1]
       -> [blue blocks solid] standing at x 1658-1798, y 177
-   9. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177
+   9. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-  10. walk off the edge, holding right, then left after 1 ticks in the air, from 1850,177; lands at 1929,273
+  10. walk off the edge, holding right, then left after 1 ticks in the air, from 1850,177; lands at 1929,273 {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 1929-1945, y 273
   11. hit the switch at 1872,224 from 1929,273 (jumping if need be): [red blocks solid]   [megaman:1]
       -> [red blocks solid] standing at x 1929-1945, y 273
-  12. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+  12. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [red blocks solid] standing at x 1946-1990, y 241
-  13. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177
+  13. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1895-1928, y 177
-  14. walk off the edge, holding right once in the air, from 1895,177; touches it on the way
+  14. walk off the edge, holding right once in the air, from 1895,177; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2032,272 [rb 1]
 how in 48,240 [rb 1] -> out 2032,272 [rb 1]: samus:1
      [red blocks solid] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 0-198, y 241
-   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177
+   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 154-390, y 177
-   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113
+   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 186-840, y 113
-   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113
+   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [red blocks solid] standing at x 889-1158, y 113
-   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241
+   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 1161-1286, y 241
-   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241
+   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [red blocks solid] standing at x 1338-1544, y 241
-   7. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241
+   7. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [red blocks solid] standing at x 1594-1719, y 241
    8. shoot (or throw at) the switch at 1304,200 from 1631,241, and while the shot flies, jump (held 21 ticks), holding right; lands at 1730,177 (tick 20): [blue blocks solid]   [samus:1]
       -> [blue blocks solid] standing at x 1658-1798, y 177
-   9. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177
+   9. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-  10. walk off the edge, holding right, then left after 1 ticks in the air, from 1850,177; lands at 1929,273
+  10. walk off the edge, holding right, then left after 1 ticks in the air, from 1850,177; lands at 1929,273 {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 1929-1945, y 273
   11. hit the switch at 1872,224 from 1929,273 (jumping if need be): [red blocks solid]   [samus:1]
       -> [red blocks solid] standing at x 1929-1945, y 273
-  12. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+  12. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [red blocks solid] standing at x 1946-1990, y 241
-  13. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177
+  13. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1895-1928, y 177
-  14. walk off the edge, holding right once in the air, from 1895,177; touches it on the way
+  14. walk off the edge, holding right once in the air, from 1895,177; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2032,272 [rb 1]
 how in 48,240 [rb 1] -> out 2032,272 [rb 1]: link:1
      [red blocks solid] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 0-198, y 241
-   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177
+   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 154-390, y 177
-   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113
+   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 186-840, y 113
-   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113
+   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [red blocks solid] standing at x 889-1158, y 113
-   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241
+   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 1161-1286, y 241
-   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241
+   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [red blocks solid] standing at x 1338-1544, y 241
    7. hit the switch at 1304,200 from 1338,241 (jumping if need be): [blue blocks solid]   [link:1]
       -> [blue blocks solid] standing at x 1338-1544, y 241
-   8. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241
+   8. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1594-1719, y 241
-   9. jump (held 21 ticks), holding right, from 1616,241; lands at 1730,177
+   9. jump (held 21 ticks), holding right, from 1616,241; lands at 1730,177 {move ch=1 dir=1 jumpAt=0}
       -> [blue blocks solid] standing at x 1658-1798, y 177
-  10. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177
+  10. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-  11. walk off the edge, holding right, then left after 1 ticks in the air, from 1850,177; lands at 1929,273
+  11. walk off the edge, holding right, then left after 1 ticks in the air, from 1850,177; lands at 1929,273 {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 1929-1945, y 273
   12. hit the switch at 1872,224 from 1929,273 (jumping if need be): [red blocks solid]   [link:1]
       -> [red blocks solid] standing at x 1929-1945, y 273
-  13. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+  13. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [red blocks solid] standing at x 1946-1990, y 241
-  14. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177
+  14. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1895-1928, y 177
-  15. walk off the edge, holding right once in the air, from 1895,177; touches it on the way
+  15. walk off the edge, holding right once in the air, from 1895,177; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2032,272 [rb 1]
 how in 48,240 [rb 1] -> out 2032,272 [rb 1]: belmont:1
      [red blocks solid] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 0-198, y 241
-   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177
+   2. jump (held 21 ticks), holding right, from 32,241; lands at 163,177 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 154-390, y 177
-   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113
+   3. jump (held 21 ticks), holding right, from 154,177; lands at 258,113 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 186-840, y 113
-   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113
+   4. running right, jump (held 6 ticks), holding right, from 816,113; lands at 904,113 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [red blocks solid] standing at x 889-1158, y 113
-   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241
+   5. walk off the edge, holding right once in the air, from 889,113; lands at 1268,241 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 1161-1286, y 241
-   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241
+   6. running right, jump (held 6 ticks), holding right, from 1264,241; lands at 1345,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [red blocks solid] standing at x 1338-1544, y 241
    7. hit the switch at 1304,200 from 1338,241 (jumping if need be): [blue blocks solid]   [belmont:1]
       -> [blue blocks solid] standing at x 1338-1544, y 241
-   8. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241
+   8. running right, jump (held 6 ticks), holding right, from 1520,241; lands at 1601,241 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1594-1719, y 241
-   9. jump (held 21 ticks), holding right, from 1616,241; lands at 1730,177
+   9. jump (held 21 ticks), holding right, from 1616,241; lands at 1730,177 {move ch=1 dir=1 jumpAt=0}
       -> [blue blocks solid] standing at x 1658-1798, y 177
-  10. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177
+  10. running right, jump (held 6 ticks), holding right, from 1776,177; lands at 1857,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-  11. walk off the edge, holding right, then left after 1 ticks in the air, from 1850,177; lands at 1929,273
+  11. walk off the edge, holding right, then left after 1 ticks in the air, from 1850,177; lands at 1929,273 {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 1929-1945, y 273
   12. hit the switch at 1872,224 from 1929,273 (jumping if need be): [red blocks solid]   [belmont:1]
       -> [red blocks solid] standing at x 1929-1945, y 273
-  13. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+  13. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [red blocks solid] standing at x 1946-1990, y 241
-  14. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177
+  14. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1895-1928, y 177
-  15. walk off the edge, holding right once in the air, from 1895,177; touches it on the way
+  15. walk off the edge, holding right once in the air, from 1895,177; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2032,272 [rb 1]
 how in 2000,304 [rb 0] -> out 0,208 [rb 0]: -
      [blue blocks solid] coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 1991-2048, y 305
-   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1991,305; lands at 1961,241
+   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1991,305; lands at 1961,241 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
       -> [blue blocks solid] standing at x 1946-1990, y 241
-   3. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177
+   3. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-   4. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305
+   4. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 1545-1785, y 305
-   5. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241
+   5. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1338-1544, y 241
-   6. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241
+   6. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 1161-1286, y 241
-   7. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177
+   7. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [blue blocks solid] standing at x 1018-1222, y 177
-   8. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113
+   8. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [blue blocks solid] standing at x 889-1158, y 113
-   9. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113
+   9. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 186-840, y 113
-  10. walk off the edge, holding left once in the air, from 186,113; lands at 62,241
+  10. walk off the edge, holding left once in the air, from 186,113; lands at 62,241 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 0-198, y 241
   11. standing at 0,241, goes into it
       -> out 0,208 [rb 0]
 how in 2000,304 [rb 0] -> out 0,208 [rb 1]: link:1
      [blue blocks solid] coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 1991-2048, y 305
-   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1991,305; lands at 1961,241
+   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1991,305; lands at 1961,241 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
       -> [blue blocks solid] standing at x 1946-1990, y 241
-   3. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177
+   3. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-   4. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305
+   4. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 1545-1785, y 305
-   5. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241
+   5. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1338-1544, y 241
    6. hit the switch at 1304,200 from 1338,241 (jumping if need be): [red blocks solid]   [link:1]
       -> [red blocks solid] standing at x 1338-1544, y 241
-   7. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241
+   7. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [red blocks solid] standing at x 1161-1286, y 241
-   8. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177
+   8. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [red blocks solid] standing at x 1018-1222, y 177
-   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113
+   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [red blocks solid] standing at x 889-1158, y 113
-  10. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113
+  10. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [red blocks solid] standing at x 186-840, y 113
-  11. walk off the edge, holding left once in the air, from 186,113; lands at 62,241
+  11. walk off the edge, holding left once in the air, from 186,113; lands at 62,241 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 0-198, y 241
   12. standing at 0,241, goes into it
       -> out 0,208 [rb 1]
 how in 2000,304 [rb 0] -> out 0,208 [rb 1]: belmont:1
      [blue blocks solid] coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 1991-2048, y 305
-   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1991,305; lands at 1961,241
+   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1991,305; lands at 1961,241 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
       -> [blue blocks solid] standing at x 1946-1990, y 241
-   3. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177
+   3. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-   4. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305
+   4. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 1545-1785, y 305
-   5. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241
+   5. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1338-1544, y 241
    6. hit the switch at 1304,200 from 1338,241 (jumping if need be): [red blocks solid]   [belmont:1]
       -> [red blocks solid] standing at x 1338-1544, y 241
-   7. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241
+   7. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [red blocks solid] standing at x 1161-1286, y 241
-   8. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177
+   8. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [red blocks solid] standing at x 1018-1222, y 177
-   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113
+   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [red blocks solid] standing at x 889-1158, y 113
-  10. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113
+  10. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [red blocks solid] standing at x 186-840, y 113
-  11. walk off the edge, holding left once in the air, from 186,113; lands at 62,241
+  11. walk off the edge, holding left once in the air, from 186,113; lands at 62,241 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 0-198, y 241
   12. standing at 0,241, goes into it
       -> out 0,208 [rb 1]
 how in 2000,304 [rb 0] -> out 0,208 [rb 1]: megaman:1
      [blue blocks solid] coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 1991-2048, y 305
-   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1991,305; lands at 1961,241
+   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1991,305; lands at 1961,241 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
       -> [blue blocks solid] standing at x 1946-1990, y 241
-   3. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177
+   3. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-   4. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305
+   4. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 1545-1785, y 305
-   5. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241
+   5. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1338-1544, y 241
    6. hit the switch at 1304,200 from 1338,241 (jumping if need be): [red blocks solid]   [megaman:1]
       -> [red blocks solid] standing at x 1338-1544, y 241
-   7. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241
+   7. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [red blocks solid] standing at x 1161-1286, y 241
-   8. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177
+   8. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [red blocks solid] standing at x 1018-1222, y 177
-   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113
+   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [red blocks solid] standing at x 889-1158, y 113
-  10. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113
+  10. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [red blocks solid] standing at x 186-840, y 113
-  11. walk off the edge, holding left once in the air, from 186,113; lands at 62,241
+  11. walk off the edge, holding left once in the air, from 186,113; lands at 62,241 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 0-198, y 241
   12. standing at 0,241, goes into it
       -> out 0,208 [rb 1]
 how in 2000,304 [rb 0] -> out 0,208 [rb 1]: samus:1
      [blue blocks solid] coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 1991-2048, y 305
-   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1991,305; lands at 1961,241
+   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1991,305; lands at 1961,241 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
       -> [blue blocks solid] standing at x 1946-1990, y 241
-   3. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177
+   3. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-   4. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305
+   4. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 1545-1785, y 305
-   5. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241
+   5. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1338-1544, y 241
    6. hit the switch at 1304,200 from 1338,241 (jumping if need be): [red blocks solid]   [samus:1]
       -> [red blocks solid] standing at x 1338-1544, y 241
-   7. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241
+   7. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [red blocks solid] standing at x 1161-1286, y 241
-   8. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177
+   8. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [red blocks solid] standing at x 1018-1222, y 177
-   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113
+   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [red blocks solid] standing at x 889-1158, y 113
-  10. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113
+  10. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [red blocks solid] standing at x 186-840, y 113
-  11. walk off the edge, holding left once in the air, from 186,113; lands at 62,241
+  11. walk off the edge, holding left once in the air, from 186,113; lands at 62,241 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 0-198, y 241
   12. standing at 0,241, goes into it
       -> out 0,208 [rb 1]
 how in 2000,304 [rb 0] -> out 2032,272 [rb 0]: -
      [blue blocks solid] coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 1991-2048, y 305
-   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1991,305; lands at 1961,241
+   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1991,305; lands at 1961,241 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
       -> [blue blocks solid] standing at x 1946-1990, y 241
-   3. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177
+   3. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-   4. walk off the edge, holding right once in the air, from 1850,177; touches it on the way
+   4. walk off the edge, holding right once in the air, from 1850,177; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2032,272 [rb 0]
 how in 2000,304 [rb 0] -> out 2032,272 [rb 1]: link:1
      [blue blocks solid] coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 1991-2048, y 305
-   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273
+   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1929-1945, y 273
    3. hit the switch at 1872,224 from 1929,273 (jumping if need be): [red blocks solid]   [link:1]
       -> [red blocks solid] standing at x 1929-1945, y 273
-   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [red blocks solid] standing at x 1946-1990, y 241
-   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177
+   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1895-1928, y 177
-   6. walk off the edge, holding right once in the air, from 1895,177; touches it on the way
+   6. walk off the edge, holding right once in the air, from 1895,177; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2032,272 [rb 1]
 how in 2000,304 [rb 0] -> out 2032,272 [rb 1]: belmont:1
      [blue blocks solid] coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 1991-2048, y 305
-   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273
+   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1929-1945, y 273
    3. hit the switch at 1872,224 from 1929,273 (jumping if need be): [red blocks solid]   [belmont:1]
       -> [red blocks solid] standing at x 1929-1945, y 273
-   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [red blocks solid] standing at x 1946-1990, y 241
-   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177
+   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1895-1928, y 177
-   6. walk off the edge, holding right once in the air, from 1895,177; touches it on the way
+   6. walk off the edge, holding right once in the air, from 1895,177; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2032,272 [rb 1]
 how in 2000,304 [rb 0] -> out 2032,272 [rb 1]: megaman:1
      [blue blocks solid] coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 1991-2048, y 305
-   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273
+   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1929-1945, y 273
    3. hit the switch at 1872,224 from 1929,273 (jumping if need be): [red blocks solid]   [megaman:1]
       -> [red blocks solid] standing at x 1929-1945, y 273
-   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [red blocks solid] standing at x 1946-1990, y 241
-   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177
+   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1895-1928, y 177
-   6. walk off the edge, holding right once in the air, from 1895,177; touches it on the way
+   6. walk off the edge, holding right once in the air, from 1895,177; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2032,272 [rb 1]
 how in 2000,304 [rb 0] -> out 2032,272 [rb 1]: samus:1
      [blue blocks solid] coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 1991-2048, y 305
-   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273
+   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1929-1945, y 273
    3. hit the switch at 1872,224 from 1929,273 (jumping if need be): [red blocks solid]   [samus:1]
       -> [red blocks solid] standing at x 1929-1945, y 273
-   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [red blocks solid] standing at x 1946-1990, y 241
-   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177
+   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1895-1928, y 177
-   6. walk off the edge, holding right once in the air, from 1895,177; touches it on the way
+   6. walk off the edge, holding right once in the air, from 1895,177; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2032,272 [rb 1]
 how in 2000,304 [rb 1] -> out 0,208 [rb 0]: link:1
      [red blocks solid] coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 1991-2048, y 305
-   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273
+   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1929-1945, y 273
    3. hit the switch at 1872,224 from 1929,273 (jumping if need be): [blue blocks solid]   [link:1]
       -> [blue blocks solid] standing at x 1929-1945, y 273
-   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [blue blocks solid] standing at x 1946-1990, y 241
-   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177
+   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-   6. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305
+   6. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 1545-1785, y 305
-   7. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241
+   7. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1338-1544, y 241
-   8. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241
+   8. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 1161-1286, y 241
-   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177
+   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [blue blocks solid] standing at x 1018-1222, y 177
-  10. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113
+  10. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [blue blocks solid] standing at x 889-1158, y 113
-  11. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113
+  11. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 186-840, y 113
-  12. walk off the edge, holding left once in the air, from 186,113; lands at 62,241
+  12. walk off the edge, holding left once in the air, from 186,113; lands at 62,241 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 0-198, y 241
   13. standing at 0,241, goes into it
       -> out 0,208 [rb 0]
 how in 2000,304 [rb 1] -> out 0,208 [rb 0]: belmont:1
      [red blocks solid] coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 1991-2048, y 305
-   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273
+   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1929-1945, y 273
    3. hit the switch at 1872,224 from 1929,273 (jumping if need be): [blue blocks solid]   [belmont:1]
       -> [blue blocks solid] standing at x 1929-1945, y 273
-   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [blue blocks solid] standing at x 1946-1990, y 241
-   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177
+   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-   6. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305
+   6. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 1545-1785, y 305
-   7. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241
+   7. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1338-1544, y 241
-   8. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241
+   8. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 1161-1286, y 241
-   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177
+   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [blue blocks solid] standing at x 1018-1222, y 177
-  10. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113
+  10. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [blue blocks solid] standing at x 889-1158, y 113
-  11. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113
+  11. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 186-840, y 113
-  12. walk off the edge, holding left once in the air, from 186,113; lands at 62,241
+  12. walk off the edge, holding left once in the air, from 186,113; lands at 62,241 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 0-198, y 241
   13. standing at 0,241, goes into it
       -> out 0,208 [rb 0]
 how in 2000,304 [rb 1] -> out 0,208 [rb 0]: megaman:1
      [red blocks solid] coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 1991-2048, y 305
-   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273
+   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1929-1945, y 273
    3. hit the switch at 1872,224 from 1929,273 (jumping if need be): [blue blocks solid]   [megaman:1]
       -> [blue blocks solid] standing at x 1929-1945, y 273
-   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [blue blocks solid] standing at x 1946-1990, y 241
-   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177
+   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-   6. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305
+   6. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 1545-1785, y 305
-   7. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241
+   7. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1338-1544, y 241
-   8. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241
+   8. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 1161-1286, y 241
-   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177
+   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [blue blocks solid] standing at x 1018-1222, y 177
-  10. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113
+  10. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [blue blocks solid] standing at x 889-1158, y 113
-  11. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113
+  11. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 186-840, y 113
-  12. walk off the edge, holding left once in the air, from 186,113; lands at 62,241
+  12. walk off the edge, holding left once in the air, from 186,113; lands at 62,241 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 0-198, y 241
   13. standing at 0,241, goes into it
       -> out 0,208 [rb 0]
 how in 2000,304 [rb 1] -> out 0,208 [rb 0]: samus:1
      [red blocks solid] coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 1991-2048, y 305
-   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273
+   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1929-1945, y 273
    3. hit the switch at 1872,224 from 1929,273 (jumping if need be): [blue blocks solid]   [samus:1]
       -> [blue blocks solid] standing at x 1929-1945, y 273
-   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [blue blocks solid] standing at x 1946-1990, y 241
-   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177
+   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-   6. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305
+   6. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 1545-1785, y 305
-   7. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241
+   7. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1338-1544, y 241
-   8. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241
+   8. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 1161-1286, y 241
-   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177
+   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [blue blocks solid] standing at x 1018-1222, y 177
-  10. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113
+  10. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [blue blocks solid] standing at x 889-1158, y 113
-  11. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113
+  11. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 186-840, y 113
-  12. walk off the edge, holding left once in the air, from 186,113; lands at 62,241
+  12. walk off the edge, holding left once in the air, from 186,113; lands at 62,241 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 0-198, y 241
   13. standing at 0,241, goes into it
       -> out 0,208 [rb 0]
 how in 2000,304 [rb 1] -> out 0,208 [rb 1]: link:1
      [red blocks solid] coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 1991-2048, y 305
-   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273
+   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1929-1945, y 273
    3. hit the switch at 1872,224 from 1929,273 (jumping if need be): [blue blocks solid]   [link:1]
       -> [blue blocks solid] standing at x 1929-1945, y 273
-   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [blue blocks solid] standing at x 1946-1990, y 241
-   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177
+   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-   6. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305
+   6. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 1545-1785, y 305
-   7. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241
+   7. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1338-1544, y 241
-   8. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241
+   8. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 1161-1286, y 241
-   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177
+   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [blue blocks solid] standing at x 1018-1222, y 177
-  10. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113
+  10. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [blue blocks solid] standing at x 889-1158, y 113
-  11. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113
+  11. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 186-840, y 113
-  12. walk off the edge, holding left once in the air, from 186,113; lands at 62,241
+  12. walk off the edge, holding left once in the air, from 186,113; lands at 62,241 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 0-198, y 241
   13. hit the switch at 104,136 from 56,241 (jumping if need be): [red blocks solid]   [link:1]
       -> [red blocks solid] standing at x 0-198, y 241
@@ -821,29 +823,29 @@ how in 2000,304 [rb 1] -> out 0,208 [rb 1]: link:1
       -> out 0,208 [rb 1]
 how in 2000,304 [rb 1] -> out 0,208 [rb 1]: belmont:1
      [red blocks solid] coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 1991-2048, y 305
-   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273
+   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1929-1945, y 273
    3. hit the switch at 1872,224 from 1929,273 (jumping if need be): [blue blocks solid]   [belmont:1]
       -> [blue blocks solid] standing at x 1929-1945, y 273
-   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [blue blocks solid] standing at x 1946-1990, y 241
-   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177
+   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-   6. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305
+   6. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 1545-1785, y 305
-   7. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241
+   7. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1338-1544, y 241
-   8. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241
+   8. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 1161-1286, y 241
-   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177
+   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [blue blocks solid] standing at x 1018-1222, y 177
-  10. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113
+  10. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [blue blocks solid] standing at x 889-1158, y 113
-  11. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113
+  11. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 186-840, y 113
-  12. walk off the edge, holding left once in the air, from 186,113; lands at 62,241
+  12. walk off the edge, holding left once in the air, from 186,113; lands at 62,241 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 0-198, y 241
   13. hit the switch at 104,136 from 56,241 (jumping if need be): [red blocks solid]   [belmont:1]
       -> [red blocks solid] standing at x 0-198, y 241
@@ -851,29 +853,29 @@ how in 2000,304 [rb 1] -> out 0,208 [rb 1]: belmont:1
       -> out 0,208 [rb 1]
 how in 2000,304 [rb 1] -> out 0,208 [rb 1]: megaman:1
      [red blocks solid] coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 1991-2048, y 305
-   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273
+   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1929-1945, y 273
    3. hit the switch at 1872,224 from 1929,273 (jumping if need be): [blue blocks solid]   [megaman:1]
       -> [blue blocks solid] standing at x 1929-1945, y 273
-   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [blue blocks solid] standing at x 1946-1990, y 241
-   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177
+   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-   6. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305
+   6. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 1545-1785, y 305
-   7. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241
+   7. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1338-1544, y 241
-   8. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241
+   8. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 1161-1286, y 241
-   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177
+   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [blue blocks solid] standing at x 1018-1222, y 177
-  10. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113
+  10. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [blue blocks solid] standing at x 889-1158, y 113
-  11. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113
+  11. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 186-840, y 113
-  12. walk off the edge, holding left once in the air, from 186,113; lands at 62,241
+  12. walk off the edge, holding left once in the air, from 186,113; lands at 62,241 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 0-198, y 241
   13. shoot the switch at 104,136 from 0,241 (at the top of a jump): [red blocks solid]   [megaman:1]
       -> [red blocks solid] standing at x 0-198, y 241
@@ -881,29 +883,29 @@ how in 2000,304 [rb 1] -> out 0,208 [rb 1]: megaman:1
       -> out 0,208 [rb 1]
 how in 2000,304 [rb 1] -> out 0,208 [rb 1]: samus:1
      [red blocks solid] coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 1991-2048, y 305
-   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273
+   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1929-1945, y 273
    3. hit the switch at 1872,224 from 1929,273 (jumping if need be): [blue blocks solid]   [samus:1]
       -> [blue blocks solid] standing at x 1929-1945, y 273
-   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [blue blocks solid] standing at x 1946-1990, y 241
-   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177
+   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-   6. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305
+   6. jump (held 2 ticks), holding left, from 1850,177; lands at 1740,305 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 1545-1785, y 305
-   7. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241
+   7. jump (held 21 ticks), holding left, from 1545,305; lands at 1472,241 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1338-1544, y 241
-   8. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241
+   8. running left, jump (held 2 ticks), holding left, from 1338,241; lands at 1272,241 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 1161-1286, y 241
-   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177
+   9. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1216,241; lands at 1180,177 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [blue blocks solid] standing at x 1018-1222, y 177
-  10. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113
+  10. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1152,177; lands at 1116,113 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [blue blocks solid] standing at x 889-1158, y 113
-  11. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113
+  11. running left, jump (held 2 ticks), holding left, from 889,113; lands at 815,113 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> [blue blocks solid] standing at x 186-840, y 113
-  12. walk off the edge, holding left once in the air, from 186,113; lands at 62,241
+  12. walk off the edge, holding left once in the air, from 186,113; lands at 62,241 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 0-198, y 241
   13. shoot the switch at 104,136 from 0,241 (at the top of a jump): [red blocks solid]   [samus:1]
       -> [red blocks solid] standing at x 0-198, y 241
@@ -911,67 +913,67 @@ how in 2000,304 [rb 1] -> out 0,208 [rb 1]: samus:1
       -> out 0,208 [rb 1]
 how in 2000,304 [rb 1] -> out 2032,272 [rb 0]: link:1
      [red blocks solid] coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 1991-2048, y 305
-   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273
+   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1929-1945, y 273
    3. hit the switch at 1872,224 from 1929,273 (jumping if need be): [blue blocks solid]   [link:1]
       -> [blue blocks solid] standing at x 1929-1945, y 273
-   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [blue blocks solid] standing at x 1946-1990, y 241
-   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177
+   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-   6. walk off the edge, holding right once in the air, from 1850,177; touches it on the way
+   6. walk off the edge, holding right once in the air, from 1850,177; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2032,272 [rb 0]
 how in 2000,304 [rb 1] -> out 2032,272 [rb 0]: belmont:1
      [red blocks solid] coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 1991-2048, y 305
-   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273
+   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1929-1945, y 273
    3. hit the switch at 1872,224 from 1929,273 (jumping if need be): [blue blocks solid]   [belmont:1]
       -> [blue blocks solid] standing at x 1929-1945, y 273
-   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [blue blocks solid] standing at x 1946-1990, y 241
-   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177
+   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-   6. walk off the edge, holding right once in the air, from 1850,177; touches it on the way
+   6. walk off the edge, holding right once in the air, from 1850,177; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2032,272 [rb 0]
 how in 2000,304 [rb 1] -> out 2032,272 [rb 0]: megaman:1
      [red blocks solid] coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 1991-2048, y 305
-   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273
+   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1929-1945, y 273
    3. hit the switch at 1872,224 from 1929,273 (jumping if need be): [blue blocks solid]   [megaman:1]
       -> [blue blocks solid] standing at x 1929-1945, y 273
-   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [blue blocks solid] standing at x 1946-1990, y 241
-   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177
+   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-   6. walk off the edge, holding right once in the air, from 1850,177; touches it on the way
+   6. walk off the edge, holding right once in the air, from 1850,177; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2032,272 [rb 0]
 how in 2000,304 [rb 1] -> out 2032,272 [rb 0]: samus:1
      [red blocks solid] coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 1991-2048, y 305
-   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273
+   2. jump (held 21 ticks), holding left, from 1991,305; lands at 1929,273 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1929-1945, y 273
    3. hit the switch at 1872,224 from 1929,273 (jumping if need be): [blue blocks solid]   [samus:1]
       -> [blue blocks solid] standing at x 1929-1945, y 273
-   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241
+   4. jump (held 2 ticks), holding nothing, then right after 6 ticks, from 1944,273; lands at 1966,241 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120}
       -> [blue blocks solid] standing at x 1946-1990, y 241
-   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177
+   5. jump (held 21 ticks), holding left, from 1946,241; lands at 1856,177 {move ch=1 dir=-1 jumpAt=0}
       -> [blue blocks solid] standing at x 1850-1928, y 177
-   6. walk off the edge, holding right once in the air, from 1850,177; touches it on the way
+   6. walk off the edge, holding right once in the air, from 1850,177; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2032,272 [rb 0]
 how in 2000,304 [rb 1] -> out 2032,272 [rb 1]: -
      [red blocks solid] coming in at 2000,304
-   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 1991-2048, y 305
-   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1991,305; lands at 1961,241
+   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1991,305; lands at 1961,241 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
       -> [red blocks solid] standing at x 1946-1990, y 241
-   3. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177
+   3. jump (held 21 ticks), holding left, from 1946,241; lands at 1895,177 {move ch=1 dir=-1 jumpAt=0}
       -> [red blocks solid] standing at x 1895-1928, y 177
-   4. walk off the edge, holding right once in the air, from 1895,177; touches it on the way
+   4. walk off the edge, holding right once in the air, from 1895,177; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2032,272 [rb 1]

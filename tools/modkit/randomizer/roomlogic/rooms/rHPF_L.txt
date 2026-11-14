@@ -17,6 +17,8 @@ out 1368,400   # to this room at 144,208; the player presses down at it
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 2 54   # treasure chest 54, at 800,195
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -42,55 +44,55 @@ from in 3024,416
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 48,416 -> out 0,384: -
      coming in at 48,416
-   1. coming in: holding nothing, from 48,416; lands at 48,417
+   1. coming in: holding nothing, from 48,416; lands at 48,417 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-185, y 417
    2. standing at 0,417, goes into it
       -> out 0,384
 how in 144,208 -> out 0,384: -
      coming in at 144,208
-   1. coming in: holding nothing, from 144,208; lands at 144,417
+   1. coming in: holding nothing, from 144,208; lands at 144,417 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-185, y 417
    2. standing at 0,417, goes into it
       -> out 0,384
 how in 3024,416 -> out 3056,384: -
      coming in at 3024,416
-   1. coming in: holding nothing, from 3024,416; lands at 3024,417
+   1. coming in: holding nothing, from 3024,416; lands at 3024,417 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 2631-3072, y 417
    2. standing at 3054,417, goes into it
       -> out 3056,384
 how in 3024,416 -> out 1368,400: samus:2
      coming in at 3024,416
-   1. coming in: holding nothing, from 3024,416; lands at 3024,417
+   1. coming in: holding nothing, from 3024,416; lands at 3024,417 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 2631-3072, y 417
    2. turn into the Morph Ball at 2631,417   [samus:2]
       -> as the Morph Ball at x 1386-3072, y 417
    3. turn back from the Morph Ball at 1386,417
       -> standing at x 1386-2489, y 417
-   4. jump (held 2 ticks), holding left, from 1386,417; lands at 1284,417
+   4. jump (held 2 ticks), holding left, from 1386,417; lands at 1284,417 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 890-1366, y 417
    5. standing at 1366,417, presses down at it
       -> out 1368,400
 how in 3024,416 -> out 1368,400: djump
      coming in at 3024,416
-   1. coming in: holding nothing, from 3024,416; lands at 3024,417
+   1. coming in: holding nothing, from 3024,416; lands at 3024,417 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 2631-3072, y 417
-   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 2631,417; lands at 2506,369   [djump]
+   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 2631,417; lands at 2506,369 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14 djAt=12}   [djump]
       -> standing at x 2490-2553, y 369
-   3. walk off the edge, holding left once in the air, from 2490,369; lands at 2417,417
+   3. walk off the edge, holding left once in the air, from 2490,369; lands at 2417,417 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> standing at x 1386-2489, y 417
-   4. jump (held 2 ticks), holding left, from 1386,417; lands at 1284,417
+   4. jump (held 2 ticks), holding left, from 1386,417; lands at 1284,417 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 890-1366, y 417
    5. standing at 1366,417, presses down at it
       -> out 1368,400
 how in 3024,416 -> out 1368,400: adash
      coming in at 3024,416
-   1. coming in: holding nothing, from 3024,416; lands at 3024,417
+   1. coming in: holding nothing, from 3024,416; lands at 3024,417 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 2631-3072, y 417
-   2. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 2631,417; lands at 2497,369   [adash]
+   2. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 2631,417; lands at 2497,369 {move ch=0 dir=-1 jumpAt=0 adAt=16}   [adash]
       -> standing at x 2490-2553, y 369
-   3. walk off the edge, holding left once in the air, from 2490,369; lands at 2417,417
+   3. walk off the edge, holding left once in the air, from 2490,369; lands at 2417,417 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> standing at x 1386-2489, y 417
-   4. jump (held 2 ticks), holding left, from 1386,417; lands at 1284,417
+   4. jump (held 2 ticks), holding left, from 1386,417; lands at 1284,417 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 890-1366, y 417
    5. standing at 1366,417, presses down at it
       -> out 1368,400

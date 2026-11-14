@@ -16,217 +16,1013 @@ out 0,256   # to rMega4_ToxicJungleB at 4056,304; the player goes into it
 loc 2 30   # treasure chest 30, at 7808,243
 loc 9 83   # weapon upgrade 83, at 135,103
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 48,288
-  out 8192,192   -
+  out 8192,192   belmont:1 | link:1 | megaman:1 | samus:1
   out 0,256      -
-  loc 2 30       -
+  loc 2 30       belmont:1 | link:1 | megaman:1 | samus:1
   loc 9 83       djump | adash
 from in 8168,224
   out 8192,192   -
-  out 0,256      -
-  loc 2 30       -
-  loc 9 83       djump | adash
+  out 0,256      belmont:1 | link:1 | megaman:1 | samus:1
+  loc 2 30       belmont:1 | link:1 | megaman:1 | samus:1
+  loc 9 83       djump,belmont:1 | adash,belmont:1 | djump,link:1 | adash,link:1 | djump,megaman:1 | adash,megaman:1 | djump,samus:1 | adash,samus:1
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
-how in 48,288 -> out 8192,192: -
+how in 48,288 -> out 8192,192: belmont:1
      coming in at 48,288
-   1. coming in: holding nothing, from 48,288; lands at 48,289
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-247, y 289-323
-   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 247,290; lands at 394,273
-      -> standing at x 313-1863, y 177-323
-   3. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 1863,273; lands at 2004,243
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 247,290; lands at 394,273 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 313-756, y 104-323
+   3. jump (held 21 ticks), holding right, from 624,193, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 799,177 {move ch=1 dir=1 jumpAt=0}   [belmont:1]
+      -> standing at x 781-1588, y 104-273
+   4. jump (held 21 ticks), holding right, from 1456,245, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 1631,225 {move ch=1 dir=1 jumpAt=0}   [belmont:1]
+      -> standing at x 1613-1863, y 152-323
+   5. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 1863,273; lands at 2004,243 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 1945-2407, y 209-323
-   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2407,273; lands at 2540,241
-      -> standing at x 2489-3719, y 241-417
-   5. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 3719,257; clings to the wall at 3769,206
+   6. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2407,273; lands at 2540,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 2489-3012, y 152-323
+   7. running right, jump (held 21 ticks), holding right, from 2992,257, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 3190,241 {move ch=1 dir=1 run=1 jumpAt=0}   [belmont:1]
+      -> standing at x 3173-3719, y 184-417
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 3719,257; clings to the wall at 3769,206 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 3769-3879, y 193-247
-   6. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 3879,194; lands at 4048,209
+   9. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 3879,194; lands at 4048,209 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 3961-4071, y 209-263
-   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4071,210; lands at 4240,225
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4071,210; lands at 4240,225 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 4153-4263, y 225-279
-   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4263,226; lands at 4432,241
+  11. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4263,226; lands at 4432,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 4345-4455, y 241-295
-   9. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4455,242; clings to the wall at 4537,190
+  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4455,242; clings to the wall at 4537,190 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 4537-4647, y 145-199
-  10. running right, jump (held 21 ticks), holding right, from 4624,145; clings to the wall at 4969,385
+  13. running right, jump (held 21 ticks), holding right, from 4624,145; clings to the wall at 4969,385 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 4969-5239, y 177-417
-  11. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5143,178; clings to the wall at 5321,225
+  14. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5143,178; clings to the wall at 5321,225 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 5321-5431, y 209-323
-  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5431,210; clings to the wall at 5545,304
-      -> standing at x 5545-5783, y 145-323
-  13. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5783,146; lands at 6004,241
-      -> standing at x 5865-6935, y 241-323
-  14. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 6935,274; lands at 7068,241
-      -> standing at x 7049-8208, y 209-323
-  15. standing at 8190,225, goes into it
+  15. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5431,240; clings to the wall at 5542,294 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5542-5548, y 216-295
+  16. walk off the edge, holding left, then right after 1 ticks in the air, from 5543,249, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 5552,257 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [belmont:1]
+      -> standing at x 5546-5578, y 257 (where a gate is)
+  17. walk from 5578,257 to 5579,253
+      -> standing at x 5573-5783, y 145-323
+  18. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5783,146; lands at 6004,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5865-6340, y 184-323
+  19. running right, walk off the edge, holding right, then left after 1 ticks in the air, from 6256,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 6935,305 {move ch=1 dir=1 run=1 h2=-1 hDelay=1 noInputTillAir=1}   [belmont:1]
+      -> standing at x 6877-6935, y 184-323
+  20. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 6877,224; clings to the wall at 7049,267 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+  21. walk from 7646,269 to 7647,273 into the oDrillWaying at 7653,256   [belmont:1]
+      -> standing at x 7647-7682, y 273 (where a gate is)
+  22. jump (held 21 ticks), wall-jump up the same wall, from 7674,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 7913,257 {move ch=1 dir=1 jumpAt=0 maxT=160 wallMode=0}   [belmont:1]
+      -> standing at x 7893-8208, y 168-257
+  23. standing at 8190,225, goes into it
+      -> out 8192,192
+how in 48,288 -> out 8192,192: link:1
+     coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-247, y 289-323
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 247,290; lands at 394,273 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 313-756, y 104-323
+   3. jump (held 21 ticks), holding right, from 624,193, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 799,177 {move ch=1 dir=1 jumpAt=0}   [link:1]
+      -> standing at x 781-1588, y 104-273
+   4. jump (held 21 ticks), holding right, from 1456,245, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 1631,225 {move ch=1 dir=1 jumpAt=0}   [link:1]
+      -> standing at x 1613-1863, y 152-323
+   5. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 1863,273; lands at 2004,243 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1945-2407, y 209-323
+   6. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2407,273; lands at 2540,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 2489-3012, y 152-323
+   7. running right, jump (held 21 ticks), holding right, from 2992,257, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 3190,241 {move ch=1 dir=1 run=1 jumpAt=0}   [link:1]
+      -> standing at x 3173-3719, y 184-417
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 3719,257; clings to the wall at 3769,206 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3769-3879, y 193-247
+   9. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 3879,194; lands at 4048,209 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3961-4071, y 209-263
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4071,210; lands at 4240,225 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4153-4263, y 225-279
+  11. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4263,226; lands at 4432,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4345-4455, y 241-295
+  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4455,242; clings to the wall at 4537,190 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4537-4647, y 145-199
+  13. running right, jump (held 21 ticks), holding right, from 4624,145; clings to the wall at 4969,385 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 4969-5239, y 177-417
+  14. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5143,178; clings to the wall at 5321,225 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5321-5431, y 209-323
+  15. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5431,240; clings to the wall at 5542,294 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5542-5548, y 216-295
+  16. walk off the edge, holding left, then right after 1 ticks in the air, from 5543,249, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 5552,257 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [link:1]
+      -> standing at x 5546-5578, y 257 (where a gate is)
+  17. walk from 5578,257 to 5579,253
+      -> standing at x 5573-5783, y 145-323
+  18. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5783,146; lands at 6004,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5865-6340, y 184-323
+  19. running right, walk off the edge, holding right, then left after 1 ticks in the air, from 6256,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 6935,305 {move ch=1 dir=1 run=1 h2=-1 hDelay=1 noInputTillAir=1}   [link:1]
+      -> standing at x 6877-6935, y 184-323
+  20. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 6877,224; clings to the wall at 7049,267 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+  21. walk from 7646,269 to 7647,273 into the oDrillWaying at 7653,256   [link:1]
+      -> standing at x 7647-7682, y 273 (where a gate is)
+  22. jump (held 21 ticks), wall-jump up the same wall, from 7674,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 7913,257 {move ch=1 dir=1 jumpAt=0 maxT=160 wallMode=0}   [link:1]
+      -> standing at x 7893-8208, y 168-257
+  23. standing at 8190,225, goes into it
+      -> out 8192,192
+how in 48,288 -> out 8192,192: megaman:1
+     coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-247, y 289-323
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 247,290; lands at 394,273 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 313-756, y 104-323
+   3. jump (held 21 ticks), holding right, from 624,193, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 799,177 {move ch=1 dir=1 jumpAt=0}   [megaman:1]
+      -> standing at x 781-1588, y 104-273
+   4. jump (held 21 ticks), holding right, from 1456,245, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 1631,225 {move ch=1 dir=1 jumpAt=0}   [megaman:1]
+      -> standing at x 1613-1863, y 152-323
+   5. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 1863,273; lands at 2004,243 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1945-2407, y 209-323
+   6. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2407,273; lands at 2540,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 2489-3012, y 152-323
+   7. running right, jump (held 21 ticks), holding right, from 2992,257, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 3190,241 {move ch=1 dir=1 run=1 jumpAt=0}   [megaman:1]
+      -> standing at x 3173-3719, y 184-417
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 3719,257; clings to the wall at 3769,206 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3769-3879, y 193-247
+   9. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 3879,194; lands at 4048,209 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3961-4071, y 209-263
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4071,210; lands at 4240,225 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4153-4263, y 225-279
+  11. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4263,226; lands at 4432,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4345-4455, y 241-295
+  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4455,242; clings to the wall at 4537,190 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4537-4647, y 145-199
+  13. running right, jump (held 21 ticks), holding right, from 4624,145; clings to the wall at 4969,385 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 4969-5239, y 177-417
+  14. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5143,178; clings to the wall at 5321,225 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5321-5431, y 209-323
+  15. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5431,240; clings to the wall at 5542,294 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5542-5548, y 216-295
+  16. walk off the edge, holding left, then right after 1 ticks in the air, from 5543,249, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 5552,257 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [megaman:1]
+      -> standing at x 5546-5578, y 257 (where a gate is)
+  17. walk from 5578,257 to 5579,253
+      -> standing at x 5573-5783, y 145-323
+  18. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5783,146; lands at 6004,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5865-6340, y 184-323
+  19. running right, walk off the edge, holding right, then left after 1 ticks in the air, from 6256,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 6935,305 {move ch=1 dir=1 run=1 h2=-1 hDelay=1 noInputTillAir=1}   [megaman:1]
+      -> standing at x 6877-6935, y 184-323
+  20. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 6877,224; clings to the wall at 7049,267 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+  21. walk from 7646,269 to 7647,273 into the oDrillWaying at 7653,256   [megaman:1]
+      -> standing at x 7647-7682, y 273 (where a gate is)
+  22. jump (held 21 ticks), wall-jump up the same wall, from 7674,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 7913,257 {move ch=1 dir=1 jumpAt=0 maxT=160 wallMode=0}   [megaman:1]
+      -> standing at x 7893-8208, y 168-257
+  23. standing at 8190,225, goes into it
+      -> out 8192,192
+how in 48,288 -> out 8192,192: samus:1
+     coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-247, y 289-323
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 247,290; lands at 394,273 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 313-756, y 104-323
+   3. jump (held 21 ticks), holding right, from 624,193, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 799,177 {move ch=1 dir=1 jumpAt=0}   [samus:1]
+      -> standing at x 781-1588, y 104-273
+   4. jump (held 21 ticks), holding right, from 1456,245, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 1631,225 {move ch=1 dir=1 jumpAt=0}   [samus:1]
+      -> standing at x 1613-1863, y 152-323
+   5. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 1863,273; lands at 2004,243 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1945-2407, y 209-323
+   6. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2407,273; lands at 2540,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 2489-3012, y 152-323
+   7. running right, jump (held 21 ticks), holding right, from 2992,257, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 3190,241 {move ch=1 dir=1 run=1 jumpAt=0}   [samus:1]
+      -> standing at x 3173-3719, y 184-417
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 3719,257; clings to the wall at 3769,206 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3769-3879, y 193-247
+   9. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 3879,194; lands at 4048,209 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3961-4071, y 209-263
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4071,210; lands at 4240,225 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4153-4263, y 225-279
+  11. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4263,226; lands at 4432,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4345-4455, y 241-295
+  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4455,242; clings to the wall at 4537,190 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4537-4647, y 145-199
+  13. running right, jump (held 21 ticks), holding right, from 4624,145; clings to the wall at 4969,385 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 4969-5239, y 177-417
+  14. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5143,178; clings to the wall at 5321,225 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5321-5431, y 209-323
+  15. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5431,240; clings to the wall at 5542,294 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5542-5548, y 216-295
+  16. walk off the edge, holding left, then right after 1 ticks in the air, from 5543,249, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 5552,257 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [samus:1]
+      -> standing at x 5546-5578, y 257 (where a gate is)
+  17. walk from 5578,257 to 5579,253
+      -> standing at x 5573-5783, y 145-323
+  18. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5783,146; lands at 6004,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5865-6340, y 184-323
+  19. running right, walk off the edge, holding right, then left after 1 ticks in the air, from 6256,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 6935,305 {move ch=1 dir=1 run=1 h2=-1 hDelay=1 noInputTillAir=1}   [samus:1]
+      -> standing at x 6877-6935, y 184-323
+  20. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 6877,224; clings to the wall at 7049,267 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+  21. walk from 7646,269 to 7647,273 into the oDrillWaying at 7653,256   [samus:1]
+      -> standing at x 7647-7682, y 273 (where a gate is)
+  22. jump (held 21 ticks), wall-jump up the same wall, from 7674,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 7913,257 {move ch=1 dir=1 jumpAt=0 maxT=160 wallMode=0}   [samus:1]
+      -> standing at x 7893-8208, y 168-257
+  23. standing at 8190,225, goes into it
       -> out 8192,192
 how in 48,288 -> out 0,256: -
      coming in at 48,288
-   1. coming in: holding nothing, from 48,288; lands at 48,289
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-247, y 289-323
    2. standing at 0,289, goes into it
       -> out 0,256
-how in 48,288 -> loc 2 30: -
+how in 48,288 -> loc 2 30: belmont:1
      coming in at 48,288
-   1. coming in: holding nothing, from 48,288; lands at 48,289
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-247, y 289-323
-   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 247,290; lands at 394,273
-      -> standing at x 313-1863, y 177-323
-   3. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 1863,273; lands at 2004,243
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 247,290; lands at 394,273 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 313-756, y 104-323
+   3. jump (held 21 ticks), holding right, from 624,193, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 799,177 {move ch=1 dir=1 jumpAt=0}   [belmont:1]
+      -> standing at x 781-1588, y 104-273
+   4. jump (held 21 ticks), holding right, from 1456,245, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 1631,225 {move ch=1 dir=1 jumpAt=0}   [belmont:1]
+      -> standing at x 1613-1863, y 152-323
+   5. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 1863,273; lands at 2004,243 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 1945-2407, y 209-323
-   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2407,273; lands at 2540,241
-      -> standing at x 2489-3719, y 241-417
-   5. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 3719,257; clings to the wall at 3769,206
+   6. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2407,273; lands at 2540,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 2489-3012, y 152-323
+   7. running right, jump (held 21 ticks), holding right, from 2992,257, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 3190,241 {move ch=1 dir=1 run=1 jumpAt=0}   [belmont:1]
+      -> standing at x 3173-3719, y 184-417
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 3719,257; clings to the wall at 3769,206 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 3769-3879, y 193-247
-   6. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 3879,194; lands at 4048,209
+   9. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 3879,194; lands at 4048,209 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 3961-4071, y 209-263
-   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4071,210; lands at 4240,225
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4071,210; lands at 4240,225 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 4153-4263, y 225-279
-   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4263,226; lands at 4432,241
+  11. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4263,226; lands at 4432,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 4345-4455, y 241-295
-   9. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4455,242; clings to the wall at 4537,190
+  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4455,242; clings to the wall at 4537,190 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 4537-4647, y 145-199
-  10. running right, jump (held 21 ticks), holding right, from 4624,145; clings to the wall at 4969,385
+  13. running right, jump (held 21 ticks), holding right, from 4624,145; clings to the wall at 4969,385 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 4969-5239, y 177-417
-  11. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5143,178; clings to the wall at 5321,225
+  14. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5143,178; clings to the wall at 5321,225 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 5321-5431, y 209-323
-  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5431,210; clings to the wall at 5545,304
-      -> standing at x 5545-5783, y 145-323
-  13. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5783,146; lands at 6004,241
-      -> standing at x 5865-6935, y 241-323
-  14. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 6935,274; lands at 7068,241
-      -> standing at x 7049-8208, y 209-323
-  15. standing at 7798,257, touches it
+  15. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5431,240; clings to the wall at 5542,294 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5542-5548, y 216-295
+  16. walk off the edge, holding left, then right after 1 ticks in the air, from 5543,249, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 5552,257 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [belmont:1]
+      -> standing at x 5546-5578, y 257 (where a gate is)
+  17. walk from 5578,257 to 5579,253
+      -> standing at x 5573-5783, y 145-323
+  18. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5783,146; lands at 6004,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5865-6340, y 184-323
+  19. running right, walk off the edge, holding right, then left after 1 ticks in the air, from 6256,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 6935,305 {move ch=1 dir=1 run=1 h2=-1 hDelay=1 noInputTillAir=1}   [belmont:1]
+      -> standing at x 6877-6935, y 184-323
+  20. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 6877,224; clings to the wall at 7049,267 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+  21. running right, jump (held 21 ticks), holding right, from 7616,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0}   [belmont:1]
+      -> loc 2 30
+how in 48,288 -> loc 2 30: link:1
+     coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-247, y 289-323
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 247,290; lands at 394,273 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 313-756, y 104-323
+   3. jump (held 21 ticks), holding right, from 624,193, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 799,177 {move ch=1 dir=1 jumpAt=0}   [link:1]
+      -> standing at x 781-1588, y 104-273
+   4. jump (held 21 ticks), holding right, from 1456,245, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 1631,225 {move ch=1 dir=1 jumpAt=0}   [link:1]
+      -> standing at x 1613-1863, y 152-323
+   5. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 1863,273; lands at 2004,243 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1945-2407, y 209-323
+   6. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2407,273; lands at 2540,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 2489-3012, y 152-323
+   7. running right, jump (held 21 ticks), holding right, from 2992,257, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 3190,241 {move ch=1 dir=1 run=1 jumpAt=0}   [link:1]
+      -> standing at x 3173-3719, y 184-417
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 3719,257; clings to the wall at 3769,206 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3769-3879, y 193-247
+   9. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 3879,194; lands at 4048,209 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3961-4071, y 209-263
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4071,210; lands at 4240,225 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4153-4263, y 225-279
+  11. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4263,226; lands at 4432,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4345-4455, y 241-295
+  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4455,242; clings to the wall at 4537,190 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4537-4647, y 145-199
+  13. running right, jump (held 21 ticks), holding right, from 4624,145; clings to the wall at 4969,385 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 4969-5239, y 177-417
+  14. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5143,178; clings to the wall at 5321,225 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5321-5431, y 209-323
+  15. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5431,240; clings to the wall at 5542,294 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5542-5548, y 216-295
+  16. walk off the edge, holding left, then right after 1 ticks in the air, from 5543,249, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 5552,257 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [link:1]
+      -> standing at x 5546-5578, y 257 (where a gate is)
+  17. walk from 5578,257 to 5579,253
+      -> standing at x 5573-5783, y 145-323
+  18. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5783,146; lands at 6004,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5865-6340, y 184-323
+  19. running right, walk off the edge, holding right, then left after 1 ticks in the air, from 6256,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 6935,305 {move ch=1 dir=1 run=1 h2=-1 hDelay=1 noInputTillAir=1}   [link:1]
+      -> standing at x 6877-6935, y 184-323
+  20. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 6877,224; clings to the wall at 7049,267 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+  21. running right, jump (held 21 ticks), holding right, from 7616,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0}   [link:1]
+      -> loc 2 30
+how in 48,288 -> loc 2 30: megaman:1
+     coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-247, y 289-323
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 247,290; lands at 394,273 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 313-756, y 104-323
+   3. jump (held 21 ticks), holding right, from 624,193, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 799,177 {move ch=1 dir=1 jumpAt=0}   [megaman:1]
+      -> standing at x 781-1588, y 104-273
+   4. jump (held 21 ticks), holding right, from 1456,245, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 1631,225 {move ch=1 dir=1 jumpAt=0}   [megaman:1]
+      -> standing at x 1613-1863, y 152-323
+   5. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 1863,273; lands at 2004,243 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1945-2407, y 209-323
+   6. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2407,273; lands at 2540,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 2489-3012, y 152-323
+   7. running right, jump (held 21 ticks), holding right, from 2992,257, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 3190,241 {move ch=1 dir=1 run=1 jumpAt=0}   [megaman:1]
+      -> standing at x 3173-3719, y 184-417
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 3719,257; clings to the wall at 3769,206 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3769-3879, y 193-247
+   9. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 3879,194; lands at 4048,209 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3961-4071, y 209-263
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4071,210; lands at 4240,225 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4153-4263, y 225-279
+  11. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4263,226; lands at 4432,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4345-4455, y 241-295
+  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4455,242; clings to the wall at 4537,190 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4537-4647, y 145-199
+  13. running right, jump (held 21 ticks), holding right, from 4624,145; clings to the wall at 4969,385 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 4969-5239, y 177-417
+  14. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5143,178; clings to the wall at 5321,225 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5321-5431, y 209-323
+  15. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5431,240; clings to the wall at 5542,294 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5542-5548, y 216-295
+  16. walk off the edge, holding left, then right after 1 ticks in the air, from 5543,249, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 5552,257 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [megaman:1]
+      -> standing at x 5546-5578, y 257 (where a gate is)
+  17. walk from 5578,257 to 5579,253
+      -> standing at x 5573-5783, y 145-323
+  18. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5783,146; lands at 6004,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5865-6340, y 184-323
+  19. running right, walk off the edge, holding right, then left after 1 ticks in the air, from 6256,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 6935,305 {move ch=1 dir=1 run=1 h2=-1 hDelay=1 noInputTillAir=1}   [megaman:1]
+      -> standing at x 6877-6935, y 184-323
+  20. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 6877,224; clings to the wall at 7049,267 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+  21. running right, jump (held 21 ticks), holding right, from 7616,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0}   [megaman:1]
+      -> loc 2 30
+how in 48,288 -> loc 2 30: samus:1
+     coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-247, y 289-323
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 247,290; lands at 394,273 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 313-756, y 104-323
+   3. jump (held 21 ticks), holding right, from 624,193, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 799,177 {move ch=1 dir=1 jumpAt=0}   [samus:1]
+      -> standing at x 781-1588, y 104-273
+   4. jump (held 21 ticks), holding right, from 1456,245, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 1631,225 {move ch=1 dir=1 jumpAt=0}   [samus:1]
+      -> standing at x 1613-1863, y 152-323
+   5. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 1863,273; lands at 2004,243 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1945-2407, y 209-323
+   6. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2407,273; lands at 2540,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 2489-3012, y 152-323
+   7. running right, jump (held 21 ticks), holding right, from 2992,257, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 3190,241 {move ch=1 dir=1 run=1 jumpAt=0}   [samus:1]
+      -> standing at x 3173-3719, y 184-417
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 3719,257; clings to the wall at 3769,206 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3769-3879, y 193-247
+   9. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 3879,194; lands at 4048,209 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3961-4071, y 209-263
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4071,210; lands at 4240,225 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4153-4263, y 225-279
+  11. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4263,226; lands at 4432,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4345-4455, y 241-295
+  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 4455,242; clings to the wall at 4537,190 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4537-4647, y 145-199
+  13. running right, jump (held 21 ticks), holding right, from 4624,145; clings to the wall at 4969,385 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 4969-5239, y 177-417
+  14. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5143,178; clings to the wall at 5321,225 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5321-5431, y 209-323
+  15. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5431,240; clings to the wall at 5542,294 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5542-5548, y 216-295
+  16. walk off the edge, holding left, then right after 1 ticks in the air, from 5543,249, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 5552,257 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [samus:1]
+      -> standing at x 5546-5578, y 257 (where a gate is)
+  17. walk from 5578,257 to 5579,253
+      -> standing at x 5573-5783, y 145-323
+  18. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5783,146; lands at 6004,241 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5865-6340, y 184-323
+  19. running right, walk off the edge, holding right, then left after 1 ticks in the air, from 6256,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 6935,305 {move ch=1 dir=1 run=1 h2=-1 hDelay=1 noInputTillAir=1}   [samus:1]
+      -> standing at x 6877-6935, y 184-323
+  20. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 6877,224; clings to the wall at 7049,267 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+  21. running right, jump (held 21 ticks), holding right, from 7616,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0}   [samus:1]
       -> loc 2 30
 how in 48,288 -> loc 9 83: djump
      coming in at 48,288
-   1. coming in: holding nothing, from 48,288; lands at 48,289
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-247, y 289-323
-   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 192,289; clings to the wall at 175,194   [djump]
+   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 192,289; clings to the wall at 175,194 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14 djAt=12}   [djump]
       -> standing at x 119-175, y -24-199
    3. standing at 130,113, touches it
       -> loc 9 83
 how in 48,288 -> loc 9 83: adash
      coming in at 48,288
-   1. coming in: holding nothing, from 48,288; lands at 48,289
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-247, y 289-323
-   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 247,290; lands at 394,273
-      -> standing at x 313-1863, y 177-323
-   3. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 314,273; clings to the wall at 175,196   [adash]
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 247,290; lands at 394,273 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 313-756, y 104-323
+   3. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 314,273; clings to the wall at 175,196 {move ch=0 dir=-1 jumpAt=0 adAt=10}   [adash]
       -> standing at x 119-175, y -24-199
    4. standing at 130,113, touches it
       -> loc 9 83
 how in 8168,224 -> out 8192,192: -
      coming in at 8168,224
-   1. coming in: holding nothing, from 8168,224; lands at 8168,225
-      -> standing at x 7049-8208, y 209-323
+   1. coming in: holding nothing, from 8168,224; lands at 8168,225 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 7893-8208, y 168-257
    2. standing at 8190,225, goes into it
       -> out 8192,192
-how in 8168,224 -> out 0,256: -
+how in 8168,224 -> out 0,256: belmont:1
      coming in at 8168,224
-   1. coming in: holding nothing, from 8168,224; lands at 8168,225
-      -> standing at x 7049-8208, y 209-323
-   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 7049,242; lands at 6872,273
-      -> standing at x 5865-6935, y 241-323
-   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5865,258; clings to the wall at 5783,206
-      -> standing at x 5545-5783, y 145-323
-   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5545,258; clings to the wall at 5431,275
+   1. coming in: holding nothing, from 8168,224; lands at 8168,225 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 7893-8208, y 168-257
+   2. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 7893,168; clings to the wall at 7895,131 {move ch=1 dir=-1 jumpAt=0 maxT=160 wallMode=0 fromWall=1}
+      -> standing at x 7721-7895, y 97-167
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 7721,112; lands at 7492,215 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+   4. running left, jump (held 21 ticks), holding left, from 7050,241; clings to the wall at 6903,179 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 6825-6903, y 129-183
+   5. running left, jump (held 2 ticks), holding left, from 6826,129, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 6613,273 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [belmont:1]
+      -> standing at x 6365-6628, y 184-273
+   6. walk off the edge, holding left, then right after 1 ticks in the air, from 6372,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5865,290 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [belmont:1]
+      -> standing at x 5865-6340, y 184-323
+   7. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5865,257; clings to the wall at 5783,205 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5573-5783, y 145-323
+   8. running left, jump (held 2 ticks), holding left, from 5581,257, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5431,318 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [belmont:1]
       -> standing at x 5321-5431, y 209-323
-   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5321,210; clings to the wall at 5143,257
+   9. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5321,210; clings to the wall at 5143,257 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 4969-5239, y 177-417
-   6. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4969,192; lands at 4778,241
+  10. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4969,192; lands at 4778,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 4761-4871, y 241-295
-   7. jump (held 21 ticks), holding left, from 4762,241; clings to the wall at 4647,175
+  11. jump (held 21 ticks), holding left, from 4762,241; clings to the wall at 4647,175 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 4537-4647, y 145-199
-   8. running left, jump (held 21 ticks), holding left, from 4538,145; clings to the wall at 4263,277
+  12. running left, jump (held 21 ticks), holding left, from 4538,145; clings to the wall at 4263,277 {move ch=1 dir=-1 run=1 jumpAt=0}
       -> standing at x 4153-4263, y 225-279
-   9. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4153,226; lands at 4006,209
+  13. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4153,226; lands at 4006,209 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 3961-4071, y 209-263
-  10. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3961,210; lands at 3814,193
+  14. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3961,210; lands at 3814,193 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 3769-3879, y 193-247
-  11. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3769,194; lands at 3578,241
-      -> standing at x 2489-3719, y 241-417
-  12. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2489,242; clings to the wall at 2337,238
+  15. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3769,194; lands at 3578,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3173-3719, y 184-417
+  16. running left, jump (held 21 ticks), holding left, from 3181,241, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 2961,257 {move ch=1 dir=-1 run=1 jumpAt=0}   [belmont:1]
+      -> standing at x 2489-3012, y 152-323
+  17. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2489,242; clings to the wall at 2337,238 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 1945-2407, y 209-323
-  13. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1945,274; lands at 1804,243
-      -> standing at x 313-1863, y 177-323
-  14. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 313,274; lands at 144,289
+  18. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1945,273; lands at 1804,243 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1613-1863, y 152-323
+  19. walk off the edge, holding left once in the air, from 1621,225, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 1453,247 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [belmont:1]
+      -> standing at x 781-1588, y 104-273
+  20. walk off the edge, holding left once in the air, from 788,177, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 647,206 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [belmont:1]
+      -> standing at x 313-756, y 104-323
+  21. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 313,274; lands at 144,289 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 0-247, y 289-323
-  15. standing at 0,289, goes into it
+  22. standing at 0,289, goes into it
       -> out 0,256
-how in 8168,224 -> loc 2 30: -
+how in 8168,224 -> out 0,256: link:1
      coming in at 8168,224
-   1. coming in: holding nothing, from 8168,224; lands at 8168,225
-      -> standing at x 7049-8208, y 209-323
-   2. standing at 7798,257, touches it
+   1. coming in: holding nothing, from 8168,224; lands at 8168,225 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 7893-8208, y 168-257
+   2. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 7893,168; clings to the wall at 7895,131 {move ch=1 dir=-1 jumpAt=0 maxT=160 wallMode=0 fromWall=1}
+      -> standing at x 7721-7895, y 97-167
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 7721,112; lands at 7492,215 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+   4. running left, jump (held 21 ticks), holding left, from 7050,241; clings to the wall at 6903,179 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 6825-6903, y 129-183
+   5. running left, jump (held 2 ticks), holding left, from 6826,129, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 6613,273 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [link:1]
+      -> standing at x 6365-6628, y 184-273
+   6. walk off the edge, holding left, then right after 1 ticks in the air, from 6372,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5865,290 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [link:1]
+      -> standing at x 5865-6340, y 184-323
+   7. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5865,257; clings to the wall at 5783,205 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5573-5783, y 145-323
+   8. running left, jump (held 2 ticks), holding left, from 5581,257, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5431,318 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [link:1]
+      -> standing at x 5321-5431, y 209-323
+   9. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5321,210; clings to the wall at 5143,257 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4969-5239, y 177-417
+  10. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4969,192; lands at 4778,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4761-4871, y 241-295
+  11. jump (held 21 ticks), holding left, from 4762,241; clings to the wall at 4647,175 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 4537-4647, y 145-199
+  12. running left, jump (held 21 ticks), holding left, from 4538,145; clings to the wall at 4263,277 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 4153-4263, y 225-279
+  13. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4153,226; lands at 4006,209 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3961-4071, y 209-263
+  14. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3961,210; lands at 3814,193 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3769-3879, y 193-247
+  15. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3769,194; lands at 3578,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3173-3719, y 184-417
+  16. running left, jump (held 21 ticks), holding left, from 3181,241, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 2961,257 {move ch=1 dir=-1 run=1 jumpAt=0}   [link:1]
+      -> standing at x 2489-3012, y 152-323
+  17. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2489,242; clings to the wall at 2337,238 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1945-2407, y 209-323
+  18. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1945,273; lands at 1804,243 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1613-1863, y 152-323
+  19. walk off the edge, holding left once in the air, from 1621,225, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 1453,247 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [link:1]
+      -> standing at x 781-1588, y 104-273
+  20. walk off the edge, holding left once in the air, from 788,177, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 647,206 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [link:1]
+      -> standing at x 313-756, y 104-323
+  21. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 313,274; lands at 144,289 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 0-247, y 289-323
+  22. standing at 0,289, goes into it
+      -> out 0,256
+how in 8168,224 -> out 0,256: megaman:1
+     coming in at 8168,224
+   1. coming in: holding nothing, from 8168,224; lands at 8168,225 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 7893-8208, y 168-257
+   2. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 7893,168; clings to the wall at 7895,131 {move ch=1 dir=-1 jumpAt=0 maxT=160 wallMode=0 fromWall=1}
+      -> standing at x 7721-7895, y 97-167
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 7721,112; lands at 7492,215 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+   4. running left, jump (held 21 ticks), holding left, from 7050,241; clings to the wall at 6903,179 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 6825-6903, y 129-183
+   5. running left, jump (held 2 ticks), holding left, from 6826,129, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 6613,273 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [megaman:1]
+      -> standing at x 6365-6628, y 184-273
+   6. walk off the edge, holding left, then right after 1 ticks in the air, from 6372,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5865,290 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [megaman:1]
+      -> standing at x 5865-6340, y 184-323
+   7. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5865,257; clings to the wall at 5783,205 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5573-5783, y 145-323
+   8. running left, jump (held 2 ticks), holding left, from 5581,257, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5431,318 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [megaman:1]
+      -> standing at x 5321-5431, y 209-323
+   9. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5321,210; clings to the wall at 5143,257 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4969-5239, y 177-417
+  10. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4969,192; lands at 4778,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4761-4871, y 241-295
+  11. jump (held 21 ticks), holding left, from 4762,241; clings to the wall at 4647,175 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 4537-4647, y 145-199
+  12. running left, jump (held 21 ticks), holding left, from 4538,145; clings to the wall at 4263,277 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 4153-4263, y 225-279
+  13. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4153,226; lands at 4006,209 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3961-4071, y 209-263
+  14. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3961,210; lands at 3814,193 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3769-3879, y 193-247
+  15. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3769,194; lands at 3578,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3173-3719, y 184-417
+  16. running left, jump (held 21 ticks), holding left, from 3181,241, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 2961,257 {move ch=1 dir=-1 run=1 jumpAt=0}   [megaman:1]
+      -> standing at x 2489-3012, y 152-323
+  17. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2489,242; clings to the wall at 2337,238 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1945-2407, y 209-323
+  18. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1945,273; lands at 1804,243 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1613-1863, y 152-323
+  19. walk off the edge, holding left once in the air, from 1621,225, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 1453,247 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [megaman:1]
+      -> standing at x 781-1588, y 104-273
+  20. walk off the edge, holding left once in the air, from 788,177, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 647,206 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [megaman:1]
+      -> standing at x 313-756, y 104-323
+  21. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 313,274; lands at 144,289 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 0-247, y 289-323
+  22. standing at 0,289, goes into it
+      -> out 0,256
+how in 8168,224 -> out 0,256: samus:1
+     coming in at 8168,224
+   1. coming in: holding nothing, from 8168,224; lands at 8168,225 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 7893-8208, y 168-257
+   2. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 7893,168; clings to the wall at 7895,131 {move ch=1 dir=-1 jumpAt=0 maxT=160 wallMode=0 fromWall=1}
+      -> standing at x 7721-7895, y 97-167
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 7721,112; lands at 7492,215 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+   4. running left, jump (held 21 ticks), holding left, from 7050,241; clings to the wall at 6903,179 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 6825-6903, y 129-183
+   5. running left, jump (held 2 ticks), holding left, from 6826,129, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 6613,273 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [samus:1]
+      -> standing at x 6365-6628, y 184-273
+   6. walk off the edge, holding left, then right after 1 ticks in the air, from 6372,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5865,290 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [samus:1]
+      -> standing at x 5865-6340, y 184-323
+   7. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5865,257; clings to the wall at 5783,205 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5573-5783, y 145-323
+   8. running left, jump (held 2 ticks), holding left, from 5581,257, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5431,318 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [samus:1]
+      -> standing at x 5321-5431, y 209-323
+   9. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5321,210; clings to the wall at 5143,257 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4969-5239, y 177-417
+  10. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4969,192; lands at 4778,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4761-4871, y 241-295
+  11. jump (held 21 ticks), holding left, from 4762,241; clings to the wall at 4647,175 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 4537-4647, y 145-199
+  12. running left, jump (held 21 ticks), holding left, from 4538,145; clings to the wall at 4263,277 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 4153-4263, y 225-279
+  13. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4153,226; lands at 4006,209 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3961-4071, y 209-263
+  14. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3961,210; lands at 3814,193 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3769-3879, y 193-247
+  15. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3769,194; lands at 3578,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3173-3719, y 184-417
+  16. running left, jump (held 21 ticks), holding left, from 3181,241, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 2961,257 {move ch=1 dir=-1 run=1 jumpAt=0}   [samus:1]
+      -> standing at x 2489-3012, y 152-323
+  17. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2489,242; clings to the wall at 2337,238 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1945-2407, y 209-323
+  18. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1945,273; lands at 1804,243 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1613-1863, y 152-323
+  19. walk off the edge, holding left once in the air, from 1621,225, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 1453,247 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [samus:1]
+      -> standing at x 781-1588, y 104-273
+  20. walk off the edge, holding left once in the air, from 788,177, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 647,206 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [samus:1]
+      -> standing at x 313-756, y 104-323
+  21. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 313,274; lands at 144,289 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 0-247, y 289-323
+  22. standing at 0,289, goes into it
+      -> out 0,256
+how in 8168,224 -> loc 2 30: belmont:1
+     coming in at 8168,224
+   1. coming in: holding nothing, from 8168,224; lands at 8168,225 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 7893-8208, y 168-257
+   2. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 7893,168; clings to the wall at 7895,131 {move ch=1 dir=-1 jumpAt=0 maxT=160 wallMode=0 fromWall=1}
+      -> standing at x 7721-7895, y 97-167
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 7721,112; lands at 7492,215 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+   4. running right, jump (held 21 ticks), holding right, from 7616,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0}   [belmont:1]
       -> loc 2 30
-how in 8168,224 -> loc 9 83: djump
+how in 8168,224 -> loc 2 30: link:1
      coming in at 8168,224
-   1. coming in: holding nothing, from 8168,224; lands at 8168,225
-      -> standing at x 7049-8208, y 209-323
-   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 7049,242; lands at 6872,273
-      -> standing at x 5865-6935, y 241-323
-   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5865,258; clings to the wall at 5783,206
-      -> standing at x 5545-5783, y 145-323
-   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5545,258; clings to the wall at 5431,275
+   1. coming in: holding nothing, from 8168,224; lands at 8168,225 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 7893-8208, y 168-257
+   2. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 7893,168; clings to the wall at 7895,131 {move ch=1 dir=-1 jumpAt=0 maxT=160 wallMode=0 fromWall=1}
+      -> standing at x 7721-7895, y 97-167
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 7721,112; lands at 7492,215 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+   4. running right, jump (held 21 ticks), holding right, from 7616,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0}   [link:1]
+      -> loc 2 30
+how in 8168,224 -> loc 2 30: megaman:1
+     coming in at 8168,224
+   1. coming in: holding nothing, from 8168,224; lands at 8168,225 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 7893-8208, y 168-257
+   2. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 7893,168; clings to the wall at 7895,131 {move ch=1 dir=-1 jumpAt=0 maxT=160 wallMode=0 fromWall=1}
+      -> standing at x 7721-7895, y 97-167
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 7721,112; lands at 7492,215 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+   4. running right, jump (held 21 ticks), holding right, from 7616,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0}   [megaman:1]
+      -> loc 2 30
+how in 8168,224 -> loc 2 30: samus:1
+     coming in at 8168,224
+   1. coming in: holding nothing, from 8168,224; lands at 8168,225 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 7893-8208, y 168-257
+   2. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 7893,168; clings to the wall at 7895,131 {move ch=1 dir=-1 jumpAt=0 maxT=160 wallMode=0 fromWall=1}
+      -> standing at x 7721-7895, y 97-167
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 7721,112; lands at 7492,215 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+   4. running right, jump (held 21 ticks), holding right, from 7616,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0}   [samus:1]
+      -> loc 2 30
+how in 8168,224 -> loc 9 83: djump,belmont:1
+     coming in at 8168,224
+   1. coming in: holding nothing, from 8168,224; lands at 8168,225 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 7893-8208, y 168-257
+   2. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 7893,168; clings to the wall at 7895,131 {move ch=1 dir=-1 jumpAt=0 maxT=160 wallMode=0 fromWall=1}
+      -> standing at x 7721-7895, y 97-167
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 7721,112; lands at 7492,215 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+   4. running left, jump (held 21 ticks), holding left, from 7050,241; clings to the wall at 6903,179 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 6825-6903, y 129-183
+   5. running left, jump (held 2 ticks), holding left, from 6826,129, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 6613,273 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [belmont:1]
+      -> standing at x 6365-6628, y 184-273
+   6. walk off the edge, holding left, then right after 1 ticks in the air, from 6372,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5865,290 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [belmont:1]
+      -> standing at x 5865-6340, y 184-323
+   7. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5865,257; clings to the wall at 5783,205 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5573-5783, y 145-323
+   8. running left, jump (held 2 ticks), holding left, from 5581,257, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5431,318 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [belmont:1]
       -> standing at x 5321-5431, y 209-323
-   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5321,210; clings to the wall at 5143,257
+   9. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5321,210; clings to the wall at 5143,257 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 4969-5239, y 177-417
-   6. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4969,192; lands at 4778,241
+  10. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4969,192; lands at 4778,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 4761-4871, y 241-295
-   7. jump (held 21 ticks), holding left, from 4762,241; clings to the wall at 4647,175
+  11. jump (held 21 ticks), holding left, from 4762,241; clings to the wall at 4647,175 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 4537-4647, y 145-199
-   8. running left, jump (held 21 ticks), holding left, from 4538,145; clings to the wall at 4263,277
+  12. running left, jump (held 21 ticks), holding left, from 4538,145; clings to the wall at 4263,277 {move ch=1 dir=-1 run=1 jumpAt=0}
       -> standing at x 4153-4263, y 225-279
-   9. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4153,226; lands at 4006,209
+  13. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4153,226; lands at 4006,209 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 3961-4071, y 209-263
-  10. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3961,210; lands at 3814,193
+  14. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3961,210; lands at 3814,193 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 3769-3879, y 193-247
-  11. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3769,194; lands at 3578,241
-      -> standing at x 2489-3719, y 241-417
-  12. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2489,242; clings to the wall at 2337,238
+  15. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3769,194; lands at 3578,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3173-3719, y 184-417
+  16. running left, jump (held 21 ticks), holding left, from 3181,241, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 2961,257 {move ch=1 dir=-1 run=1 jumpAt=0}   [belmont:1]
+      -> standing at x 2489-3012, y 152-323
+  17. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2489,242; clings to the wall at 2337,238 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 1945-2407, y 209-323
-  13. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1945,274; lands at 1804,243
-      -> standing at x 313-1863, y 177-323
-  14. jump (held 21 ticks), holding left, double jump at tick 10, from 314,273; clings to the wall at 175,185   [djump]
+  18. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1945,273; lands at 1804,243 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1613-1863, y 152-323
+  19. walk off the edge, holding left once in the air, from 1621,225, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 1453,247 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [belmont:1]
+      -> standing at x 781-1588, y 104-273
+  20. walk off the edge, holding left once in the air, from 788,177, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 647,206 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [belmont:1]
+      -> standing at x 313-756, y 104-323
+  21. jump (held 21 ticks), holding left, double jump at tick 10, from 314,273; clings to the wall at 175,185 {move ch=1 dir=-1 jumpAt=0 djAt=10}   [djump]
       -> standing at x 119-175, y -24-199
-  15. standing at 130,113, touches it
+  22. standing at 130,113, touches it
       -> loc 9 83
-how in 8168,224 -> loc 9 83: adash
+how in 8168,224 -> loc 9 83: adash,belmont:1
      coming in at 8168,224
-   1. coming in: holding nothing, from 8168,224; lands at 8168,225
-      -> standing at x 7049-8208, y 209-323
-   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 7049,242; lands at 6872,273
-      -> standing at x 5865-6935, y 241-323
-   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5865,258; clings to the wall at 5783,206
-      -> standing at x 5545-5783, y 145-323
-   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5545,258; clings to the wall at 5431,275
+   1. coming in: holding nothing, from 8168,224; lands at 8168,225 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 7893-8208, y 168-257
+   2. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 7893,168; clings to the wall at 7895,131 {move ch=1 dir=-1 jumpAt=0 maxT=160 wallMode=0 fromWall=1}
+      -> standing at x 7721-7895, y 97-167
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 7721,112; lands at 7492,215 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+   4. running left, jump (held 21 ticks), holding left, from 7050,241; clings to the wall at 6903,179 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 6825-6903, y 129-183
+   5. running left, jump (held 2 ticks), holding left, from 6826,129, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 6613,273 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [belmont:1]
+      -> standing at x 6365-6628, y 184-273
+   6. walk off the edge, holding left, then right after 1 ticks in the air, from 6372,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5865,290 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [belmont:1]
+      -> standing at x 5865-6340, y 184-323
+   7. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5865,257; clings to the wall at 5783,205 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5573-5783, y 145-323
+   8. running left, jump (held 2 ticks), holding left, from 5581,257, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5431,318 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [belmont:1]
       -> standing at x 5321-5431, y 209-323
-   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5321,210; clings to the wall at 5143,257
+   9. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5321,210; clings to the wall at 5143,257 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 4969-5239, y 177-417
-   6. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4969,192; lands at 4778,241
+  10. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4969,192; lands at 4778,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 4761-4871, y 241-295
-   7. jump (held 21 ticks), holding left, from 4762,241; clings to the wall at 4647,175
+  11. jump (held 21 ticks), holding left, from 4762,241; clings to the wall at 4647,175 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 4537-4647, y 145-199
-   8. running left, jump (held 21 ticks), holding left, from 4538,145; clings to the wall at 4263,277
+  12. running left, jump (held 21 ticks), holding left, from 4538,145; clings to the wall at 4263,277 {move ch=1 dir=-1 run=1 jumpAt=0}
       -> standing at x 4153-4263, y 225-279
-   9. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4153,226; lands at 4006,209
+  13. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4153,226; lands at 4006,209 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 3961-4071, y 209-263
-  10. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3961,210; lands at 3814,193
+  14. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3961,210; lands at 3814,193 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 3769-3879, y 193-247
-  11. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3769,194; lands at 3578,241
-      -> standing at x 2489-3719, y 241-417
-  12. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2489,242; clings to the wall at 2337,238
+  15. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3769,194; lands at 3578,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3173-3719, y 184-417
+  16. running left, jump (held 21 ticks), holding left, from 3181,241, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 2961,257 {move ch=1 dir=-1 run=1 jumpAt=0}   [belmont:1]
+      -> standing at x 2489-3012, y 152-323
+  17. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2489,242; clings to the wall at 2337,238 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 1945-2407, y 209-323
-  13. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1945,274; lands at 1804,243
-      -> standing at x 313-1863, y 177-323
-  14. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 314,273; clings to the wall at 175,196   [adash]
+  18. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1945,273; lands at 1804,243 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1613-1863, y 152-323
+  19. walk off the edge, holding left once in the air, from 1621,225, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 1453,247 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [belmont:1]
+      -> standing at x 781-1588, y 104-273
+  20. walk off the edge, holding left once in the air, from 788,177, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 647,206 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [belmont:1]
+      -> standing at x 313-756, y 104-323
+  21. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 314,273; clings to the wall at 175,196 {move ch=0 dir=-1 jumpAt=0 adAt=10}   [adash]
       -> standing at x 119-175, y -24-199
-  15. standing at 130,113, touches it
+  22. standing at 130,113, touches it
+      -> loc 9 83
+how in 8168,224 -> loc 9 83: djump,link:1
+     coming in at 8168,224
+   1. coming in: holding nothing, from 8168,224; lands at 8168,225 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 7893-8208, y 168-257
+   2. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 7893,168; clings to the wall at 7895,131 {move ch=1 dir=-1 jumpAt=0 maxT=160 wallMode=0 fromWall=1}
+      -> standing at x 7721-7895, y 97-167
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 7721,112; lands at 7492,215 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+   4. running left, jump (held 21 ticks), holding left, from 7050,241; clings to the wall at 6903,179 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 6825-6903, y 129-183
+   5. running left, jump (held 2 ticks), holding left, from 6826,129, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 6613,273 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [link:1]
+      -> standing at x 6365-6628, y 184-273
+   6. walk off the edge, holding left, then right after 1 ticks in the air, from 6372,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5865,290 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [link:1]
+      -> standing at x 5865-6340, y 184-323
+   7. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5865,257; clings to the wall at 5783,205 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5573-5783, y 145-323
+   8. running left, jump (held 2 ticks), holding left, from 5581,257, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5431,318 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [link:1]
+      -> standing at x 5321-5431, y 209-323
+   9. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5321,210; clings to the wall at 5143,257 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4969-5239, y 177-417
+  10. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4969,192; lands at 4778,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4761-4871, y 241-295
+  11. jump (held 21 ticks), holding left, from 4762,241; clings to the wall at 4647,175 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 4537-4647, y 145-199
+  12. running left, jump (held 21 ticks), holding left, from 4538,145; clings to the wall at 4263,277 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 4153-4263, y 225-279
+  13. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4153,226; lands at 4006,209 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3961-4071, y 209-263
+  14. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3961,210; lands at 3814,193 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3769-3879, y 193-247
+  15. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3769,194; lands at 3578,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3173-3719, y 184-417
+  16. running left, jump (held 21 ticks), holding left, from 3181,241, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 2961,257 {move ch=1 dir=-1 run=1 jumpAt=0}   [link:1]
+      -> standing at x 2489-3012, y 152-323
+  17. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2489,242; clings to the wall at 2337,238 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1945-2407, y 209-323
+  18. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1945,273; lands at 1804,243 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1613-1863, y 152-323
+  19. walk off the edge, holding left once in the air, from 1621,225, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 1453,247 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [link:1]
+      -> standing at x 781-1588, y 104-273
+  20. walk off the edge, holding left once in the air, from 788,177, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 647,206 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [link:1]
+      -> standing at x 313-756, y 104-323
+  21. jump (held 21 ticks), holding left, double jump at tick 10, from 314,273; clings to the wall at 175,185 {move ch=1 dir=-1 jumpAt=0 djAt=10}   [djump]
+      -> standing at x 119-175, y -24-199
+  22. standing at 130,113, touches it
+      -> loc 9 83
+how in 8168,224 -> loc 9 83: adash,link:1
+     coming in at 8168,224
+   1. coming in: holding nothing, from 8168,224; lands at 8168,225 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 7893-8208, y 168-257
+   2. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 7893,168; clings to the wall at 7895,131 {move ch=1 dir=-1 jumpAt=0 maxT=160 wallMode=0 fromWall=1}
+      -> standing at x 7721-7895, y 97-167
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 7721,112; lands at 7492,215 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+   4. running left, jump (held 21 ticks), holding left, from 7050,241; clings to the wall at 6903,179 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 6825-6903, y 129-183
+   5. running left, jump (held 2 ticks), holding left, from 6826,129, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 6613,273 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [link:1]
+      -> standing at x 6365-6628, y 184-273
+   6. walk off the edge, holding left, then right after 1 ticks in the air, from 6372,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5865,290 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [link:1]
+      -> standing at x 5865-6340, y 184-323
+   7. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5865,257; clings to the wall at 5783,205 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5573-5783, y 145-323
+   8. running left, jump (held 2 ticks), holding left, from 5581,257, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5431,318 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [link:1]
+      -> standing at x 5321-5431, y 209-323
+   9. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5321,210; clings to the wall at 5143,257 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4969-5239, y 177-417
+  10. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4969,192; lands at 4778,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4761-4871, y 241-295
+  11. jump (held 21 ticks), holding left, from 4762,241; clings to the wall at 4647,175 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 4537-4647, y 145-199
+  12. running left, jump (held 21 ticks), holding left, from 4538,145; clings to the wall at 4263,277 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 4153-4263, y 225-279
+  13. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4153,226; lands at 4006,209 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3961-4071, y 209-263
+  14. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3961,210; lands at 3814,193 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3769-3879, y 193-247
+  15. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3769,194; lands at 3578,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3173-3719, y 184-417
+  16. running left, jump (held 21 ticks), holding left, from 3181,241, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 2961,257 {move ch=1 dir=-1 run=1 jumpAt=0}   [link:1]
+      -> standing at x 2489-3012, y 152-323
+  17. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2489,242; clings to the wall at 2337,238 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1945-2407, y 209-323
+  18. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1945,273; lands at 1804,243 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1613-1863, y 152-323
+  19. walk off the edge, holding left once in the air, from 1621,225, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 1453,247 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [link:1]
+      -> standing at x 781-1588, y 104-273
+  20. walk off the edge, holding left once in the air, from 788,177, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 647,206 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [link:1]
+      -> standing at x 313-756, y 104-323
+  21. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 314,273; clings to the wall at 175,196 {move ch=0 dir=-1 jumpAt=0 adAt=10}   [adash]
+      -> standing at x 119-175, y -24-199
+  22. standing at 130,113, touches it
+      -> loc 9 83
+how in 8168,224 -> loc 9 83: djump,megaman:1
+     coming in at 8168,224
+   1. coming in: holding nothing, from 8168,224; lands at 8168,225 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 7893-8208, y 168-257
+   2. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 7893,168; clings to the wall at 7895,131 {move ch=1 dir=-1 jumpAt=0 maxT=160 wallMode=0 fromWall=1}
+      -> standing at x 7721-7895, y 97-167
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 7721,112; lands at 7492,215 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+   4. running left, jump (held 21 ticks), holding left, from 7050,241; clings to the wall at 6903,179 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 6825-6903, y 129-183
+   5. running left, jump (held 2 ticks), holding left, from 6826,129, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 6613,273 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [megaman:1]
+      -> standing at x 6365-6628, y 184-273
+   6. walk off the edge, holding left, then right after 1 ticks in the air, from 6372,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5865,290 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [megaman:1]
+      -> standing at x 5865-6340, y 184-323
+   7. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5865,257; clings to the wall at 5783,205 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5573-5783, y 145-323
+   8. running left, jump (held 2 ticks), holding left, from 5581,257, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5431,318 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [megaman:1]
+      -> standing at x 5321-5431, y 209-323
+   9. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5321,210; clings to the wall at 5143,257 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4969-5239, y 177-417
+  10. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4969,192; lands at 4778,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4761-4871, y 241-295
+  11. jump (held 21 ticks), holding left, from 4762,241; clings to the wall at 4647,175 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 4537-4647, y 145-199
+  12. running left, jump (held 21 ticks), holding left, from 4538,145; clings to the wall at 4263,277 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 4153-4263, y 225-279
+  13. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4153,226; lands at 4006,209 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3961-4071, y 209-263
+  14. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3961,210; lands at 3814,193 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3769-3879, y 193-247
+  15. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3769,194; lands at 3578,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3173-3719, y 184-417
+  16. running left, jump (held 21 ticks), holding left, from 3181,241, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 2961,257 {move ch=1 dir=-1 run=1 jumpAt=0}   [megaman:1]
+      -> standing at x 2489-3012, y 152-323
+  17. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2489,242; clings to the wall at 2337,238 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1945-2407, y 209-323
+  18. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1945,273; lands at 1804,243 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1613-1863, y 152-323
+  19. walk off the edge, holding left once in the air, from 1621,225, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 1453,247 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [megaman:1]
+      -> standing at x 781-1588, y 104-273
+  20. walk off the edge, holding left once in the air, from 788,177, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 647,206 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [megaman:1]
+      -> standing at x 313-756, y 104-323
+  21. jump (held 21 ticks), holding left, double jump at tick 10, from 314,273; clings to the wall at 175,185 {move ch=1 dir=-1 jumpAt=0 djAt=10}   [djump]
+      -> standing at x 119-175, y -24-199
+  22. standing at 130,113, touches it
+      -> loc 9 83
+how in 8168,224 -> loc 9 83: adash,megaman:1
+     coming in at 8168,224
+   1. coming in: holding nothing, from 8168,224; lands at 8168,225 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 7893-8208, y 168-257
+   2. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 7893,168; clings to the wall at 7895,131 {move ch=1 dir=-1 jumpAt=0 maxT=160 wallMode=0 fromWall=1}
+      -> standing at x 7721-7895, y 97-167
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 7721,112; lands at 7492,215 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+   4. running left, jump (held 21 ticks), holding left, from 7050,241; clings to the wall at 6903,179 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 6825-6903, y 129-183
+   5. running left, jump (held 2 ticks), holding left, from 6826,129, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 6613,273 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [megaman:1]
+      -> standing at x 6365-6628, y 184-273
+   6. walk off the edge, holding left, then right after 1 ticks in the air, from 6372,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5865,290 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [megaman:1]
+      -> standing at x 5865-6340, y 184-323
+   7. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5865,257; clings to the wall at 5783,205 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5573-5783, y 145-323
+   8. running left, jump (held 2 ticks), holding left, from 5581,257, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5431,318 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [megaman:1]
+      -> standing at x 5321-5431, y 209-323
+   9. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5321,210; clings to the wall at 5143,257 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4969-5239, y 177-417
+  10. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4969,192; lands at 4778,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4761-4871, y 241-295
+  11. jump (held 21 ticks), holding left, from 4762,241; clings to the wall at 4647,175 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 4537-4647, y 145-199
+  12. running left, jump (held 21 ticks), holding left, from 4538,145; clings to the wall at 4263,277 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 4153-4263, y 225-279
+  13. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4153,226; lands at 4006,209 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3961-4071, y 209-263
+  14. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3961,210; lands at 3814,193 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3769-3879, y 193-247
+  15. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3769,194; lands at 3578,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3173-3719, y 184-417
+  16. running left, jump (held 21 ticks), holding left, from 3181,241, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 2961,257 {move ch=1 dir=-1 run=1 jumpAt=0}   [megaman:1]
+      -> standing at x 2489-3012, y 152-323
+  17. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2489,242; clings to the wall at 2337,238 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1945-2407, y 209-323
+  18. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1945,273; lands at 1804,243 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1613-1863, y 152-323
+  19. walk off the edge, holding left once in the air, from 1621,225, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 1453,247 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [megaman:1]
+      -> standing at x 781-1588, y 104-273
+  20. walk off the edge, holding left once in the air, from 788,177, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 647,206 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [megaman:1]
+      -> standing at x 313-756, y 104-323
+  21. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 314,273; clings to the wall at 175,196 {move ch=0 dir=-1 jumpAt=0 adAt=10}   [adash]
+      -> standing at x 119-175, y -24-199
+  22. standing at 130,113, touches it
+      -> loc 9 83
+how in 8168,224 -> loc 9 83: djump,samus:1
+     coming in at 8168,224
+   1. coming in: holding nothing, from 8168,224; lands at 8168,225 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 7893-8208, y 168-257
+   2. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 7893,168; clings to the wall at 7895,131 {move ch=1 dir=-1 jumpAt=0 maxT=160 wallMode=0 fromWall=1}
+      -> standing at x 7721-7895, y 97-167
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 7721,112; lands at 7492,215 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+   4. running left, jump (held 21 ticks), holding left, from 7050,241; clings to the wall at 6903,179 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 6825-6903, y 129-183
+   5. running left, jump (held 2 ticks), holding left, from 6826,129, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 6613,273 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [samus:1]
+      -> standing at x 6365-6628, y 184-273
+   6. walk off the edge, holding left, then right after 1 ticks in the air, from 6372,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5865,290 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [samus:1]
+      -> standing at x 5865-6340, y 184-323
+   7. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5865,257; clings to the wall at 5783,205 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5573-5783, y 145-323
+   8. running left, jump (held 2 ticks), holding left, from 5581,257, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5431,318 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [samus:1]
+      -> standing at x 5321-5431, y 209-323
+   9. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5321,210; clings to the wall at 5143,257 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4969-5239, y 177-417
+  10. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4969,192; lands at 4778,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4761-4871, y 241-295
+  11. jump (held 21 ticks), holding left, from 4762,241; clings to the wall at 4647,175 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 4537-4647, y 145-199
+  12. running left, jump (held 21 ticks), holding left, from 4538,145; clings to the wall at 4263,277 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 4153-4263, y 225-279
+  13. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4153,226; lands at 4006,209 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3961-4071, y 209-263
+  14. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3961,210; lands at 3814,193 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3769-3879, y 193-247
+  15. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3769,194; lands at 3578,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3173-3719, y 184-417
+  16. running left, jump (held 21 ticks), holding left, from 3181,241, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 2961,257 {move ch=1 dir=-1 run=1 jumpAt=0}   [samus:1]
+      -> standing at x 2489-3012, y 152-323
+  17. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2489,242; clings to the wall at 2337,238 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1945-2407, y 209-323
+  18. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1945,273; lands at 1804,243 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1613-1863, y 152-323
+  19. walk off the edge, holding left once in the air, from 1621,225, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 1453,247 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [samus:1]
+      -> standing at x 781-1588, y 104-273
+  20. walk off the edge, holding left once in the air, from 788,177, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 647,206 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [samus:1]
+      -> standing at x 313-756, y 104-323
+  21. jump (held 21 ticks), holding left, double jump at tick 10, from 314,273; clings to the wall at 175,185 {move ch=1 dir=-1 jumpAt=0 djAt=10}   [djump]
+      -> standing at x 119-175, y -24-199
+  22. standing at 130,113, touches it
+      -> loc 9 83
+how in 8168,224 -> loc 9 83: adash,samus:1
+     coming in at 8168,224
+   1. coming in: holding nothing, from 8168,224; lands at 8168,225 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 7893-8208, y 168-257
+   2. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 7893,168; clings to the wall at 7895,131 {move ch=1 dir=-1 jumpAt=0 maxT=160 wallMode=0 fromWall=1}
+      -> standing at x 7721-7895, y 97-167
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 7721,112; lands at 7492,215 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 7049-7652, y 168-323
+   4. running left, jump (held 21 ticks), holding left, from 7050,241; clings to the wall at 6903,179 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 6825-6903, y 129-183
+   5. running left, jump (held 2 ticks), holding left, from 6826,129, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 6613,273 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [samus:1]
+      -> standing at x 6365-6628, y 184-273
+   6. walk off the edge, holding left, then right after 1 ticks in the air, from 6372,273, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5865,290 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}   [samus:1]
+      -> standing at x 5865-6340, y 184-323
+   7. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5865,257; clings to the wall at 5783,205 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 5573-5783, y 145-323
+   8. running left, jump (held 2 ticks), holding left, from 5581,257, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 5431,318 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}   [samus:1]
+      -> standing at x 5321-5431, y 209-323
+   9. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5321,210; clings to the wall at 5143,257 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4969-5239, y 177-417
+  10. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4969,192; lands at 4778,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 4761-4871, y 241-295
+  11. jump (held 21 ticks), holding left, from 4762,241; clings to the wall at 4647,175 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 4537-4647, y 145-199
+  12. running left, jump (held 21 ticks), holding left, from 4538,145; clings to the wall at 4263,277 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 4153-4263, y 225-279
+  13. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4153,226; lands at 4006,209 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3961-4071, y 209-263
+  14. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3961,210; lands at 3814,193 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3769-3879, y 193-247
+  15. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3769,194; lands at 3578,241 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3173-3719, y 184-417
+  16. running left, jump (held 21 ticks), holding left, from 3181,241, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 2961,257 {move ch=1 dir=-1 run=1 jumpAt=0}   [samus:1]
+      -> standing at x 2489-3012, y 152-323
+  17. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2489,242; clings to the wall at 2337,238 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1945-2407, y 209-323
+  18. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1945,273; lands at 1804,243 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 1613-1863, y 152-323
+  19. walk off the edge, holding left once in the air, from 1621,225, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; lands at 1453,247 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [samus:1]
+      -> standing at x 781-1588, y 104-273
+  20. walk off the edge, holding left once in the air, from 788,177, through the oDrillWaying at 757,160, the oDrillWaying at 763,64, the oDrillWaying at 1589,208, ...; clings to the wall at 647,206 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}   [samus:1]
+      -> standing at x 313-756, y 104-323
+  21. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 314,273; clings to the wall at 175,196 {move ch=0 dir=-1 jumpAt=0 adAt=10}   [adash]
+      -> standing at x 119-175, y -24-199
+  22. standing at 130,113, touches it
       -> loc 9 83

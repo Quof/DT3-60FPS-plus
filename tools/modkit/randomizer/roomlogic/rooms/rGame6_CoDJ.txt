@@ -16,6 +16,8 @@ out 0,208   # to rGame6_CoDK at 432,240; the player goes into it
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 6 49   # game power 49, at 2015,199
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -26,31 +28,75 @@ from in 2352,288
   out 0,208      never
   loc 6 49       djump
 from in 48,240
-  out 2384,256   never
+  out 2384,256   djump,belmont:1,gamec:1
   out 0,208      -
-  loc 6 49       never
+  loc 6 49       djump,belmont:1,gamec:1
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 2352,288 -> out 2384,256: -
      [barrier 341703 shut, barrier 341704 shut] coming in at 2352,288
-   1. coming in: holding nothing, from 2352,288; lands at 2352,289
+   1. coming in: holding nothing, from 2352,288; lands at 2352,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [barrier 341703 shut, barrier 341704 shut] standing at x 2119-2400, y 289
    2. standing at 2382,289, goes into it
       -> out 2384,256
 how in 2352,288 -> loc 6 49: djump
      [barrier 341703 shut, barrier 341704 shut] coming in at 2352,288
-   1. coming in: holding nothing, from 2352,288; lands at 2352,289
+   1. coming in: holding nothing, from 2352,288; lands at 2352,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [barrier 341703 shut, barrier 341704 shut] standing at x 2119-2400, y 289
-   2. jump (held 2 ticks), holding left, from 2119,289; lands at 2041,273
+   2. jump (held 2 ticks), holding left, from 2119,289; lands at 2041,273 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [barrier 341703 shut, barrier 341704 shut] standing at x 1914-2118, y 273
-   3. walk off the edge, holding left once in the air, from 1914,273; lands at 1870,289
+   3. walk off the edge, holding left once in the air, from 1914,273; lands at 1870,289 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [barrier 341703 shut, barrier 341704 shut] standing at x 1690-1913, y 289
-   4. jump (held 21 ticks), holding right, double jump at tick 15, from 1808,289; touches it on the way   [djump]
+   4. jump (held 21 ticks), holding right, double jump at tick 15, from 1808,289; touches it on the way {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
       -> loc 6 49
+how in 48,240 -> out 2384,256: djump,belmont:1,gamec:1
+     [barrier 341703 shut, barrier 341704 shut] coming in at 48,240
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [barrier 341703 shut, barrier 341704 shut] standing at x 0-150, y 241
+   2. jump (held 21 ticks), holding right, attack with the Blade Strike at tick 0 and every 10 ticks after, bouncing off latch crystals, from 48,241; hits the latch crystal at 335,223 {move ch=1 dir=1 jumpAt=0 maxT=160 weapon=2 atkAt=0 atkEvery=10}   [gamec:1]
+      -> [barrier 341703 shut, barrier 341704 shut] just bounced off the latch crystal at 335,223 from its left (Claire)
+   3. just bounced off the latch crystal: holding right, attack with the Blade Strike at tick 6 and every 10 ticks after, bouncing off latch crystals, double jump at tick 12, from 311,243; lands at 538,209 {move ch=1 dir=1 djAt=12 maxT=120 weapon=2 atkAt=6 atkEvery=10 fromCrystal=19}   [djump,gamec:1]
+      -> [barrier 341703 shut, barrier 341704 shut] standing at x 522-566, y 209
+   4. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 522,209; lands at 650,209 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=8}
+      -> [barrier 341703 shut, barrier 341704 shut] standing at x 618-662, y 209
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 618,209; lands at 918,241 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> [barrier 341703 shut, barrier 341704 shut] standing at x 906-982, y 241
+   6. jump (held 21 ticks), holding right, attack with the whip at tick 0 and every 12 ticks after, bouncing off latch crystals, from 906,241; hits the latch crystal at 1071,191 {move ch=1 dir=1 jumpAt=0 maxT=160 weapon=1 atkAt=0 atkEvery=12}   [belmont:1]
+      -> [barrier 341703 shut, barrier 341704 shut] just bounced off the latch crystal at 1071,191 from its left (Claire)
+   7. just bounced off the latch crystal: holding right, attack with the Blade Strike at tick 6 and every 10 ticks after, bouncing off latch crystals, double jump at tick 1, from 1047,211; hits the latch crystal at 1535,223 {move ch=1 dir=1 djAt=1 maxT=120 weapon=2 atkAt=6 atkEvery=10 fromCrystal=15}   [djump,gamec:1]
+      -> [barrier 341703 shut, barrier 341704 shut] just bounced off the latch crystal at 1535,223 from its left (Claire)
+   8. just bounced off the latch crystal: holding right, double jump at tick 6, from 1511,243; lands at 1716,289 {move ch=1 dir=1 djAt=6 maxT=120 fromCrystal=3}   [djump]
+      -> [barrier 341703 shut, barrier 341704 shut] standing at x 1690-1913, y 289
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1690,289; lands at 1961,273 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> [barrier 341703 shut, barrier 341704 shut] standing at x 1914-2118, y 273
+  10. walk off the edge, holding right once in the air, from 1914,273; lands at 2163,289 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [barrier 341703 shut, barrier 341704 shut] standing at x 2119-2400, y 289
+  11. standing at 2382,289, goes into it
+      -> out 2384,256
 how in 48,240 -> out 0,208: -
      [barrier 341703 shut, barrier 341704 shut] coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [barrier 341703 shut, barrier 341704 shut] standing at x 0-150, y 241
    2. standing at 0,241, goes into it
       -> out 0,208
+how in 48,240 -> loc 6 49: djump,belmont:1,gamec:1
+     [barrier 341703 shut, barrier 341704 shut] coming in at 48,240
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [barrier 341703 shut, barrier 341704 shut] standing at x 0-150, y 241
+   2. jump (held 21 ticks), holding right, attack with the Blade Strike at tick 0 and every 10 ticks after, bouncing off latch crystals, from 48,241; hits the latch crystal at 335,223 {move ch=1 dir=1 jumpAt=0 maxT=160 weapon=2 atkAt=0 atkEvery=10}   [gamec:1]
+      -> [barrier 341703 shut, barrier 341704 shut] just bounced off the latch crystal at 335,223 from its left (Claire)
+   3. just bounced off the latch crystal: holding right, attack with the Blade Strike at tick 6 and every 10 ticks after, bouncing off latch crystals, double jump at tick 12, from 311,243; lands at 538,209 {move ch=1 dir=1 djAt=12 maxT=120 weapon=2 atkAt=6 atkEvery=10 fromCrystal=19}   [djump,gamec:1]
+      -> [barrier 341703 shut, barrier 341704 shut] standing at x 522-566, y 209
+   4. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 522,209; lands at 650,209 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=8}
+      -> [barrier 341703 shut, barrier 341704 shut] standing at x 618-662, y 209
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 618,209; lands at 918,241 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> [barrier 341703 shut, barrier 341704 shut] standing at x 906-982, y 241
+   6. jump (held 21 ticks), holding right, attack with the whip at tick 0 and every 12 ticks after, bouncing off latch crystals, from 906,241; hits the latch crystal at 1071,191 {move ch=1 dir=1 jumpAt=0 maxT=160 weapon=1 atkAt=0 atkEvery=12}   [belmont:1]
+      -> [barrier 341703 shut, barrier 341704 shut] just bounced off the latch crystal at 1071,191 from its left (Claire)
+   7. just bounced off the latch crystal: holding right, attack with the Blade Strike at tick 6 and every 10 ticks after, bouncing off latch crystals, double jump at tick 1, from 1047,211; hits the latch crystal at 1535,223 {move ch=1 dir=1 djAt=1 maxT=120 weapon=2 atkAt=6 atkEvery=10 fromCrystal=15}   [djump,gamec:1]
+      -> [barrier 341703 shut, barrier 341704 shut] just bounced off the latch crystal at 1535,223 from its left (Claire)
+   8. just bounced off the latch crystal: holding right, double jump at tick 6, from 1511,243; lands at 1716,289 {move ch=1 dir=1 djAt=6 maxT=120 fromCrystal=3}   [djump]
+      -> [barrier 341703 shut, barrier 341704 shut] standing at x 1690-1913, y 289
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1808,289; touches it on the way {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> loc 6 49

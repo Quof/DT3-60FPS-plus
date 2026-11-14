@@ -15,13 +15,15 @@ out 0,592   # to rMega4_SigmaA1 at 11480,400; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 48,624
-  out 3040,128   djump,megaman:4 | adash,megaman:4
+  out 3040,128   megaman:4
   out 0,592      -
 from in 3016,160
   out 3040,128   -
@@ -29,79 +31,49 @@ from in 3016,160
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
-how in 48,624 -> out 3040,128: djump,megaman:4
+how in 48,624 -> out 3040,128: megaman:4
      [barrier 227830 shut, barrier 227831 shut] coming in at 48,624
-   1. coming in: holding nothing, from 48,624; lands at 48,625
+   1. coming in: holding nothing, from 48,624; lands at 48,625 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [barrier 227830 shut, barrier 227831 shut] standing at x 0-313, y 536-625
-   2. jump (held 21 ticks), holding right, double jump at tick 15, from 96,625; clings to the wall at 281,530   [djump]
-      -> [barrier 227830 shut, barrier 227831 shut] standing at x 281-841, y 136-609
-   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 809,226; lands at 700,257
-      -> [barrier 227830 shut, barrier 227831 shut] standing at x 39-759, y 104-391
-   4. shoot the switch at 144,96 from 39,107: [barrier 227830 open, barrier 227831 shut]   [megaman:1]
-      -> [barrier 227830 open, barrier 227831 shut] standing at x 39-759, y 104-391
-   5. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 759,272; lands at 870,225
-      -> [barrier 227830 open, barrier 227831 shut] standing at x 281-889, y 200-609
-   6. walk off the edge, holding right once in the air, from 816,225, through the oRndTrap at 896,160, the oRndTrap at 1360,64; lands at 1006,289   [megaman:1]
-      -> [barrier 227830 open, barrier 227831 shut] standing at x 919-1353, y 104-289
-   7. walk from 1353,125 to 1354,129 into the oRndTrap at 1360,64   [megaman:1]
-      -> [barrier 227830 open, barrier 227831 shut] standing at x 1354-1382, y 129 (where a gate is)
-   8. walk off the edge, holding left, then right after 2 ticks in the air, double jump at tick 3, from 1354,129, through the oRndTrap at 896,160, the oRndTrap at 1360,64; clings to the wall at 1609,525   [djump,megaman:1]
-      -> [barrier 227830 open, barrier 227831 shut] standing at x 919-1641, y 392-641
-   9. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, double jump at tick 10, from 1257,514; clings to the wall at 1047,518   [djump]
-      -> [barrier 227830 open, barrier 227831 shut] standing at x 919-1047, y 392-519
-  10. hit the switch at 928,368 from 919,392: [barrier 227830 open, barrier 227831 open]   [megaman:1]
-      -> [barrier 227830 open, barrier 227831 open] standing at x 919-1047, y 392-519
-  11. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 1047,464; clings to the wall at 1257,567
-      -> [barrier 227830 open, barrier 227831 open] standing at x 919-2985, y 161-641
-  12. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, double jump at tick 10, from 2985,352; fires the Strike Chain at the point at 2752,256   [djump,megaman:4]
-      -> [barrier 227830 open, barrier 227831 open] hanging from the Strike Chain point at 2752,256
-  13. off the Strike Chain point: jump (held 21 ticks), holding right, double jump at tick 12, from 2752,296; clings to the wall at 2873,216   [djump]
-      -> [barrier 227830 open, barrier 227831 open] standing at x 2873-3056, y 161-231
-  14. standing at 3038,161, goes into it
-      -> out 3040,128
-how in 48,624 -> out 3040,128: adash,megaman:4
-     [barrier 227830 shut, barrier 227831 shut] coming in at 48,624
-   1. coming in: holding nothing, from 48,624; lands at 48,625
-      -> [barrier 227830 shut, barrier 227831 shut] standing at x 0-313, y 536-625
-   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 313,536; fires the Strike Chain at the point at 192,528   [megaman:4]
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 313,536; fires the Strike Chain at the point at 192,528 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}   [megaman:4]
       -> [barrier 227830 shut, barrier 227831 shut] hanging from the Strike Chain point at 192,528
-   3. off the Strike Chain point: jump (held 21 ticks), holding right, from 192,568; clings to the wall at 281,518
+   3. off the Strike Chain point: jump (held 21 ticks), holding right, from 192,568; clings to the wall at 281,496 {move ch=1 dir=1 jumpAt=0 fromHang=1}
       -> [barrier 227830 shut, barrier 227831 shut] standing at x 281-841, y 136-609
-   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 809,226; lands at 700,257
+   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 809,226; lands at 700,257 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> [barrier 227830 shut, barrier 227831 shut] standing at x 39-759, y 104-391
    5. shoot the switch at 144,96 from 39,107: [barrier 227830 open, barrier 227831 shut]   [megaman:1]
       -> [barrier 227830 open, barrier 227831 shut] standing at x 39-759, y 104-391
-   6. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 759,272; lands at 870,225
+   6. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 759,272; lands at 870,225 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> [barrier 227830 open, barrier 227831 shut] standing at x 281-889, y 200-609
-   7. walk off the edge, holding right once in the air, from 816,225, through the oRndTrap at 896,160, the oRndTrap at 1360,64; lands at 1006,289   [megaman:1]
+   7. walk off the edge, holding right once in the air, from 816,225, through the oRndTrap at 896,160, the oRndTrap at 1360,64; lands at 1006,289 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}   [megaman:1]
       -> [barrier 227830 open, barrier 227831 shut] standing at x 919-1353, y 104-289
    8. walk from 1353,125 to 1354,129 into the oRndTrap at 1360,64   [megaman:1]
       -> [barrier 227830 open, barrier 227831 shut] standing at x 1354-1382, y 129 (where a gate is)
-   9. walk off the edge, holding right once in the air, from 1354,129, through the oRndTrap at 896,160, the oRndTrap at 1360,64; clings to the wall at 1609,529   [megaman:1]
+   9. walk off the edge, holding right once in the air, from 1354,129, through the oRndTrap at 896,160, the oRndTrap at 1360,64; clings to the wall at 1609,529 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}   [megaman:1]
       -> [barrier 227830 open, barrier 227831 shut] standing at x 919-1641, y 392-641
-  10. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, air dash back left (Jerry) at tick 5, from 1257,514; clings to the wall at 1047,519   [adash]
+  10. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1257,528; fires the Strike Chain at the point at 1200,464 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}   [megaman:4]
+      -> [barrier 227830 open, barrier 227831 shut] hanging from the Strike Chain point at 1200,464
+  11. off the Strike Chain point: jump (held 21 ticks), holding left, from 1200,504; clings to the wall at 1047,471 {move ch=1 dir=-1 jumpAt=0 fromHang=1}
       -> [barrier 227830 open, barrier 227831 shut] standing at x 919-1047, y 392-519
-  11. hit the switch at 928,368 from 919,392: [barrier 227830 open, barrier 227831 open]   [megaman:1]
+  12. hit the switch at 928,368 from 919,392: [barrier 227830 open, barrier 227831 open]   [megaman:1]
       -> [barrier 227830 open, barrier 227831 open] standing at x 919-1047, y 392-519
-  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 1047,464; clings to the wall at 1257,567
+  13. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 1047,464; clings to the wall at 1257,567 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> [barrier 227830 open, barrier 227831 open] standing at x 919-2985, y 161-641
-  13. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, air dash back left (Jerry) at tick 5, from 2985,320; fires the Strike Chain at the point at 2752,256   [adash,megaman:4]
-      -> [barrier 227830 open, barrier 227831 open] hanging from the Strike Chain point at 2752,256
-  14. off the Strike Chain point: jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 2752,296; fires the Strike Chain at the point at 2656,192   [adash,megaman:4]
-      -> [barrier 227830 open, barrier 227831 open] hanging from the Strike Chain point at 2656,192
-  15. off the Strike Chain point: jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 2656,232; clings to the wall at 2873,196   [adash]
+  14. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2985,336; fires the Strike Chain at the point at 2852,256 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}   [megaman:4]
+      -> [barrier 227830 open, barrier 227831 open] hanging from the Strike Chain point at 2852,256
+  15. off the Strike Chain point: jump (held 21 ticks), holding nothing, then right after 10 ticks, from 2852,296; clings to the wall at 2873,224 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=10 fromHang=1}
       -> [barrier 227830 open, barrier 227831 open] standing at x 2873-3056, y 161-231
   16. standing at 3038,161, goes into it
       -> out 3040,128
 how in 48,624 -> out 0,592: -
      [barrier 227830 shut, barrier 227831 shut] coming in at 48,624
-   1. coming in: holding nothing, from 48,624; lands at 48,625
+   1. coming in: holding nothing, from 48,624; lands at 48,625 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [barrier 227830 shut, barrier 227831 shut] standing at x 0-313, y 536-625
    2. standing at 0,625, goes into it
       -> out 0,592
 how in 3016,160 -> out 3040,128: -
      [barrier 227830 shut, barrier 227831 shut] coming in at 3016,160
-   1. coming in: holding nothing, from 3016,160; lands at 3016,161
+   1. coming in: holding nothing, from 3016,160; lands at 3016,161 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [barrier 227830 shut, barrier 227831 shut] standing at x 2873-3056, y 161-231
    2. standing at 3038,161, goes into it
       -> out 3040,128

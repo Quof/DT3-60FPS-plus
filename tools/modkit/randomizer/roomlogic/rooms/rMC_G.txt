@@ -14,6 +14,12 @@ out 2560,464   # to rMC_H at 96,48; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Spots: somewhere whose reaching opens a way (the barriers that wait for it need event:rMC_G/<spot>, and
+# solve.py makes that what reaching the spot needs)
+spot step1   # a colored switch the partner can be left standing on (party split), at 1887,111
+
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -22,12 +28,13 @@ out 2560,464   # to rMC_H at 96,48; the player goes into it
 from in 48,320
   out 0,288      -
   out 2560,464   never
+  spot step1     never
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 48,320 -> out 0,288: -
      [no platform makers' platforms, barrier 424261 shut] coming in at 48,320
-   1. coming in: holding nothing, from 48,320; lands at 48,321
+   1. coming in: holding nothing, from 48,320; lands at 48,321 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [no platform makers' platforms, barrier 424261 shut] standing at x 0-134, y 321
    2. standing at 0,321, goes into it
       -> out 0,288

@@ -80,6 +80,111 @@ move|oBossScoreSign|656|1376|206|1376
 add|oEvgGate|640|1344|0|-
 """
 
+# the evil fights in the game's own rooms (evgKind 2): as the fight starts there, its controller (oEvgFight) makes the
+# game's boss objects the mod's evil ones (each a child of the game's) and puts recoloured copies of the fight's
+# sprites in place of the game's for the fight (loaded then from evil\, not as the game starts). Each: the gallery
+# type, the boss's name, [(the game's object, the evil one)], [the game's sprites to recolour: a name, or (name, palette)
+# for one in a palette of its own], the palette (a name in recolor.PALETTES, or None: recolor.auto_palette, the
+# boss's own colours darker and pulled toward crimson), [the game over hints, 3]
+B_FIGHTS = [
+    dict(type=2, name="Cackletta", swap=[("oCackletta", "oEvgCackletta")],
+         sprites=["sCacklettaIdle", "sCacklettaWings", "sCacklettaArmSwing", "sCacklettaLaugh", "sCacklettaPhone1",
+                  "sCacklettaPhone2", "sCacklettaDefeat", "sCacklettaHands", "sCackBat", "sCackLightning",
+                  ("sBowserFire1", "fire")],
+         palette=None,
+         hints=["Look for the gap in her lightning, where there are no warnings. It's always on solid ground.",
+                "Her bats fly at where you were. Keep moving, or stomp one for a lift.",
+                "Once the floor's gone, watch for the lava bubbling before you jump a pit."]),
+    dict(type=3, name="Kamek", swap=[("oKamek", "oEvgKamek")],
+         sprites=["sKamekIdle", "sKamekWalk", "sKamekHandsUp", "sKamekHit", "sKamekWand", "sKamekShape", "sKamAtkBall",
+                  "sKamAtkBFade", ("sKamFlame", "fire")],
+         palette=None,
+         hints=["His wand guards him from the start. Stomp it when it swoops low, then go for him.",
+                "The giant orb rolls under the side platforms. Wait up there, or clear it with a full jump.",
+                "When he flies up he shows you his line. Step off it before he dives."]),
+    dict(type=5, name="Dead Hand", swap=[("oDeadHand", "oEvgDeadHand")],
+         sprites=["sDeadHand_Idle", "sDeadHand_Jump", "sGrabbingHand", "sWolfHeadShot", "sG2_ForestPoe"],
+         palette=None,
+         hints=["When the ground shakes at your feet, move. It's coming up right there.",
+                "Its claws run along the floor. Jump them, or wait on a block.",
+                "When only its head shows, the sword and arrows do nothing. Drop a bomb on it."]),
+    dict(type=6, name="Barba", swap=[("oBarba", "oEvgBarba")],
+         sprites=["sBarbaHead", "sBarbaBody", ("sBarbaFire", "fire"), ("sFireBroFire", "fire")],
+         palette=None,
+         hints=["Before it lunges, its eyes glow in a pit: low means jump, high means duck.",
+                "When a pit bubbles, don't jump across it. The lava goes up right after.",
+                "When it roars, watch the islands for the rocks' shadows."]),
+    dict(type=7, name="Thunderbird", swap=[("oThunderbird", "oEvgThunderbird")],
+         sprites=["sThunderbirdBody", "sThunderbirdWing", ("sFireBroFire", "fire"), "sFireBroBlueFire", "sCackLightning"],
+         palette=None,
+         hints=["When it screeches up high, three bolts are coming. Get off the warnings.",
+                "Walk into its wind. Jump the low fireballs, duck the high ones.",
+                "When its eyes flash, move: it dives at where you are. Then cut it while it's low."]),
+    dict(type=8, name="Aqua Serpent", swap=[("oAquaSerpent", "oEvgAquaSerpent")],
+         sprites=["sAquaSer_HeadA", "sAquaSer_HeadB", "sAquaSer_HeadC", "sAquaSer_Body", "sAquaSer_WaterShot",
+                  "sWolfHeadShot"],
+         palette=None,
+         hints=["When the water heaves at one end of the platform, a wave's coming. Jump it.",
+                "Its rings of shots always have a gap. Move to it before the ring reaches you.",
+                "When the water pulls, walk against it and keep moving: the spouts come up under you."]),
+]
+
+
+def b_sprite_name(t, src):
+    return "Ev%d_%s" % (t, src[1:] if src.startswith("s") else src)
+
+
+def write_b_fights(out):
+    """the evil sprites of the fights in the game's rooms (in evil) and the scripts saying what each fight is"""
+    ev = os.path.join(out, "evil")
+    os.makedirs(ev, exist_ok=True)
+    with open(os.path.join(ev, "evil.txt"), "w", encoding="utf-8", newline="\n") as f:
+        f.write("The Evil Boss Gallery's sprites for its fights in the game's own rooms (loaded as each fight starts).\n")
+    kinds = {1: 1, 4: 1, 14: 1}
+    swaps, sprs, hints = [], [], []
+    names = []
+    for b in B_FIGHTS:
+        t = b["type"]
+        kinds[t] = 2
+        swaps.append("  case %d:\n" % t + "".join(
+            "    with (%s) {if object_index=%s {instance_change(%s,false)}}\n" % (o, o, e) for o, e in b["swap"]) + "    break\n")
+        pal = b.get("palette")
+        if pal is None:
+            pal = recolor.auto_palette()
+        elif isinstance(pal, str):
+            pal = recolor.PALETTES[pal]
+        lines = []
+        for src in b["sprites"]:
+            spal = pal
+            if isinstance(src, tuple): src, spal = src[0], recolor.PALETTES[src[1]]
+            frames, kv = recolor.sprite_info(src)
+            nm = b_sprite_name(t, src)
+            recolor.write_mod_sprite(ev, nm, [recolor.recolor_image(fr, spal) for fr in frames], kv)
+            lines.append('    evgSprOne(%s,"%s")\n' % (src, nm))
+            names.append(nm)
+        sprs.append("  case %d:\n" % t + "".join(lines) + "    break\n")
+        h = b["hints"]
+        hints.append("  case %d:\n" % t + "".join('    if argument1=%d {return %s}\n' % (k, gml_string(s)) for k, s in enumerate(h)) + "    break\n")
+    sd = os.path.join(out, "scripts")
+    os.makedirs(sd, exist_ok=True)
+    def put_script(name, head, body):
+        with open(os.path.join(sd, name + ".gml"), "w", encoding="utf-8", newline="\n") as f:
+            f.write(head + body)
+    put_script("evgKind", "//Evil Boss Gallery: what kind of evil fight the boss gallery's type argument0 has (the build writes this): 0 none\n"
+               "//yet, 1 one in the mod's own copy of its room, 2 one in the game's own room\n",
+               "".join("if argument0=%d {return %d}\n" % (k, v) for k, v in sorted(kinds.items())) + "return 0\n")
+    put_script("evgSwapObjs", "//Evil Boss Gallery: the game's boss objects of the evil fight argument0 made the mod's evil ones (oEvgFight's begin\n"
+               "//step; the build writes this from build.py's B_FIGHTS)\n",
+               "switch (argument0)\n{\n" + "".join(swaps) + "}\n")
+    put_script("evgSprList", "//Evil Boss Gallery: the game's sprites recoloured for the evil fight argument0 (evgSprSwap; the build writes this\n"
+               "//from build.py's B_FIGHTS)\n",
+               "switch (argument0)\n{\n" + "".join(sprs) + "}\n")
+    put_script("evgHintB", "//Evil Boss Gallery: the game over hint argument1 (0-2) of the evil fight argument0 in the game's room (the\n"
+               "//gameOverHint hook; the build writes this from build.py's B_FIGHTS)\n",
+               "switch (argument0)\n{\n" + "".join(hints) + "}\nreturn \"\"\n")
+    return names
+
+
 
 def gml_string(s):
     """s as a GameMaker 8 string literal (either quote, whichever s doesn't have)"""
@@ -197,12 +302,15 @@ def main():
         n, dropped = copy_room(src, dst, caption, drop, rename, changes, out)
         rooms.append("%s (%s: %d instances, %d taken out)" % (dst, src, n, dropped))
 
+    bnames = write_b_fights(out)
+
     pd = os.path.join(out, "patches", "rBossGallery")
     os.makedirs(pd, exist_ok=True)
     with open(os.path.join(pd, "patch.txt"), "w", encoding="utf-8", newline="\n") as f: f.write(PATCH)
 
     print("sprites: %d (%s)" % (len(names), ", ".join(names)))
     print("rooms: " + "; ".join(rooms))
+    print("fights in the game's rooms: %d, their sprites %d" % (len(B_FIGHTS), len(bnames)))
 
 
 if __name__ == "__main__":

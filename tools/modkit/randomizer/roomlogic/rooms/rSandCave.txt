@@ -17,6 +17,8 @@ loc 3 30   # arrow quiver 30, at 7951,182
 loc 5 30   # missile tank 30, at 7847,55
 loc 2 71   # treasure chest 71, at 6688,115
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -39,21 +41,21 @@ from in 224,144
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 144,144 -> out 40,128: -
      coming in at 144,144
-   1. coming in: holding nothing, from 144,144; lands at 144,193
+   1. coming in: holding nothing, from 144,144; lands at 144,193 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 122-361, y 193
-   2. jump (held 2 ticks), holding left, from 122,193; lands at 57,161
+   2. jump (held 2 ticks), holding left, from 122,193; lands at 57,161 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 26-70, y 161
-   3. walk off the edge, holding left, then right after 1 ticks in the air, from 26,161; lands at 25,193
+   3. walk off the edge, holding left, then right after 1 ticks in the air, from 26,161; lands at 25,193 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}
       -> standing at x 0-25, y 193
-   4. jump (held 2 ticks), holding right, from 0,193; touches it on the way
+   4. jump (held 2 ticks), holding right, from 0,193; touches it on the way {move ch=1 dir=1 jumpAt=0 jumpHold=2}
       -> out 40,128
 how in 224,144 -> out 40,128: -
      coming in at 224,144
-   1. coming in: holding nothing, from 224,144; lands at 224,193
+   1. coming in: holding nothing, from 224,144; lands at 224,193 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 122-361, y 193
-   2. jump (held 2 ticks), holding left, from 122,193; lands at 57,161
+   2. jump (held 2 ticks), holding left, from 122,193; lands at 57,161 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 26-70, y 161
-   3. walk off the edge, holding left, then right after 1 ticks in the air, from 26,161; lands at 25,193
+   3. walk off the edge, holding left, then right after 1 ticks in the air, from 26,161; lands at 25,193 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}
       -> standing at x 0-25, y 193
-   4. jump (held 2 ticks), holding right, from 0,193; touches it on the way
+   4. jump (held 2 ticks), holding right, from 0,193; touches it on the way {move ch=1 dir=1 jumpAt=0 jumpHold=2}
       -> out 40,128

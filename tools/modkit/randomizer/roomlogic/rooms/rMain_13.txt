@@ -18,6 +18,8 @@ out 128,2016   # to rMain_16 at 128,48; the player goes into it
 loc 1 12   # heart piece 12, at 23,1031
 loc 10 6   # skill point 6, at 31,63
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -25,514 +27,616 @@ loc 10 6   # skill point 6, at 31,63
 # the locked door whose objectNum is N.
 from in 96,1936
   out 16,1904    -
-  out 448,112    djump,mario | adash,mario
+  out 448,112    djump | adash
   out 128,2016   -
-  loc 1 12       mario
-  loc 10 6       djump,mario | adash,mario
+  loc 1 12       never
+  loc 10 6       djump | adash
 from in 384,144
   out 16,1904    -
   out 448,112    -
   out 128,2016   -
-  loc 1 12       mario
-  loc 10 6       mario | adash | djump
+  loc 1 12       never
+  loc 10 6       adash | djump | mario
 from in 112,1936
   out 16,1904    -
-  out 448,112    djump,mario | adash,mario
+  out 448,112    djump | adash
   out 128,2016   -
-  loc 1 12       mario
-  loc 10 6       djump,mario | adash,mario
+  loc 1 12       never
+  loc 10 6       djump | adash
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 96,1936 -> out 16,1904: -
      coming in at 96,1936
-   1. coming in: holding nothing, from 96,1936; lands at 96,1937
+   1. coming in: holding nothing, from 96,1936; lands at 96,1937 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-134, y 1937
    2. standing at 14,1937, goes into it
       -> out 16,1904
-how in 96,1936 -> out 448,112: djump,mario
+how in 96,1936 -> out 448,112: djump
      coming in at 96,1936
-   1. coming in: holding nothing, from 96,1936; lands at 96,1937
+   1. coming in: holding nothing, from 96,1936; lands at 96,1937 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-134, y 1937
-   2. running right, jump (held 21 ticks), holding right, from 130,1937; lands at 321,1905
+   2. running right, jump (held 21 ticks), holding right, from 130,1937; lands at 321,1905 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 314-358, y 1905
-   3. jump (held 21 ticks), holding right, from 314,1905; lands at 417,1829
-      -> standing at x 394-480, y 1809-1841
-   4. jump (held 21 ticks), holding left, from 416,1829; lands at 343,1753
+   3. jump (held 21 ticks), holding right, from 314,1905; lands at 417,1829 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 394-480, y 1809-1840
+   4. jump (held 21 ticks), holding left, from 416,1829; lands at 343,1753 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-358, y 1665-1760
-   5. running right, jump (held 21 ticks), holding right, from 32,1669; lands at 217,1625
+   5. running right, jump (held 21 ticks), holding right, from 32,1669; lands at 217,1625 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 197-358, y 1601-1635
-   6. running right, jump (held 6 ticks), holding right, from 304,1601; lands at 429,1553
-      -> standing at x 394-480, y 1553-1569
-   7. jump (held 21 ticks), holding left, from 394,1569; lands at 319,1493
+   6. running right, jump (held 6 ticks), holding right, from 304,1601; lands at 429,1553 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> standing at x 394-480, y 1553-1568
+   7. jump (held 21 ticks), holding left, from 394,1568; lands at 317,1492 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-342, y 1489-1504
-   8. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 338,1502; lands at 27,1345
-      -> standing at x 10-38, y 1345
-   9. running right, jump (held 6 ticks), holding right, from 34,1345; lands at 152,1297
-      -> standing at x 138-221, y 1297-1299
-  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 160,1297; lands at 189,1231
-      -> standing at x 176-336, y 1231-1233
-  11. running right, jump (held 21 ticks), holding right, from 320,1233; lands at 474,1169
+   8. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 4,1489; lands at 209,1313 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=14}
+      -> standing at x 140-216, y 1313-1315
+   9. jump (held 21 ticks), holding right, from 176,1313; lands at 285,1241 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 274-350, y 1241-1243
+  10. running right, jump (held 21 ticks), holding right, from 336,1241; lands at 468,1169 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 458-480, y 1169
-  12. jump (held 21 ticks), holding left, from 458,1169; lands at 234,977
+  11. jump (held 21 ticks), holding left, from 458,1169; lands at 227,977 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 39-313, y 945-977
-  13. jump (held 40 ticks), holding right, bounce off a flying enemy at tick 12 (Mario Ability Set), from 39,945; lands at 288,833   [mario]
-      -> standing at x 218-480, y 817-849
-  14. jump (held 40 ticks), holding nothing, then left after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), from 240,837; lands at 181,680   [mario]
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 39,945; lands at 230,842 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 218-480, y 817-848
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 218,848; lands at 317,743 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 298-406, y 737-768
+  14. jump (held 6 ticks), holding left, from 298,752; lands at 211,695 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 26-230, y 673-704
-  15. jump (held 40 ticks), holding nothing, then right after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), double jump at tick 32, from 96,673; lands at 197,491   [djump,mario]
-      -> standing at x 186-390, y 465-497
-  16. jump (held 40 ticks), holding nothing, then left after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), from 240,469; lands at 209,294   [mario]
-      -> standing at x 122-230, y 289-305
-  17. walk off the edge, holding left, then right after 2 ticks in the air, double jump at tick 3, from 122,305; lands at 371,148   [djump]
-      -> standing at x 346-480, y 145-161
+  15. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right 6 ticks after, from 96,673; lands at 198,490 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 186-390, y 465-496
+  16. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left 6 ticks after, from 304,465; lands at 193,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 122-230, y 289-304
+  17. walk off the edge, holding left, then right after 2 ticks in the air, double jump at tick 3, from 122,304; lands at 371,148 {move ch=1 dir=-1 h2=-1 hDelay=2 djAt=3 noInputTillAir=1}   [djump]
+      -> standing at x 346-480, y 145-160
   18. standing at 446,145, goes into it
       -> out 448,112
-how in 96,1936 -> out 448,112: adash,mario
+how in 96,1936 -> out 448,112: adash
      coming in at 96,1936
-   1. coming in: holding nothing, from 96,1936; lands at 96,1937
+   1. coming in: holding nothing, from 96,1936; lands at 96,1937 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-134, y 1937
-   2. running right, jump (held 21 ticks), holding right, from 130,1937; lands at 321,1905
+   2. running right, jump (held 21 ticks), holding right, from 130,1937; lands at 321,1905 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 314-358, y 1905
-   3. jump (held 21 ticks), holding right, from 314,1905; lands at 417,1829
-      -> standing at x 394-480, y 1809-1841
-   4. jump (held 21 ticks), holding left, from 416,1829; lands at 343,1753
+   3. jump (held 21 ticks), holding right, from 314,1905; lands at 417,1829 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 394-480, y 1809-1840
+   4. jump (held 21 ticks), holding left, from 416,1829; lands at 343,1753 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-358, y 1665-1760
-   5. running right, jump (held 21 ticks), holding right, from 32,1669; lands at 217,1625
+   5. running right, jump (held 21 ticks), holding right, from 32,1669; lands at 217,1625 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 197-358, y 1601-1635
-   6. running right, jump (held 6 ticks), holding right, from 304,1601; lands at 429,1553
-      -> standing at x 394-480, y 1553-1569
-   7. jump (held 21 ticks), holding left, from 394,1569; lands at 319,1493
+   6. running right, jump (held 6 ticks), holding right, from 304,1601; lands at 429,1553 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> standing at x 394-480, y 1553-1568
+   7. jump (held 21 ticks), holding left, from 394,1568; lands at 317,1492 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-342, y 1489-1504
-   8. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 338,1502; lands at 27,1345
-      -> standing at x 10-38, y 1345
-   9. running right, jump (held 6 ticks), holding right, from 34,1345; lands at 152,1297
-      -> standing at x 138-221, y 1297-1299
-  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 160,1297; lands at 189,1231
-      -> standing at x 176-336, y 1231-1233
-  11. running right, jump (held 21 ticks), holding right, from 320,1233; lands at 474,1169
+   8. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 4,1489; lands at 209,1313 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=14}
+      -> standing at x 140-216, y 1313-1315
+   9. jump (held 21 ticks), holding right, from 176,1313; lands at 285,1241 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 274-350, y 1241-1243
+  10. running right, jump (held 21 ticks), holding right, from 336,1241; lands at 468,1169 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 458-480, y 1169
-  12. jump (held 21 ticks), holding left, from 458,1169; lands at 234,977
+  11. jump (held 21 ticks), holding left, from 458,1169; lands at 227,977 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 39-313, y 945-977
-  13. jump (held 40 ticks), holding right, bounce off a flying enemy at tick 12 (Mario Ability Set), from 39,945; lands at 288,833   [mario]
-      -> standing at x 218-480, y 817-849
-  14. jump (held 40 ticks), holding nothing, then left after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), from 240,837; lands at 181,680   [mario]
+  12. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 39,945; lands at 30,897 {move ch=1 dir=-1 run=1 jumpAt=0 h2=0 hDelay=2}
+      -> standing at x 10-38, y 897
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 10,897; lands at 237,839 {move ch=0 dir=1 jumpAt=0 adAt=10}   [adash]
+      -> standing at x 218-480, y 817-848
+  14. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 240,837; lands at 311,746 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 298-406, y 737-768
+  15. jump (held 6 ticks), holding left, from 298,752; lands at 211,695 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 26-230, y 673-704
-  15. jump (held 40 ticks), holding nothing, then right after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), air dash (Jerry) at tick 28, from 96,673; lands at 205,487   [adash,mario]
-      -> standing at x 186-390, y 465-497
-  16. jump (held 40 ticks), holding nothing, then left after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), from 240,469; lands at 209,294   [mario]
-      -> standing at x 122-230, y 289-305
-  17. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 122,305; lands at 386,145
-      -> standing at x 346-480, y 145-161
-  18. standing at 446,145, goes into it
+  16. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right 6 ticks after, from 96,673; lands at 198,490 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 186-390, y 465-496
+  17. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left 6 ticks after, from 304,465; lands at 193,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 122-230, y 289-304
+  18. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 122,304; lands at 386,145 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=14}
+      -> standing at x 346-480, y 145-160
+  19. standing at 446,145, goes into it
+      -> out 448,112
+how in 96,1936 -> out 448,112: gdash
+     coming in at 96,1936
+   1. coming in: holding nothing, from 96,1936; lands at 96,1937 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-134, y 1937
+   2. running right, jump (held 21 ticks), holding right, from 130,1937; lands at 321,1905 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 314-358, y 1905
+   3. jump (held 21 ticks), holding right, from 314,1905; lands at 417,1829 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 394-480, y 1809-1840
+   4. jump (held 21 ticks), holding left, from 416,1829; lands at 343,1753 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 0-358, y 1665-1760
+   5. running right, jump (held 21 ticks), holding right, from 32,1669; lands at 217,1625 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 197-358, y 1601-1635
+   6. running right, jump (held 6 ticks), holding right, from 304,1601; lands at 429,1553 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> standing at x 394-480, y 1553-1568
+   7. jump (held 21 ticks), holding left, from 394,1568; lands at 317,1492 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 0-342, y 1489-1504
+   8. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 4,1489; lands at 209,1313 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=14}
+      -> standing at x 140-216, y 1313-1315
+   9. jump (held 21 ticks), holding right, from 176,1313; lands at 285,1241 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 274-350, y 1241-1243
+  10. running right, jump (held 21 ticks), holding right, from 336,1241; lands at 468,1169 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 458-480, y 1169
+  11. jump (held 21 ticks), holding left, from 458,1169; lands at 227,977 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 39-313, y 945-977
+  12. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 39,945; lands at 30,897 {move ch=1 dir=-1 run=1 jumpAt=0 h2=0 hDelay=2}
+      -> standing at x 10-38, y 897
+  13. dash right (Jerry), jump (held 21 ticks), holding right, from 10,897; lands at 244,835 {move ch=0 dir=1 jumpAt=1 gdAt=0}   [gdash]
+      -> standing at x 218-480, y 817-848
+  14. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 400,833; lands at 385,758 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
+      -> standing at x 298-406, y 737-768
+  15. jump (held 6 ticks), holding left, from 298,752; lands at 211,695 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
+      -> standing at x 26-230, y 673-704
+  16. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right 6 ticks after, from 96,673; lands at 198,490 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 186-390, y 465-496
+  17. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left 6 ticks after, from 304,465; lands at 193,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 122-230, y 289-304
+  18. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 122,304; lands at 386,145 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=14}
+      -> standing at x 346-480, y 145-160
+  19. standing at 446,145, goes into it
       -> out 448,112
 how in 96,1936 -> out 128,2016: -
      coming in at 96,1936
-   1. coming in: holding nothing, from 96,1936; lands at 96,1937
+   1. coming in: holding nothing, from 96,1936; lands at 96,1937 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-134, y 1937
-   2. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 80,1937; lands at 86,1888
+   2. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 80,1937; lands at 86,1888 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> standing at x 86-91, y 1888-1891
-   3. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 86,1888; lands at 26,1845
+   3. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 86,1888; lands at 26,1845 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
       -> standing at x 11-78, y 1843-1853
-   4. walk off the edge, holding left, then right after 1 ticks in the air, from 11,1844; lands at 10,1869
+   4. walk off the edge, holding left, then right after 1 ticks in the air, from 11,1844; lands at 10,1869 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}
       -> standing at x 0-10, y 1869-1877
-   5. jump (held 21 ticks), holding right, from 0,1877; touches it on the way
+   5. jump (held 21 ticks), holding right, from 0,1877; touches it on the way {move ch=1 dir=1 jumpAt=0}
       -> out 128,2016
-how in 96,1936 -> loc 1 12: mario
+how in 96,1936 -> loc 10 6: djump
      coming in at 96,1936
-   1. coming in: holding nothing, from 96,1936; lands at 96,1937
+   1. coming in: holding nothing, from 96,1936; lands at 96,1937 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-134, y 1937
-   2. running right, jump (held 21 ticks), holding right, from 130,1937; lands at 321,1905
+   2. running right, jump (held 21 ticks), holding right, from 130,1937; lands at 321,1905 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 314-358, y 1905
-   3. jump (held 21 ticks), holding right, from 314,1905; lands at 417,1829
-      -> standing at x 394-480, y 1809-1841
-   4. jump (held 21 ticks), holding left, from 416,1829; lands at 343,1753
+   3. jump (held 21 ticks), holding right, from 314,1905; lands at 417,1829 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 394-480, y 1809-1840
+   4. jump (held 21 ticks), holding left, from 416,1829; lands at 343,1753 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-358, y 1665-1760
-   5. running right, jump (held 21 ticks), holding right, from 32,1669; lands at 217,1625
+   5. running right, jump (held 21 ticks), holding right, from 32,1669; lands at 217,1625 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 197-358, y 1601-1635
-   6. running right, jump (held 6 ticks), holding right, from 304,1601; lands at 429,1553
-      -> standing at x 394-480, y 1553-1569
-   7. jump (held 21 ticks), holding left, from 394,1569; lands at 319,1493
+   6. running right, jump (held 6 ticks), holding right, from 304,1601; lands at 429,1553 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> standing at x 394-480, y 1553-1568
+   7. jump (held 21 ticks), holding left, from 394,1568; lands at 317,1492 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-342, y 1489-1504
-   8. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 338,1502; lands at 27,1345
-      -> standing at x 10-38, y 1345
-   9. running right, jump (held 6 ticks), holding right, from 34,1345; lands at 152,1297
-      -> standing at x 138-221, y 1297-1299
-  10. jump (held 21 ticks), holding right, from 138,1297; lands at 241,1221
-      -> standing at x 191-321, y 1221-1226
-  11. jump (held 40 ticks), holding left, bounce off a flying enemy at tick 12 (Mario Ability Set), from 224,1221; lands at 94,1044   [mario]
-      -> standing at x 0-118, y 1041-1056
-  12. standing at 17,1041, touches it
-      -> loc 1 12
-how in 96,1936 -> loc 10 6: djump,mario
-     coming in at 96,1936
-   1. coming in: holding nothing, from 96,1936; lands at 96,1937
-      -> standing at x 0-134, y 1937
-   2. running right, jump (held 21 ticks), holding right, from 130,1937; lands at 321,1905
-      -> standing at x 314-358, y 1905
-   3. jump (held 21 ticks), holding right, from 314,1905; lands at 417,1829
-      -> standing at x 394-480, y 1809-1841
-   4. jump (held 21 ticks), holding left, from 416,1829; lands at 343,1753
-      -> standing at x 0-358, y 1665-1760
-   5. running right, jump (held 21 ticks), holding right, from 32,1669; lands at 217,1625
-      -> standing at x 197-358, y 1601-1635
-   6. running right, jump (held 6 ticks), holding right, from 304,1601; lands at 429,1553
-      -> standing at x 394-480, y 1553-1569
-   7. jump (held 21 ticks), holding left, from 394,1569; lands at 319,1493
-      -> standing at x 0-342, y 1489-1504
-   8. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 338,1502; lands at 27,1345
-      -> standing at x 10-38, y 1345
-   9. running right, jump (held 6 ticks), holding right, from 34,1345; lands at 152,1297
-      -> standing at x 138-221, y 1297-1299
-  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 160,1297; lands at 189,1231
-      -> standing at x 176-336, y 1231-1233
-  11. running right, jump (held 21 ticks), holding right, from 320,1233; lands at 474,1169
+   8. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 4,1489; lands at 209,1313 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=14}
+      -> standing at x 140-216, y 1313-1315
+   9. jump (held 21 ticks), holding right, from 176,1313; lands at 285,1241 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 274-350, y 1241-1243
+  10. running right, jump (held 21 ticks), holding right, from 336,1241; lands at 468,1169 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 458-480, y 1169
-  12. jump (held 21 ticks), holding left, from 458,1169; lands at 234,977
+  11. jump (held 21 ticks), holding left, from 458,1169; lands at 227,977 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 39-313, y 945-977
-  13. jump (held 40 ticks), holding right, bounce off a flying enemy at tick 12 (Mario Ability Set), from 39,945; lands at 288,833   [mario]
-      -> standing at x 218-480, y 817-849
-  14. jump (held 40 ticks), holding nothing, then left after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), from 240,837; lands at 181,680   [mario]
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 39,945; lands at 230,842 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 218-480, y 817-848
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 218,848; lands at 317,743 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 298-406, y 737-768
+  14. jump (held 6 ticks), holding left, from 298,752; lands at 211,695 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 26-230, y 673-704
-  15. jump (held 40 ticks), holding nothing, then right after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), double jump at tick 32, from 96,673; lands at 197,491   [djump,mario]
-      -> standing at x 186-390, y 465-497
-  16. jump (held 40 ticks), holding nothing, then left after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), from 240,469; lands at 209,294   [mario]
-      -> standing at x 122-230, y 289-305
-  17. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, double jump at tick 18, from 176,289; lands at 29,81   [djump]
+  15. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right 6 ticks after, from 96,673; lands at 198,490 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 186-390, y 465-496
+  16. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left 6 ticks after, from 304,465; lands at 193,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 122-230, y 289-304
+  17. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, double jump at tick 18, from 176,289; lands at 29,81 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 djAt=18 maxT=120 afterBounce=1}   [djump]
       -> standing at x 0-102, y 81-96
   18. standing at 24,81, touches it
       -> loc 10 6
-how in 96,1936 -> loc 10 6: adash,mario
+how in 96,1936 -> loc 10 6: adash
      coming in at 96,1936
-   1. coming in: holding nothing, from 96,1936; lands at 96,1937
+   1. coming in: holding nothing, from 96,1936; lands at 96,1937 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-134, y 1937
-   2. running right, jump (held 21 ticks), holding right, from 130,1937; lands at 321,1905
+   2. running right, jump (held 21 ticks), holding right, from 130,1937; lands at 321,1905 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 314-358, y 1905
-   3. jump (held 21 ticks), holding right, from 314,1905; lands at 417,1829
-      -> standing at x 394-480, y 1809-1841
-   4. jump (held 21 ticks), holding left, from 416,1829; lands at 343,1753
+   3. jump (held 21 ticks), holding right, from 314,1905; lands at 417,1829 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 394-480, y 1809-1840
+   4. jump (held 21 ticks), holding left, from 416,1829; lands at 343,1753 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-358, y 1665-1760
-   5. running right, jump (held 21 ticks), holding right, from 32,1669; lands at 217,1625
+   5. running right, jump (held 21 ticks), holding right, from 32,1669; lands at 217,1625 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 197-358, y 1601-1635
-   6. running right, jump (held 6 ticks), holding right, from 304,1601; lands at 429,1553
-      -> standing at x 394-480, y 1553-1569
-   7. jump (held 21 ticks), holding left, from 394,1569; lands at 319,1493
+   6. running right, jump (held 6 ticks), holding right, from 304,1601; lands at 429,1553 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> standing at x 394-480, y 1553-1568
+   7. jump (held 21 ticks), holding left, from 394,1568; lands at 317,1492 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-342, y 1489-1504
-   8. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 338,1502; lands at 27,1345
-      -> standing at x 10-38, y 1345
-   9. running right, jump (held 6 ticks), holding right, from 34,1345; lands at 152,1297
-      -> standing at x 138-221, y 1297-1299
-  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 160,1297; lands at 189,1231
-      -> standing at x 176-336, y 1231-1233
-  11. running right, jump (held 21 ticks), holding right, from 320,1233; lands at 474,1169
+   8. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 4,1489; lands at 209,1313 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=14}
+      -> standing at x 140-216, y 1313-1315
+   9. jump (held 21 ticks), holding right, from 176,1313; lands at 285,1241 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 274-350, y 1241-1243
+  10. running right, jump (held 21 ticks), holding right, from 336,1241; lands at 468,1169 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 458-480, y 1169
-  12. jump (held 21 ticks), holding left, from 458,1169; lands at 234,977
+  11. jump (held 21 ticks), holding left, from 458,1169; lands at 227,977 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 39-313, y 945-977
-  13. jump (held 40 ticks), holding right, bounce off a flying enemy at tick 12 (Mario Ability Set), from 39,945; lands at 288,833   [mario]
-      -> standing at x 218-480, y 817-849
-  14. jump (held 40 ticks), holding nothing, then left after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), from 240,837; lands at 181,680   [mario]
+  12. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 39,945; lands at 30,897 {move ch=1 dir=-1 run=1 jumpAt=0 h2=0 hDelay=2}
+      -> standing at x 10-38, y 897
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 10,897; lands at 237,839 {move ch=0 dir=1 jumpAt=0 adAt=10}   [adash]
+      -> standing at x 218-480, y 817-848
+  14. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 240,837; lands at 311,746 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 298-406, y 737-768
+  15. jump (held 6 ticks), holding left, from 298,752; lands at 211,695 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 26-230, y 673-704
-  15. jump (held 40 ticks), holding nothing, then right after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), air dash (Jerry) at tick 28, from 96,673; lands at 205,487   [adash,mario]
-      -> standing at x 186-390, y 465-497
-  16. jump (held 40 ticks), holding nothing, then left after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), from 240,469; lands at 209,294   [mario]
-      -> standing at x 122-230, y 289-305
-  17. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 122,305; lands at 386,145
-      -> standing at x 346-480, y 145-161
-  18. jump (held 40 ticks), holding left, bounce off a flying enemy at tick 12 (Mario Ability Set), from 346,161; lands at 74,82   [mario]
+  16. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right 6 ticks after, from 96,673; lands at 198,490 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 186-390, y 465-496
+  17. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left 6 ticks after, from 304,465; lands at 193,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 122-230, y 289-304
+  18. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 122,304; lands at 386,145 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=14}
+      -> standing at x 346-480, y 145-160
+  19. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 348,159; lands at 92,91 {move ch=0 dir=-1 jumpAt=0 adAt=16}   [adash]
       -> standing at x 0-102, y 81-96
-  19. standing at 24,81, touches it
+  20. standing at 24,81, touches it
+      -> loc 10 6
+how in 96,1936 -> loc 10 6: gdash,mario
+     coming in at 96,1936
+   1. coming in: holding nothing, from 96,1936; lands at 96,1937 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-134, y 1937
+   2. running right, jump (held 21 ticks), holding right, from 130,1937; lands at 321,1905 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 314-358, y 1905
+   3. jump (held 21 ticks), holding right, from 314,1905; lands at 417,1829 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 394-480, y 1809-1840
+   4. jump (held 21 ticks), holding left, from 416,1829; lands at 343,1753 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 0-358, y 1665-1760
+   5. running right, jump (held 21 ticks), holding right, from 32,1669; lands at 217,1625 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 197-358, y 1601-1635
+   6. running right, jump (held 6 ticks), holding right, from 304,1601; lands at 429,1553 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> standing at x 394-480, y 1553-1568
+   7. jump (held 21 ticks), holding left, from 394,1568; lands at 317,1492 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 0-342, y 1489-1504
+   8. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 4,1489; lands at 209,1313 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=14}
+      -> standing at x 140-216, y 1313-1315
+   9. jump (held 21 ticks), holding right, from 176,1313; lands at 285,1241 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 274-350, y 1241-1243
+  10. running right, jump (held 21 ticks), holding right, from 336,1241; lands at 468,1169 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 458-480, y 1169
+  11. jump (held 21 ticks), holding left, from 458,1169; lands at 227,977 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 39-313, y 945-977
+  12. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 39,945; lands at 30,897 {move ch=1 dir=-1 run=1 jumpAt=0 h2=0 hDelay=2}
+      -> standing at x 10-38, y 897
+  13. dash right (Jerry), jump (held 21 ticks), holding right, from 10,897; lands at 244,835 {move ch=0 dir=1 jumpAt=1 gdAt=0}   [gdash]
+      -> standing at x 218-480, y 817-848
+  14. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 400,833; lands at 385,758 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
+      -> standing at x 298-406, y 737-768
+  15. jump (held 6 ticks), holding left, from 298,752; lands at 211,695 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
+      -> standing at x 26-230, y 673-704
+  16. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right 6 ticks after, from 96,673; lands at 198,490 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 186-390, y 465-496
+  17. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left 6 ticks after, from 304,465; lands at 193,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 122-230, y 289-304
+  18. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 122,304; lands at 386,145 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=14}
+      -> standing at x 346-480, y 145-160
+  19. jump (held 6 ticks), holding left, from 346,160; comes down on the flying enemy at 208,149 and stomps it (the Mario Ability Set) {move ch=1 dir=-1 jumpAt=0 jumpHold=6}   [mario]
+      -> just stomped the oRedParatroopa at 208,149 (Claire)
+  20. just stomped the flying enemy, the jump or up held: holding left, from 208,150; lands at 68,81 {move ch=1 dir=-1 maxT=120 fromFlyer=5}
+      -> standing at x 0-102, y 81-96
+  21. standing at 24,81, touches it
       -> loc 10 6
 how in 384,144 -> out 16,1904: -
      coming in at 384,144
-   1. coming in: holding nothing, from 384,144; lands at 384,145
-      -> standing at x 346-480, y 145-161
-   2. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 368,149; lands at 321,465
-      -> standing at x 186-390, y 465-497
-   3. walk off the edge, holding right, then left after 1 ticks in the air, from 186,497; lands at 127,957
+   1. coming in: holding nothing, from 384,144; lands at 384,145 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 346-480, y 145-160
+   2. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 368,149; lands at 321,465 {move ch=1 dir=-1 run=1 jumpAt=0 h2=0 hDelay=2}
+      -> standing at x 186-390, y 465-496
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 186,496; lands at 127,957 {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}
       -> standing at x 39-313, y 945-977
-   4. running right, jump (held 6 ticks), holding right, from 176,977; lands at 330,961
+   4. running right, jump (held 6 ticks), holding right, from 176,977; lands at 330,961 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> standing at x 314-358, y 961
-   5. walk off the edge, holding right, then nothing after 1 ticks in the air, from 358,961; lands at 392,1954
+   5. walk off the edge, holding right, then nothing after 1 ticks in the air, from 358,961; lands at 392,1954 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
       -> standing at x 359-480, y 1937-2013
-   6. jump (held 21 ticks), holding left, from 359,1937; lands at 183,1945
+   6. jump (held 21 ticks), holding left, from 359,1937; lands at 183,1945 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 135-198, y 1937-1952
-   7. jump (held 2 ticks), holding left, from 135,1946; lands at 77,1937
+   7. jump (held 2 ticks), holding left, from 135,1946; lands at 77,1937 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 0-134, y 1937
    8. standing at 14,1937, goes into it
       -> out 16,1904
 how in 384,144 -> out 448,112: -
      coming in at 384,144
-   1. coming in: holding nothing, from 384,144; lands at 384,145
-      -> standing at x 346-480, y 145-161
+   1. coming in: holding nothing, from 384,144; lands at 384,145 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 346-480, y 145-160
    2. standing at 446,145, goes into it
       -> out 448,112
 how in 384,144 -> out 128,2016: -
      coming in at 384,144
-   1. coming in: holding nothing, from 384,144; lands at 384,145
-      -> standing at x 346-480, y 145-161
-   2. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 368,149; lands at 321,465
-      -> standing at x 186-390, y 465-497
-   3. walk off the edge, holding right, then left after 1 ticks in the air, from 186,497; lands at 127,957
+   1. coming in: holding nothing, from 384,144; lands at 384,145 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 346-480, y 145-160
+   2. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 368,149; lands at 321,465 {move ch=1 dir=-1 run=1 jumpAt=0 h2=0 hDelay=2}
+      -> standing at x 186-390, y 465-496
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 186,496; lands at 127,957 {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}
       -> standing at x 39-313, y 945-977
-   4. running right, jump (held 6 ticks), holding right, from 176,977; lands at 330,961
+   4. running right, jump (held 6 ticks), holding right, from 176,977; lands at 330,961 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> standing at x 314-358, y 961
-   5. walk off the edge, holding right, then nothing after 1 ticks in the air, from 358,961; lands at 392,1954
+   5. walk off the edge, holding right, then nothing after 1 ticks in the air, from 358,961; lands at 392,1954 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
       -> standing at x 359-480, y 1937-2013
-   6. jump (held 21 ticks), holding left, from 359,1937; lands at 183,1945
+   6. jump (held 21 ticks), holding left, from 359,1937; lands at 183,1945 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 135-198, y 1937-1952
-   7. jump (held 6 ticks), holding left, from 135,1946; lands at 86,1888
+   7. jump (held 6 ticks), holding left, from 135,1946; lands at 86,1888 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 86-91, y 1888-1891
-   8. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 86,1888; lands at 26,1845
+   8. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 86,1888; lands at 26,1845 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
       -> standing at x 11-78, y 1843-1853
-   9. walk off the edge, holding left, then right after 1 ticks in the air, from 11,1844; lands at 10,1869
+   9. walk off the edge, holding left, then right after 1 ticks in the air, from 11,1844; lands at 10,1869 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}
       -> standing at x 0-10, y 1869-1877
-  10. jump (held 21 ticks), holding right, from 0,1877; touches it on the way
+  10. jump (held 21 ticks), holding right, from 0,1877; touches it on the way {move ch=1 dir=1 jumpAt=0}
       -> out 128,2016
-how in 384,144 -> loc 1 12: mario
-     coming in at 384,144
-   1. coming in: holding nothing, from 384,144; lands at 384,145
-      -> standing at x 346-480, y 145-161
-   2. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 368,149; lands at 321,465
-      -> standing at x 186-390, y 465-497
-   3. walk off the edge, holding right, then left after 1 ticks in the air, from 186,497; lands at 127,957
-      -> standing at x 39-313, y 945-977
-   4. running right, jump (held 6 ticks), holding right, from 176,977; lands at 330,961
-      -> standing at x 314-358, y 961
-   5. walk off the edge, holding right, then nothing after 1 ticks in the air, from 314,961; lands at 404,1563
-      -> standing at x 394-480, y 1553-1569
-   6. jump (held 21 ticks), holding left, from 394,1569; lands at 319,1493
-      -> standing at x 0-342, y 1489-1504
-   7. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 338,1502; lands at 27,1345
-      -> standing at x 10-38, y 1345
-   8. running right, jump (held 21 ticks), holding right, from 34,1345; lands at 188,1281
-      -> standing at x 140-223, y 1281-1283
-   9. jump (held 6 ticks), holding right, from 140,1281; lands at 214,1221
-      -> standing at x 191-321, y 1221-1226
-  10. jump (held 40 ticks), holding left, bounce off a flying enemy at tick 12 (Mario Ability Set), from 224,1221; lands at 94,1044   [mario]
-      -> standing at x 0-118, y 1041-1056
-  11. standing at 17,1041, touches it
-      -> loc 1 12
-how in 384,144 -> loc 10 6: mario
-     coming in at 384,144
-   1. coming in: holding nothing, from 384,144; lands at 384,145
-      -> standing at x 346-480, y 145-161
-   2. jump (held 40 ticks), holding left, bounce off a flying enemy at tick 12 (Mario Ability Set), from 346,161; lands at 74,82   [mario]
-      -> standing at x 0-102, y 81-96
-   3. standing at 24,81, touches it
-      -> loc 10 6
 how in 384,144 -> loc 10 6: adash
      coming in at 384,144
-   1. coming in: holding nothing, from 384,144; lands at 384,145
-      -> standing at x 346-480, y 145-161
-   2. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 348,159; lands at 92,91   [adash]
+   1. coming in: holding nothing, from 384,144; lands at 384,145 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 346-480, y 145-160
+   2. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 348,159; lands at 92,91 {move ch=0 dir=-1 jumpAt=0 adAt=16}   [adash]
       -> standing at x 0-102, y 81-96
    3. standing at 24,81, touches it
       -> loc 10 6
 how in 384,144 -> loc 10 6: djump
      coming in at 384,144
-   1. coming in: holding nothing, from 384,144; lands at 384,145
-      -> standing at x 346-480, y 145-161
-   2. walk off the edge, holding left once in the air, from 346,161; lands at 214,296
-      -> standing at x 122-230, y 289-305
-   3. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, double jump at tick 18, from 176,289; lands at 29,81   [djump]
+   1. coming in: holding nothing, from 384,144; lands at 384,145 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 346-480, y 145-160
+   2. walk off the edge, holding left once in the air, from 346,160; lands at 214,296 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> standing at x 122-230, y 289-304
+   3. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, double jump at tick 18, from 176,289; lands at 29,81 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 djAt=18 maxT=120 afterBounce=1}   [djump]
+      -> standing at x 0-102, y 81-96
+   4. standing at 24,81, touches it
+      -> loc 10 6
+how in 384,144 -> loc 10 6: mario
+     coming in at 384,144
+   1. coming in: holding nothing, from 384,144; lands at 384,145 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 346-480, y 145-160
+   2. jump (held 6 ticks), holding left, from 346,160; comes down on the flying enemy at 208,149 and stomps it (the Mario Ability Set) {move ch=1 dir=-1 jumpAt=0 jumpHold=6}   [mario]
+      -> just stomped the oRedParatroopa at 208,149 (Claire)
+   3. just stomped the flying enemy, the jump or up held: holding left, from 208,150; lands at 68,81 {move ch=1 dir=-1 maxT=120 fromFlyer=5}
       -> standing at x 0-102, y 81-96
    4. standing at 24,81, touches it
       -> loc 10 6
 how in 112,1936 -> out 16,1904: -
      coming in at 112,1936
-   1. coming in: holding nothing, from 112,1936; lands at 112,1937
+   1. coming in: holding nothing, from 112,1936; lands at 112,1937 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-134, y 1937
    2. standing at 14,1937, goes into it
       -> out 16,1904
-how in 112,1936 -> out 448,112: djump,mario
+how in 112,1936 -> out 448,112: djump
      coming in at 112,1936
-   1. coming in: holding nothing, from 112,1936; lands at 112,1937
+   1. coming in: holding nothing, from 112,1936; lands at 112,1937 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-134, y 1937
-   2. running right, jump (held 21 ticks), holding right, from 130,1937; lands at 321,1905
+   2. running right, jump (held 21 ticks), holding right, from 130,1937; lands at 321,1905 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 314-358, y 1905
-   3. jump (held 21 ticks), holding right, from 314,1905; lands at 417,1829
-      -> standing at x 394-480, y 1809-1841
-   4. jump (held 21 ticks), holding left, from 416,1829; lands at 343,1753
+   3. jump (held 21 ticks), holding right, from 314,1905; lands at 417,1829 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 394-480, y 1809-1840
+   4. jump (held 21 ticks), holding left, from 416,1829; lands at 343,1753 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-358, y 1665-1760
-   5. running right, jump (held 21 ticks), holding right, from 32,1669; lands at 217,1625
+   5. running right, jump (held 21 ticks), holding right, from 32,1669; lands at 217,1625 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 197-358, y 1601-1635
-   6. running right, jump (held 6 ticks), holding right, from 304,1601; lands at 429,1553
-      -> standing at x 394-480, y 1553-1569
-   7. jump (held 21 ticks), holding left, from 394,1569; lands at 319,1493
+   6. running right, jump (held 6 ticks), holding right, from 304,1601; lands at 429,1553 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> standing at x 394-480, y 1553-1568
+   7. jump (held 21 ticks), holding left, from 394,1568; lands at 317,1492 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-342, y 1489-1504
-   8. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 338,1502; lands at 27,1345
-      -> standing at x 10-38, y 1345
-   9. running right, jump (held 6 ticks), holding right, from 34,1345; lands at 152,1297
-      -> standing at x 138-221, y 1297-1299
-  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 160,1297; lands at 189,1231
-      -> standing at x 176-336, y 1231-1233
-  11. running right, jump (held 21 ticks), holding right, from 320,1233; lands at 474,1169
+   8. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 4,1489; lands at 209,1313 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=14}
+      -> standing at x 140-216, y 1313-1315
+   9. jump (held 21 ticks), holding right, from 176,1313; lands at 285,1241 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 274-350, y 1241-1243
+  10. running right, jump (held 21 ticks), holding right, from 336,1241; lands at 468,1169 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 458-480, y 1169
-  12. jump (held 21 ticks), holding left, from 458,1169; lands at 234,977
+  11. jump (held 21 ticks), holding left, from 458,1169; lands at 227,977 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 39-313, y 945-977
-  13. jump (held 40 ticks), holding right, bounce off a flying enemy at tick 12 (Mario Ability Set), from 39,945; lands at 288,833   [mario]
-      -> standing at x 218-480, y 817-849
-  14. jump (held 40 ticks), holding nothing, then left after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), from 240,837; lands at 181,680   [mario]
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 39,945; lands at 230,842 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 218-480, y 817-848
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 218,848; lands at 317,743 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 298-406, y 737-768
+  14. jump (held 6 ticks), holding left, from 298,752; lands at 211,695 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 26-230, y 673-704
-  15. jump (held 40 ticks), holding nothing, then right after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), double jump at tick 32, from 96,673; lands at 197,491   [djump,mario]
-      -> standing at x 186-390, y 465-497
-  16. jump (held 40 ticks), holding nothing, then left after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), from 240,469; lands at 209,294   [mario]
-      -> standing at x 122-230, y 289-305
-  17. walk off the edge, holding left, then right after 2 ticks in the air, double jump at tick 3, from 122,305; lands at 371,148   [djump]
-      -> standing at x 346-480, y 145-161
+  15. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right 6 ticks after, from 96,673; lands at 198,490 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 186-390, y 465-496
+  16. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left 6 ticks after, from 304,465; lands at 193,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 122-230, y 289-304
+  17. walk off the edge, holding left, then right after 2 ticks in the air, double jump at tick 3, from 122,304; lands at 371,148 {move ch=1 dir=-1 h2=-1 hDelay=2 djAt=3 noInputTillAir=1}   [djump]
+      -> standing at x 346-480, y 145-160
   18. standing at 446,145, goes into it
       -> out 448,112
-how in 112,1936 -> out 448,112: adash,mario
+how in 112,1936 -> out 448,112: adash
      coming in at 112,1936
-   1. coming in: holding nothing, from 112,1936; lands at 112,1937
+   1. coming in: holding nothing, from 112,1936; lands at 112,1937 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-134, y 1937
-   2. running right, jump (held 21 ticks), holding right, from 130,1937; lands at 321,1905
+   2. running right, jump (held 21 ticks), holding right, from 130,1937; lands at 321,1905 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 314-358, y 1905
-   3. jump (held 21 ticks), holding right, from 314,1905; lands at 417,1829
-      -> standing at x 394-480, y 1809-1841
-   4. jump (held 21 ticks), holding left, from 416,1829; lands at 343,1753
+   3. jump (held 21 ticks), holding right, from 314,1905; lands at 417,1829 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 394-480, y 1809-1840
+   4. jump (held 21 ticks), holding left, from 416,1829; lands at 343,1753 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-358, y 1665-1760
-   5. running right, jump (held 21 ticks), holding right, from 32,1669; lands at 217,1625
+   5. running right, jump (held 21 ticks), holding right, from 32,1669; lands at 217,1625 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 197-358, y 1601-1635
-   6. running right, jump (held 6 ticks), holding right, from 304,1601; lands at 429,1553
-      -> standing at x 394-480, y 1553-1569
-   7. jump (held 21 ticks), holding left, from 394,1569; lands at 319,1493
+   6. running right, jump (held 6 ticks), holding right, from 304,1601; lands at 429,1553 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> standing at x 394-480, y 1553-1568
+   7. jump (held 21 ticks), holding left, from 394,1568; lands at 317,1492 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-342, y 1489-1504
-   8. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 338,1502; lands at 27,1345
-      -> standing at x 10-38, y 1345
-   9. running right, jump (held 6 ticks), holding right, from 34,1345; lands at 152,1297
-      -> standing at x 138-221, y 1297-1299
-  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 160,1297; lands at 189,1231
-      -> standing at x 176-336, y 1231-1233
-  11. running right, jump (held 21 ticks), holding right, from 320,1233; lands at 474,1169
+   8. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 4,1489; lands at 209,1313 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=14}
+      -> standing at x 140-216, y 1313-1315
+   9. jump (held 21 ticks), holding right, from 176,1313; lands at 285,1241 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 274-350, y 1241-1243
+  10. running right, jump (held 21 ticks), holding right, from 336,1241; lands at 468,1169 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 458-480, y 1169
-  12. jump (held 21 ticks), holding left, from 458,1169; lands at 234,977
+  11. jump (held 21 ticks), holding left, from 458,1169; lands at 227,977 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 39-313, y 945-977
-  13. jump (held 40 ticks), holding right, bounce off a flying enemy at tick 12 (Mario Ability Set), from 39,945; lands at 288,833   [mario]
-      -> standing at x 218-480, y 817-849
-  14. jump (held 40 ticks), holding nothing, then left after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), from 240,837; lands at 181,680   [mario]
+  12. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 39,945; lands at 30,897 {move ch=1 dir=-1 run=1 jumpAt=0 h2=0 hDelay=2}
+      -> standing at x 10-38, y 897
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 10,897; lands at 237,839 {move ch=0 dir=1 jumpAt=0 adAt=10}   [adash]
+      -> standing at x 218-480, y 817-848
+  14. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 240,837; lands at 311,746 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 298-406, y 737-768
+  15. jump (held 6 ticks), holding left, from 298,752; lands at 211,695 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 26-230, y 673-704
-  15. jump (held 40 ticks), holding nothing, then right after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), air dash (Jerry) at tick 28, from 96,673; lands at 205,487   [adash,mario]
-      -> standing at x 186-390, y 465-497
-  16. jump (held 40 ticks), holding nothing, then left after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), from 240,469; lands at 209,294   [mario]
-      -> standing at x 122-230, y 289-305
-  17. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 122,305; lands at 386,145
-      -> standing at x 346-480, y 145-161
-  18. standing at 446,145, goes into it
+  16. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right 6 ticks after, from 96,673; lands at 198,490 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 186-390, y 465-496
+  17. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left 6 ticks after, from 304,465; lands at 193,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 122-230, y 289-304
+  18. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 122,304; lands at 386,145 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=14}
+      -> standing at x 346-480, y 145-160
+  19. standing at 446,145, goes into it
+      -> out 448,112
+how in 112,1936 -> out 448,112: gdash
+     coming in at 112,1936
+   1. coming in: holding nothing, from 112,1936; lands at 112,1937 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-134, y 1937
+   2. running right, jump (held 21 ticks), holding right, from 130,1937; lands at 321,1905 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 314-358, y 1905
+   3. jump (held 21 ticks), holding right, from 314,1905; lands at 417,1829 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 394-480, y 1809-1840
+   4. jump (held 21 ticks), holding left, from 416,1829; lands at 343,1753 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 0-358, y 1665-1760
+   5. running right, jump (held 21 ticks), holding right, from 32,1669; lands at 217,1625 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 197-358, y 1601-1635
+   6. running right, jump (held 6 ticks), holding right, from 304,1601; lands at 429,1553 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> standing at x 394-480, y 1553-1568
+   7. jump (held 21 ticks), holding left, from 394,1568; lands at 317,1492 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 0-342, y 1489-1504
+   8. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 4,1489; lands at 209,1313 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=14}
+      -> standing at x 140-216, y 1313-1315
+   9. jump (held 21 ticks), holding right, from 176,1313; lands at 285,1241 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 274-350, y 1241-1243
+  10. running right, jump (held 21 ticks), holding right, from 336,1241; lands at 468,1169 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 458-480, y 1169
+  11. jump (held 21 ticks), holding left, from 458,1169; lands at 227,977 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 39-313, y 945-977
+  12. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 39,945; lands at 30,897 {move ch=1 dir=-1 run=1 jumpAt=0 h2=0 hDelay=2}
+      -> standing at x 10-38, y 897
+  13. dash right (Jerry), jump (held 21 ticks), holding right, from 10,897; lands at 244,835 {move ch=0 dir=1 jumpAt=1 gdAt=0}   [gdash]
+      -> standing at x 218-480, y 817-848
+  14. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 400,833; lands at 385,758 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
+      -> standing at x 298-406, y 737-768
+  15. jump (held 6 ticks), holding left, from 298,752; lands at 211,695 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
+      -> standing at x 26-230, y 673-704
+  16. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right 6 ticks after, from 96,673; lands at 198,490 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 186-390, y 465-496
+  17. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left 6 ticks after, from 304,465; lands at 193,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 122-230, y 289-304
+  18. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 122,304; lands at 386,145 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=14}
+      -> standing at x 346-480, y 145-160
+  19. standing at 446,145, goes into it
       -> out 448,112
 how in 112,1936 -> out 128,2016: -
      coming in at 112,1936
-   1. coming in: holding nothing, from 112,1936; lands at 112,1937
+   1. coming in: holding nothing, from 112,1936; lands at 112,1937 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-134, y 1937
-   2. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 80,1937; lands at 86,1888
+   2. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 80,1937; lands at 86,1888 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> standing at x 86-91, y 1888-1891
-   3. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 86,1888; lands at 26,1845
+   3. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 86,1888; lands at 26,1845 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
       -> standing at x 11-78, y 1843-1853
-   4. walk off the edge, holding left, then right after 1 ticks in the air, from 11,1844; lands at 10,1869
+   4. walk off the edge, holding left, then right after 1 ticks in the air, from 11,1844; lands at 10,1869 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}
       -> standing at x 0-10, y 1869-1877
-   5. jump (held 21 ticks), holding right, from 0,1877; touches it on the way
+   5. jump (held 21 ticks), holding right, from 0,1877; touches it on the way {move ch=1 dir=1 jumpAt=0}
       -> out 128,2016
-how in 112,1936 -> loc 1 12: mario
+how in 112,1936 -> loc 10 6: djump
      coming in at 112,1936
-   1. coming in: holding nothing, from 112,1936; lands at 112,1937
+   1. coming in: holding nothing, from 112,1936; lands at 112,1937 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-134, y 1937
-   2. running right, jump (held 21 ticks), holding right, from 130,1937; lands at 321,1905
+   2. running right, jump (held 21 ticks), holding right, from 130,1937; lands at 321,1905 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 314-358, y 1905
-   3. jump (held 21 ticks), holding right, from 314,1905; lands at 417,1829
-      -> standing at x 394-480, y 1809-1841
-   4. jump (held 21 ticks), holding left, from 416,1829; lands at 343,1753
+   3. jump (held 21 ticks), holding right, from 314,1905; lands at 417,1829 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 394-480, y 1809-1840
+   4. jump (held 21 ticks), holding left, from 416,1829; lands at 343,1753 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-358, y 1665-1760
-   5. running right, jump (held 21 ticks), holding right, from 32,1669; lands at 217,1625
+   5. running right, jump (held 21 ticks), holding right, from 32,1669; lands at 217,1625 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 197-358, y 1601-1635
-   6. running right, jump (held 6 ticks), holding right, from 304,1601; lands at 429,1553
-      -> standing at x 394-480, y 1553-1569
-   7. jump (held 21 ticks), holding left, from 394,1569; lands at 319,1493
+   6. running right, jump (held 6 ticks), holding right, from 304,1601; lands at 429,1553 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> standing at x 394-480, y 1553-1568
+   7. jump (held 21 ticks), holding left, from 394,1568; lands at 317,1492 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-342, y 1489-1504
-   8. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 338,1502; lands at 27,1345
-      -> standing at x 10-38, y 1345
-   9. running right, jump (held 6 ticks), holding right, from 34,1345; lands at 152,1297
-      -> standing at x 138-221, y 1297-1299
-  10. jump (held 21 ticks), holding right, from 138,1297; lands at 241,1221
-      -> standing at x 191-321, y 1221-1226
-  11. jump (held 40 ticks), holding left, bounce off a flying enemy at tick 12 (Mario Ability Set), from 224,1221; lands at 94,1044   [mario]
-      -> standing at x 0-118, y 1041-1056
-  12. standing at 17,1041, touches it
-      -> loc 1 12
-how in 112,1936 -> loc 10 6: djump,mario
-     coming in at 112,1936
-   1. coming in: holding nothing, from 112,1936; lands at 112,1937
-      -> standing at x 0-134, y 1937
-   2. running right, jump (held 21 ticks), holding right, from 130,1937; lands at 321,1905
-      -> standing at x 314-358, y 1905
-   3. jump (held 21 ticks), holding right, from 314,1905; lands at 417,1829
-      -> standing at x 394-480, y 1809-1841
-   4. jump (held 21 ticks), holding left, from 416,1829; lands at 343,1753
-      -> standing at x 0-358, y 1665-1760
-   5. running right, jump (held 21 ticks), holding right, from 32,1669; lands at 217,1625
-      -> standing at x 197-358, y 1601-1635
-   6. running right, jump (held 6 ticks), holding right, from 304,1601; lands at 429,1553
-      -> standing at x 394-480, y 1553-1569
-   7. jump (held 21 ticks), holding left, from 394,1569; lands at 319,1493
-      -> standing at x 0-342, y 1489-1504
-   8. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 338,1502; lands at 27,1345
-      -> standing at x 10-38, y 1345
-   9. running right, jump (held 6 ticks), holding right, from 34,1345; lands at 152,1297
-      -> standing at x 138-221, y 1297-1299
-  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 160,1297; lands at 189,1231
-      -> standing at x 176-336, y 1231-1233
-  11. running right, jump (held 21 ticks), holding right, from 320,1233; lands at 474,1169
+   8. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 4,1489; lands at 209,1313 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=14}
+      -> standing at x 140-216, y 1313-1315
+   9. jump (held 21 ticks), holding right, from 176,1313; lands at 285,1241 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 274-350, y 1241-1243
+  10. running right, jump (held 21 ticks), holding right, from 336,1241; lands at 468,1169 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 458-480, y 1169
-  12. jump (held 21 ticks), holding left, from 458,1169; lands at 234,977
+  11. jump (held 21 ticks), holding left, from 458,1169; lands at 227,977 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 39-313, y 945-977
-  13. jump (held 40 ticks), holding right, bounce off a flying enemy at tick 12 (Mario Ability Set), from 39,945; lands at 288,833   [mario]
-      -> standing at x 218-480, y 817-849
-  14. jump (held 40 ticks), holding nothing, then left after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), from 240,837; lands at 181,680   [mario]
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 39,945; lands at 230,842 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 218-480, y 817-848
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 218,848; lands at 317,743 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 298-406, y 737-768
+  14. jump (held 6 ticks), holding left, from 298,752; lands at 211,695 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 26-230, y 673-704
-  15. jump (held 40 ticks), holding nothing, then right after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), double jump at tick 32, from 96,673; lands at 197,491   [djump,mario]
-      -> standing at x 186-390, y 465-497
-  16. jump (held 40 ticks), holding nothing, then left after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), from 240,469; lands at 209,294   [mario]
-      -> standing at x 122-230, y 289-305
-  17. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, double jump at tick 18, from 176,289; lands at 29,81   [djump]
+  15. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right 6 ticks after, from 96,673; lands at 198,490 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 186-390, y 465-496
+  16. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left 6 ticks after, from 304,465; lands at 193,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 122-230, y 289-304
+  17. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, double jump at tick 18, from 176,289; lands at 29,81 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 djAt=18 maxT=120 afterBounce=1}   [djump]
       -> standing at x 0-102, y 81-96
   18. standing at 24,81, touches it
       -> loc 10 6
-how in 112,1936 -> loc 10 6: adash,mario
+how in 112,1936 -> loc 10 6: adash
      coming in at 112,1936
-   1. coming in: holding nothing, from 112,1936; lands at 112,1937
+   1. coming in: holding nothing, from 112,1936; lands at 112,1937 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-134, y 1937
-   2. running right, jump (held 21 ticks), holding right, from 130,1937; lands at 321,1905
+   2. running right, jump (held 21 ticks), holding right, from 130,1937; lands at 321,1905 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 314-358, y 1905
-   3. jump (held 21 ticks), holding right, from 314,1905; lands at 417,1829
-      -> standing at x 394-480, y 1809-1841
-   4. jump (held 21 ticks), holding left, from 416,1829; lands at 343,1753
+   3. jump (held 21 ticks), holding right, from 314,1905; lands at 417,1829 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 394-480, y 1809-1840
+   4. jump (held 21 ticks), holding left, from 416,1829; lands at 343,1753 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-358, y 1665-1760
-   5. running right, jump (held 21 ticks), holding right, from 32,1669; lands at 217,1625
+   5. running right, jump (held 21 ticks), holding right, from 32,1669; lands at 217,1625 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 197-358, y 1601-1635
-   6. running right, jump (held 6 ticks), holding right, from 304,1601; lands at 429,1553
-      -> standing at x 394-480, y 1553-1569
-   7. jump (held 21 ticks), holding left, from 394,1569; lands at 319,1493
+   6. running right, jump (held 6 ticks), holding right, from 304,1601; lands at 429,1553 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> standing at x 394-480, y 1553-1568
+   7. jump (held 21 ticks), holding left, from 394,1568; lands at 317,1492 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-342, y 1489-1504
-   8. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 338,1502; lands at 27,1345
-      -> standing at x 10-38, y 1345
-   9. running right, jump (held 6 ticks), holding right, from 34,1345; lands at 152,1297
-      -> standing at x 138-221, y 1297-1299
-  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 160,1297; lands at 189,1231
-      -> standing at x 176-336, y 1231-1233
-  11. running right, jump (held 21 ticks), holding right, from 320,1233; lands at 474,1169
+   8. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 4,1489; lands at 209,1313 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=14}
+      -> standing at x 140-216, y 1313-1315
+   9. jump (held 21 ticks), holding right, from 176,1313; lands at 285,1241 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 274-350, y 1241-1243
+  10. running right, jump (held 21 ticks), holding right, from 336,1241; lands at 468,1169 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 458-480, y 1169
-  12. jump (held 21 ticks), holding left, from 458,1169; lands at 234,977
+  11. jump (held 21 ticks), holding left, from 458,1169; lands at 227,977 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 39-313, y 945-977
-  13. jump (held 40 ticks), holding right, bounce off a flying enemy at tick 12 (Mario Ability Set), from 39,945; lands at 288,833   [mario]
-      -> standing at x 218-480, y 817-849
-  14. jump (held 40 ticks), holding nothing, then left after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), from 240,837; lands at 181,680   [mario]
+  12. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 39,945; lands at 30,897 {move ch=1 dir=-1 run=1 jumpAt=0 h2=0 hDelay=2}
+      -> standing at x 10-38, y 897
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 10,897; lands at 237,839 {move ch=0 dir=1 jumpAt=0 adAt=10}   [adash]
+      -> standing at x 218-480, y 817-848
+  14. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 240,837; lands at 311,746 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> standing at x 298-406, y 737-768
+  15. jump (held 6 ticks), holding left, from 298,752; lands at 211,695 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 26-230, y 673-704
-  15. jump (held 40 ticks), holding nothing, then right after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), air dash (Jerry) at tick 28, from 96,673; lands at 205,487   [adash,mario]
-      -> standing at x 186-390, y 465-497
-  16. jump (held 40 ticks), holding nothing, then left after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), from 240,469; lands at 209,294   [mario]
-      -> standing at x 122-230, y 289-305
-  17. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 122,305; lands at 386,145
-      -> standing at x 346-480, y 145-161
-  18. jump (held 40 ticks), holding left, bounce off a flying enemy at tick 12 (Mario Ability Set), from 346,161; lands at 74,82   [mario]
+  16. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right 6 ticks after, from 96,673; lands at 198,490 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 186-390, y 465-496
+  17. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left 6 ticks after, from 304,465; lands at 193,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 122-230, y 289-304
+  18. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 122,304; lands at 386,145 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=14}
+      -> standing at x 346-480, y 145-160
+  19. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 348,159; lands at 92,91 {move ch=0 dir=-1 jumpAt=0 adAt=16}   [adash]
       -> standing at x 0-102, y 81-96
-  19. standing at 24,81, touches it
+  20. standing at 24,81, touches it
+      -> loc 10 6
+how in 112,1936 -> loc 10 6: gdash,mario
+     coming in at 112,1936
+   1. coming in: holding nothing, from 112,1936; lands at 112,1937 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-134, y 1937
+   2. running right, jump (held 21 ticks), holding right, from 130,1937; lands at 321,1905 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 314-358, y 1905
+   3. jump (held 21 ticks), holding right, from 314,1905; lands at 417,1829 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 394-480, y 1809-1840
+   4. jump (held 21 ticks), holding left, from 416,1829; lands at 343,1753 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 0-358, y 1665-1760
+   5. running right, jump (held 21 ticks), holding right, from 32,1669; lands at 217,1625 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 197-358, y 1601-1635
+   6. running right, jump (held 6 ticks), holding right, from 304,1601; lands at 429,1553 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> standing at x 394-480, y 1553-1568
+   7. jump (held 21 ticks), holding left, from 394,1568; lands at 317,1492 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 0-342, y 1489-1504
+   8. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 4,1489; lands at 209,1313 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=14}
+      -> standing at x 140-216, y 1313-1315
+   9. jump (held 21 ticks), holding right, from 176,1313; lands at 285,1241 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 274-350, y 1241-1243
+  10. running right, jump (held 21 ticks), holding right, from 336,1241; lands at 468,1169 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 458-480, y 1169
+  11. jump (held 21 ticks), holding left, from 458,1169; lands at 227,977 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 39-313, y 945-977
+  12. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 39,945; lands at 30,897 {move ch=1 dir=-1 run=1 jumpAt=0 h2=0 hDelay=2}
+      -> standing at x 10-38, y 897
+  13. dash right (Jerry), jump (held 21 ticks), holding right, from 10,897; lands at 244,835 {move ch=0 dir=1 jumpAt=1 gdAt=0}   [gdash]
+      -> standing at x 218-480, y 817-848
+  14. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 400,833; lands at 385,758 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
+      -> standing at x 298-406, y 737-768
+  15. jump (held 6 ticks), holding left, from 298,752; lands at 211,695 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
+      -> standing at x 26-230, y 673-704
+  16. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right 6 ticks after, from 96,673; lands at 198,490 {move ch=1 dir=1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 186-390, y 465-496
+  17. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left 6 ticks after, from 304,465; lands at 193,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2 h1=0 hDelay=6 maxT=120 afterBounce=1}
+      -> standing at x 122-230, y 289-304
+  18. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 122,304; lands at 386,145 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=14}
+      -> standing at x 346-480, y 145-160
+  19. jump (held 6 ticks), holding left, from 346,160; comes down on the flying enemy at 208,149 and stomps it (the Mario Ability Set) {move ch=1 dir=-1 jumpAt=0 jumpHold=6}   [mario]
+      -> just stomped the oRedParatroopa at 208,149 (Claire)
+  20. just stomped the flying enemy, the jump or up held: holding left, from 208,150; lands at 68,81 {move ch=1 dir=-1 maxT=120 fromFlyer=5}
+      -> standing at x 0-102, y 81-96
+  21. standing at 24,81, touches it
       -> loc 10 6

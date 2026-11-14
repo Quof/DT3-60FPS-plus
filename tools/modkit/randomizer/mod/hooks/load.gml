@@ -82,6 +82,20 @@ if global.rndActive=1
       n=ini_read_real(s,"erexits",0)
       for(i=0;i<n;i+=1) {global.rndERExit+=ini_read_string(s,"erexit"+string(i),"")}
     }
+    else
+    {
+      //(an earlier build's list, rndVisitData's rndExitLeg*: each mark put at its exit in this build's)
+      var tXk;
+      for(tXk=0;tXk<global.rndVisitLegN;tXk+=1)
+      {
+        if ini_read_string(s,"erexithash","")=global.rndExitLegHash[tXk]
+        {
+          n=ini_read_real(s,"erexits",0); t=""
+          for(i=0;i<n;i+=1) {t+=ini_read_string(s,"erexit"+string(i),"")}
+          global.rndERExit=rndLegacyMarks(t,global.rndExitLegSkip[tXk])
+        }
+      }
+    }
     global.rndERPrevRoom=-1
   }
   //the ways into rooms the player has come in by (rndVisitArrive), if this build's list of them is the one they were
@@ -93,6 +107,21 @@ if global.rndActive=1
   {
     tVN=ini_read_real(s,"ervisits",0)
     for(tVi=0;tVi<tVN;tVi+=1) {global.rndERVisit+=ini_read_string(s,"ervisit"+string(tVi),"")}
+  }
+  else
+  {
+    //(an earlier build's list, rndVisitData's rndVisitLeg*: each mark put at its way in in this build's)
+    for(tVi=0;tVi<global.rndVisitLegN;tVi+=1)
+    {
+      if ini_read_string(s,"ervisithash","")=global.rndVisitLegHash[tVi]
+      {
+        var tVs,tVj;
+        tVs=""
+        tVN=ini_read_real(s,"ervisits",0)
+        for(tVj=0;tVj<tVN;tVj+=1) {tVs+=ini_read_string(s,"ervisit"+string(tVj),"")}
+        global.rndERVisit=rndLegacyMarks(tVs,global.rndVisitLegSkip[tVi])
+      }
+    }
   }
   //the vending machines' hints (a save from before them: none bought)
   global.rndHintN=ini_read_real(s,"hintn",0)

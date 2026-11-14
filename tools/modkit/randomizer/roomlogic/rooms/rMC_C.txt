@@ -15,6 +15,8 @@ out 2224,224   # to rMC_D at 48,384; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -31,173 +33,173 @@ from in 2192,256
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 48,416 -> out 0,384: -
      [no platform makers' platforms] coming in at 48,416
-   1. coming in: holding nothing, from 48,416; lands at 48,417
+   1. coming in: holding nothing, from 48,416; lands at 48,417 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [no platform makers' platforms] standing at x 0-134, y 417
    2. standing at 0,417, goes into it
       -> out 0,384
 how in 48,416 -> out 2224,224: megaman:1
      [no platform makers' platforms] coming in at 48,416
-   1. coming in: holding nothing, from 48,416; lands at 48,417
+   1. coming in: holding nothing, from 48,416; lands at 48,417 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [no platform makers' platforms] standing at x 0-134, y 417
    2. shoot the switch at 272,400 from 0,417: [platform makers' platforms out]   [megaman:1]
       -> [platform makers' platforms out] standing at x 0-134, y 417
-   3. running right, jump (held 21 ticks), holding right, from 80,417; lands at 249,362
+   3. running right, jump (held 21 ticks), holding right, from 80,417; lands at 249,362 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 242-302, y 362-364
-   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 242,362; lands at 286,301
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 242,362; lands at 286,301 {move ch=1 dir=-1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [platform makers' platforms out] standing at x 242-302, y 301-303
-   5. jump (held 21 ticks), holding right, from 242,301; lands at 366,233
+   5. jump (held 21 ticks), holding right, from 242,301; lands at 366,233 {move ch=1 dir=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 306-566, y 233-235
-   6. running right, jump (held 21 ticks), holding right, from 480,234; lands at 634,169
+   6. running right, jump (held 21 ticks), holding right, from 480,234; lands at 634,169 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 626-886, y 169-171
-   7. walk off the edge, holding right, then left after 1 ticks in the air, from 626,169; lands at 788,313
+   7. walk off the edge, holding right, then left after 1 ticks in the air, from 626,169; lands at 788,313 {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}
       -> [platform makers' platforms out] standing at x 676-892, y 313-315
-   8. drop down through the platform, holding right, from 676,313; lands at 785,457
+   8. drop down through the platform, holding right, from 676,313; lands at 785,457 {move ch=1 dir=1 dropDown=1}
       -> [platform makers' platforms out] standing at x 676-934, y 457-459
-   9. running right, jump (held 2 ticks), holding right, from 896,457; lands at 984,426
+   9. running right, jump (held 2 ticks), holding right, from 896,457; lands at 984,426 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
       -> [platform makers' platforms out] standing at x 962-1022, y 426-428
-  10. jump (held 21 ticks), holding right, from 992,426; lands at 1123,361
+  10. jump (held 21 ticks), holding right, from 992,426; lands at 1123,361 {move ch=1 dir=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 1106-1164, y 361-363
   11. step onto moving platform 9 at 1106,361
       -> [platform makers' platforms out] riding moving platform 9 (waiting for it where it goes)
   12. ride moving platform 9 and step off at 1204,361
       -> [platform makers' platforms out] standing at x 1204-1366, y 361-363
-  13. running right, jump (held 21 ticks), holding right, from 1312,361; lands at 1566,441
+  13. running right, jump (held 21 ticks), holding right, from 1312,361; lands at 1566,441 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 1330-1590, y 441-443
-  14. running right, jump (held 21 ticks), holding right, from 1376,442; lands at 1565,425
+  14. running right, jump (held 21 ticks), holding right, from 1376,442; lands at 1565,425 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 1554-1814, y 425-427
-  15. running right, jump (held 21 ticks), holding right, from 1648,425; lands at 1802,363
+  15. running right, jump (held 21 ticks), holding right, from 1648,425; lands at 1802,363 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 1794-1854, y 363-365
-  16. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1840,363; lands at 1810,301
+  16. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1840,363; lands at 1810,301 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
       -> [platform makers' platforms out] standing at x 1796-1854, y 301-303
-  17. running right, jump (held 21 ticks), holding right, from 1824,301; lands at 1971,233
+  17. running right, jump (held 21 ticks), holding right, from 1824,301; lands at 1971,233 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 1890-2012, y 233-235
-  18. running right, jump (held 21 ticks), holding right, from 1920,233; lands at 2126,233
+  18. running right, jump (held 21 ticks), holding right, from 1920,233; lands at 2126,233 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 2052-2150, y 233-235
-  19. jump (held 21 ticks), holding right, from 2052,233; touches it on the way
+  19. jump (held 21 ticks), holding right, from 2052,233; touches it on the way {move ch=1 dir=1 jumpAt=0}
       -> out 2224,224
 how in 48,416 -> out 2224,224: samus:1
      [no platform makers' platforms] coming in at 48,416
-   1. coming in: holding nothing, from 48,416; lands at 48,417
+   1. coming in: holding nothing, from 48,416; lands at 48,417 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [no platform makers' platforms] standing at x 0-134, y 417
    2. shoot the switch at 272,400 from 0,417: [platform makers' platforms out]   [samus:1]
       -> [platform makers' platforms out] standing at x 0-134, y 417
-   3. running right, jump (held 21 ticks), holding right, from 80,417; lands at 249,362
+   3. running right, jump (held 21 ticks), holding right, from 80,417; lands at 249,362 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 242-302, y 362-364
-   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 242,362; lands at 286,301
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 242,362; lands at 286,301 {move ch=1 dir=-1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [platform makers' platforms out] standing at x 242-302, y 301-303
-   5. jump (held 21 ticks), holding right, from 242,301; lands at 366,233
+   5. jump (held 21 ticks), holding right, from 242,301; lands at 366,233 {move ch=1 dir=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 306-566, y 233-235
-   6. running right, jump (held 21 ticks), holding right, from 480,234; lands at 634,169
+   6. running right, jump (held 21 ticks), holding right, from 480,234; lands at 634,169 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 626-886, y 169-171
-   7. walk off the edge, holding right, then left after 1 ticks in the air, from 626,169; lands at 788,313
+   7. walk off the edge, holding right, then left after 1 ticks in the air, from 626,169; lands at 788,313 {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}
       -> [platform makers' platforms out] standing at x 676-892, y 313-315
-   8. drop down through the platform, holding right, from 676,313; lands at 785,457
+   8. drop down through the platform, holding right, from 676,313; lands at 785,457 {move ch=1 dir=1 dropDown=1}
       -> [platform makers' platforms out] standing at x 676-934, y 457-459
-   9. running right, jump (held 2 ticks), holding right, from 896,457; lands at 984,426
+   9. running right, jump (held 2 ticks), holding right, from 896,457; lands at 984,426 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
       -> [platform makers' platforms out] standing at x 962-1022, y 426-428
-  10. jump (held 21 ticks), holding right, from 992,426; lands at 1123,361
+  10. jump (held 21 ticks), holding right, from 992,426; lands at 1123,361 {move ch=1 dir=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 1106-1164, y 361-363
   11. step onto moving platform 9 at 1106,361
       -> [platform makers' platforms out] riding moving platform 9 (waiting for it where it goes)
   12. ride moving platform 9 and step off at 1204,361
       -> [platform makers' platforms out] standing at x 1204-1366, y 361-363
-  13. running right, jump (held 21 ticks), holding right, from 1312,361; lands at 1566,441
+  13. running right, jump (held 21 ticks), holding right, from 1312,361; lands at 1566,441 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 1330-1590, y 441-443
-  14. running right, jump (held 21 ticks), holding right, from 1376,442; lands at 1565,425
+  14. running right, jump (held 21 ticks), holding right, from 1376,442; lands at 1565,425 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 1554-1814, y 425-427
-  15. running right, jump (held 21 ticks), holding right, from 1648,425; lands at 1802,363
+  15. running right, jump (held 21 ticks), holding right, from 1648,425; lands at 1802,363 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 1794-1854, y 363-365
-  16. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1840,363; lands at 1810,301
+  16. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1840,363; lands at 1810,301 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
       -> [platform makers' platforms out] standing at x 1796-1854, y 301-303
-  17. running right, jump (held 21 ticks), holding right, from 1824,301; lands at 1971,233
+  17. running right, jump (held 21 ticks), holding right, from 1824,301; lands at 1971,233 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 1890-2012, y 233-235
-  18. running right, jump (held 21 ticks), holding right, from 1920,233; lands at 2126,233
+  18. running right, jump (held 21 ticks), holding right, from 1920,233; lands at 2126,233 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 2052-2150, y 233-235
-  19. jump (held 21 ticks), holding right, from 2052,233; touches it on the way
+  19. jump (held 21 ticks), holding right, from 2052,233; touches it on the way {move ch=1 dir=1 jumpAt=0}
       -> out 2224,224
 how in 48,416 -> out 2224,224: link:2
      [no platform makers' platforms] coming in at 48,416
-   1. coming in: holding nothing, from 48,416; lands at 48,417
+   1. coming in: holding nothing, from 48,416; lands at 48,417 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [no platform makers' platforms] standing at x 0-134, y 417
    2. shoot the switch at 272,400 from 0,417: [platform makers' platforms out]   [link:2]
       -> [platform makers' platforms out] standing at x 0-134, y 417
-   3. running right, jump (held 21 ticks), holding right, from 80,417; lands at 249,362
+   3. running right, jump (held 21 ticks), holding right, from 80,417; lands at 249,362 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 242-302, y 362-364
-   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 242,362; lands at 286,301
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 242,362; lands at 286,301 {move ch=1 dir=-1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [platform makers' platforms out] standing at x 242-302, y 301-303
-   5. jump (held 21 ticks), holding right, from 242,301; lands at 366,233
+   5. jump (held 21 ticks), holding right, from 242,301; lands at 366,233 {move ch=1 dir=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 306-566, y 233-235
-   6. running right, jump (held 21 ticks), holding right, from 480,234; lands at 634,169
+   6. running right, jump (held 21 ticks), holding right, from 480,234; lands at 634,169 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 626-886, y 169-171
-   7. walk off the edge, holding right, then left after 1 ticks in the air, from 626,169; lands at 788,313
+   7. walk off the edge, holding right, then left after 1 ticks in the air, from 626,169; lands at 788,313 {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}
       -> [platform makers' platforms out] standing at x 676-892, y 313-315
-   8. drop down through the platform, holding right, from 676,313; lands at 785,457
+   8. drop down through the platform, holding right, from 676,313; lands at 785,457 {move ch=1 dir=1 dropDown=1}
       -> [platform makers' platforms out] standing at x 676-934, y 457-459
-   9. running right, jump (held 2 ticks), holding right, from 896,457; lands at 984,426
+   9. running right, jump (held 2 ticks), holding right, from 896,457; lands at 984,426 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
       -> [platform makers' platforms out] standing at x 962-1022, y 426-428
-  10. jump (held 21 ticks), holding right, from 992,426; lands at 1123,361
+  10. jump (held 21 ticks), holding right, from 992,426; lands at 1123,361 {move ch=1 dir=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 1106-1164, y 361-363
   11. step onto moving platform 9 at 1106,361
       -> [platform makers' platforms out] riding moving platform 9 (waiting for it where it goes)
   12. ride moving platform 9 and step off at 1204,361
       -> [platform makers' platforms out] standing at x 1204-1366, y 361-363
-  13. running right, jump (held 21 ticks), holding right, from 1312,361; lands at 1566,441
+  13. running right, jump (held 21 ticks), holding right, from 1312,361; lands at 1566,441 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 1330-1590, y 441-443
-  14. running right, jump (held 21 ticks), holding right, from 1376,442; lands at 1565,425
+  14. running right, jump (held 21 ticks), holding right, from 1376,442; lands at 1565,425 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 1554-1814, y 425-427
-  15. running right, jump (held 21 ticks), holding right, from 1648,425; lands at 1802,363
+  15. running right, jump (held 21 ticks), holding right, from 1648,425; lands at 1802,363 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 1794-1854, y 363-365
-  16. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1840,363; lands at 1810,301
+  16. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1840,363; lands at 1810,301 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
       -> [platform makers' platforms out] standing at x 1796-1854, y 301-303
-  17. running right, jump (held 21 ticks), holding right, from 1824,301; lands at 1971,233
+  17. running right, jump (held 21 ticks), holding right, from 1824,301; lands at 1971,233 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 1890-2012, y 233-235
-  18. running right, jump (held 21 ticks), holding right, from 1920,233; lands at 2126,233
+  18. running right, jump (held 21 ticks), holding right, from 1920,233; lands at 2126,233 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 2052-2150, y 233-235
-  19. jump (held 21 ticks), holding right, from 2052,233; touches it on the way
+  19. jump (held 21 ticks), holding right, from 2052,233; touches it on the way {move ch=1 dir=1 jumpAt=0}
       -> out 2224,224
 how in 48,416 -> out 2224,224: belmont:2
      [no platform makers' platforms] coming in at 48,416
-   1. coming in: holding nothing, from 48,416; lands at 48,417
+   1. coming in: holding nothing, from 48,416; lands at 48,417 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [no platform makers' platforms] standing at x 0-134, y 417
    2. shoot the switch at 272,400 from 0,417: [platform makers' platforms out]   [belmont:2]
       -> [platform makers' platforms out] standing at x 0-134, y 417
-   3. running right, jump (held 21 ticks), holding right, from 80,417; lands at 249,362
+   3. running right, jump (held 21 ticks), holding right, from 80,417; lands at 249,362 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 242-302, y 362-364
-   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 242,362; lands at 286,301
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 242,362; lands at 286,301 {move ch=1 dir=-1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> [platform makers' platforms out] standing at x 242-302, y 301-303
-   5. jump (held 21 ticks), holding right, from 242,301; lands at 366,233
+   5. jump (held 21 ticks), holding right, from 242,301; lands at 366,233 {move ch=1 dir=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 306-566, y 233-235
-   6. running right, jump (held 21 ticks), holding right, from 480,234; lands at 634,169
+   6. running right, jump (held 21 ticks), holding right, from 480,234; lands at 634,169 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 626-886, y 169-171
-   7. walk off the edge, holding right, then left after 1 ticks in the air, from 626,169; lands at 788,313
+   7. walk off the edge, holding right, then left after 1 ticks in the air, from 626,169; lands at 788,313 {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}
       -> [platform makers' platforms out] standing at x 676-892, y 313-315
-   8. drop down through the platform, holding right, from 676,313; lands at 785,457
+   8. drop down through the platform, holding right, from 676,313; lands at 785,457 {move ch=1 dir=1 dropDown=1}
       -> [platform makers' platforms out] standing at x 676-934, y 457-459
-   9. running right, jump (held 2 ticks), holding right, from 896,457; lands at 984,426
+   9. running right, jump (held 2 ticks), holding right, from 896,457; lands at 984,426 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
       -> [platform makers' platforms out] standing at x 962-1022, y 426-428
-  10. jump (held 21 ticks), holding right, from 992,426; lands at 1123,361
+  10. jump (held 21 ticks), holding right, from 992,426; lands at 1123,361 {move ch=1 dir=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 1106-1164, y 361-363
   11. step onto moving platform 9 at 1106,361
       -> [platform makers' platforms out] riding moving platform 9 (waiting for it where it goes)
   12. ride moving platform 9 and step off at 1204,361
       -> [platform makers' platforms out] standing at x 1204-1366, y 361-363
-  13. running right, jump (held 21 ticks), holding right, from 1312,361; lands at 1566,441
+  13. running right, jump (held 21 ticks), holding right, from 1312,361; lands at 1566,441 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 1330-1590, y 441-443
-  14. running right, jump (held 21 ticks), holding right, from 1376,442; lands at 1565,425
+  14. running right, jump (held 21 ticks), holding right, from 1376,442; lands at 1565,425 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 1554-1814, y 425-427
-  15. running right, jump (held 21 ticks), holding right, from 1648,425; lands at 1802,363
+  15. running right, jump (held 21 ticks), holding right, from 1648,425; lands at 1802,363 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 1794-1854, y 363-365
-  16. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1840,363; lands at 1810,301
+  16. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1840,363; lands at 1810,301 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14}
       -> [platform makers' platforms out] standing at x 1796-1854, y 301-303
-  17. running right, jump (held 21 ticks), holding right, from 1824,301; lands at 1971,233
+  17. running right, jump (held 21 ticks), holding right, from 1824,301; lands at 1971,233 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 1890-2012, y 233-235
-  18. running right, jump (held 21 ticks), holding right, from 1920,233; lands at 2126,233
+  18. running right, jump (held 21 ticks), holding right, from 1920,233; lands at 2126,233 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [platform makers' platforms out] standing at x 2052-2150, y 233-235
-  19. jump (held 21 ticks), holding right, from 2052,233; touches it on the way
+  19. jump (held 21 ticks), holding right, from 2052,233; touches it on the way {move ch=1 dir=1 jumpAt=0}
       -> out 2224,224
 how in 2192,256 -> out 2224,224: -
      [no platform makers' platforms] coming in at 2192,256
-   1. coming in: holding nothing, from 2192,256; lands at 2192,257
+   1. coming in: holding nothing, from 2192,256; lands at 2192,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [no platform makers' platforms] standing at x 2106-2240, y 257
    2. standing at 2222,257, goes into it
       -> out 2224,224

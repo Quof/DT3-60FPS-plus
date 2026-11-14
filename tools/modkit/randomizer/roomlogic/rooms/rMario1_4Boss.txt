@@ -16,49 +16,51 @@ out 896,224   # to rMario1_4Story at 112,288; the player presses up at it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 160,256
-  out 152,224   -
-  out 896,224   -
+  out 152,224    -
+  out 896,224    -
 from in 904,256
-  out 152,224   -
-  out 896,224   -
+  out 152,224    -
+  out 896,224    -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 160,256 -> out 152,224: -
      [bricks whole] coming in at 160,256
-   1. coming in: holding nothing, from 160,256; lands at 160,257
+   1. coming in: holding nothing, from 160,256; lands at 160,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [bricks whole] standing at x 39-582, y 257
    2. standing at 150,257, presses up at it
       -> out 152,224
 how in 160,256 -> out 896,224: -
      [bricks whole] coming in at 160,256
-   1. coming in: holding nothing, from 160,256; lands at 160,257
+   1. coming in: holding nothing, from 160,256; lands at 160,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [bricks whole] standing at x 39-582, y 257
-   2. walk off the edge, holding right once in the air, from 39,257; lands at 632,273
+   2. walk off the edge, holding right once in the air, from 39,257; lands at 632,273 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [bricks whole] standing at x 583-857, y 273
-   3. running right, jump (held 2 ticks), holding right, from 784,273; touches it on the way
+   3. running right, jump (held 2 ticks), holding right, from 784,273; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
       -> out 896,224
 how in 904,256 -> out 152,224: -
      [bricks whole] coming in at 904,256
-   1. coming in: holding nothing, from 904,256; lands at 904,257
+   1. coming in: holding nothing, from 904,256; lands at 904,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [bricks whole] standing at x 858-921, y 257
-   2. walk off the edge, holding left once in the air, from 858,257; lands at 814,273
+   2. walk off the edge, holding left once in the air, from 858,257; lands at 814,273 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [bricks whole] standing at x 583-857, y 273
-   3. jump (held 2 ticks), holding left, from 583,273; lands at 500,257
+   3. jump (held 2 ticks), holding left, from 583,273; lands at 500,257 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> [bricks whole] standing at x 39-582, y 257
    4. standing at 150,257, presses up at it
       -> out 152,224
 how in 904,256 -> out 896,224: -
      [bricks whole] coming in at 904,256
-   1. coming in: holding nothing, from 904,256; lands at 904,257
+   1. coming in: holding nothing, from 904,256; lands at 904,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [bricks whole] standing at x 858-921, y 257
-   2. walk off the edge, holding left once in the air, from 858,257; lands at 814,273
+   2. walk off the edge, holding left once in the air, from 858,257; lands at 814,273 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [bricks whole] standing at x 583-857, y 273
-   3. running right, jump (held 2 ticks), holding right, from 784,273; touches it on the way
+   3. running right, jump (held 2 ticks), holding right, from 784,273; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
       -> out 896,224

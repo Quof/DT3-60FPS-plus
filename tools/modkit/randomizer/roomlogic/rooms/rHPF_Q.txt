@@ -14,43 +14,111 @@ out 384,-16   # to rHPF_R at 160,288; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 48,832
-  out 0,800     -
-  out 384,-16   never
+  out 0,800      -
+  out 384,-16    djump | adash
 from in 416,128
-  out 0,800     -
-  out 384,-16   djump | adash
+  out 0,800      -
+  out 384,-16    djump | adash
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 48,832 -> out 0,800: -
      coming in at 48,832
-   1. coming in: holding nothing, from 48,832; lands at 48,833
+   1. coming in: holding nothing, from 48,832; lands at 48,833 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-121, y 833
    2. standing at 0,833, goes into it
       -> out 0,800
+how in 48,832 -> out 384,-16: djump
+     coming in at 48,832
+   1. coming in: holding nothing, from 48,832; lands at 48,833 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-121, y 833
+   2. jump (held 21 ticks), holding right, from 32,833; lands at 163,769 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 122-198, y 769
+   3. jump (held 21 ticks), holding right, from 126,769; lands at 257,705 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 135-441, y 705-707
+   4. jump (held 21 ticks), holding left, from 135,705; lands at 135,641 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 135-441, y 641-643
+   5. jump (held 21 ticks), holding left, from 135,641; lands at 135,577 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 135-441, y 577-579
+   6. jump (held 21 ticks), holding left, from 135,577; lands at 135,513 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 135-441, y 513-515
+   7. jump (held 21 ticks), holding left, from 135,513; lands at 135,449 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 135-441, y 449-451
+   8. running right, jump (held 21 ticks), holding right, from 224,449; lands at 387,385 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 378-441, y 385-387
+   9. step onto moving platform 6 at 378,385
+      -> riding moving platform 6 (waiting for it where it goes)
+  10. ride moving platform 6 and step off at 378,257
+      -> standing at x 186-441, y 257-259
+  11. jump (held 21 ticks), holding left, from 186,257; lands at 135,193 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 135-198, y 193-195
+  12. jump (held 21 ticks), holding right, from 135,193; lands at 266,129 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 250-441, y 129
+  13. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 368,129; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0 djAt=10}   [djump]
+      -> out 384,-16
+how in 48,832 -> out 384,-16: adash
+     coming in at 48,832
+   1. coming in: holding nothing, from 48,832; lands at 48,833 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-121, y 833
+   2. jump (held 21 ticks), holding right, from 32,833; lands at 163,769 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 122-198, y 769
+   3. jump (held 21 ticks), holding right, from 126,769; lands at 257,705 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 135-441, y 705-707
+   4. jump (held 21 ticks), holding left, from 135,705; lands at 135,641 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 135-441, y 641-643
+   5. jump (held 21 ticks), holding left, from 135,641; lands at 135,577 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 135-441, y 577-579
+   6. jump (held 21 ticks), holding left, from 135,577; lands at 135,513 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 135-441, y 513-515
+   7. jump (held 21 ticks), holding left, from 135,513; lands at 135,449 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 135-441, y 449-451
+   8. running right, jump (held 21 ticks), holding right, from 224,449; lands at 387,385 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 378-441, y 385-387
+   9. step onto moving platform 6 at 378,385
+      -> riding moving platform 6 (waiting for it where it goes)
+  10. ride moving platform 6 and step off at 378,257
+      -> standing at x 186-441, y 257-259
+  11. jump (held 21 ticks), holding left, from 186,257; lands at 135,193 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 135-198, y 193-195
+  12. jump (held 21 ticks), holding right, from 135,193; lands at 266,129 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 250-441, y 129
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 384,129; touches it on the way {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> out 384,-16
 how in 416,128 -> out 0,800: -
      coming in at 416,128
-   1. coming in: holding nothing, from 416,128; lands at 416,129
+   1. coming in: holding nothing, from 416,128; lands at 416,129 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 250-441, y 129
-   2. walk off the edge, holding left once in the air, from 250,129; lands at 69,833
+   2. jump (held 2 ticks), holding left, from 288,129; lands at 135,449 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
+      -> standing at x 135-441, y 449-451
+   3. drop down through the platform, holding right, from 135,449; lands at 193,513 {move ch=1 dir=1 dropDown=1}
+      -> standing at x 135-441, y 513-515
+   4. drop down through the platform, holding right, from 135,513; lands at 193,577 {move ch=1 dir=1 dropDown=1}
+      -> standing at x 135-441, y 577-579
+   5. drop down through the platform, holding right, from 135,577; lands at 193,641 {move ch=1 dir=1 dropDown=1}
+      -> standing at x 135-441, y 641-643
+   6. drop down through the platform, holding right, from 135,641; lands at 193,705 {move ch=1 dir=1 dropDown=1}
+      -> standing at x 135-441, y 705-707
+   7. drop down through the platform, holding left, from 135,705; lands at 76,833 {move ch=1 dir=1 h1=-1 h2=-1 dropDown=1}
       -> standing at x 0-121, y 833
-   3. standing at 0,833, goes into it
+   8. standing at 0,833, goes into it
       -> out 0,800
 how in 416,128 -> out 384,-16: djump
      coming in at 416,128
-   1. coming in: holding nothing, from 416,128; lands at 416,129
+   1. coming in: holding nothing, from 416,128; lands at 416,129 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 250-441, y 129
-   2. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 368,129; touches it on the way   [djump]
+   2. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 368,129; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0 djAt=10}   [djump]
       -> out 384,-16
 how in 416,128 -> out 384,-16: adash
      coming in at 416,128
-   1. coming in: holding nothing, from 416,128; lands at 416,129
+   1. coming in: holding nothing, from 416,128; lands at 416,129 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 250-441, y 129
-   2. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 384,129; touches it on the way   [adash]
+   2. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 384,129; touches it on the way {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
       -> out 384,-16

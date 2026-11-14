@@ -2,7 +2,7 @@
 and, in rooms it reaches, the exits it doesn't (something in the room stops it), with the room each leads to"""
 import os, sys, collections
 HERE = os.path.dirname(os.path.abspath(__file__))
-regions = os.path.join(HERE, "work", "roomlogic_regions.txt")
+regions = os.path.join(HERE, "work", "fps30", "roomlogic_regions.txt")
 room_need = {}
 for line in open(os.path.join(HERE, "roomlogic.txt"), encoding="utf-8"):
     f = line.split()

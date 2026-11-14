@@ -5,7 +5,10 @@ where the Randomizer's locations are. Each instance's creation code and Create e
 Randomizer's world (a new game's globals, then the endgame world state the mod starts in), so an instance the endgame
 world removes isn't there, and its size, place and exit are what that code makes them.
 
-usage: python roomdata.py [<rooms.txt>]     (default: work\rooms.txt; roomlogic.py runs it)
+usage: python roomdata.py [<rooms.txt>] [--base]
+                                          (default: work\\rooms.txt; roomlogic.py runs it. --base: without gamestate.txt,
+                                          the rooms as their code reads, what ..\\..\\logictest\\roomdump.py compares the
+                                          game's with)
 
 rooms.txt, one line an instance, tab-separated (RoomLogic.cs reads it):
   R room width height area areaname                            a room (the lines after it are its instances)
@@ -14,20 +17,35 @@ rooms.txt, one line an instance, tab-separated (RoomLogic.cs reads it):
                                                                varia, the Varia Suit)
   G sprite x y xscale yscale angle requirement name            gate: solid until the requirement is met
   J sprite x y xscale yscale angle L|S                         spring (large, small)
+  TC sprite x y xscale yscale angle ticks                      a travel cannon: pressing up at it gets in, firing it puts
+                                                               the player 21px ahead of it and 36px up and flies them up
+                                                               and right, 16px a tick each way, for that many ticks (its
+                                                               creation code's launchDuration)
   X sprite x y xscale yscale angle toRoom x y exitType name [group state]
                                                                exit to another room (exitType 0 up, 1 touch, 2 down,
                                                                3 stand on it and press up or down); with a group, where
                                                                it leads in that state of a carried group (two lines an
                                                                exit: the Forest Palace's crystals turn its rooms over)
   D sprite x y xscale yscale angle x y exitType                a door to another place in the same room
-  V sprite x y xscale yscale angle                             an elevator (oUseElevator)
+  V sprite x y xscale yscale angle [halfwidth cabin floor...]  an elevator (oUseElevator); a wider one (oChaosElevator):
+                                                               its half width, its cabin's height and the floors (y) it
+                                                               stops at
   K sprite x y xscale yscale angle                             a Strike Chain point (Mega Man's grapple latches on)
+  FL sprite x y xscale yscale angle cx cy cxscale cyscale      a falling pillar (Castlevania's): its top, then its column
+                                                               (the same sprite); stood on, it falls, its column with it
+  TS sprite x y xscale yscale angle                            a solid there only part of the time (Nightmare Gate D's
+                                                               platforms, while a sweeping zone shows them): stood on
+                                                               while it's there, gone through while it isn't
+  LC sprite x y xscale yscale angle                            a latch crystal: hit in the air with the sword, the whip or
+                                                               the Blade Strike, it bounces the player up (and gives the
+                                                               air dash and double jump back)
   KR sprite x y xscale yscale angle                            a Strike Chain point that flies left and right along its
                                                                row, turning at walls (a Ripper's)
   PR sprite x y xscale yscale angle                            a rock the player pushes (it slides when walked into, and
                                                                falls off edges)
   N sprite x y xscale yscale angle line x1 y1 x2 y2            a moving platform the player rides, and where it goes
-  N sprite x y xscale yscale angle circle cx cy r              (along a line, or round a circle)
+  N sprite x y xscale yscale angle circle cx cy r              (along a line, or round a circle, or along legs corner
+  N sprite x y xscale yscale angle legs x1 y1 x2 y2 ...        to corner: a rail's, from gamestate.txt)
   L sprite x y xscale yscale angle type number fall label      a location (fall 1: the pickup falls to the ground; label
                                                                its name, "skill point 59")
   T sprite x y xscale yscale angle group state [ride]          a solid in one state of a group the room's switches
@@ -42,12 +60,17 @@ rooms.txt, one line an instance, tab-separated (RoomLogic.cs reads it):
                                                                group's state changes (once: only from the state it
                                                                starts in)
   SW sprite x y xscale yscale angle water N                    a Water Palace switch: hit, the water goes to level N
+  SW sprite x y xscale yscale angle group zone N               a place that sets the group's state to N when the player
+                                                               stands in it (the Maridia tube's walls)
   RS group state                                               the state a group starts in (the room sets it as the
                                                                player comes in: rb, water)
   RG group state                                               the same, in a room that has nothing of the group's
   CG group                                                     a state the player carries from room to room (rb: the
                                                                red/blue switches'; water: the Water Palace's level;
                                                                crystal1-3: the Forest Palace's crystals)
+  WS x y group state                                           coming in at x,y, the room is in that state of the group
+                                                               (way1...: gamestate.txt's lines only some ways in have)
+  @group=state <line>                                          the line is there only in that state of the group
   RBAUTO                                                       enemies' shots or moving traps hit the room's red/blue
                                                                switches by themselves
   TW sprite x y xscale yscale angle N                          water at the Water Palace's level N
@@ -56,14 +79,19 @@ rooms.txt, one line an instance, tab-separated (RoomLogic.cs reads it):
                                                                90 up, 180 left, 270 down); with a group, only in that
                                                                state of it (a fan switch's)
   SP sprite x y xscale yscale angle tag                        a spot: reaching it is the event <room>/<tag> (a colored
-                                                               switch the party split's partner holds, a colored key)
+                                                               switch the party split's partner holds, a colored key, a
+                                                               red diamond: a diamond door needs them all)
   PI x y [xThres newX newY rev]                                the party split's idle partner: where it starts (at
                                                                newX,newY when the player comes in past xThres; before it
                                                                with rev)
   U sprite x y xscale yscale angle group state line x1 y1 x2 y2
                                                                a moving platform (as N) there only in one state of a
                                                                group (cpm: the Magical Castle's platform makers)
-  F sNull x y 1 1 0 object                                     a flying enemy the Mario Ability Set can bounce off
+  F sprite x y xscale 1 angle object                           a flying enemy the Mario Ability Set can bounce off, where
+                                                               it starts (its sprite there; a Bill Blaster's Bullet
+                                                               Bills where they're fired)
+  FG sNull x y 1 1 0 object                                    a Mario enemy on the ground (a Goomba, a Bro): landed on,
+                                                               the same bounce, once
   M object x y                                                 a moving solid left out (for the report)
   B x y                                                        where a boss fight starts (the Randomizer's)
   Q                                                            the room is a map (an overworld): its exits all connect
@@ -125,9 +153,13 @@ HAZARDS = {"oSpikeZone", "oMarioSpikeFloor", "oStaticSpikeRed", "oStaticSpike", 
            "oG6Lava", "oLongSpikeL", "oLongSpikeR", "oVillageFire", "oVP_RoomFire"}
 SPRINGS = {"oLargeJumper": "L", "oSmallJumper": "S"}
 # flying enemies the Mario Ability Set stomps (oEMarioBase's children and the like: the player bounces off one at -13.5,
-# a double jump and air dash back): RoomLogic.cs lets a jump near one bounce off it at the top
+# a double jump and air dash back): RoomLogic.cs has each where it starts (not where it flies to), come down on from
+# above, and the moves on from there
 BOUNCERS = {"oGreenParatroopa", "oRedParatroopa", "oLakitu", "oBulletBill", "oDistBulletBill", "oWingedMelon", "oCackBat",
             "oHF_MovingEye", "oMagicalBat", "oToady", "oWS_TheGuardian"}
+# the ones on the ground (oEMarioBase's children that walk or hop): landed on from above, the same bounce (once: it's
+# beaten); RoomLogic.cs has the player come down on one over the floor under it, near where it's placed (FG lines)
+GROUND_BOUNCERS = {"oGoomba", "oHammerBro", "oFireBro", "oBoomerBro"}
 ATTACK = "attack"
 NORMAL_HIT = "link:1|belmont:1"           # damageType NORMAL, weaponTag<100: Link's sword, Belmont's whip
 EXPLOSION = "link:3|samus:6"              # Link's bombs (Fuse Bomb), Samus' morph bombs
@@ -185,7 +217,7 @@ STATIC_MOVING = {"oConveyorA", "oPushRock", "oShakeFallPlat", "oPlatform_CVFall"
                  "oStepSwitchA", "oMCastle_PlatA", "oMMWallCrush"}
 # moving platforms the player rides: back and forth along a line (xDir, yDir a tick for shiftChange-2 ticks, after a
 # first step in Alarm 0), round a circle, or down while stood on (scales). The rest (crushers, the gravity well's
-# platforms, rails, the Nightmare Gates' platforms) are left out: the logic doesn't use them
+# platforms, rails) are left out: the logic doesn't use them. (The Nightmare Gates' platforms don't move: TS lines)
 LINE_MOVERS = {"oMovingPlatform", "oG6_EarthPlat", "oVaultMovingPlat", "oMMEaglePlat"}
 
 
@@ -227,7 +259,61 @@ def mover_path(obj, v, room_w, room_h):
         return ("line", x, y, x + mx * t, y + my * t)
     return None
 # solids that aren't there in the Randomizer's world for other reasons
-NOT_SOLID = {"oSeekerAlertDoor"}   # shuts only when the player's spotted
+# the rooms whose event takes the enemy barriers away once no enemy is left (Leaf Cave B: oEvCh5MainA; Doom Castle 5:
+# oEvCh15MainA, once its one Sword Armor is beaten)
+BEAT_ALL = {"rLeafCaveB", "rGame6_CoDE"}
+# (the Hidden Program Facility's oRmHPFJ_Obj turns to nothing, a sentry in its place, when the player comes within its
+# detectDist (132 or 208px): never in the way nor underfoot. oSeekerAlertDoor is solid only from some ways in, which
+# alert_doors puts in: never a plain solid)
+NOT_SOLID = {"oSeekerAlertDoor", "oRmHPFJ_Obj"}
+# objects whose mechanism the room logic leaves out: a line of overrides.txt for a room with one, that the simulation
+# fails, is beyond it in tests.txt (the mechanism to model), not a gap to look at (<rooms.txt>_mechanisms.txt). The
+# Nightmare Gates' rooms (areas 101-107) have their gimmicks too
+UNMODELLED = {
+    "oGetOnBike": "the Ride Chaser (the bike)",
+    "oG6WindSpot": "the wind (oG6WindSpot) and its switches",
+    "oG6_EarthSwitch": "pressure switches (oG6_EarthSwitch: a push rock or the player on one)",
+    "oSwitchRailRotate": "rails a switch turns (oSwitchRailRotate)",
+    "oGWPlatform": "the Gravity Well's platforms (oGWPlatform)",
+    "oMovingCrushPlat": "crushing platforms (oMovingCrushPlat)",
+    "oCh18LavaGeyser": "a lava geyser (oCh18LavaGeyser)",
+    "oNPC_ChallengeMaster": "a trial (its reward once it's done)",
+    "oMetMetroid": "Metroids (frozen, a platform)",
+    "oColorZone": "color zones (oColorZone)",
+    "oWS_ShiftingWarTile": "shifting war tiles (oWS_ShiftingWarTile)",
+    "oShakeFallPlat": "platforms that fall once stood on (oShakeFallPlat: solid as placed here)",
+}
+# and the ones that aren't one object's, by room: Central City - North 2: House 1's red switch, held by the partner a
+# swap in mid-air leaves there (overrides.txt); Lava Cave 2's Fire Bros and Lava Guys over its long lava stretch, which
+# start in the lava (the flying enemies are where they start) and come out of it jumping
+ROOM_UNMODELLED = {"rCCity_NB_S1a": ["the partner left holding a switch by a swap in mid-air"],
+                   "rLavaCaveB": ["Fire Bros and Lava Guys jumping out of the lava"],
+                   "rBelmont3_3D": ["the sliding-block puzzle (its switches hit with the whip and the dagger)"],
+                   "rMega4_SigmaC3": ["the crushing walls, climbed by wall jumps"],
+                   "rGame6_EarthH": ["the Earth rooms' push rocks, pressure switches and platforms"],
+                   "rGame6_EarthI": ["the Earth rooms' push rocks, pressure switches and platforms"],
+                   "rMountTemple_E": ["the Mountain Temple's step switches, rolling boulders and fans"],
+                   "rMountTemple_F": ["the Mountain Temple's step switches, rolling boulders and fans"],
+                   "rMountTemple_G": ["the Mountain Temple's step switches, rolling boulders and fans"],
+                   "rWarshipA": ["the idle partner put on the other floor by the way in (global.newMapY)"],
+                   "rWarshipB": ["the idle partner put on the other floor by the way in (global.newMapY)"],
+                   "rMain_71": ["the room's event pushing the player up out of the geyser's pit (oEvCh18MainA)"],
+                   "rLink2_PalaceA_8": ["the Water Palace's water switches"],
+                   "rBubbleTowerA5": ["the partner left at another door (a swap)"],
+                   "rMario1_HFa": ["on/off switches pressed in the middle of a jump"],
+                   "rMario1_7": ["the bouncy balls, bounced on as they fall"]}
+# the Maridia tube (oRmG5L3D's Step, none of its walls till the player gets to where it makes them): going through it,
+# its top and bottom (run, x y xscale yscale of oInvisibleSolids), made where the player is at its ends (runzones,
+# x0 y0 x1 y1 the player's place); passing down behind it, its sides (drop), made where the player's above or under
+# it (dropzones). Group "tube": 0 the walls to go through it, 1 to pass behind it, set by standing in those places (the
+# corridor's can't be missed on the way to the tube); it starts at 1. (Nightmare Gate F's tube, rExtGateF_5, sets its
+# walls where the player falls down the shafts beside it and over it, not where they stand: there, where they stand
+# before and after, the corridor through the tube and the ledge over its shaft)
+TUBES = {"rSamus5_Lv3_D": {"run": [(336, 352, 9, 1), (336, 432, 9, 1)], "drop": [(320, 368, 1, 4), (480, 368, 1, 4)],
+                           "runzones": [(240, 352, 272, 448), (544, 352, 576, 448)],
+                           "dropzones": [(320, 320, 544, 336), (320, 512, 544, 528)]},
+         "rExtGateF_5": {"run": [(320, 608, 4, 1), (320, 688, 4, 1)], "drop": [(304, 624, 1, 4), (384, 624, 1, 4)],
+                         "runzones": [(200, 680, 540, 692)], "dropzones": [(300, 508, 400, 516)]}}
 EXITS = {"oExit", "oAccessGate", "oMMBossDoor", "oDistortionGate"}
 # other ways to another room, the place they go to fixed in their code: (exitType, toRoom, x, y)
 FIXED_EXITS = {"oVaultGate": (0, "rVault_1", 160, 288),        # (the Vault, from the Farreaches)
@@ -267,6 +353,50 @@ ENCOUNTERS = [("rLink2_EnRoad", 240, 288), ("rLink2_EnGrass", 640, 288), ("rLink
 # the events whose code is run after the creation code and Create (they set the instance up a step later)
 ALARM_OBJECTS = {"oInvisibleSolid", "oMetroidDoorHolder", "oMarioLava", "oMarioLavaRev", "oPlatformBreak1",
                  "oPlatTempFade", "oScaledTrapZone", "oLargeJumper", "oMMWallCrush"}
+
+
+# Nightmare Gate C (area 103): each spike casts a shadow (oObjectShadow, type 2: its Collision_oPlayer1 hits the player
+# as the spike does), away from the flame nearest it (oGateCFlame), further the nearer the flame is across: 128 - dx/1.5,
+# at least 12 (maxShadowDist 192). The shadow is the spike's sprite 1.2 times as wide, 1.4 times as tall, at its angle.
+# A flame with moveCheck slides along its chain (1 across, 2 up and down: chainMax/2 each way), and the shadows with it:
+# a shadow a moving flame is ever the nearest to is left out, as other moving traps are (the player times them)
+SHADOW_AREA = 103
+SHADOW_SPRITES = {"sMarioSpike", "sRustySpike"}
+
+
+def gate_c_shadows(lines, at, flames):
+    """the H lines for the shadows of the room's spikes (its H lines from at on), added to lines: how many added, how
+    many left out (moving)"""
+    import math
+    fixed = [(fx, fy) for fx, fy, mv, cm in flames if mv not in (1, 2) or not isinstance(cm, (int, float))]
+    moving = []
+    for fx, fy, mv, cm in flames:
+        if mv in (1, 2) and isinstance(cm, (int, float)):
+            k = int(cm // 2)
+            moving.append([(fx + d, fy) if mv == 1 else (fx, fy + d) for d in range(-k, k + 1)])
+    if not fixed and not moving: return 0, 0
+    out, seen, left = [], set(), 0
+    for l in lines[at:]:
+        f = l.split("	")
+        if f[0] != "H" or f[1] not in SHADOW_SPRITES: continue
+        ox, oy, oxs, ang = float(f[2]), float(f[3]), float(f[4]), f[6]
+        near = min(fixed, key=lambda q: (q[0] - ox) ** 2 + (q[1] - oy) ** 2) if fixed else None
+        dn = (near[0] - ox) ** 2 + (near[1] - oy) ** 2 if near else float("inf")
+        # (a moving flame that's ever nearer than the nearest still one steers it)
+        if any((q[0] - ox) ** 2 + (q[1] - oy) ** 2 < dn for path in moving for q in path):
+            left += 1
+            continue
+        fx, fy = near
+        dx = abs(ox - fx)
+        d = max(12, 192 / 1.5 - dx / 1.5) if dx < 192 else 12
+        r = math.hypot(fx - ox, fy - oy)
+        sx, sy = (ox, oy) if r == 0 else (ox - d * (fx - ox) / r, oy - d * (fy - oy) / r)
+        key = (f[1], round(sx), round(sy), ang)
+        if key in seen: continue
+        seen.add(key)
+        out.append("H	%s	%d	%d	%s	1.4	%s" % (f[1], round(sx), round(sy), fnum(round(oxs * 1.2, 3)), ang))
+    lines += out
+    return len(out), left
 
 
 def read(p):
@@ -440,7 +570,8 @@ def gml_value(v):
 
 
 def main():
-    out_path = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, "work", "rooms.txt")
+    args = [a for a in sys.argv[1:] if a != "--base"]
+    out_path = args[0] if args else os.path.join(HERE, "work", "rooms.txt")
     os.makedirs(os.path.dirname(os.path.abspath(out_path)), exist_ok=True)
     proj = Project()
     world = world_state(proj)
@@ -454,6 +585,9 @@ def main():
     bosses = boss_starts()
     import traps
     trap_gates = traps.room_gates()
+    gamestate = read_gamestate() if "--base" not in sys.argv else collections.defaultdict(list)
+    alerts = []      # (room, its S line, the newMapX the ways in it's solid for are below: oSeekerAlertDoor)
+    mechanisms = {}  # room -> the mechanisms in it the logic leaves out (UNMODELLED)
     for room in rooms:
         rd = os.path.join(ROOMS, room)
         rs = kv(os.path.join(rd, "room.txt"))
@@ -461,6 +595,7 @@ def main():
         W, H = int(rs.get("width", 0)), int(rs.get("height", 0))
         area = rarea.get(room)
         run.room = room
+        room_at = len(lines)
         lines.append("R\t%s\t%d\t%d\t%s\t%s" % (room, W, H, area if area is not None else -1, anames.get(area, "")))
         if room in bosses:
             lines.append("B\t%d\t%d" % bosses[room])
@@ -523,6 +658,9 @@ def main():
         m = re.search(r"global\.rbSwitchBlueOn\s*=\s*(true|false|1|0)\b", read(rc) if os.path.exists(rc) else "")
         rb_reset = None if not m else (1 if m.group(1) in ("true", "1") else 0)
         objs_here = {obj for obj, x, y, code in todo}
+        mech = {UNMODELLED[o] for o in objs_here if o in UNMODELLED} | set(ROOM_UNMODELLED.get(room, ()))
+        if isinstance(rarea.get(room), int) and 101 <= rarea[room] <= 107: mech.add("its Nightmare Gate's gimmicks")
+        if mech: mechanisms[room] = sorted(mech)
         has_rb = bool(objs_here & RB_OBJECTS)
         # colored switches, keys and locks: a colored switch keeps its barriers open while someone stands on it, so in a
         # party split room (the two characters, one idle where it was left) the partner can be left on it: its barriers
@@ -550,6 +688,25 @@ def main():
                     door_of[int(g.group(1))] = tag
         for tag, sx, sy, spr in spots:
             if tag in door_of.values(): lines.append("SP\t%s\t%d\t%d\t1\t1\t0\t%s" % (spr, sx, sy, tag))
+        # red diamonds (oRedDiamond): a diamond door (oDiamondDoor) is there till the room's red diamonds are all taken
+        # (its Step), so each is a spot, diamond1..., and a diamond door a gate needing every one's event (below; where a
+        # door's creation code takes it and the diamonds away, the story being past it, neither)
+        diamonds = [(x, y) for obj, x, y, code in todo if obj == "oRedDiamond"] if "oDiamondDoor" in objs_here else []
+        # (a door's creation code that takes the diamonds away once the story's past a point: none in the Randomizer's
+        # world, so the door's gone at once too)
+        for obj, x, y, code in todo:
+            m = re.search(r"global\.gameProgress\s*>=\s*(\d+)\s*\)?\s*\{\s*with\s*\(?\s*oRedDiamond\s*\)?\s*\{\s*instance_destroy", code) if obj == "oDiamondDoor" else None
+            if m and int(m.group(1)) <= WORLD_PROGRESS: diamonds = []
+        diamond_spots = []
+        # step switches (oStepSwitchA, a step door's: below): each a spot, step1..., reached standing on it (its sprite
+        # moved up into the body: a spot is reached by touching it)
+        step_tag = {}
+        if "oStepDoorA" in objs_here:
+            for obj, x, y, code in todo:
+                g = re.search(r"GID_SET\(\s*(\d+)", code) if obj == "oStepSwitchA" else None
+                if g:
+                    step_tag[int(g.group(1))] = "step%d" % (len(step_tag) + 1)
+                    lines.append("SP\tsStepSwitchA\t%d\t%d\t1\t1\t0\t%s" % (x, y - 24, step_tag[int(g.group(1))]))
         water_carried = any(obj == "oWaterVolume" and "wpWaterLevel" in code for obj, x, y, code in todo)
         # (the Forest Palace's crystals the room's crystal or exits go by: carried, CG)
         crystals = set()
@@ -626,18 +783,32 @@ def main():
                     lines.append("SW\tsSwitchHolder\t%d\t%d\t1\t1\t0\twater\t%d" % (x, y, lv)); report["water switch"] += 1
                 continue
             if obj == "oBillBlaster":
-                # a Bill Blaster fires Bullet Bills (flying Mario enemies, 7.5px a tick) from 8px under it: they come by
-                # there to bounce off
+                # a Bill Blaster fires Bullet Bills (flying Mario enemies, 7.5px a tick) at the player, every 95 ticks
+                # while they're near but not within 56px: each Bullet Bill to bounce off where it's fired, 8px to the
+                # blaster's side the player's on and 8px under its top (a vertical blaster's, 8px above or under it)
                 r = run.instance(obj, x, y, code, W, H, area)
                 if r.destroyed != 1:
-                    lines.append("F\tsNull\t%d\t%d\t1\t1\t0\toBulletBill" % (x, y + 8))
+                    if r.vars.get("bVert") or r.vars.get("vertical"):
+                        lines.append("F\tsBulletBill\t%d\t%d\t1\t1\t90\toBulletBill" % (x, y))
+                        lines.append("F\tsBulletBill\t%d\t%d\t-1\t1\t90\toBulletBill" % (x, y + 16))
+                    else:
+                        lines.append("F\tsBulletBill\t%d\t%d\t-1\t1\t0\toBulletBill" % (x - 8, y + 8))
+                        lines.append("F\tsBulletBill\t%d\t%d\t1\t1\t0\toBulletBill" % (x + 8, y + 8))
                     report["Bill Blaster (Bullet Bills to bounce off)"] += 1
                 continue
             if obj in BOUNCERS:
                 r = run.instance(obj, x, y, code, W, H, area)
                 if r.destroyed != 1:
-                    lines.append("F\tsNull\t%d\t%d\t1\t1\t0\t%s" % (x, y, obj))
+                    spr = r.vars.get("sprite_index")
+                    spr = spr if isinstance(spr, Res) else (proj.sprite.get(obj) or "sNull")
+                    lines.append("F\t%s\t%d\t%d\t1\t1\t0\t%s" % (spr, x, y, obj))
                     report["flying enemy to bounce off"] += 1
+                continue
+            if obj in GROUND_BOUNCERS:
+                r = run.instance(obj, x, y, code, W, H, area)
+                if r.destroyed != 1:
+                    lines.append("FG\tsNull\t%d\t%d\t1\t1\t0\t%s" % (x, y, obj))
+                    report["Mario enemy on the ground to bounce off"] += 1
                 continue
             if obj == "oMarioBreakBlock":
                 # a brick: the head hitting it from below breaks it (one with an item in it only gives it: solid). The
@@ -736,7 +907,9 @@ def main():
             elif obj == ELEVATOR: kind = "elevator"
             elif obj in LOCATIONS: kind = "loc"
             elif obj in SPRINGS: kind = "spring"
+            elif obj == "oTravelCannon": kind = "cannon"
             elif obj in ("oStrikeChainPoint", "oStrikePoint_Ext"): kind = "chain"
+            elif obj == "oLatchCrystal": kind = "crystal"
             elif obj in HAZARDS: kind = "hazard"
             elif PLATFORMS in ch: kind = "platform"
             elif WATER in ch: kind = "water"
@@ -761,6 +934,15 @@ def main():
                 else:
                     continue
             geo = "%s\t%s\t%s\t%s\t%s\t%s" % (shape, fnum(ix), fnum(iy), fnum(xs), fnum(ys), fnum(ang))
+            # the CHAOS Weapons Facility's alert doors: solid (sInvisibleSolidMask, its Alarm 0) for the ways in its code
+            # names (global.newMapX below a value: from the left), till the item it guards is taken; nothing from the
+            # others. Put in once the rooms' ways in are known (alert_doors)
+            if obj == "oSeekerAlertDoor":
+                m = re.search(r"if\s+global\.newMapX\s*<\s*(\d+)\s*\{\s*bBlock\s*=\s*1\s*;?\s*\}", code)
+                if m:
+                    alerts.append((room, "S\tsInvisibleSolidMask\t%s\t%s\t%s\t%s\t%s" % (fnum(ix), fnum(iy), fnum(xs), fnum(ys), fnum(ang)), int(m.group(1))))
+                    report["alert door (solid from some ways in)"] += 1
+                continue
             if shape == "sNull": continue
             if kind == "mapexit":
                 is_map = True
@@ -830,8 +1012,18 @@ def main():
                 continue
             if kind == "spring":
                 lines.append("J\t%s\t%s" % (geo, SPRINGS[obj])); continue
+            # a travel cannon (oTravelCannon): its flight's length, from its creation code
+            if kind == "cannon":
+                n = v.get("launchDuration")
+                if not isinstance(n, (int, float)):
+                    notes.append("%s oTravelCannon (%d,%d): no launchDuration" % (room, x, y)); continue
+                lines.append("TC\t%s\t%s" % (geo, fnum(n))); report["travel cannon"] += 1; continue
             if kind == "chain":
                 lines.append("K\t%s" % geo); continue
+            # a latch crystal (an enemy nothing beats, that never hurts): hit in the air with the sword, the whip or the
+            # Blade Strike, it bounces the player up and gives the air dash and the double jump back (takeDamage)
+            if kind == "crystal":
+                lines.append("LC\t%s" % geo); report["latch crystal"] += 1; continue
             if kind == "hazard":
                 # (Gate 5's lava hurts in a Randomizer game till the Varia Suit's found, the mod's oMetLava; its purple
                 # lava always does)
@@ -880,6 +1072,33 @@ def main():
                 lines.append("T\t%s\trb\t0" % geo); continue
             if obj == "oMarioRBblock":
                 lines.append("S\t%s" % geo); lines.append("SW\t%s\trb\tbump" % geo); continue
+            # Neo Grime City's Chaos elevators: standing on one, the player presses up or down and it goes a floor (floorSpc)
+            # that way, the cabin's walls shut; its creation code puts it at the floor the player comes in at (currFloor,
+            # and y for one that isn't where it's placed): an elevator 64px wide, its cabin's ceiling 80px over it, stopping
+            # at its floors
+            if obj == "oChaosElevator" and isinstance(v.get("floorSpc"), (int, float)) and isinstance(v.get("maxFloor"), (int, float)):
+                at = {int(f) - 1: int(fy) if fy else y for f, fy in re.findall(r"currFloor\s*=\s*(\d+)(?:\s*;\s*y\s*=\s*(\d+))?", code)}
+                first = {fy - n * v["floorSpc"] for n, fy in at.items()}
+                if len(first) == 1:
+                    f1 = first.pop()
+                    floors = [f1 + n * v["floorSpc"] for n in range(int(v["maxFloor"]))]
+                    lines.append("V\t%s\t%s\t%s\t1\t1\t0\t32\t80\t%s" % (shape, fnum(ix), fnum(f1), "\t".join(fnum(f) for f in floors)))
+                    report["Chaos elevator"] += 1
+                    continue
+            # a Castlevania falling pillar (Alarm 0, type 0): a 96x32 top, and its column 16px in under it, 64 wide and
+            # 5+(platHeight-1)*4 blocks deep. Stood on, it falls 25 ticks later, its column with it (RoomLogic.cs: the
+            # pillars fallen are a state of the room's, as the player leaves them)
+            if obj == "oPlatform_CVFall" and v.get("type") == 0 and isinstance(v.get("platHeight"), (int, float)):
+                deep = 5 + (v["platHeight"] - 1) * 4
+                lines.append("FL\tsInvisibleSolidMask\t%s\t%s\t6\t2\t0\t%s\t%s\t4\t%s" % (fnum(ix), fnum(iy), fnum(ix + 16), fnum(iy + 32), fnum(deep)))
+                report["falling pillar"] += 1
+                continue
+            # an NPC's pipe (Central City - North B's): it rises 46px out of the floor (2px a tick) when the player comes
+            # within growDist across, and stays: the logic has it up
+            if obj == "oNPC_Pipe":
+                lines.append("S\t%s\t%s\t%s\t%s\t%s\t%s" % (shape, fnum(ix), fnum(iy - 46), fnum(xs), fnum(ys), fnum(ang)))
+                report["NPC pipe (up)"] += 1
+                continue
             # a fading platform (or wall): there for timeTillOff ticks, gone for timeTillOn, over and over (a second or
             # so each): somewhere to stand, and somewhere to go through, waiting for it: a jump-through platform
             if obj == "oPlatTempFade":
@@ -901,6 +1120,29 @@ def main():
             if obj == "oEventBarrier" and event_from_code(code):
                 lines.append("G\t%s\t%s\t%s" % (geo, event_from_code(code), obj)); report["gate waiting for an event"] += 1
                 continue
+            # an enemy barrier still there in the Randomizer's world: one its creation code takes away once a key's found
+            # (global.doorKey) opens with the key; one the room's event takes away once no enemy is left (BEAT_ALL) with
+            # what beats every enemy placed in the room (traps.py's rule; first, as a room's key check may only be for
+            # coming back once the key behind it is taken, as in Doom Castle 5)
+            if obj == "oEnemyBarrier":
+                if room in BEAT_ALL:
+                    foes = {o for o, ex, ey, h, c in rndgen.instances(room) if "oEnemyBase" in proj.chain(o)}
+                    lines.append("G\t%s\t%s\t%s" % (geo, traps.req_words(traps.requirement(foes, area)), obj))
+                    report["enemy barrier: every enemy beaten"] += 1
+                    continue
+                m = re.search(r"string_char_at\(\s*global\.doorKey\s*,\s*(\d+)\s*\)", code)
+                if m:
+                    lines.append("G\t%s\tkey:%s\t%s" % (geo, m.group(1), obj)); report["enemy barrier: a key"] += 1
+                    continue
+            # a diamond door: a gate needing every red diamond's spot reached (none in the room: gone at once)
+            if obj == "oDiamondDoor":
+                if diamonds:
+                    if not diamond_spots:
+                        diamond_spots = ["SP\tsRedDiamond\t%d\t%d\t1\t1\t0\tdiamond%d" % (dx, dy, i + 1) for i, (dx, dy) in enumerate(diamonds)]
+                        lines.extend(diamond_spots)
+                    lines.append("G\t%s\t%s\t%s" % (geo, ",".join("event:%s/diamond%d" % (room, i + 1) for i in range(len(diamonds))), obj))
+                    report["diamond door"] += 1
+                continue
             if obj in GATES:
                 req = GATES[obj](v)
                 if req == "open": continue
@@ -918,6 +1160,18 @@ def main():
             # RoomLogic.cs works out where it can be pushed to, and makes its top somewhere to stand there
             if obj == "oPushRock":
                 lines.append("PR\t%s" % geo); report["push rock"] += 1; continue
+            # Nightmare Gate D's platforms: solid only while one of the room's sweeping zones (oNightmareEffect) covers
+            # them, and each is swept over: there part of the time (stood on while it's there, gone through while not)
+            if obj == "oNightmarePlatform" and v.get("bCanMove") in (0, False):
+                lines.append("TS\t%s" % geo); report["platform there part of the time"] += 1; continue
+            # a step door (oStepDoorA): up 64px while one of its step switches (ownerRawID1/2) is stood on, down again about
+            # two seconds after the player steps off: a gate needing either switch's spot (above; its switches are beside
+            # it, a walk away)
+            if obj == "oStepDoorA":
+                tags = sorted({step_tag[int(g)] for g in (v.get("ownerRawID1"), v.get("ownerRawID2")) if isinstance(g, (int, float)) and int(g) in step_tag})
+                if tags:
+                    lines.append("G\t%s\t%s\t%s" % (geo, "|".join("event:%s/%s" % (room, t) for t in tags), obj)); report["step door"] += 1
+                    continue
             if "oMovingSolid" in ch or "oMoveableSolid" in ch:
                 if obj not in STATIC_MOVING:
                     path = mover_path(obj, v, W, H)
@@ -941,6 +1195,17 @@ def main():
         if m:
             lines.append("L\tsHeartContainer\t%s\t%s\t1\t1\t0\t14\t%d\t0\theart container %d" % (m.group(1), m.group(2), rndgen.TRIAL_HC, rndgen.TRIAL_HC))
             report["trial heart container"] += 1
+        # the Maridia tube's walls (TUBES): the ones to go through it in the group's state 0, to pass behind it in 1
+        if room in TUBES and any(obj == "oRmG5L3D" for obj, x, y, code in todo):
+            t = TUBES[room]
+            for st, walls in ((0, t["run"]), (1, t["drop"])):
+                for wx, wy, wxs, wys in walls:
+                    lines.append("T\tsInvisibleSolidMask\t%d\t%d\t%s\t%s\t0\ttube\t%d" % (wx, wy, fnum(wxs), fnum(wys), st))
+            for st, zones in ((0, t["runzones"]), (1, t["dropzones"])):
+                for zx0, zy0, zx1, zy1 in zones:
+                    lines.append("SW\tsInvisibleSolidMask\t%d\t%d\t%s\t%s\t0\ttube\tzone\t%d" % (zx0, zy0, fnum((zx1 - zx0 + 1) / 16), fnum((zy1 - zy0 + 1) / 16), st))
+            lines.append("RS\ttube\t1")
+            report["Maridia tube's walls"] += 1
         # the switches the barriers wait for (hit once: open for good, for this visit)
         for g in sorted(switches_used):
             h = holders[g]
@@ -968,6 +1233,18 @@ def main():
                 lines.append("X\tsExit\t0\t0\t1\t1\t0\t%s\t%d\t%d\t1\tencounter" % (tr, nx, ny))
             lines.append("QW")
         elif is_map: lines.append("Q")
+        # the room as the game itself makes it, where it differs from what the code read here gives (gamestate.txt)
+        apply_gamestate(room, lines, room_at, gamestate.get(room, []), report, notes)
+        if area == SHADOW_AREA:
+            flames = []
+            for obj, x, y, code in todo:
+                if obj != "oGateCFlame": continue
+                v = run.instance(obj, x, y, code, W, H, area).vars
+                flames.append((x, y, v.get("moveCheck"), v.get("chainMax")))
+            n, left = gate_c_shadows(lines, room_at, flames)
+            if n: report["Gate C spike shadow (a hazard)"] += n
+            if left: report["moving left out: Gate C spike shadow (a moving flame's)"] += left
+    alert_doors(lines, alerts, notes)
     with open(out_path, "w", encoding="utf-8", newline="\n") as f:
         f.write("START\t%s\t%d\t%d\n" % START)
         # (the carried states as a new game starts: the red/blue switches off; the water and the Forest Palace's
@@ -982,8 +1259,164 @@ def main():
         f.write("\n".join(lines) + "\n")
     with open(os.path.splitext(out_path)[0] + "_notes.txt", "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(notes) + "\n")
+    with open(os.path.splitext(out_path)[0] + "_mechanisms.txt", "w", encoding="utf-8", newline="\n") as f:
+        f.write("".join("%s\t%s\n" % (r, "; ".join(m)) for r, m in sorted(mechanisms.items())))
     for k, n in sorted(report.items()): print("%6d %s" % (n, k))
     print("written", out_path)
+
+
+def alert_doors(lines, alerts, notes):
+    """the alert doors (oSeekerAlertDoor) into their rooms, each there only for the ways in its code names (a group,
+    "alert", the ways in with a newMapX below its value set: WS), now that every room's ways in are known: where the other
+    rooms' exits put the player, and the room's own doors"""
+    if not alerts: return
+    ways = collections.defaultdict(set)
+    room = None
+    for l in lines:
+        f = l.split("\t")
+        if f[0].startswith("@"): f = f[1:]
+        if f[0] == "R": room = f[1]
+        elif f[0] == "X" and len(f) > 9 and f[7] not in ("", "None"):
+            try: ways[f[7]].add((round(float(f[8])), round(float(f[9]))))
+            except ValueError: pass
+        elif f[0] == "D" and len(f) > 8 and room:
+            try: ways[room].add((round(float(f[7])), round(float(f[8]))))
+            except ValueError: pass
+    by_room = collections.defaultdict(list)
+    for rm, line, below in alerts: by_room[rm].append((line, below))
+    for rm, doors in by_room.items():
+        at = next((i for i, l in enumerate(lines) if l.startswith("R\t%s\t" % rm)), None)
+        if at is None: continue
+        end = next((i for i in range(at + 1, len(lines)) if lines[i].startswith("R\t")), len(lines))
+        add = []
+        for k, (line, below) in enumerate(doors, 1):
+            those = sorted(w for w in ways.get(rm, ()) if w[0] < below)
+            if not those:
+                notes.append("%s: its alert door (%s) is solid for no way in" % (rm, line))
+                continue
+            g = "alert%d" % k
+            add.append("@%s=1\t%s" % (g, line))
+            add += ["WS\t%d\t%d\t%s\t1" % (x, y, g) for x, y in those]
+        lines[end:end] = add
+
+
+# ---------------------------------------------------------------- the rooms as the game makes them
+GAMESTATE = os.path.join(HERE, "gamestate.txt")
+# (how many groups RoomLogic.cs works out in a room with a way in's groups: RoomData.MaxG)
+MAX_GROUPS = 8
+
+
+def read_gamestate():
+    """gamestate.txt (made by ..\\..\\logictest\\roomdump.py digest from the game itself): {room: [(op, fields, ways)]},
+    ways the ways in a line is for (None: every one)"""
+    out = collections.defaultdict(list)
+    if not os.path.exists(GAMESTATE): return out
+    for l in open(GAMESTATE, encoding="utf-8"):
+        l = l.split("#", 1)[0].rstrip()
+        if not l: continue
+        f = l.split("\t")
+        ways = None
+        if "from" in f:
+            i = f.index("from")
+            ways = frozenset(tuple(int(v) for v in w.split(",")) for w in f[i + 1].split())
+            f = f[:i]
+        out[f[0]].append((f[1], f[2:], ways))
+    return out
+
+
+def room_groups(lines):
+    """the groups a room's lines name (a switch's, a carried state's...)"""
+    g = set()
+    for l in lines:
+        f = l.split("\t")
+        if f[0].startswith("@"): g.add(f[0][1:].split("=")[0]); f = f[1:]
+        if f[0] in ("T", "U", "SW") and len(f) > 7 and f[7] != "water": g.add(f[7])
+        elif f[0] == "SW" and len(f) > 7: g.update(("w1", "w3"))
+        elif f[0] == "X" and len(f) > 13: g.add(f[12])
+        elif f[0] == "FN" and len(f) > 9: g.add(f[8])
+        elif f[0] in ("CG", "RS"): g.update(("w1", "w3") if f[1] == "water" else (f[1],))
+        elif f[0] == "TW": g.update(("w1", "w3"))
+    return g
+
+
+def apply_gamestate(room, lines, at, entries, report, notes):
+    """a room's gamestate.txt lines on its lines (lines[at] its R line): del takes the logic's line of that type there
+    out, add puts a thing in, move moves the line, path gives a moving platform's N line the game's way, exit has the
+    exit lead there. One only some ways in have: a group
+    those ways in set (WS), the line there only in its state (@group=state); an exit's only some have isn't taken in
+    (the logic's exits are the same in every state), nor a room's with more groups than RoomLogic.cs works out"""
+    if not entries: return
+    def key(f): return (f[0], f[1], round(float(f[2])), round(float(f[3])))
+    def find(t, spr, x, y):
+        for i in range(at + 1, len(lines)):
+            if lines[i] is None: continue
+            f = lines[i].split("\t")
+            if f[0].startswith("@"): continue
+            if len(f) >= 4 and f[0] == t and f[1] == spr and abs(float(f[2]) - float(x)) <= 1 and abs(float(f[3]) - float(y)) <= 1:
+                return i
+        return None
+    # (the sets of ways in: a group each)
+    sets = []
+    for op, f, ways in entries:
+        if ways is not None and op != "exit" and not (op in ("add", "del") and f[0] == "X") and ways not in sets: sets.append(ways)
+    used = room_groups(lines[at + 1:])
+    if len(used) + len(sets) > MAX_GROUPS:
+        notes.append("%s: gamestate.txt's ways-in-only lines left out (%d groups and %d more)" % (room, len(used), len(sets)))
+        report["gamestate: a room's ways-in-only lines left out (too many groups)"] += 1
+        sets = []
+    group = {w: "way%d" % (n + 1) for n, w in enumerate(sets)}
+    out = []
+    for op, f, ways in entries:
+        g = group.get(ways)
+        if ways is not None and g is None:
+            report["gamestate: left out (only some ways in)"] += 1
+            continue
+        if op == "del":
+            i = find(f[0], f[1], f[2], f[3])
+            if i is None:
+                report["gamestate: del, no such line"] += 1
+                notes.append("%s: gamestate.txt's del %s %s %s,%s: no such line" % (room, f[0], f[1], f[2], f[3]))
+                continue
+            lines[i] = ("@%s=0\t" % g + lines[i]) if g else None
+            report["gamestate: del"] += 1
+        elif op == "add":
+            out.append(("@%s=1\t" % g if g else "") + "\t".join(f))
+            report["gamestate: add " + f[0]] += 1
+        elif op == "move":
+            i = find(f[0], f[1], f[2], f[3])
+            if i is None:
+                report["gamestate: move, no such line"] += 1
+                notes.append("%s: gamestate.txt's move %s %s %s,%s: no such line" % (room, f[0], f[1], f[2], f[3]))
+                continue
+            p = lines[i].split("\t")
+            moved = "\t".join(p[:2] + [f[4], f[5]] + p[4:])
+            if g: lines[i] = "@%s=0\t" % g + lines[i]; out.append("@%s=1\t" % g + moved)
+            else: lines[i] = moved
+            report["gamestate: move"] += 1
+        elif op == "path":
+            # (a moving platform's way: its N line's from the 8th field on)
+            i = find("N", f[1], f[2], f[3])
+            if i is None:
+                report["gamestate: path, no such line"] += 1
+                notes.append("%s: gamestate.txt's path N %s %s,%s: no such line" % (room, f[1], f[2], f[3]))
+                continue
+            p = lines[i].split("\t")
+            lines[i] = "\t".join(p[:7] + f[4:])
+            report["gamestate: path"] += 1
+        elif op == "exit":
+            i = None
+            for j in range(at + 1, len(lines)):
+                p = lines[j].split("\t") if lines[j] else []
+                if len(p) >= 11 and p[0] == "X" and abs(float(p[2]) - float(f[0])) <= 1 and abs(float(p[3]) - float(f[1])) <= 1 and len(p) < 13:
+                    i = j; break
+            if i is None: report["gamestate: exit, no such exit"] += 1; continue
+            p = lines[i].split("\t")
+            p[7], p[8], p[9] = f[2], f[3], f[4]
+            lines[i] = "\t".join(p)
+            report["gamestate: exit"] += 1
+    for w, g in group.items():
+        for x, y in sorted(w): out.append("WS\t%d\t%d\t%s\t1" % (x, y, g))
+    lines[:] = [l for l in lines[:at + 1] if l is not None] + [l for l in lines[at + 1:] if l is not None] + out
 
 
 def boss_starts():

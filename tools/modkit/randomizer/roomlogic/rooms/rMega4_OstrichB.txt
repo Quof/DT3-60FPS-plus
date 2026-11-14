@@ -16,6 +16,8 @@ out 0,208   # to rMega4_OstrichA at 2968,336; the player goes into it
 loc 4 24   # heart energy 24, at 4591,88
 loc 9 72   # weapon upgrade 72, at 231,39
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -36,19 +38,19 @@ from in 8328,288
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 48,240 -> out 0,208: -
      coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-249, y -24-257
    2. standing at 0,241, goes into it
       -> out 0,208
 how in 48,240 -> loc 9 72: -
      coming in at 48,240
-   1. coming in: holding nothing, from 48,240; lands at 48,241
+   1. coming in: holding nothing, from 48,240; lands at 48,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-249, y -24-257
-   2. on the wall to the right: holding left, from 249,32; touches it on the way
+   2. on the wall to the right: holding left, from 249,32; touches it on the way {move ch=1 dir=1 h1=-1 h2=-1 fromWall=1}
       -> loc 9 72
 how in 8328,288 -> out 8352,256: -
      coming in at 8328,288
-   1. coming in: holding nothing, from 8328,288; lands at 8328,289
+   1. coming in: holding nothing, from 8328,288; lands at 8328,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 7977-8368, y 289-417
    2. standing at 8350,289, goes into it
       -> out 8352,256

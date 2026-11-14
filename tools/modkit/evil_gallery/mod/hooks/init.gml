@@ -2,7 +2,9 @@
 //load). The evil fights' records, a place for each of the boss gallery's types (1-65, place type-1): the best time
 //and the fewest hits taken in a win (99999: none yet) and how many wins (the load hook reads them back). global.evgFight:
 //the gallery type of the evil fight going on (0: none), which takes the player back to the evil gallery when they give
-//it up (the roomStart hook)
+//it up (the roomStart hook); evgRoom its room. evgSprN: the game's sprites recoloured for the fight going on
+//(evgSprOne; put back here too, if a fight was left for the title screen); evgDir: the mod's folder (the one with
+//evil\evil.txt, the evil fights' sprites)
 var i;
 for(i=0;i<70;i+=1)
 {
@@ -11,3 +13,17 @@ for(i=0;i<70;i+=1)
   global.evgWins[i]=0
 }
 global.evgFight=0
+global.evgRoom=-1
+if variable_global_exists("evgSprN")
+{
+  if global.evgSprN>0 {evgSprRestore()}
+}
+global.evgSprN=0
+global.evgSprType=0
+global.evgSprRoom=-1
+global.evgRecOk=0
+global.evgDir=""
+for(i=0;i<global.modCount;i+=1)
+{
+  if file_exists(global.modDir+global.modFolder[i]+"\evil\evil.txt") {global.evgDir=global.modDir+global.modFolder[i]+"\"}
+}

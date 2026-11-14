@@ -3,6 +3,7 @@
 # Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
 # Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
 # middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [as the other ways in make the room, as the other ways in make the room]
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
 in 64,304   # from rSamus5_Lv2_H out 464,976
@@ -14,185 +15,127 @@ out 1904,272   # to rSamus5_Lv2_Boss at 64,256; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 64,304
-  out 0,272      link:1 | belmont:1 | megaman:1 | samus:1
+  out 0,272      -
   out 1904,272   link:1 | belmont:1 | megaman:1 | samus:1
 from in 1856,304
   out 0,272      belmont:1 | link:1 | megaman:1 | samus:1
-  out 1904,272   link:1 | belmont:1 | megaman:1 | samus:1
+  out 1904,272   -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
-how in 64,304 -> out 0,272: link:1
-     coming in at 64,304
-   1. coming in: holding nothing, from 64,304; lands at 64,305
-      -> standing at x 31-105, y 305
-   2. walk from 31,305 to 30,305 into the Metroid door at 0,240   [link:1]
-      -> standing at x 0-30, y 305 (where a gate is)
-   3. standing at 0,305, goes into it
-      -> out 0,272
-how in 64,304 -> out 0,272: belmont:1
-     coming in at 64,304
-   1. coming in: holding nothing, from 64,304; lands at 64,305
-      -> standing at x 31-105, y 305
-   2. walk from 31,305 to 30,305 into the Metroid door at 0,240   [belmont:1]
-      -> standing at x 0-30, y 305 (where a gate is)
-   3. standing at 0,305, goes into it
-      -> out 0,272
-how in 64,304 -> out 0,272: megaman:1
-     coming in at 64,304
-   1. coming in: holding nothing, from 64,304; lands at 64,305
-      -> standing at x 31-105, y 305
-   2. walk from 31,305 to 30,305 into the Metroid door at 0,240   [megaman:1]
-      -> standing at x 0-30, y 305 (where a gate is)
-   3. standing at 0,305, goes into it
-      -> out 0,272
-how in 64,304 -> out 0,272: samus:1
-     coming in at 64,304
-   1. coming in: holding nothing, from 64,304; lands at 64,305
-      -> standing at x 31-105, y 305
-   2. walk from 31,305 to 30,305 into the Metroid door at 0,240   [samus:1]
-      -> standing at x 0-30, y 305 (where a gate is)
-   3. standing at 0,305, goes into it
+how in 64,304 -> out 0,272: -
+     [as coming in at 64,304 makes the room, as the other ways in make the room] coming in at 64,304
+   1. coming in: holding nothing, from 64,304; lands at 64,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] standing at x 0-105, y 305
+   2. standing at 0,305, goes into it
       -> out 0,272
 how in 64,304 -> out 1904,272: link:1
-     coming in at 64,304
-   1. coming in: holding nothing, from 64,304; lands at 64,305
-      -> standing at x 31-105, y 305
-   2. jump (held 6 ticks), holding right, from 48,305; lands at 169,305
-      -> standing at x 135-169, y 305
-   3. jump (held 21 ticks), holding right, from 135,305; lands at 316,305
-      -> standing at x 263-1337, y 305
-   4. running right, walk off the edge, holding right once in the air, from 1168,305, through the Metroid door at 0,240, the Metroid door at 1896,240, the oRndTrap at 1344,240, ...; touches it on the way   [link:1]
+     [as coming in at 64,304 makes the room, as the other ways in make the room] coming in at 64,304
+   1. coming in: holding nothing, from 64,304; lands at 64,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] standing at x 0-105, y 305
+   2. running right, jump (held 21 ticks), holding right, from 64,305; lands at 255,273 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] standing at x 234-262, y 273
+   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 234,273; lands at 300,305 {move ch=1 dir=-1 run=1 jumpAt=0 h2=-1 hDelay=6}
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] standing at x 263-1337, y 305
+   4. running right, walk off the edge, holding right once in the air, from 1168,305, through the Metroid door at 1896,240, the oRndTrap at 1344,240, the oRndTrap at 1776,240, ...; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [link:1]
       -> out 1904,272
 how in 64,304 -> out 1904,272: belmont:1
-     coming in at 64,304
-   1. coming in: holding nothing, from 64,304; lands at 64,305
-      -> standing at x 31-105, y 305
-   2. jump (held 6 ticks), holding right, from 48,305; lands at 169,305
-      -> standing at x 135-169, y 305
-   3. jump (held 21 ticks), holding right, from 135,305; lands at 316,305
-      -> standing at x 263-1337, y 305
-   4. running right, walk off the edge, holding right once in the air, from 1168,305, through the Metroid door at 0,240, the Metroid door at 1896,240, the oRndTrap at 1344,240, ...; touches it on the way   [belmont:1]
+     [as coming in at 64,304 makes the room, as the other ways in make the room] coming in at 64,304
+   1. coming in: holding nothing, from 64,304; lands at 64,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] standing at x 0-105, y 305
+   2. running right, jump (held 21 ticks), holding right, from 64,305; lands at 255,273 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] standing at x 234-262, y 273
+   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 234,273; lands at 300,305 {move ch=1 dir=-1 run=1 jumpAt=0 h2=-1 hDelay=6}
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] standing at x 263-1337, y 305
+   4. running right, walk off the edge, holding right once in the air, from 1168,305, through the Metroid door at 1896,240, the oRndTrap at 1344,240, the oRndTrap at 1776,240, ...; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [belmont:1]
       -> out 1904,272
 how in 64,304 -> out 1904,272: megaman:1
-     coming in at 64,304
-   1. coming in: holding nothing, from 64,304; lands at 64,305
-      -> standing at x 31-105, y 305
-   2. jump (held 6 ticks), holding right, from 48,305; lands at 169,305
-      -> standing at x 135-169, y 305
-   3. jump (held 21 ticks), holding right, from 135,305; lands at 316,305
-      -> standing at x 263-1337, y 305
-   4. running right, walk off the edge, holding right once in the air, from 1168,305, through the Metroid door at 0,240, the Metroid door at 1896,240, the oRndTrap at 1344,240, ...; touches it on the way   [megaman:1]
+     [as coming in at 64,304 makes the room, as the other ways in make the room] coming in at 64,304
+   1. coming in: holding nothing, from 64,304; lands at 64,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] standing at x 0-105, y 305
+   2. running right, jump (held 21 ticks), holding right, from 64,305; lands at 255,273 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] standing at x 234-262, y 273
+   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 234,273; lands at 300,305 {move ch=1 dir=-1 run=1 jumpAt=0 h2=-1 hDelay=6}
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] standing at x 263-1337, y 305
+   4. running right, walk off the edge, holding right once in the air, from 1168,305, through the Metroid door at 1896,240, the oRndTrap at 1344,240, the oRndTrap at 1776,240, ...; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [megaman:1]
       -> out 1904,272
 how in 64,304 -> out 1904,272: samus:1
-     coming in at 64,304
-   1. coming in: holding nothing, from 64,304; lands at 64,305
-      -> standing at x 31-105, y 305
-   2. jump (held 6 ticks), holding right, from 48,305; lands at 169,305
-      -> standing at x 135-169, y 305
-   3. jump (held 21 ticks), holding right, from 135,305; lands at 316,305
-      -> standing at x 263-1337, y 305
-   4. running right, walk off the edge, holding right once in the air, from 1168,305, through the Metroid door at 0,240, the Metroid door at 1896,240, the oRndTrap at 1344,240, ...; touches it on the way   [samus:1]
+     [as coming in at 64,304 makes the room, as the other ways in make the room] coming in at 64,304
+   1. coming in: holding nothing, from 64,304; lands at 64,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] standing at x 0-105, y 305
+   2. running right, jump (held 21 ticks), holding right, from 64,305; lands at 255,273 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] standing at x 234-262, y 273
+   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 234,273; lands at 300,305 {move ch=1 dir=-1 run=1 jumpAt=0 h2=-1 hDelay=6}
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] standing at x 263-1337, y 305
+   4. running right, walk off the edge, holding right once in the air, from 1168,305, through the Metroid door at 1896,240, the oRndTrap at 1344,240, the oRndTrap at 1776,240, ...; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [samus:1]
       -> out 1904,272
 how in 1856,304 -> out 0,272: belmont:1
-     coming in at 1856,304
-   1. coming in: holding nothing, from 1856,304; lands at 1856,305
-      -> standing at x 1799-1889, y 305
-   2. jump (held 2 ticks), holding left, from 1799,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1748,305   [belmont:1]
-      -> standing at x 1367-1769, y 305
-   3. jump (held 2 ticks), holding left, from 1367,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1316,305   [belmont:1]
-      -> standing at x 263-1337, y 305
-   4. jump (held 21 ticks), holding left, from 263,305; lands at 110,273
-      -> standing at x 106-134, y 273
-   5. jump (held 21 ticks), holding left, from 106,273, through the Metroid door at 0,240, the Metroid door at 1896,240; lands at 25,305   [belmont:1]
-      -> standing at x 0-30, y 305 (where a gate is)
+     [as the other ways in make the room, as coming in at 1856,304 makes the room] coming in at 1856,304
+   1. coming in: holding nothing, from 1856,304; lands at 1856,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as the other ways in make the room, as coming in at 1856,304 makes the room] standing at x 1799-1920, y 305
+   2. jump (held 2 ticks), holding left, from 1799,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1748,305 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [belmont:1]
+      -> [as the other ways in make the room, as coming in at 1856,304 makes the room] standing at x 1367-1769, y 305
+   3. jump (held 2 ticks), holding left, from 1367,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1316,305 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [belmont:1]
+      -> [as the other ways in make the room, as coming in at 1856,304 makes the room] standing at x 263-1337, y 305
+   4. jump (held 21 ticks), holding left, from 263,305; lands at 110,273 {move ch=1 dir=-1 jumpAt=0}
+      -> [as the other ways in make the room, as coming in at 1856,304 makes the room] standing at x 106-134, y 273
+   5. jump (held 21 ticks), holding left, from 106,273, through the Metroid door at 0,240; lands at 25,305 {move ch=1 dir=-1 jumpAt=0}   [belmont:1]
+      -> [as the other ways in make the room, as coming in at 1856,304 makes the room] standing at x 0-30, y 305 (where a gate is)
    6. standing at 0,305, goes into it
       -> out 0,272
 how in 1856,304 -> out 0,272: link:1
-     coming in at 1856,304
-   1. coming in: holding nothing, from 1856,304; lands at 1856,305
-      -> standing at x 1799-1889, y 305
-   2. jump (held 2 ticks), holding left, from 1799,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1748,305   [link:1]
-      -> standing at x 1367-1769, y 305
-   3. jump (held 2 ticks), holding left, from 1367,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1316,305   [link:1]
-      -> standing at x 263-1337, y 305
-   4. jump (held 21 ticks), holding left, from 263,305; lands at 110,273
-      -> standing at x 106-134, y 273
-   5. jump (held 21 ticks), holding left, from 106,273, through the Metroid door at 0,240, the Metroid door at 1896,240; lands at 25,305   [link:1]
-      -> standing at x 0-30, y 305 (where a gate is)
+     [as the other ways in make the room, as coming in at 1856,304 makes the room] coming in at 1856,304
+   1. coming in: holding nothing, from 1856,304; lands at 1856,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as the other ways in make the room, as coming in at 1856,304 makes the room] standing at x 1799-1920, y 305
+   2. jump (held 2 ticks), holding left, from 1799,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1748,305 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [link:1]
+      -> [as the other ways in make the room, as coming in at 1856,304 makes the room] standing at x 1367-1769, y 305
+   3. jump (held 2 ticks), holding left, from 1367,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1316,305 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [link:1]
+      -> [as the other ways in make the room, as coming in at 1856,304 makes the room] standing at x 263-1337, y 305
+   4. jump (held 21 ticks), holding left, from 263,305; lands at 110,273 {move ch=1 dir=-1 jumpAt=0}
+      -> [as the other ways in make the room, as coming in at 1856,304 makes the room] standing at x 106-134, y 273
+   5. jump (held 21 ticks), holding left, from 106,273, through the Metroid door at 0,240; lands at 25,305 {move ch=1 dir=-1 jumpAt=0}   [link:1]
+      -> [as the other ways in make the room, as coming in at 1856,304 makes the room] standing at x 0-30, y 305 (where a gate is)
    6. standing at 0,305, goes into it
       -> out 0,272
 how in 1856,304 -> out 0,272: megaman:1
-     coming in at 1856,304
-   1. coming in: holding nothing, from 1856,304; lands at 1856,305
-      -> standing at x 1799-1889, y 305
-   2. jump (held 2 ticks), holding left, from 1799,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1748,305   [megaman:1]
-      -> standing at x 1367-1769, y 305
-   3. jump (held 2 ticks), holding left, from 1367,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1316,305   [megaman:1]
-      -> standing at x 263-1337, y 305
-   4. jump (held 21 ticks), holding left, from 263,305; lands at 110,273
-      -> standing at x 106-134, y 273
-   5. jump (held 21 ticks), holding left, from 106,273, through the Metroid door at 0,240, the Metroid door at 1896,240; lands at 25,305   [megaman:1]
-      -> standing at x 0-30, y 305 (where a gate is)
+     [as the other ways in make the room, as coming in at 1856,304 makes the room] coming in at 1856,304
+   1. coming in: holding nothing, from 1856,304; lands at 1856,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as the other ways in make the room, as coming in at 1856,304 makes the room] standing at x 1799-1920, y 305
+   2. jump (held 2 ticks), holding left, from 1799,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1748,305 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [megaman:1]
+      -> [as the other ways in make the room, as coming in at 1856,304 makes the room] standing at x 1367-1769, y 305
+   3. jump (held 2 ticks), holding left, from 1367,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1316,305 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [megaman:1]
+      -> [as the other ways in make the room, as coming in at 1856,304 makes the room] standing at x 263-1337, y 305
+   4. jump (held 21 ticks), holding left, from 263,305; lands at 110,273 {move ch=1 dir=-1 jumpAt=0}
+      -> [as the other ways in make the room, as coming in at 1856,304 makes the room] standing at x 106-134, y 273
+   5. jump (held 21 ticks), holding left, from 106,273, through the Metroid door at 0,240; lands at 25,305 {move ch=1 dir=-1 jumpAt=0}   [megaman:1]
+      -> [as the other ways in make the room, as coming in at 1856,304 makes the room] standing at x 0-30, y 305 (where a gate is)
    6. standing at 0,305, goes into it
       -> out 0,272
 how in 1856,304 -> out 0,272: samus:1
-     coming in at 1856,304
-   1. coming in: holding nothing, from 1856,304; lands at 1856,305
-      -> standing at x 1799-1889, y 305
-   2. jump (held 2 ticks), holding left, from 1799,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1748,305   [samus:1]
-      -> standing at x 1367-1769, y 305
-   3. jump (held 2 ticks), holding left, from 1367,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1316,305   [samus:1]
-      -> standing at x 263-1337, y 305
-   4. jump (held 21 ticks), holding left, from 263,305; lands at 110,273
-      -> standing at x 106-134, y 273
-   5. jump (held 21 ticks), holding left, from 106,273, through the Metroid door at 0,240, the Metroid door at 1896,240; lands at 25,305   [samus:1]
-      -> standing at x 0-30, y 305 (where a gate is)
+     [as the other ways in make the room, as coming in at 1856,304 makes the room] coming in at 1856,304
+   1. coming in: holding nothing, from 1856,304; lands at 1856,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as the other ways in make the room, as coming in at 1856,304 makes the room] standing at x 1799-1920, y 305
+   2. jump (held 2 ticks), holding left, from 1799,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1748,305 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [samus:1]
+      -> [as the other ways in make the room, as coming in at 1856,304 makes the room] standing at x 1367-1769, y 305
+   3. jump (held 2 ticks), holding left, from 1367,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1316,305 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}   [samus:1]
+      -> [as the other ways in make the room, as coming in at 1856,304 makes the room] standing at x 263-1337, y 305
+   4. jump (held 21 ticks), holding left, from 263,305; lands at 110,273 {move ch=1 dir=-1 jumpAt=0}
+      -> [as the other ways in make the room, as coming in at 1856,304 makes the room] standing at x 106-134, y 273
+   5. jump (held 21 ticks), holding left, from 106,273, through the Metroid door at 0,240; lands at 25,305 {move ch=1 dir=-1 jumpAt=0}   [samus:1]
+      -> [as the other ways in make the room, as coming in at 1856,304 makes the room] standing at x 0-30, y 305 (where a gate is)
    6. standing at 0,305, goes into it
       -> out 0,272
-how in 1856,304 -> out 1904,272: link:1
-     coming in at 1856,304
-   1. coming in: holding nothing, from 1856,304; lands at 1856,305
-      -> standing at x 1799-1889, y 305
-   2. jump (held 2 ticks), holding left, from 1799,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1748,305   [link:1]
-      -> standing at x 1367-1769, y 305
-   3. jump (held 2 ticks), holding left, from 1367,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1316,305   [link:1]
-      -> standing at x 263-1337, y 305
-   4. running right, walk off the edge, holding right once in the air, from 1168,305, through the Metroid door at 0,240, the Metroid door at 1896,240, the oRndTrap at 1344,240, ...; touches it on the way   [link:1]
-      -> out 1904,272
-how in 1856,304 -> out 1904,272: belmont:1
-     coming in at 1856,304
-   1. coming in: holding nothing, from 1856,304; lands at 1856,305
-      -> standing at x 1799-1889, y 305
-   2. jump (held 2 ticks), holding left, from 1799,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1748,305   [belmont:1]
-      -> standing at x 1367-1769, y 305
-   3. jump (held 2 ticks), holding left, from 1367,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1316,305   [belmont:1]
-      -> standing at x 263-1337, y 305
-   4. running right, walk off the edge, holding right once in the air, from 1168,305, through the Metroid door at 0,240, the Metroid door at 1896,240, the oRndTrap at 1344,240, ...; touches it on the way   [belmont:1]
-      -> out 1904,272
-how in 1856,304 -> out 1904,272: megaman:1
-     coming in at 1856,304
-   1. coming in: holding nothing, from 1856,304; lands at 1856,305
-      -> standing at x 1799-1889, y 305
-   2. jump (held 2 ticks), holding left, from 1799,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1748,305   [megaman:1]
-      -> standing at x 1367-1769, y 305
-   3. jump (held 2 ticks), holding left, from 1367,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1316,305   [megaman:1]
-      -> standing at x 263-1337, y 305
-   4. running right, walk off the edge, holding right once in the air, from 1168,305, through the Metroid door at 0,240, the Metroid door at 1896,240, the oRndTrap at 1344,240, ...; touches it on the way   [megaman:1]
-      -> out 1904,272
-how in 1856,304 -> out 1904,272: samus:1
-     coming in at 1856,304
-   1. coming in: holding nothing, from 1856,304; lands at 1856,305
-      -> standing at x 1799-1889, y 305
-   2. jump (held 2 ticks), holding left, from 1799,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1748,305   [samus:1]
-      -> standing at x 1367-1769, y 305
-   3. jump (held 2 ticks), holding left, from 1367,305, through the oRndTrap at 1344,240, the oRndTrap at 1776,240; lands at 1316,305   [samus:1]
-      -> standing at x 263-1337, y 305
-   4. running right, walk off the edge, holding right once in the air, from 1168,305, through the Metroid door at 0,240, the Metroid door at 1896,240, the oRndTrap at 1344,240, ...; touches it on the way   [samus:1]
+how in 1856,304 -> out 1904,272: -
+     [as the other ways in make the room, as coming in at 1856,304 makes the room] coming in at 1856,304
+   1. coming in: holding nothing, from 1856,304; lands at 1856,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as the other ways in make the room, as coming in at 1856,304 makes the room] standing at x 1799-1920, y 305
+   2. standing at 1902,305, goes into it
       -> out 1904,272

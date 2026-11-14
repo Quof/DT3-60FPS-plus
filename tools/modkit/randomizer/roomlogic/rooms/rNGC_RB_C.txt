@@ -19,416 +19,1887 @@ out 912,512   # to rNGC_RB_EleA at 48,192; the player goes into it
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 2 50   # treasure chest 50, at 856,99
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 88,608 [rb 0]
-  out 80,576 [rb 0]    -
-  out 848,320          never
-  out 912,512 [rb 0]   -
-  loc 2 50             never
+  out 80,576 [rb 0] -
+  out 80,576 [rb 1] megaman:1 | samus:1 | link:2 | belmont:2
+  out 848,320 [rb 0] -
+  out 848,320 [rb 1] megaman:1 | samus:1 | link:2 | belmont:2
+  out 912,512 [rb 0] -
+  out 912,512 [rb 1] megaman:1 | samus:1 | link:2 | belmont:2
+  loc 2 50       djump,adash
 from in 88,608 [rb 1]
-  out 80,576 [rb 1]    -
-  out 848,320          never
-  out 912,512 [rb 1]   -
-  loc 2 50             never
+  out 80,576 [rb 0] megaman:1 | samus:1 | link:2 | belmont:2
+  out 80,576 [rb 1] -
+  out 848,320 [rb 0] megaman:1 | samus:1 | link:2 | belmont:2
+  out 848,320 [rb 1] -
+  out 912,512 [rb 0] megaman:1 | samus:1 | link:2 | belmont:2
+  out 912,512 [rb 1] -
+  loc 2 50       djump,adash,megaman:1 | djump,adash,samus:1 | djump,adash,link:2 | djump,adash,belmont:2
 from in 856,352 [rb 0]
-  out 80,576 [rb 0]    -
-  out 80,576 [rb 1]    megaman:1 | samus:1 | link:2 | belmont:2
-  out 848,320 [rb 0]   -
-  out 848,320 [rb 1]   megaman:1 | samus:1 | link:2 | belmont:2
-  out 912,512 [rb 0]   -
-  out 912,512 [rb 1]   megaman:1 | samus:1 | link:2 | belmont:2
-  loc 2 50             djump,adash
+  out 80,576 [rb 0] -
+  out 80,576 [rb 1] megaman:1 | samus:1 | link:2 | belmont:2
+  out 848,320 [rb 0] -
+  out 848,320 [rb 1] megaman:1 | samus:1 | link:2 | belmont:2
+  out 912,512 [rb 0] -
+  out 912,512 [rb 1] megaman:1 | samus:1 | link:2 | belmont:2
+  loc 2 50       djump,adash
 from in 856,352 [rb 1]
-  out 80,576 [rb 1]    -
-  out 848,320 [rb 1]   -
-  out 912,512 [rb 1]   -
-  loc 2 50             never
+  out 80,576 [rb 0] megaman:1 | samus:1 | link:2 | belmont:2
+  out 80,576 [rb 1] -
+  out 848,320 [rb 0] megaman:1 | samus:1 | link:2 | belmont:2
+  out 848,320 [rb 1] -
+  out 912,512 [rb 0] megaman:1 | samus:1 | link:2 | belmont:2
+  out 912,512 [rb 1] -
+  loc 2 50       djump,adash,megaman:1 | djump,adash,samus:1 | djump,adash,link:2 | djump,adash,belmont:2
 from in 880,544 [rb 0]
-  out 80,576 [rb 0]    -
-  out 848,320          never
-  out 912,512 [rb 0]   -
-  loc 2 50             never
+  out 80,576 [rb 0] -
+  out 80,576 [rb 1] megaman:1 | samus:1 | link:2 | belmont:2
+  out 848,320 [rb 0] -
+  out 848,320 [rb 1] megaman:1 | samus:1 | link:2 | belmont:2
+  out 912,512 [rb 0] -
+  out 912,512 [rb 1] megaman:1 | samus:1 | link:2 | belmont:2
+  loc 2 50       djump,adash
 from in 880,544 [rb 1]
-  out 80,576 [rb 1]    -
-  out 848,320          never
-  out 912,512 [rb 1]   -
-  loc 2 50             never
+  out 80,576 [rb 0] megaman:1 | samus:1 | link:2 | belmont:2
+  out 80,576 [rb 1] -
+  out 848,320 [rb 0] megaman:1 | samus:1 | link:2 | belmont:2
+  out 848,320 [rb 1] -
+  out 912,512 [rb 0] megaman:1 | samus:1 | link:2 | belmont:2
+  out 912,512 [rb 1] -
+  loc 2 50       djump,adash,megaman:1 | djump,adash,samus:1 | djump,adash,link:2 | djump,adash,belmont:2
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 88,608 [rb 0] -> out 80,576 [rb 0]: -
      [blue blocks solid] coming in at 88,608
-   1. coming in: holding nothing, from 88,608; lands at 88,609
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 39-761, y 609
    2. standing at 78,609, presses up at it
       -> out 80,576 [rb 0]
+how in 88,608 [rb 0] -> out 80,576 [rb 1]: megaman:1
+     [blue blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [megaman:1]
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   7. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   8. standing at 78,609, presses up at it
+      -> out 80,576 [rb 1]
+how in 88,608 [rb 0] -> out 80,576 [rb 1]: samus:1
+     [blue blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [samus:1]
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   7. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   8. standing at 78,609, presses up at it
+      -> out 80,576 [rb 1]
+how in 88,608 [rb 0] -> out 80,576 [rb 1]: link:2
+     [blue blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [link:2]
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   7. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   8. standing at 78,609, presses up at it
+      -> out 80,576 [rb 1]
+how in 88,608 [rb 0] -> out 80,576 [rb 1]: belmont:2
+     [blue blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [belmont:2]
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   7. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   8. standing at 78,609, presses up at it
+      -> out 80,576 [rb 1]
+how in 88,608 [rb 0] -> out 848,320 [rb 0]: -
+     [blue blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 352, and step off it to 474,353
+      -> [blue blocks solid] standing at x 474-889, y 353
+   4. standing at 846,353, presses up at it
+      -> out 848,320 [rb 0]
+how in 88,608 [rb 0] -> out 848,320 [rb 1]: megaman:1
+     [blue blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [megaman:1]
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   7. walk off the edge, holding right once in the air, from 282,97; lands at 495,353 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   8. standing at 846,353, presses up at it
+      -> out 848,320 [rb 1]
+how in 88,608 [rb 0] -> out 848,320 [rb 1]: samus:1
+     [blue blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [samus:1]
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   7. walk off the edge, holding right once in the air, from 282,97; lands at 495,353 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   8. standing at 846,353, presses up at it
+      -> out 848,320 [rb 1]
+how in 88,608 [rb 0] -> out 848,320 [rb 1]: link:2
+     [blue blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [link:2]
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   7. walk off the edge, holding right once in the air, from 282,97; lands at 495,353 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   8. standing at 846,353, presses up at it
+      -> out 848,320 [rb 1]
+how in 88,608 [rb 0] -> out 848,320 [rb 1]: belmont:2
+     [blue blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [belmont:2]
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   7. walk off the edge, holding right once in the air, from 282,97; lands at 495,353 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   8. standing at 846,353, presses up at it
+      -> out 848,320 [rb 1]
 how in 88,608 [rb 0] -> out 912,512 [rb 0]: -
      [blue blocks solid] coming in at 88,608
-   1. coming in: holding nothing, from 88,608; lands at 88,609
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 39-761, y 609
-   2. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545
+   2. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [blue blocks solid] standing at x 762-928, y 545
    3. standing at 910,545, goes into it
       -> out 912,512 [rb 0]
+how in 88,608 [rb 0] -> out 912,512 [rb 1]: megaman:1
+     [blue blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [megaman:1]
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   7. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   8. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [red blocks solid] standing at x 762-928, y 545
+   9. standing at 910,545, goes into it
+      -> out 912,512 [rb 1]
+how in 88,608 [rb 0] -> out 912,512 [rb 1]: samus:1
+     [blue blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [samus:1]
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   7. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   8. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [red blocks solid] standing at x 762-928, y 545
+   9. standing at 910,545, goes into it
+      -> out 912,512 [rb 1]
+how in 88,608 [rb 0] -> out 912,512 [rb 1]: link:2
+     [blue blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [link:2]
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   7. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   8. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [red blocks solid] standing at x 762-928, y 545
+   9. standing at 910,545, goes into it
+      -> out 912,512 [rb 1]
+how in 88,608 [rb 0] -> out 912,512 [rb 1]: belmont:2
+     [blue blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [belmont:2]
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   7. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   8. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [red blocks solid] standing at x 762-928, y 545
+   9. standing at 910,545, goes into it
+      -> out 912,512 [rb 1]
+how in 88,608 [rb 0] -> loc 2 50: djump,adash
+     [blue blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 474,97
+      -> [blue blocks solid] standing at x 474-582, y 97
+   4. walk off the edge, holding right once in the air, from 474,97; lands at 687,225 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 615-793, y 225
+   5. jump (held 14 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 26, from 792,225; touches it on the way {move ch=0 dir=1 jumpAt=0 jumpHold=14 djAt=16 adAt=26 maxT=120}   [djump,adash]
+      -> loc 2 50
+how in 88,608 [rb 1] -> out 80,576 [rb 0]: megaman:1
+     [red blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [megaman:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   8. standing at 78,609, presses up at it
+      -> out 80,576 [rb 0]
+how in 88,608 [rb 1] -> out 80,576 [rb 0]: samus:1
+     [red blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [samus:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   8. standing at 78,609, presses up at it
+      -> out 80,576 [rb 0]
+how in 88,608 [rb 1] -> out 80,576 [rb 0]: link:2
+     [red blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [link:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   8. standing at 78,609, presses up at it
+      -> out 80,576 [rb 0]
+how in 88,608 [rb 1] -> out 80,576 [rb 0]: belmont:2
+     [red blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [belmont:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   8. standing at 78,609, presses up at it
+      -> out 80,576 [rb 0]
 how in 88,608 [rb 1] -> out 80,576 [rb 1]: -
      [red blocks solid] coming in at 88,608
-   1. coming in: holding nothing, from 88,608; lands at 88,609
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 39-761, y 609
    2. standing at 78,609, presses up at it
       -> out 80,576 [rb 1]
+how in 88,608 [rb 1] -> out 848,320 [rb 0]: megaman:1
+     [red blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [megaman:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. running right, jump (held 2 ticks), holding right, from 400,353; lands at 502,353 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [blue blocks solid] standing at x 474-889, y 353
+   8. standing at 846,353, presses up at it
+      -> out 848,320 [rb 0]
+how in 88,608 [rb 1] -> out 848,320 [rb 0]: samus:1
+     [red blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [samus:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. running right, jump (held 2 ticks), holding right, from 400,353; lands at 502,353 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [blue blocks solid] standing at x 474-889, y 353
+   8. standing at 846,353, presses up at it
+      -> out 848,320 [rb 0]
+how in 88,608 [rb 1] -> out 848,320 [rb 0]: link:2
+     [red blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [link:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. running right, jump (held 2 ticks), holding right, from 400,353; lands at 502,353 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [blue blocks solid] standing at x 474-889, y 353
+   8. standing at 846,353, presses up at it
+      -> out 848,320 [rb 0]
+how in 88,608 [rb 1] -> out 848,320 [rb 0]: belmont:2
+     [red blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [belmont:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. running right, jump (held 2 ticks), holding right, from 400,353; lands at 502,353 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [blue blocks solid] standing at x 474-889, y 353
+   8. standing at 846,353, presses up at it
+      -> out 848,320 [rb 0]
+how in 88,608 [rb 1] -> out 848,320 [rb 1]: -
+     [red blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 352, and step off it to 474,353
+      -> [red blocks solid] standing at x 474-889, y 353
+   4. standing at 846,353, presses up at it
+      -> out 848,320 [rb 1]
+how in 88,608 [rb 1] -> out 912,512 [rb 0]: megaman:1
+     [red blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [megaman:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   8. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 762-928, y 545
+   9. standing at 910,545, goes into it
+      -> out 912,512 [rb 0]
+how in 88,608 [rb 1] -> out 912,512 [rb 0]: samus:1
+     [red blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [samus:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   8. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 762-928, y 545
+   9. standing at 910,545, goes into it
+      -> out 912,512 [rb 0]
+how in 88,608 [rb 1] -> out 912,512 [rb 0]: link:2
+     [red blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [link:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   8. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 762-928, y 545
+   9. standing at 910,545, goes into it
+      -> out 912,512 [rb 0]
+how in 88,608 [rb 1] -> out 912,512 [rb 0]: belmont:2
+     [red blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [belmont:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   8. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 762-928, y 545
+   9. standing at 910,545, goes into it
+      -> out 912,512 [rb 0]
 how in 88,608 [rb 1] -> out 912,512 [rb 1]: -
      [red blocks solid] coming in at 88,608
-   1. coming in: holding nothing, from 88,608; lands at 88,609
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 39-761, y 609
-   2. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545
+   2. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [red blocks solid] standing at x 762-928, y 545
    3. standing at 910,545, goes into it
       -> out 912,512 [rb 1]
+how in 88,608 [rb 1] -> loc 2 50: djump,adash,megaman:1
+     [red blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [megaman:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 282-422, y 97
+   7. running right, jump (held 6 ticks), holding right, from 400,97; lands at 488,97 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [blue blocks solid] standing at x 474-582, y 97
+   8. walk off the edge, holding right once in the air, from 474,97; lands at 687,225 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 615-793, y 225
+   9. jump (held 14 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 26, from 792,225; touches it on the way {move ch=0 dir=1 jumpAt=0 jumpHold=14 djAt=16 adAt=26 maxT=120}   [djump,adash]
+      -> loc 2 50
+how in 88,608 [rb 1] -> loc 2 50: djump,adash,samus:1
+     [red blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [samus:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 282-422, y 97
+   7. running right, jump (held 6 ticks), holding right, from 400,97; lands at 488,97 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [blue blocks solid] standing at x 474-582, y 97
+   8. walk off the edge, holding right once in the air, from 474,97; lands at 687,225 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 615-793, y 225
+   9. jump (held 14 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 26, from 792,225; touches it on the way {move ch=0 dir=1 jumpAt=0 jumpHold=14 djAt=16 adAt=26 maxT=120}   [djump,adash]
+      -> loc 2 50
+how in 88,608 [rb 1] -> loc 2 50: djump,adash,link:2
+     [red blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [link:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 282-422, y 97
+   7. running right, jump (held 6 ticks), holding right, from 400,97; lands at 488,97 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [blue blocks solid] standing at x 474-582, y 97
+   8. walk off the edge, holding right once in the air, from 474,97; lands at 687,225 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 615-793, y 225
+   9. jump (held 14 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 26, from 792,225; touches it on the way {move ch=0 dir=1 jumpAt=0 jumpHold=14 djAt=16 adAt=26 maxT=120}   [djump,adash]
+      -> loc 2 50
+how in 88,608 [rb 1] -> loc 2 50: djump,adash,belmont:2
+     [red blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   2. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [belmont:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 282-422, y 97
+   7. running right, jump (held 6 ticks), holding right, from 400,97; lands at 488,97 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [blue blocks solid] standing at x 474-582, y 97
+   8. walk off the edge, holding right once in the air, from 474,97; lands at 687,225 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 615-793, y 225
+   9. jump (held 14 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 26, from 792,225; touches it on the way {move ch=0 dir=1 jumpAt=0 jumpHold=14 djAt=16 adAt=26 maxT=120}   [djump,adash]
+      -> loc 2 50
 how in 856,352 [rb 0] -> out 80,576 [rb 0]: -
      [blue blocks solid] coming in at 856,352
-   1. coming in: holding nothing, from 856,352; lands at 856,353
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 474-889, y 353
-   2. walk off the edge, holding left once in the air, from 474,353; lands at 401,609
+   2. walk off the edge, holding left once in the air, from 474,353; lands at 401,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 39-761, y 609
    3. standing at 78,609, presses up at it
       -> out 80,576 [rb 0]
 how in 856,352 [rb 0] -> out 80,576 [rb 1]: megaman:1
      [blue blocks solid] coming in at 856,352
-   1. coming in: holding nothing, from 856,352; lands at 856,353
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 474-889, y 353
-   2. jump (held 2 ticks), holding left, from 474,353; lands at 394,353
-      -> [blue blocks solid] standing at x 103-422, y 353
-   3. jump (held 21 ticks), holding left, from 103,353; lands at 39,289
-      -> [blue blocks solid] standing at x 39-102, y 289
-   4. jump (held 21 ticks), holding right, from 39,289; lands at 170,225
-      -> [blue blocks solid] standing at x 154-217, y 225
-   5. jump (held 21 ticks), holding right, from 154,225; lands at 281,161
+   2. step onto the elevator at 474,353
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 218-281, y 161
-   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [megaman:1]
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [megaman:1]
       -> [red blocks solid] standing at x 218-281, y 161
-   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 282-422, y 97
-   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609
+   7. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 39-761, y 609
-   9. standing at 78,609, presses up at it
+   8. standing at 78,609, presses up at it
       -> out 80,576 [rb 1]
 how in 856,352 [rb 0] -> out 80,576 [rb 1]: samus:1
      [blue blocks solid] coming in at 856,352
-   1. coming in: holding nothing, from 856,352; lands at 856,353
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 474-889, y 353
-   2. jump (held 2 ticks), holding left, from 474,353; lands at 394,353
-      -> [blue blocks solid] standing at x 103-422, y 353
-   3. jump (held 21 ticks), holding left, from 103,353; lands at 39,289
-      -> [blue blocks solid] standing at x 39-102, y 289
-   4. jump (held 21 ticks), holding right, from 39,289; lands at 170,225
-      -> [blue blocks solid] standing at x 154-217, y 225
-   5. jump (held 21 ticks), holding right, from 154,225; lands at 281,161
+   2. step onto the elevator at 474,353
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 218-281, y 161
-   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [samus:1]
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [samus:1]
       -> [red blocks solid] standing at x 218-281, y 161
-   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 282-422, y 97
-   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609
+   7. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 39-761, y 609
-   9. standing at 78,609, presses up at it
+   8. standing at 78,609, presses up at it
       -> out 80,576 [rb 1]
 how in 856,352 [rb 0] -> out 80,576 [rb 1]: link:2
      [blue blocks solid] coming in at 856,352
-   1. coming in: holding nothing, from 856,352; lands at 856,353
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 474-889, y 353
-   2. jump (held 2 ticks), holding left, from 474,353; lands at 394,353
-      -> [blue blocks solid] standing at x 103-422, y 353
-   3. jump (held 21 ticks), holding left, from 103,353; lands at 39,289
-      -> [blue blocks solid] standing at x 39-102, y 289
-   4. jump (held 21 ticks), holding right, from 39,289; lands at 170,225
-      -> [blue blocks solid] standing at x 154-217, y 225
-   5. jump (held 21 ticks), holding right, from 154,225; lands at 281,161
+   2. step onto the elevator at 474,353
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 218-281, y 161
-   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [link:2]
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [link:2]
       -> [red blocks solid] standing at x 218-281, y 161
-   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 282-422, y 97
-   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609
+   7. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 39-761, y 609
-   9. standing at 78,609, presses up at it
+   8. standing at 78,609, presses up at it
       -> out 80,576 [rb 1]
 how in 856,352 [rb 0] -> out 80,576 [rb 1]: belmont:2
      [blue blocks solid] coming in at 856,352
-   1. coming in: holding nothing, from 856,352; lands at 856,353
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 474-889, y 353
-   2. jump (held 2 ticks), holding left, from 474,353; lands at 394,353
-      -> [blue blocks solid] standing at x 103-422, y 353
-   3. jump (held 21 ticks), holding left, from 103,353; lands at 39,289
-      -> [blue blocks solid] standing at x 39-102, y 289
-   4. jump (held 21 ticks), holding right, from 39,289; lands at 170,225
-      -> [blue blocks solid] standing at x 154-217, y 225
-   5. jump (held 21 ticks), holding right, from 154,225; lands at 281,161
+   2. step onto the elevator at 474,353
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 218-281, y 161
-   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [belmont:2]
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [belmont:2]
       -> [red blocks solid] standing at x 218-281, y 161
-   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 282-422, y 97
-   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609
+   7. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 39-761, y 609
-   9. standing at 78,609, presses up at it
+   8. standing at 78,609, presses up at it
       -> out 80,576 [rb 1]
 how in 856,352 [rb 0] -> out 848,320 [rb 0]: -
      [blue blocks solid] coming in at 856,352
-   1. coming in: holding nothing, from 856,352; lands at 856,353
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 474-889, y 353
    2. standing at 846,353, presses up at it
       -> out 848,320 [rb 0]
 how in 856,352 [rb 0] -> out 848,320 [rb 1]: megaman:1
      [blue blocks solid] coming in at 856,352
-   1. coming in: holding nothing, from 856,352; lands at 856,353
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 474-889, y 353
-   2. jump (held 2 ticks), holding left, from 474,353; lands at 394,353
-      -> [blue blocks solid] standing at x 103-422, y 353
-   3. jump (held 21 ticks), holding left, from 103,353; lands at 39,289
-      -> [blue blocks solid] standing at x 39-102, y 289
-   4. jump (held 21 ticks), holding right, from 39,289; lands at 170,225
-      -> [blue blocks solid] standing at x 154-217, y 225
-   5. jump (held 21 ticks), holding right, from 154,225; lands at 281,161
+   2. step onto the elevator at 474,353
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 218-281, y 161
-   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [megaman:1]
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [megaman:1]
       -> [red blocks solid] standing at x 218-281, y 161
-   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 282-422, y 97
-   8. walk off the edge, holding right once in the air, from 282,97; lands at 495,353
+   7. walk off the edge, holding right once in the air, from 282,97; lands at 495,353 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 474-889, y 353
-   9. standing at 846,353, presses up at it
+   8. standing at 846,353, presses up at it
       -> out 848,320 [rb 1]
 how in 856,352 [rb 0] -> out 848,320 [rb 1]: samus:1
      [blue blocks solid] coming in at 856,352
-   1. coming in: holding nothing, from 856,352; lands at 856,353
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 474-889, y 353
-   2. jump (held 2 ticks), holding left, from 474,353; lands at 394,353
-      -> [blue blocks solid] standing at x 103-422, y 353
-   3. jump (held 21 ticks), holding left, from 103,353; lands at 39,289
-      -> [blue blocks solid] standing at x 39-102, y 289
-   4. jump (held 21 ticks), holding right, from 39,289; lands at 170,225
-      -> [blue blocks solid] standing at x 154-217, y 225
-   5. jump (held 21 ticks), holding right, from 154,225; lands at 281,161
+   2. step onto the elevator at 474,353
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 218-281, y 161
-   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [samus:1]
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [samus:1]
       -> [red blocks solid] standing at x 218-281, y 161
-   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 282-422, y 97
-   8. walk off the edge, holding right once in the air, from 282,97; lands at 495,353
+   7. walk off the edge, holding right once in the air, from 282,97; lands at 495,353 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 474-889, y 353
-   9. standing at 846,353, presses up at it
+   8. standing at 846,353, presses up at it
       -> out 848,320 [rb 1]
 how in 856,352 [rb 0] -> out 848,320 [rb 1]: link:2
      [blue blocks solid] coming in at 856,352
-   1. coming in: holding nothing, from 856,352; lands at 856,353
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 474-889, y 353
-   2. jump (held 2 ticks), holding left, from 474,353; lands at 394,353
-      -> [blue blocks solid] standing at x 103-422, y 353
-   3. jump (held 21 ticks), holding left, from 103,353; lands at 39,289
-      -> [blue blocks solid] standing at x 39-102, y 289
-   4. jump (held 21 ticks), holding right, from 39,289; lands at 170,225
-      -> [blue blocks solid] standing at x 154-217, y 225
-   5. jump (held 21 ticks), holding right, from 154,225; lands at 281,161
+   2. step onto the elevator at 474,353
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 218-281, y 161
-   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [link:2]
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [link:2]
       -> [red blocks solid] standing at x 218-281, y 161
-   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 282-422, y 97
-   8. walk off the edge, holding right once in the air, from 282,97; lands at 495,353
+   7. walk off the edge, holding right once in the air, from 282,97; lands at 495,353 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 474-889, y 353
-   9. standing at 846,353, presses up at it
+   8. standing at 846,353, presses up at it
       -> out 848,320 [rb 1]
 how in 856,352 [rb 0] -> out 848,320 [rb 1]: belmont:2
      [blue blocks solid] coming in at 856,352
-   1. coming in: holding nothing, from 856,352; lands at 856,353
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 474-889, y 353
-   2. jump (held 2 ticks), holding left, from 474,353; lands at 394,353
-      -> [blue blocks solid] standing at x 103-422, y 353
-   3. jump (held 21 ticks), holding left, from 103,353; lands at 39,289
-      -> [blue blocks solid] standing at x 39-102, y 289
-   4. jump (held 21 ticks), holding right, from 39,289; lands at 170,225
-      -> [blue blocks solid] standing at x 154-217, y 225
-   5. jump (held 21 ticks), holding right, from 154,225; lands at 281,161
+   2. step onto the elevator at 474,353
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 218-281, y 161
-   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [belmont:2]
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [belmont:2]
       -> [red blocks solid] standing at x 218-281, y 161
-   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 282-422, y 97
-   8. walk off the edge, holding right once in the air, from 282,97; lands at 495,353
+   7. walk off the edge, holding right once in the air, from 282,97; lands at 495,353 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 474-889, y 353
-   9. standing at 846,353, presses up at it
+   8. standing at 846,353, presses up at it
       -> out 848,320 [rb 1]
 how in 856,352 [rb 0] -> out 912,512 [rb 0]: -
      [blue blocks solid] coming in at 856,352
-   1. coming in: holding nothing, from 856,352; lands at 856,353
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 474-889, y 353
-   2. walk off the edge, holding left once in the air, from 474,353; lands at 401,609
+   2. walk off the edge, holding left once in the air, from 474,353; lands at 401,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 39-761, y 609
-   3. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545
+   3. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [blue blocks solid] standing at x 762-928, y 545
    4. standing at 910,545, goes into it
       -> out 912,512 [rb 0]
 how in 856,352 [rb 0] -> out 912,512 [rb 1]: megaman:1
      [blue blocks solid] coming in at 856,352
-   1. coming in: holding nothing, from 856,352; lands at 856,353
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 474-889, y 353
-   2. jump (held 2 ticks), holding left, from 474,353; lands at 394,353
-      -> [blue blocks solid] standing at x 103-422, y 353
-   3. jump (held 21 ticks), holding left, from 103,353; lands at 39,289
-      -> [blue blocks solid] standing at x 39-102, y 289
-   4. jump (held 21 ticks), holding right, from 39,289; lands at 170,225
-      -> [blue blocks solid] standing at x 154-217, y 225
-   5. jump (held 21 ticks), holding right, from 154,225; lands at 281,161
+   2. step onto the elevator at 474,353
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 218-281, y 161
-   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [megaman:1]
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [megaman:1]
       -> [red blocks solid] standing at x 218-281, y 161
-   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 282-422, y 97
-   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609
+   7. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 39-761, y 609
-   9. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545
+   8. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [red blocks solid] standing at x 762-928, y 545
-  10. standing at 910,545, goes into it
+   9. standing at 910,545, goes into it
       -> out 912,512 [rb 1]
 how in 856,352 [rb 0] -> out 912,512 [rb 1]: samus:1
      [blue blocks solid] coming in at 856,352
-   1. coming in: holding nothing, from 856,352; lands at 856,353
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 474-889, y 353
-   2. jump (held 2 ticks), holding left, from 474,353; lands at 394,353
-      -> [blue blocks solid] standing at x 103-422, y 353
-   3. jump (held 21 ticks), holding left, from 103,353; lands at 39,289
-      -> [blue blocks solid] standing at x 39-102, y 289
-   4. jump (held 21 ticks), holding right, from 39,289; lands at 170,225
-      -> [blue blocks solid] standing at x 154-217, y 225
-   5. jump (held 21 ticks), holding right, from 154,225; lands at 281,161
+   2. step onto the elevator at 474,353
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 218-281, y 161
-   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [samus:1]
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [samus:1]
       -> [red blocks solid] standing at x 218-281, y 161
-   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 282-422, y 97
-   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609
+   7. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 39-761, y 609
-   9. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545
+   8. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [red blocks solid] standing at x 762-928, y 545
-  10. standing at 910,545, goes into it
+   9. standing at 910,545, goes into it
       -> out 912,512 [rb 1]
 how in 856,352 [rb 0] -> out 912,512 [rb 1]: link:2
      [blue blocks solid] coming in at 856,352
-   1. coming in: holding nothing, from 856,352; lands at 856,353
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 474-889, y 353
-   2. jump (held 2 ticks), holding left, from 474,353; lands at 394,353
-      -> [blue blocks solid] standing at x 103-422, y 353
-   3. jump (held 21 ticks), holding left, from 103,353; lands at 39,289
-      -> [blue blocks solid] standing at x 39-102, y 289
-   4. jump (held 21 ticks), holding right, from 39,289; lands at 170,225
-      -> [blue blocks solid] standing at x 154-217, y 225
-   5. jump (held 21 ticks), holding right, from 154,225; lands at 281,161
+   2. step onto the elevator at 474,353
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 218-281, y 161
-   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [link:2]
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [link:2]
       -> [red blocks solid] standing at x 218-281, y 161
-   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 282-422, y 97
-   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609
+   7. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 39-761, y 609
-   9. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545
+   8. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [red blocks solid] standing at x 762-928, y 545
-  10. standing at 910,545, goes into it
+   9. standing at 910,545, goes into it
       -> out 912,512 [rb 1]
 how in 856,352 [rb 0] -> out 912,512 [rb 1]: belmont:2
      [blue blocks solid] coming in at 856,352
-   1. coming in: holding nothing, from 856,352; lands at 856,353
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 474-889, y 353
-   2. jump (held 2 ticks), holding left, from 474,353; lands at 394,353
-      -> [blue blocks solid] standing at x 103-422, y 353
-   3. jump (held 21 ticks), holding left, from 103,353; lands at 39,289
-      -> [blue blocks solid] standing at x 39-102, y 289
-   4. jump (held 21 ticks), holding right, from 39,289; lands at 170,225
-      -> [blue blocks solid] standing at x 154-217, y 225
-   5. jump (held 21 ticks), holding right, from 154,225; lands at 281,161
+   2. step onto the elevator at 474,353
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 218-281, y 161
-   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [belmont:2]
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [belmont:2]
       -> [red blocks solid] standing at x 218-281, y 161
-   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
       -> [red blocks solid] standing at x 282-422, y 97
-   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609
+   7. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 39-761, y 609
-   9. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545
+   8. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [red blocks solid] standing at x 762-928, y 545
-  10. standing at 910,545, goes into it
+   9. standing at 910,545, goes into it
       -> out 912,512 [rb 1]
 how in 856,352 [rb 0] -> loc 2 50: djump,adash
      [blue blocks solid] coming in at 856,352
-   1. coming in: holding nothing, from 856,352; lands at 856,353
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 474-889, y 353
-   2. jump (held 2 ticks), holding left, from 474,353; lands at 394,353
-      -> [blue blocks solid] standing at x 103-422, y 353
-   3. jump (held 21 ticks), holding left, from 103,353; lands at 39,289
-      -> [blue blocks solid] standing at x 39-102, y 289
-   4. jump (held 21 ticks), holding right, from 39,289; lands at 170,225
-      -> [blue blocks solid] standing at x 154-217, y 225
-   5. jump (held 21 ticks), holding right, from 154,225; lands at 281,161
-      -> [blue blocks solid] standing at x 218-281, y 161
-   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97
-      -> [blue blocks solid] standing at x 282-422, y 97
-   7. running right, jump (held 6 ticks), holding right, from 400,97; lands at 488,97
+   2. step onto the elevator at 474,353
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 474,97
       -> [blue blocks solid] standing at x 474-582, y 97
-   8. walk off the edge, holding right once in the air, from 474,97; lands at 687,225
+   4. walk off the edge, holding right once in the air, from 474,97; lands at 687,225 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 615-793, y 225
-   9. jump (held 14 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 26, from 792,225; touches it on the way   [djump,adash]
+   5. jump (held 14 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 26, from 792,225; touches it on the way {move ch=0 dir=1 jumpAt=0 jumpHold=14 djAt=16 adAt=26 maxT=120}   [djump,adash]
       -> loc 2 50
+how in 856,352 [rb 1] -> out 80,576 [rb 0]: megaman:1
+     [red blocks solid] coming in at 856,352
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   2. step onto the elevator at 474,353
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [megaman:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   8. standing at 78,609, presses up at it
+      -> out 80,576 [rb 0]
+how in 856,352 [rb 1] -> out 80,576 [rb 0]: samus:1
+     [red blocks solid] coming in at 856,352
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   2. step onto the elevator at 474,353
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [samus:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   8. standing at 78,609, presses up at it
+      -> out 80,576 [rb 0]
+how in 856,352 [rb 1] -> out 80,576 [rb 0]: link:2
+     [red blocks solid] coming in at 856,352
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   2. step onto the elevator at 474,353
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [link:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   8. standing at 78,609, presses up at it
+      -> out 80,576 [rb 0]
+how in 856,352 [rb 1] -> out 80,576 [rb 0]: belmont:2
+     [red blocks solid] coming in at 856,352
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   2. step onto the elevator at 474,353
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [belmont:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   8. standing at 78,609, presses up at it
+      -> out 80,576 [rb 0]
 how in 856,352 [rb 1] -> out 80,576 [rb 1]: -
      [red blocks solid] coming in at 856,352
-   1. coming in: holding nothing, from 856,352; lands at 856,353
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 474-889, y 353
-   2. walk off the edge, holding left once in the air, from 474,353; lands at 401,609
+   2. walk off the edge, holding left once in the air, from 474,353; lands at 401,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 39-761, y 609
    3. standing at 78,609, presses up at it
       -> out 80,576 [rb 1]
+how in 856,352 [rb 1] -> out 848,320 [rb 0]: megaman:1
+     [red blocks solid] coming in at 856,352
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   2. step onto the elevator at 474,353
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [megaman:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. running right, jump (held 2 ticks), holding right, from 400,353; lands at 502,353 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [blue blocks solid] standing at x 474-889, y 353
+   8. standing at 846,353, presses up at it
+      -> out 848,320 [rb 0]
+how in 856,352 [rb 1] -> out 848,320 [rb 0]: samus:1
+     [red blocks solid] coming in at 856,352
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   2. step onto the elevator at 474,353
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [samus:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. running right, jump (held 2 ticks), holding right, from 400,353; lands at 502,353 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [blue blocks solid] standing at x 474-889, y 353
+   8. standing at 846,353, presses up at it
+      -> out 848,320 [rb 0]
+how in 856,352 [rb 1] -> out 848,320 [rb 0]: link:2
+     [red blocks solid] coming in at 856,352
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   2. step onto the elevator at 474,353
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [link:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. running right, jump (held 2 ticks), holding right, from 400,353; lands at 502,353 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [blue blocks solid] standing at x 474-889, y 353
+   8. standing at 846,353, presses up at it
+      -> out 848,320 [rb 0]
+how in 856,352 [rb 1] -> out 848,320 [rb 0]: belmont:2
+     [red blocks solid] coming in at 856,352
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   2. step onto the elevator at 474,353
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [belmont:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. running right, jump (held 2 ticks), holding right, from 400,353; lands at 502,353 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [blue blocks solid] standing at x 474-889, y 353
+   8. standing at 846,353, presses up at it
+      -> out 848,320 [rb 0]
 how in 856,352 [rb 1] -> out 848,320 [rb 1]: -
      [red blocks solid] coming in at 856,352
-   1. coming in: holding nothing, from 856,352; lands at 856,353
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 474-889, y 353
    2. standing at 846,353, presses up at it
       -> out 848,320 [rb 1]
+how in 856,352 [rb 1] -> out 912,512 [rb 0]: megaman:1
+     [red blocks solid] coming in at 856,352
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   2. step onto the elevator at 474,353
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [megaman:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   8. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 762-928, y 545
+   9. standing at 910,545, goes into it
+      -> out 912,512 [rb 0]
+how in 856,352 [rb 1] -> out 912,512 [rb 0]: samus:1
+     [red blocks solid] coming in at 856,352
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   2. step onto the elevator at 474,353
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [samus:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   8. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 762-928, y 545
+   9. standing at 910,545, goes into it
+      -> out 912,512 [rb 0]
+how in 856,352 [rb 1] -> out 912,512 [rb 0]: link:2
+     [red blocks solid] coming in at 856,352
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   2. step onto the elevator at 474,353
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [link:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   8. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 762-928, y 545
+   9. standing at 910,545, goes into it
+      -> out 912,512 [rb 0]
+how in 856,352 [rb 1] -> out 912,512 [rb 0]: belmont:2
+     [red blocks solid] coming in at 856,352
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   2. step onto the elevator at 474,353
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [belmont:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   7. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   8. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 762-928, y 545
+   9. standing at 910,545, goes into it
+      -> out 912,512 [rb 0]
 how in 856,352 [rb 1] -> out 912,512 [rb 1]: -
      [red blocks solid] coming in at 856,352
-   1. coming in: holding nothing, from 856,352; lands at 856,353
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 474-889, y 353
-   2. walk off the edge, holding left once in the air, from 474,353; lands at 401,609
+   2. walk off the edge, holding left once in the air, from 474,353; lands at 401,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 39-761, y 609
-   3. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545
+   3. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
       -> [red blocks solid] standing at x 762-928, y 545
    4. standing at 910,545, goes into it
       -> out 912,512 [rb 1]
+how in 856,352 [rb 1] -> loc 2 50: djump,adash,megaman:1
+     [red blocks solid] coming in at 856,352
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   2. step onto the elevator at 474,353
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [megaman:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 282-422, y 97
+   7. running right, jump (held 6 ticks), holding right, from 400,97; lands at 488,97 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [blue blocks solid] standing at x 474-582, y 97
+   8. walk off the edge, holding right once in the air, from 474,97; lands at 687,225 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 615-793, y 225
+   9. jump (held 14 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 26, from 792,225; touches it on the way {move ch=0 dir=1 jumpAt=0 jumpHold=14 djAt=16 adAt=26 maxT=120}   [djump,adash]
+      -> loc 2 50
+how in 856,352 [rb 1] -> loc 2 50: djump,adash,samus:1
+     [red blocks solid] coming in at 856,352
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   2. step onto the elevator at 474,353
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [samus:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 282-422, y 97
+   7. running right, jump (held 6 ticks), holding right, from 400,97; lands at 488,97 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [blue blocks solid] standing at x 474-582, y 97
+   8. walk off the edge, holding right once in the air, from 474,97; lands at 687,225 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 615-793, y 225
+   9. jump (held 14 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 26, from 792,225; touches it on the way {move ch=0 dir=1 jumpAt=0 jumpHold=14 djAt=16 adAt=26 maxT=120}   [djump,adash]
+      -> loc 2 50
+how in 856,352 [rb 1] -> loc 2 50: djump,adash,link:2
+     [red blocks solid] coming in at 856,352
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   2. step onto the elevator at 474,353
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [link:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 282-422, y 97
+   7. running right, jump (held 6 ticks), holding right, from 400,97; lands at 488,97 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [blue blocks solid] standing at x 474-582, y 97
+   8. walk off the edge, holding right once in the air, from 474,97; lands at 687,225 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 615-793, y 225
+   9. jump (held 14 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 26, from 792,225; touches it on the way {move ch=0 dir=1 jumpAt=0 jumpHold=14 djAt=16 adAt=26 maxT=120}   [djump,adash]
+      -> loc 2 50
+how in 856,352 [rb 1] -> loc 2 50: djump,adash,belmont:2
+     [red blocks solid] coming in at 856,352
+   1. coming in: holding nothing, from 856,352; lands at 856,353 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   2. step onto the elevator at 474,353
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   3. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   5. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [belmont:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 282-422, y 97
+   7. running right, jump (held 6 ticks), holding right, from 400,97; lands at 488,97 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [blue blocks solid] standing at x 474-582, y 97
+   8. walk off the edge, holding right once in the air, from 474,97; lands at 687,225 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 615-793, y 225
+   9. jump (held 14 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 26, from 792,225; touches it on the way {move ch=0 dir=1 jumpAt=0 jumpHold=14 djAt=16 adAt=26 maxT=120}   [djump,adash]
+      -> loc 2 50
 how in 880,544 [rb 0] -> out 80,576 [rb 0]: -
      [blue blocks solid] coming in at 880,544
-   1. coming in: holding nothing, from 880,544; lands at 880,545
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 762-928, y 545
-   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [blue blocks solid] standing at x 39-761, y 609
    3. standing at 78,609, presses up at it
       -> out 80,576 [rb 0]
+how in 880,544 [rb 0] -> out 80,576 [rb 1]: megaman:1
+     [blue blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [megaman:1]
+      -> [red blocks solid] standing at x 218-281, y 161
+   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   9. standing at 78,609, presses up at it
+      -> out 80,576 [rb 1]
+how in 880,544 [rb 0] -> out 80,576 [rb 1]: samus:1
+     [blue blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [samus:1]
+      -> [red blocks solid] standing at x 218-281, y 161
+   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   9. standing at 78,609, presses up at it
+      -> out 80,576 [rb 1]
+how in 880,544 [rb 0] -> out 80,576 [rb 1]: link:2
+     [blue blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [link:2]
+      -> [red blocks solid] standing at x 218-281, y 161
+   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   9. standing at 78,609, presses up at it
+      -> out 80,576 [rb 1]
+how in 880,544 [rb 0] -> out 80,576 [rb 1]: belmont:2
+     [blue blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [belmont:2]
+      -> [red blocks solid] standing at x 218-281, y 161
+   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   9. standing at 78,609, presses up at it
+      -> out 80,576 [rb 1]
+how in 880,544 [rb 0] -> out 848,320 [rb 0]: -
+     [blue blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 352, and step off it to 474,353
+      -> [blue blocks solid] standing at x 474-889, y 353
+   5. standing at 846,353, presses up at it
+      -> out 848,320 [rb 0]
+how in 880,544 [rb 0] -> out 848,320 [rb 1]: megaman:1
+     [blue blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [megaman:1]
+      -> [red blocks solid] standing at x 218-281, y 161
+   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   8. walk off the edge, holding right once in the air, from 282,97; lands at 495,353 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   9. standing at 846,353, presses up at it
+      -> out 848,320 [rb 1]
+how in 880,544 [rb 0] -> out 848,320 [rb 1]: samus:1
+     [blue blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [samus:1]
+      -> [red blocks solid] standing at x 218-281, y 161
+   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   8. walk off the edge, holding right once in the air, from 282,97; lands at 495,353 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   9. standing at 846,353, presses up at it
+      -> out 848,320 [rb 1]
+how in 880,544 [rb 0] -> out 848,320 [rb 1]: link:2
+     [blue blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [link:2]
+      -> [red blocks solid] standing at x 218-281, y 161
+   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   8. walk off the edge, holding right once in the air, from 282,97; lands at 495,353 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   9. standing at 846,353, presses up at it
+      -> out 848,320 [rb 1]
+how in 880,544 [rb 0] -> out 848,320 [rb 1]: belmont:2
+     [blue blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [belmont:2]
+      -> [red blocks solid] standing at x 218-281, y 161
+   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   8. walk off the edge, holding right once in the air, from 282,97; lands at 495,353 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 474-889, y 353
+   9. standing at 846,353, presses up at it
+      -> out 848,320 [rb 1]
 how in 880,544 [rb 0] -> out 912,512 [rb 0]: -
      [blue blocks solid] coming in at 880,544
-   1. coming in: holding nothing, from 880,544; lands at 880,545
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [blue blocks solid] standing at x 762-928, y 545
    2. standing at 910,545, goes into it
       -> out 912,512 [rb 0]
+how in 880,544 [rb 0] -> out 912,512 [rb 1]: megaman:1
+     [blue blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [megaman:1]
+      -> [red blocks solid] standing at x 218-281, y 161
+   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   9. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [red blocks solid] standing at x 762-928, y 545
+  10. standing at 910,545, goes into it
+      -> out 912,512 [rb 1]
+how in 880,544 [rb 0] -> out 912,512 [rb 1]: samus:1
+     [blue blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [samus:1]
+      -> [red blocks solid] standing at x 218-281, y 161
+   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   9. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [red blocks solid] standing at x 762-928, y 545
+  10. standing at 910,545, goes into it
+      -> out 912,512 [rb 1]
+how in 880,544 [rb 0] -> out 912,512 [rb 1]: link:2
+     [blue blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [link:2]
+      -> [red blocks solid] standing at x 218-281, y 161
+   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   9. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [red blocks solid] standing at x 762-928, y 545
+  10. standing at 910,545, goes into it
+      -> out 912,512 [rb 1]
+how in 880,544 [rb 0] -> out 912,512 [rb 1]: belmont:2
+     [blue blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [blue blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [red blocks solid]   [belmont:2]
+      -> [red blocks solid] standing at x 218-281, y 161
+   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [red blocks solid] standing at x 282-422, y 97
+   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 282,97; lands at 471,609 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   9. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [red blocks solid] standing at x 762-928, y 545
+  10. standing at 910,545, goes into it
+      -> out 912,512 [rb 1]
+how in 880,544 [rb 0] -> loc 2 50: djump,adash
+     [blue blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [blue blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [blue blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 474,97
+      -> [blue blocks solid] standing at x 474-582, y 97
+   5. walk off the edge, holding right once in the air, from 474,97; lands at 687,225 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 615-793, y 225
+   6. jump (held 14 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 26, from 792,225; touches it on the way {move ch=0 dir=1 jumpAt=0 jumpHold=14 djAt=16 adAt=26 maxT=120}   [djump,adash]
+      -> loc 2 50
+how in 880,544 [rb 1] -> out 80,576 [rb 0]: megaman:1
+     [red blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [megaman:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   7. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   8. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   9. standing at 78,609, presses up at it
+      -> out 80,576 [rb 0]
+how in 880,544 [rb 1] -> out 80,576 [rb 0]: samus:1
+     [red blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [samus:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   7. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   8. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   9. standing at 78,609, presses up at it
+      -> out 80,576 [rb 0]
+how in 880,544 [rb 1] -> out 80,576 [rb 0]: link:2
+     [red blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [link:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   7. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   8. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   9. standing at 78,609, presses up at it
+      -> out 80,576 [rb 0]
+how in 880,544 [rb 1] -> out 80,576 [rb 0]: belmont:2
+     [red blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [belmont:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   7. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   8. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   9. standing at 78,609, presses up at it
+      -> out 80,576 [rb 0]
 how in 880,544 [rb 1] -> out 80,576 [rb 1]: -
      [red blocks solid] coming in at 880,544
-   1. coming in: holding nothing, from 880,544; lands at 880,545
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 762-928, y 545
-   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> [red blocks solid] standing at x 39-761, y 609
    3. standing at 78,609, presses up at it
       -> out 80,576 [rb 1]
+how in 880,544 [rb 1] -> out 848,320 [rb 0]: megaman:1
+     [red blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [megaman:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   7. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   8. running right, jump (held 2 ticks), holding right, from 400,353; lands at 502,353 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [blue blocks solid] standing at x 474-889, y 353
+   9. standing at 846,353, presses up at it
+      -> out 848,320 [rb 0]
+how in 880,544 [rb 1] -> out 848,320 [rb 0]: samus:1
+     [red blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [samus:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   7. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   8. running right, jump (held 2 ticks), holding right, from 400,353; lands at 502,353 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [blue blocks solid] standing at x 474-889, y 353
+   9. standing at 846,353, presses up at it
+      -> out 848,320 [rb 0]
+how in 880,544 [rb 1] -> out 848,320 [rb 0]: link:2
+     [red blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [link:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   7. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   8. running right, jump (held 2 ticks), holding right, from 400,353; lands at 502,353 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [blue blocks solid] standing at x 474-889, y 353
+   9. standing at 846,353, presses up at it
+      -> out 848,320 [rb 0]
+how in 880,544 [rb 1] -> out 848,320 [rb 0]: belmont:2
+     [red blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [belmont:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   7. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   8. running right, jump (held 2 ticks), holding right, from 400,353; lands at 502,353 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [blue blocks solid] standing at x 474-889, y 353
+   9. standing at 846,353, presses up at it
+      -> out 848,320 [rb 0]
+how in 880,544 [rb 1] -> out 848,320 [rb 1]: -
+     [red blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 352, and step off it to 474,353
+      -> [red blocks solid] standing at x 474-889, y 353
+   5. standing at 846,353, presses up at it
+      -> out 848,320 [rb 1]
+how in 880,544 [rb 1] -> out 912,512 [rb 0]: megaman:1
+     [red blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [megaman:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   7. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   8. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   9. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 762-928, y 545
+  10. standing at 910,545, goes into it
+      -> out 912,512 [rb 0]
+how in 880,544 [rb 1] -> out 912,512 [rb 0]: samus:1
+     [red blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [samus:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   7. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   8. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   9. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 762-928, y 545
+  10. standing at 910,545, goes into it
+      -> out 912,512 [rb 0]
+how in 880,544 [rb 1] -> out 912,512 [rb 0]: link:2
+     [red blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [link:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   7. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   8. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   9. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 762-928, y 545
+  10. standing at 910,545, goes into it
+      -> out 912,512 [rb 0]
+how in 880,544 [rb 1] -> out 912,512 [rb 0]: belmont:2
+     [red blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [belmont:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   7. walk off the edge, holding left once in the air, from 221,161; lands at 103,353 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 103-422, y 353
+   8. walk off the edge, holding right once in the air, from 103,353; lands at 495,609 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 39-761, y 609
+   9. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 762-928, y 545
+  10. standing at 910,545, goes into it
+      -> out 912,512 [rb 0]
 how in 880,544 [rb 1] -> out 912,512 [rb 1]: -
      [red blocks solid] coming in at 880,544
-   1. coming in: holding nothing, from 880,544; lands at 880,545
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> [red blocks solid] standing at x 762-928, y 545
    2. standing at 910,545, goes into it
       -> out 912,512 [rb 1]
+how in 880,544 [rb 1] -> loc 2 50: djump,adash,megaman:1
+     [red blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [megaman:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 282-422, y 97
+   8. running right, jump (held 6 ticks), holding right, from 400,97; lands at 488,97 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [blue blocks solid] standing at x 474-582, y 97
+   9. walk off the edge, holding right once in the air, from 474,97; lands at 687,225 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 615-793, y 225
+  10. jump (held 14 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 26, from 792,225; touches it on the way {move ch=0 dir=1 jumpAt=0 jumpHold=14 djAt=16 adAt=26 maxT=120}   [djump,adash]
+      -> loc 2 50
+how in 880,544 [rb 1] -> loc 2 50: djump,adash,samus:1
+     [red blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [samus:1]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 282-422, y 97
+   8. running right, jump (held 6 ticks), holding right, from 400,97; lands at 488,97 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [blue blocks solid] standing at x 474-582, y 97
+   9. walk off the edge, holding right once in the air, from 474,97; lands at 687,225 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 615-793, y 225
+  10. jump (held 14 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 26, from 792,225; touches it on the way {move ch=0 dir=1 jumpAt=0 jumpHold=14 djAt=16 adAt=26 maxT=120}   [djump,adash]
+      -> loc 2 50
+how in 880,544 [rb 1] -> loc 2 50: djump,adash,link:2
+     [red blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [link:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 282-422, y 97
+   8. running right, jump (held 6 ticks), holding right, from 400,97; lands at 488,97 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [blue blocks solid] standing at x 474-582, y 97
+   9. walk off the edge, holding right once in the air, from 474,97; lands at 687,225 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 615-793, y 225
+  10. jump (held 14 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 26, from 792,225; touches it on the way {move ch=0 dir=1 jumpAt=0 jumpHold=14 djAt=16 adAt=26 maxT=120}   [djump,adash]
+      -> loc 2 50
+how in 880,544 [rb 1] -> loc 2 50: djump,adash,belmont:2
+     [red blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [red blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 39-761, y 609
+   3. step onto the elevator at 410,609
+      -> [red blocks solid] riding the elevator at x 448 (its bar from y 96 to 608)
+   4. ride the elevator to where its bar is at y 96, and step off it to 410,97
+      -> [red blocks solid] standing at x 282-422, y 97
+   5. walk off the edge, holding left, then nothing after 1 ticks in the air, from 282,97; lands at 253,161 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
+      -> [red blocks solid] standing at x 218-281, y 161
+   6. shoot the switch at 64,80 from 218,161 (at the top of a jump): [blue blocks solid]   [belmont:2]
+      -> [blue blocks solid] standing at x 218-281, y 161
+   7. jump (held 21 ticks), holding right, from 218,161; lands at 349,97 {move ch=1 dir=1 jumpAt=0}
+      -> [blue blocks solid] standing at x 282-422, y 97
+   8. running right, jump (held 6 ticks), holding right, from 400,97; lands at 488,97 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [blue blocks solid] standing at x 474-582, y 97
+   9. walk off the edge, holding right once in the air, from 474,97; lands at 687,225 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
+      -> [blue blocks solid] standing at x 615-793, y 225
+  10. jump (held 14 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 26, from 792,225; touches it on the way {move ch=0 dir=1 jumpAt=0 jumpHold=14 djAt=16 adAt=26 maxT=120}   [djump,adash]
+      -> loc 2 50

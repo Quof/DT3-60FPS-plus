@@ -3,6 +3,7 @@
 # Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
 # Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
 # middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [as the other ways in make the room, as the other ways in make the room]
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
 in 64,272   # from rSamus5_Lv4_G out 464,1200
@@ -14,305 +15,247 @@ out 1584,160   # to rSamus5_Lv4_I at 64,112; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 64,272
-  out 0,240      link:1 | belmont:1 | megaman:1 | samus:1
-  out 1584,160   djump,link:1 | djump,belmont:1 | djump,megaman:1 | djump,samus:1 | adash,link:1 | adash,belmont:1 | adash,megaman:1 | adash,samus:1 | hijump:1,link:1 | hijump:1,belmont:1 | hijump:1,megaman:1 | hijump:1,samus:1
+  out 0,240      -
+  out 1584,160   adash,link:1 | adash,belmont:1 | adash,megaman:1 | adash,samus:1 | djump,link:1 | djump,belmont:1 | djump,megaman:1 | djump,samus:1 | hijump:1,link:1 | hijump:1,belmont:1 | hijump:1,megaman:1 | hijump:1,samus:1
 from in 1536,192
   out 0,240      link:1 | belmont:1 | megaman:1 | samus:1
-  out 1584,160   link:1 | belmont:1 | megaman:1 | samus:1
+  out 1584,160   -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
-how in 64,272 -> out 0,240: link:1
-     coming in at 64,272
-   1. coming in: holding nothing, from 64,272; lands at 64,273
-      -> standing at x 31-182, y 273
-   2. walk from 31,273 to 30,273 into the Metroid door at 0,208   [link:1]
-      -> standing at x 0-30, y 273 (where a gate is)
-   3. standing at 0,273, goes into it
+how in 64,272 -> out 0,240: -
+     [as coming in at 64,272 makes the room, as the other ways in make the room] coming in at 64,272
+   1. coming in: holding nothing, from 64,272; lands at 64,273 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 0-182, y 273
+   2. standing at 0,273, goes into it
       -> out 0,240
-how in 64,272 -> out 0,240: belmont:1
-     coming in at 64,272
-   1. coming in: holding nothing, from 64,272; lands at 64,273
-      -> standing at x 31-182, y 273
-   2. walk from 31,273 to 30,273 into the Metroid door at 0,208   [belmont:1]
-      -> standing at x 0-30, y 273 (where a gate is)
-   3. standing at 0,273, goes into it
-      -> out 0,240
-how in 64,272 -> out 0,240: megaman:1
-     coming in at 64,272
-   1. coming in: holding nothing, from 64,272; lands at 64,273
-      -> standing at x 31-182, y 273
-   2. walk from 31,273 to 30,273 into the Metroid door at 0,208   [megaman:1]
-      -> standing at x 0-30, y 273 (where a gate is)
-   3. standing at 0,273, goes into it
-      -> out 0,240
-how in 64,272 -> out 0,240: samus:1
-     coming in at 64,272
-   1. coming in: holding nothing, from 64,272; lands at 64,273
-      -> standing at x 31-182, y 273
-   2. walk from 31,273 to 30,273 into the Metroid door at 0,208   [samus:1]
-      -> standing at x 0-30, y 273 (where a gate is)
-   3. standing at 0,273, goes into it
-      -> out 0,240
-how in 64,272 -> out 1584,160: djump,link:1
-     coming in at 64,272
-   1. coming in: holding nothing, from 64,272; lands at 64,273
-      -> standing at x 31-182, y 273
-   2. running right, jump (held 6 ticks), holding right, from 64,273; lands at 226,273
-      -> standing at x 218-569, y 273
-   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225
-      -> standing at x 570-742, y 225
-   4. walk off the edge, holding right once in the air, from 570,225; lands at 826,289
-      -> standing at x 826-1384, y 288-289
-   5. running right, jump (held 21 ticks), holding right, from 1296,288; lands at 1494,273
-      -> standing at x 1482-1497, y 273
-   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1482,273, through the Metroid door at 0,208, the Metroid door at 1576,128; touches it on the way   [djump,link:1]
-      -> out 1584,160
-how in 64,272 -> out 1584,160: djump,belmont:1
-     coming in at 64,272
-   1. coming in: holding nothing, from 64,272; lands at 64,273
-      -> standing at x 31-182, y 273
-   2. running right, jump (held 6 ticks), holding right, from 64,273; lands at 226,273
-      -> standing at x 218-569, y 273
-   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225
-      -> standing at x 570-742, y 225
-   4. walk off the edge, holding right once in the air, from 570,225; lands at 826,289
-      -> standing at x 826-1384, y 288-289
-   5. running right, jump (held 21 ticks), holding right, from 1296,288; lands at 1494,273
-      -> standing at x 1482-1497, y 273
-   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1482,273, through the Metroid door at 0,208, the Metroid door at 1576,128; touches it on the way   [djump,belmont:1]
-      -> out 1584,160
-how in 64,272 -> out 1584,160: djump,megaman:1
-     coming in at 64,272
-   1. coming in: holding nothing, from 64,272; lands at 64,273
-      -> standing at x 31-182, y 273
-   2. running right, jump (held 6 ticks), holding right, from 64,273; lands at 226,273
-      -> standing at x 218-569, y 273
-   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225
-      -> standing at x 570-742, y 225
-   4. walk off the edge, holding right once in the air, from 570,225; lands at 826,289
-      -> standing at x 826-1384, y 288-289
-   5. running right, jump (held 21 ticks), holding right, from 1296,288; lands at 1494,273
-      -> standing at x 1482-1497, y 273
-   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1482,273, through the Metroid door at 0,208, the Metroid door at 1576,128; touches it on the way   [djump,megaman:1]
-      -> out 1584,160
-how in 64,272 -> out 1584,160: djump,samus:1
-     coming in at 64,272
-   1. coming in: holding nothing, from 64,272; lands at 64,273
-      -> standing at x 31-182, y 273
-   2. running right, jump (held 6 ticks), holding right, from 64,273; lands at 226,273
-      -> standing at x 218-569, y 273
-   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225
-      -> standing at x 570-742, y 225
-   4. walk off the edge, holding right once in the air, from 570,225; lands at 826,289
-      -> standing at x 826-1384, y 288-289
-   5. running right, jump (held 21 ticks), holding right, from 1296,288; lands at 1494,273
-      -> standing at x 1482-1497, y 273
-   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1482,273, through the Metroid door at 0,208, the Metroid door at 1576,128; touches it on the way   [djump,samus:1]
-      -> out 1584,160
 how in 64,272 -> out 1584,160: adash,link:1
-     coming in at 64,272
-   1. coming in: holding nothing, from 64,272; lands at 64,273
-      -> standing at x 31-182, y 273
-   2. running right, jump (held 6 ticks), holding right, from 64,273; lands at 226,273
-      -> standing at x 218-569, y 273
-   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225
-      -> standing at x 570-742, y 225
-   4. walk off the edge, holding right once in the air, from 570,225; lands at 826,289
-      -> standing at x 826-1384, y 288-289
-   5. running right, jump (held 21 ticks), holding right, from 1296,288; lands at 1494,273
-      -> standing at x 1482-1497, y 273
-   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1482,273, through the Metroid door at 0,208, the Metroid door at 1576,128; touches it on the way   [adash,link:1]
+     [as coming in at 64,272 makes the room, as the other ways in make the room] coming in at 64,272
+   1. coming in: holding nothing, from 64,272; lands at 64,273 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 0-182, y 273
+   2. running right, jump (held 21 ticks), holding right, from 48,273; lands at 254,273 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 218-569, y 273
+   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 570-742, y 225
+   4. running right, jump (held 2 ticks), holding right, from 734,225; lands at 888,273 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 854-1384, y 273
+   5. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1360,273, through the Metroid door at 1576,128; touches it on the way {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,link:1]
       -> out 1584,160
 how in 64,272 -> out 1584,160: adash,belmont:1
-     coming in at 64,272
-   1. coming in: holding nothing, from 64,272; lands at 64,273
-      -> standing at x 31-182, y 273
-   2. running right, jump (held 6 ticks), holding right, from 64,273; lands at 226,273
-      -> standing at x 218-569, y 273
-   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225
-      -> standing at x 570-742, y 225
-   4. walk off the edge, holding right once in the air, from 570,225; lands at 826,289
-      -> standing at x 826-1384, y 288-289
-   5. running right, jump (held 21 ticks), holding right, from 1296,288; lands at 1494,273
-      -> standing at x 1482-1497, y 273
-   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1482,273, through the Metroid door at 0,208, the Metroid door at 1576,128; touches it on the way   [adash,belmont:1]
+     [as coming in at 64,272 makes the room, as the other ways in make the room] coming in at 64,272
+   1. coming in: holding nothing, from 64,272; lands at 64,273 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 0-182, y 273
+   2. running right, jump (held 21 ticks), holding right, from 48,273; lands at 254,273 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 218-569, y 273
+   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 570-742, y 225
+   4. running right, jump (held 2 ticks), holding right, from 734,225; lands at 888,273 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 854-1384, y 273
+   5. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1360,273, through the Metroid door at 1576,128; touches it on the way {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,belmont:1]
       -> out 1584,160
 how in 64,272 -> out 1584,160: adash,megaman:1
-     coming in at 64,272
-   1. coming in: holding nothing, from 64,272; lands at 64,273
-      -> standing at x 31-182, y 273
-   2. running right, jump (held 6 ticks), holding right, from 64,273; lands at 226,273
-      -> standing at x 218-569, y 273
-   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225
-      -> standing at x 570-742, y 225
-   4. walk off the edge, holding right once in the air, from 570,225; lands at 826,289
-      -> standing at x 826-1384, y 288-289
-   5. running right, jump (held 21 ticks), holding right, from 1296,288; lands at 1494,273
-      -> standing at x 1482-1497, y 273
-   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1482,273, through the Metroid door at 0,208, the Metroid door at 1576,128; touches it on the way   [adash,megaman:1]
+     [as coming in at 64,272 makes the room, as the other ways in make the room] coming in at 64,272
+   1. coming in: holding nothing, from 64,272; lands at 64,273 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 0-182, y 273
+   2. running right, jump (held 21 ticks), holding right, from 48,273; lands at 254,273 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 218-569, y 273
+   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 570-742, y 225
+   4. running right, jump (held 2 ticks), holding right, from 734,225; lands at 888,273 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 854-1384, y 273
+   5. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1360,273, through the Metroid door at 1576,128; touches it on the way {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,megaman:1]
       -> out 1584,160
 how in 64,272 -> out 1584,160: adash,samus:1
-     coming in at 64,272
-   1. coming in: holding nothing, from 64,272; lands at 64,273
-      -> standing at x 31-182, y 273
-   2. running right, jump (held 6 ticks), holding right, from 64,273; lands at 226,273
-      -> standing at x 218-569, y 273
-   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225
-      -> standing at x 570-742, y 225
-   4. walk off the edge, holding right once in the air, from 570,225; lands at 826,289
-      -> standing at x 826-1384, y 288-289
-   5. running right, jump (held 21 ticks), holding right, from 1296,288; lands at 1494,273
-      -> standing at x 1482-1497, y 273
-   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1482,273, through the Metroid door at 0,208, the Metroid door at 1576,128; touches it on the way   [adash,samus:1]
+     [as coming in at 64,272 makes the room, as the other ways in make the room] coming in at 64,272
+   1. coming in: holding nothing, from 64,272; lands at 64,273 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 0-182, y 273
+   2. running right, jump (held 21 ticks), holding right, from 48,273; lands at 254,273 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 218-569, y 273
+   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 570-742, y 225
+   4. running right, jump (held 2 ticks), holding right, from 734,225; lands at 888,273 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 854-1384, y 273
+   5. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1360,273, through the Metroid door at 1576,128; touches it on the way {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,samus:1]
+      -> out 1584,160
+how in 64,272 -> out 1584,160: djump,link:1
+     [as coming in at 64,272 makes the room, as the other ways in make the room] coming in at 64,272
+   1. coming in: holding nothing, from 64,272; lands at 64,273 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 0-182, y 273
+   2. running right, jump (held 21 ticks), holding right, from 48,273; lands at 254,273 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 218-569, y 273
+   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 570-742, y 225
+   4. running right, jump (held 2 ticks), holding right, from 734,225; lands at 888,273 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 854-1384, y 273
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 1376,273, through the Metroid door at 1576,128; touches it on the way {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump,link:1]
+      -> out 1584,160
+how in 64,272 -> out 1584,160: djump,belmont:1
+     [as coming in at 64,272 makes the room, as the other ways in make the room] coming in at 64,272
+   1. coming in: holding nothing, from 64,272; lands at 64,273 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 0-182, y 273
+   2. running right, jump (held 21 ticks), holding right, from 48,273; lands at 254,273 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 218-569, y 273
+   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 570-742, y 225
+   4. running right, jump (held 2 ticks), holding right, from 734,225; lands at 888,273 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 854-1384, y 273
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 1376,273, through the Metroid door at 1576,128; touches it on the way {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump,belmont:1]
+      -> out 1584,160
+how in 64,272 -> out 1584,160: djump,megaman:1
+     [as coming in at 64,272 makes the room, as the other ways in make the room] coming in at 64,272
+   1. coming in: holding nothing, from 64,272; lands at 64,273 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 0-182, y 273
+   2. running right, jump (held 21 ticks), holding right, from 48,273; lands at 254,273 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 218-569, y 273
+   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 570-742, y 225
+   4. running right, jump (held 2 ticks), holding right, from 734,225; lands at 888,273 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 854-1384, y 273
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 1376,273, through the Metroid door at 1576,128; touches it on the way {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump,megaman:1]
+      -> out 1584,160
+how in 64,272 -> out 1584,160: djump,samus:1
+     [as coming in at 64,272 makes the room, as the other ways in make the room] coming in at 64,272
+   1. coming in: holding nothing, from 64,272; lands at 64,273 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 0-182, y 273
+   2. running right, jump (held 21 ticks), holding right, from 48,273; lands at 254,273 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 218-569, y 273
+   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 570-742, y 225
+   4. running right, jump (held 2 ticks), holding right, from 734,225; lands at 888,273 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 854-1384, y 273
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 1376,273, through the Metroid door at 1576,128; touches it on the way {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump,samus:1]
       -> out 1584,160
 how in 64,272 -> out 1584,160: hijump:1,link:1
-     coming in at 64,272
-   1. coming in: holding nothing, from 64,272; lands at 64,273
-      -> standing at x 31-182, y 273
-   2. running right, jump (held 6 ticks), holding right, from 64,273; lands at 226,273
-      -> standing at x 218-569, y 273
-   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225
-      -> standing at x 570-742, y 225
-   4. walk off the edge, holding right once in the air, from 570,225; lands at 826,289
-      -> standing at x 826-1384, y 288-289
-   5. running right, jump (held 21 ticks), holding right, from 1296,288; lands at 1494,273
-      -> standing at x 1482-1497, y 273
-   6. jump with High Jump Boots 1 (held 40 ticks), holding right, from 1482,273, through the Metroid door at 0,208, the Metroid door at 1576,128; touches it on the way   [hijump:1,link:1]
+     [as coming in at 64,272 makes the room, as the other ways in make the room] coming in at 64,272
+   1. coming in: holding nothing, from 64,272; lands at 64,273 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 0-182, y 273
+   2. running right, jump (held 21 ticks), holding right, from 48,273; lands at 254,273 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 218-569, y 273
+   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 570-742, y 225
+   4. running right, jump (held 2 ticks), holding right, from 734,225; lands at 888,273 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 854-1384, y 273
+   5. running right, jump (held 21 ticks), holding right, from 1216,273; lands at 1422,273 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 1414-1497, y 273
+   6. jump with High Jump Boots 1 (held 40 ticks), holding right, from 1421,273, through the Metroid door at 1576,128; touches it on the way {move ch=1 dir=1 jumpAt=0 jumpHold=40 hiJump=1}   [hijump:1,link:1]
       -> out 1584,160
 how in 64,272 -> out 1584,160: hijump:1,belmont:1
-     coming in at 64,272
-   1. coming in: holding nothing, from 64,272; lands at 64,273
-      -> standing at x 31-182, y 273
-   2. running right, jump (held 6 ticks), holding right, from 64,273; lands at 226,273
-      -> standing at x 218-569, y 273
-   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225
-      -> standing at x 570-742, y 225
-   4. walk off the edge, holding right once in the air, from 570,225; lands at 826,289
-      -> standing at x 826-1384, y 288-289
-   5. running right, jump (held 21 ticks), holding right, from 1296,288; lands at 1494,273
-      -> standing at x 1482-1497, y 273
-   6. jump with High Jump Boots 1 (held 40 ticks), holding right, from 1482,273, through the Metroid door at 0,208, the Metroid door at 1576,128; touches it on the way   [hijump:1,belmont:1]
+     [as coming in at 64,272 makes the room, as the other ways in make the room] coming in at 64,272
+   1. coming in: holding nothing, from 64,272; lands at 64,273 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 0-182, y 273
+   2. running right, jump (held 21 ticks), holding right, from 48,273; lands at 254,273 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 218-569, y 273
+   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 570-742, y 225
+   4. running right, jump (held 2 ticks), holding right, from 734,225; lands at 888,273 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 854-1384, y 273
+   5. running right, jump (held 21 ticks), holding right, from 1216,273; lands at 1422,273 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 1414-1497, y 273
+   6. jump with High Jump Boots 1 (held 40 ticks), holding right, from 1421,273, through the Metroid door at 1576,128; touches it on the way {move ch=1 dir=1 jumpAt=0 jumpHold=40 hiJump=1}   [hijump:1,belmont:1]
       -> out 1584,160
 how in 64,272 -> out 1584,160: hijump:1,megaman:1
-     coming in at 64,272
-   1. coming in: holding nothing, from 64,272; lands at 64,273
-      -> standing at x 31-182, y 273
-   2. running right, jump (held 6 ticks), holding right, from 64,273; lands at 226,273
-      -> standing at x 218-569, y 273
-   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225
-      -> standing at x 570-742, y 225
-   4. walk off the edge, holding right once in the air, from 570,225; lands at 826,289
-      -> standing at x 826-1384, y 288-289
-   5. running right, jump (held 21 ticks), holding right, from 1296,288; lands at 1494,273
-      -> standing at x 1482-1497, y 273
-   6. jump with High Jump Boots 1 (held 40 ticks), holding right, from 1482,273, through the Metroid door at 0,208, the Metroid door at 1576,128; touches it on the way   [hijump:1,megaman:1]
+     [as coming in at 64,272 makes the room, as the other ways in make the room] coming in at 64,272
+   1. coming in: holding nothing, from 64,272; lands at 64,273 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 0-182, y 273
+   2. running right, jump (held 21 ticks), holding right, from 48,273; lands at 254,273 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 218-569, y 273
+   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 570-742, y 225
+   4. running right, jump (held 2 ticks), holding right, from 734,225; lands at 888,273 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 854-1384, y 273
+   5. running right, jump (held 21 ticks), holding right, from 1216,273; lands at 1422,273 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 1414-1497, y 273
+   6. jump with High Jump Boots 1 (held 40 ticks), holding right, from 1421,273, through the Metroid door at 1576,128; touches it on the way {move ch=1 dir=1 jumpAt=0 jumpHold=40 hiJump=1}   [hijump:1,megaman:1]
       -> out 1584,160
 how in 64,272 -> out 1584,160: hijump:1,samus:1
-     coming in at 64,272
-   1. coming in: holding nothing, from 64,272; lands at 64,273
-      -> standing at x 31-182, y 273
-   2. running right, jump (held 6 ticks), holding right, from 64,273; lands at 226,273
-      -> standing at x 218-569, y 273
-   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225
-      -> standing at x 570-742, y 225
-   4. walk off the edge, holding right once in the air, from 570,225; lands at 826,289
-      -> standing at x 826-1384, y 288-289
-   5. running right, jump (held 21 ticks), holding right, from 1296,288; lands at 1494,273
-      -> standing at x 1482-1497, y 273
-   6. jump with High Jump Boots 1 (held 40 ticks), holding right, from 1482,273, through the Metroid door at 0,208, the Metroid door at 1576,128; touches it on the way   [hijump:1,samus:1]
+     [as coming in at 64,272 makes the room, as the other ways in make the room] coming in at 64,272
+   1. coming in: holding nothing, from 64,272; lands at 64,273 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 0-182, y 273
+   2. running right, jump (held 21 ticks), holding right, from 48,273; lands at 254,273 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 218-569, y 273
+   3. running right, jump (held 6 ticks), holding right, from 496,273; lands at 614,225 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 570-742, y 225
+   4. running right, jump (held 2 ticks), holding right, from 734,225; lands at 888,273 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 854-1384, y 273
+   5. running right, jump (held 21 ticks), holding right, from 1216,273; lands at 1422,273 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 64,272 makes the room, as the other ways in make the room] standing at x 1414-1497, y 273
+   6. jump with High Jump Boots 1 (held 40 ticks), holding right, from 1421,273, through the Metroid door at 1576,128; touches it on the way {move ch=1 dir=1 jumpAt=0 jumpHold=40 hiJump=1}   [hijump:1,samus:1]
       -> out 1584,160
 how in 1536,192 -> out 0,240: link:1
-     coming in at 1536,192
-   1. coming in: holding nothing, from 1536,192; lands at 1536,193
-      -> standing at x 1498-1569, y 193
-   2. jump (held 2 ticks), holding left, from 1498,193; lands at 1380,288
-      -> standing at x 826-1384, y 288-289
-   3. jump (held 21 ticks), holding left, from 826,289; lands at 695,225
-      -> standing at x 570-742, y 225
-   4. walk off the edge, holding left once in the air, from 570,225; lands at 497,273
-      -> standing at x 218-569, y 273
-   5. jump (held 2 ticks), holding left, from 218,273; lands at 116,273
-      -> standing at x 31-182, y 273
+     [as the other ways in make the room, as coming in at 1536,192 makes the room] coming in at 1536,192
+   1. coming in: holding nothing, from 1536,192; lands at 1536,193 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 1498-1600, y 193
+   2. running left, jump (held 2 ticks), holding left, from 1498,193; lands at 1322,273 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 854-1384, y 273
+   3. jump (held 21 ticks), holding left, from 854,273; lands at 721,225 {move ch=1 dir=-1 jumpAt=0}
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 570-742, y 225
+   4. walk off the edge, holding left once in the air, from 570,225; lands at 497,273 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 218-569, y 273
+   5. jump (held 2 ticks), holding left, from 218,273; lands at 116,273 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 31-182, y 273
    6. walk from 31,273 to 30,273 into the Metroid door at 0,208   [link:1]
-      -> standing at x 0-30, y 273 (where a gate is)
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 0-30, y 273 (where a gate is)
    7. standing at 0,273, goes into it
       -> out 0,240
 how in 1536,192 -> out 0,240: belmont:1
-     coming in at 1536,192
-   1. coming in: holding nothing, from 1536,192; lands at 1536,193
-      -> standing at x 1498-1569, y 193
-   2. jump (held 2 ticks), holding left, from 1498,193; lands at 1380,288
-      -> standing at x 826-1384, y 288-289
-   3. jump (held 21 ticks), holding left, from 826,289; lands at 695,225
-      -> standing at x 570-742, y 225
-   4. walk off the edge, holding left once in the air, from 570,225; lands at 497,273
-      -> standing at x 218-569, y 273
-   5. jump (held 2 ticks), holding left, from 218,273; lands at 116,273
-      -> standing at x 31-182, y 273
+     [as the other ways in make the room, as coming in at 1536,192 makes the room] coming in at 1536,192
+   1. coming in: holding nothing, from 1536,192; lands at 1536,193 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 1498-1600, y 193
+   2. running left, jump (held 2 ticks), holding left, from 1498,193; lands at 1322,273 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 854-1384, y 273
+   3. jump (held 21 ticks), holding left, from 854,273; lands at 721,225 {move ch=1 dir=-1 jumpAt=0}
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 570-742, y 225
+   4. walk off the edge, holding left once in the air, from 570,225; lands at 497,273 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 218-569, y 273
+   5. jump (held 2 ticks), holding left, from 218,273; lands at 116,273 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 31-182, y 273
    6. walk from 31,273 to 30,273 into the Metroid door at 0,208   [belmont:1]
-      -> standing at x 0-30, y 273 (where a gate is)
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 0-30, y 273 (where a gate is)
    7. standing at 0,273, goes into it
       -> out 0,240
 how in 1536,192 -> out 0,240: megaman:1
-     coming in at 1536,192
-   1. coming in: holding nothing, from 1536,192; lands at 1536,193
-      -> standing at x 1498-1569, y 193
-   2. jump (held 2 ticks), holding left, from 1498,193; lands at 1380,288
-      -> standing at x 826-1384, y 288-289
-   3. jump (held 21 ticks), holding left, from 826,289; lands at 695,225
-      -> standing at x 570-742, y 225
-   4. walk off the edge, holding left once in the air, from 570,225; lands at 497,273
-      -> standing at x 218-569, y 273
-   5. jump (held 2 ticks), holding left, from 218,273; lands at 116,273
-      -> standing at x 31-182, y 273
+     [as the other ways in make the room, as coming in at 1536,192 makes the room] coming in at 1536,192
+   1. coming in: holding nothing, from 1536,192; lands at 1536,193 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 1498-1600, y 193
+   2. running left, jump (held 2 ticks), holding left, from 1498,193; lands at 1322,273 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 854-1384, y 273
+   3. jump (held 21 ticks), holding left, from 854,273; lands at 721,225 {move ch=1 dir=-1 jumpAt=0}
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 570-742, y 225
+   4. walk off the edge, holding left once in the air, from 570,225; lands at 497,273 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 218-569, y 273
+   5. jump (held 2 ticks), holding left, from 218,273; lands at 116,273 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 31-182, y 273
    6. walk from 31,273 to 30,273 into the Metroid door at 0,208   [megaman:1]
-      -> standing at x 0-30, y 273 (where a gate is)
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 0-30, y 273 (where a gate is)
    7. standing at 0,273, goes into it
       -> out 0,240
 how in 1536,192 -> out 0,240: samus:1
-     coming in at 1536,192
-   1. coming in: holding nothing, from 1536,192; lands at 1536,193
-      -> standing at x 1498-1569, y 193
-   2. jump (held 2 ticks), holding left, from 1498,193; lands at 1380,288
-      -> standing at x 826-1384, y 288-289
-   3. jump (held 21 ticks), holding left, from 826,289; lands at 695,225
-      -> standing at x 570-742, y 225
-   4. walk off the edge, holding left once in the air, from 570,225; lands at 497,273
-      -> standing at x 218-569, y 273
-   5. jump (held 2 ticks), holding left, from 218,273; lands at 116,273
-      -> standing at x 31-182, y 273
+     [as the other ways in make the room, as coming in at 1536,192 makes the room] coming in at 1536,192
+   1. coming in: holding nothing, from 1536,192; lands at 1536,193 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 1498-1600, y 193
+   2. running left, jump (held 2 ticks), holding left, from 1498,193; lands at 1322,273 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 854-1384, y 273
+   3. jump (held 21 ticks), holding left, from 854,273; lands at 721,225 {move ch=1 dir=-1 jumpAt=0}
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 570-742, y 225
+   4. walk off the edge, holding left once in the air, from 570,225; lands at 497,273 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 218-569, y 273
+   5. jump (held 2 ticks), holding left, from 218,273; lands at 116,273 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 31-182, y 273
    6. walk from 31,273 to 30,273 into the Metroid door at 0,208   [samus:1]
-      -> standing at x 0-30, y 273 (where a gate is)
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 0-30, y 273 (where a gate is)
    7. standing at 0,273, goes into it
       -> out 0,240
-how in 1536,192 -> out 1584,160: link:1
-     coming in at 1536,192
-   1. coming in: holding nothing, from 1536,192; lands at 1536,193
-      -> standing at x 1498-1569, y 193
-   2. walk off the edge, holding right once in the air, from 1498,193, through the Metroid door at 0,208, the Metroid door at 1576,128; touches it on the way   [link:1]
-      -> out 1584,160
-how in 1536,192 -> out 1584,160: belmont:1
-     coming in at 1536,192
-   1. coming in: holding nothing, from 1536,192; lands at 1536,193
-      -> standing at x 1498-1569, y 193
-   2. walk off the edge, holding right once in the air, from 1498,193, through the Metroid door at 0,208, the Metroid door at 1576,128; touches it on the way   [belmont:1]
-      -> out 1584,160
-how in 1536,192 -> out 1584,160: megaman:1
-     coming in at 1536,192
-   1. coming in: holding nothing, from 1536,192; lands at 1536,193
-      -> standing at x 1498-1569, y 193
-   2. walk off the edge, holding right once in the air, from 1498,193, through the Metroid door at 0,208, the Metroid door at 1576,128; touches it on the way   [megaman:1]
-      -> out 1584,160
-how in 1536,192 -> out 1584,160: samus:1
-     coming in at 1536,192
-   1. coming in: holding nothing, from 1536,192; lands at 1536,193
-      -> standing at x 1498-1569, y 193
-   2. walk off the edge, holding right once in the air, from 1498,193, through the Metroid door at 0,208, the Metroid door at 1576,128; touches it on the way   [samus:1]
+how in 1536,192 -> out 1584,160: -
+     [as the other ways in make the room, as coming in at 1536,192 makes the room] coming in at 1536,192
+   1. coming in: holding nothing, from 1536,192; lands at 1536,193 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as the other ways in make the room, as coming in at 1536,192 makes the room] standing at x 1498-1600, y 193
+   2. standing at 1582,193, goes into it
       -> out 1584,160

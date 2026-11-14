@@ -12,13 +12,87 @@ out 3440,80   # to rExtGateA_3 at 128,224; the player presses up at it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 144,144
-  out 3440,80   never
+  out 3440,80    djump,adash,mario
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 144,144 -> out 3440,80: djump,mario
+     coming in at 144,144
+   1. coming in: holding nothing, from 144,144; lands at 144,193 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-294, y 193-225
+   2. running right, jump (held 21 ticks), holding right, from 256,193; comes down on the flying enemy at 464,197 and stomps it (the Mario Ability Set) {move ch=1 dir=1 run=1 jumpAt=0}   [mario]
+      -> just stomped the oRedParatroopa at 464,197 (Claire)
+   3. just stomped the flying enemy, the jump or up held: holding nothing, then right after 4 ticks, from 464,198; comes down on the flying enemy at 608,197 and stomps it (the Mario Ability Set) {move ch=1 dir=1 h1=0 hDelay=4 maxT=120 fromFlyer=1}   [mario]
+      -> just stomped the oRedParatroopa at 608,197 (Claire)
+   4. just stomped the flying enemy, the jump or up held: holding right, from 608,198; comes down on the flying enemy at 784,181 and stomps it (the Mario Ability Set) {move ch=1 dir=1 maxT=120 fromFlyer=3}   [mario]
+      -> just stomped the oRedParatroopa at 784,181 (Claire)
+   5. just stomped the flying enemy, the jump or up held: holding right, then nothing after 20 ticks, from 784,182; comes down on the flying enemy at 944,213 and stomps it (the Mario Ability Set) {move ch=1 dir=1 h2=0 hDelay=20 maxT=120 fromFlyer=5}   [mario]
+      -> just stomped the oRedParatroopa at 944,213 (Claire)
+   6. just stomped the flying enemy, the jump or up held: holding right, from 944,214; comes down on the flying enemy at 1088,165 and stomps it (the Mario Ability Set) {move ch=1 dir=1 maxT=120 fromFlyer=7}   [mario]
+      -> just stomped the oRedParatroopa at 1088,165 (Claire)
+   7. just stomped the flying enemy, the jump or up held: holding nothing, then right after 4 ticks, from 1088,166; comes down on the flying enemy at 1264,197 and stomps it (the Mario Ability Set) {move ch=1 dir=1 h1=0 hDelay=4 maxT=120 fromFlyer=9}   [mario]
+      -> just stomped the oRedParatroopa at 1264,197 (Claire)
+   8. just stomped the flying enemy, the jump or up held: holding right, from 1264,198; comes down on the flying enemy at 1424,165 and stomps it (the Mario Ability Set) {move ch=1 dir=1 maxT=120 fromFlyer=11}   [mario]
+      -> just stomped the oRedParatroopa at 1424,165 (Claire)
+   9. just stomped the flying enemy, the jump or up held: holding right, then nothing after 16 ticks, from 1424,166; comes down on the flying enemy at 1552,197 and stomps it (the Mario Ability Set) {move ch=1 dir=1 h2=0 hDelay=16 maxT=120 fromFlyer=13}   [mario]
+      -> just stomped the oRedParatroopa at 1552,197 (Claire)
+  10. just stomped the flying enemy, the jump or up held: holding right, then nothing after 20 ticks, from 1552,198; comes down on the flying enemy at 1696,165 and stomps it (the Mario Ability Set) {move ch=1 dir=1 h2=0 hDelay=20 maxT=120 fromFlyer=15}   [mario]
+      -> just stomped the oRedParatroopa at 1696,165 (Claire)
+  11. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 18, from 1696,166; comes down on the flying enemy at 2032,213 and stomps it (the Mario Ability Set) {move ch=1 dir=1 djAt=18 maxT=120 fromFlyer=17}   [djump,mario]
+      -> just stomped the oRedParatroopa at 2032,213 (Claire)
+  12. just stomped the flying enemy, neither the jump nor up held: holding nothing, then right after 8 ticks, double jump at tick 14, from 2032,214; comes down on the flying enemy at 2208,245 and stomps it (the Mario Ability Set) {move ch=1 dir=1 h1=0 hDelay=8 djAt=14 maxT=120 fromFlyer=21 lowBounce=1}   [djump,mario]
+      -> just stomped the oRedParatroopa at 2208,245 (Claire)
+  13. just stomped the flying enemy, the jump or up held: holding nothing, then right after 12 ticks, double jump at tick 14, from 2208,246; comes down on the flying enemy at 2368,197 and stomps it (the Mario Ability Set) {move ch=1 dir=1 h1=0 hDelay=12 djAt=14 maxT=120 fromFlyer=23}   [djump,mario]
+      -> just stomped the oRedParatroopa at 2368,197 (Claire)
+  14. just stomped the flying enemy, the jump or up held: holding right, then nothing after 20 ticks, from 2368,198; comes down on the flying enemy at 2512,165 and stomps it (the Mario Ability Set) {move ch=1 dir=1 h2=0 hDelay=20 maxT=120 fromFlyer=25}   [mario]
+      -> just stomped the oRedParatroopa at 2512,165 (Claire)
+  15. just stomped the flying enemy, neither the jump nor up held: holding right, double jump at tick 22, from 2512,166; comes down on the flying enemy at 2768,229 and stomps it (the Mario Ability Set) {move ch=1 dir=1 djAt=22 maxT=120 fromFlyer=27 lowBounce=1}   [djump,mario]
+      -> just stomped the oRedParatroopa at 2768,229 (Claire)
+  16. just stomped the flying enemy, neither the jump nor up held: holding right, double jump at tick 12, from 2768,230; comes down on the flying enemy at 2960,261 and stomps it (the Mario Ability Set) {move ch=1 dir=1 djAt=12 maxT=120 fromFlyer=31 lowBounce=1}   [djump,mario]
+      -> just stomped the oRedParatroopa at 2960,261 (Claire)
+  17. just stomped the flying enemy, the jump or up held: holding right, then nothing after 4 ticks, from 2960,262; lands at 2989,209 {move ch=1 dir=1 h2=0 hDelay=4 maxT=120 fromFlyer=35}
+      -> standing at x 2970-3046, y 209
+  18. jump (held 21 ticks), holding right, double jump at tick 15, from 2992,209; lands at 3233,145 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 3226-3254, y 145
+  19. jump (held 21 ticks), holding right, double jump at tick 15, from 3226,145; touches it on the way {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> out 3440,80
+how in 144,144 -> out 3440,80: adash,mario
+     coming in at 144,144
+   1. coming in: holding nothing, from 144,144; lands at 144,193 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-294, y 193-225
+   2. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 144,193; comes down on the flying enemy at 464,197 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,mario]
+      -> just stomped the oRedParatroopa at 464,197 (Jerry)
+   3. just stomped the flying enemy, the jump or up held: holding right, then nothing after 20 ticks, air dash (Jerry) at tick 18, from 464,198; comes down on the flying enemy at 784,181 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h2=0 hDelay=20 adAt=18 maxT=120 fromFlyer=0}   [adash,mario]
+      -> just stomped the oRedParatroopa at 784,181 (Jerry)
+   4. just stomped the flying enemy, the jump or up held: holding nothing, then right after 4 ticks, from 784,182; comes down on the flying enemy at 944,213 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=4 maxT=120 fromFlyer=4}   [mario]
+      -> just stomped the oRedParatroopa at 944,213 (Jerry)
+   5. just stomped the flying enemy, the jump or up held: holding right, then nothing after 20 ticks, air dash (Jerry) at tick 18, from 944,214; comes down on the flying enemy at 1264,197 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h2=0 hDelay=20 adAt=18 maxT=120 fromFlyer=6}   [adash,mario]
+      -> just stomped the oRedParatroopa at 1264,197 (Jerry)
+   6. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 10, from 1264,198; comes down on the flying enemy at 1552,197 and stomps it (the Mario Ability Set) {move ch=0 dir=1 adAt=10 maxT=120 fromFlyer=10}   [adash,mario]
+      -> just stomped the oRedParatroopa at 1552,197 (Jerry)
+   7. just stomped the flying enemy, the jump or up held: holding right, from 1552,198; comes down on the flying enemy at 1696,165 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=14}   [mario]
+      -> just stomped the oRedParatroopa at 1696,165 (Jerry)
+   8. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 12, from 1696,166; comes down on the flying enemy at 2032,213 and stomps it (the Mario Ability Set) {move ch=0 dir=1 adAt=12 maxT=120 fromFlyer=16}   [adash,mario]
+      -> just stomped the oRedParatroopa at 2032,213 (Jerry)
+   9. just stomped the flying enemy, neither the jump nor up held: holding nothing, then right after 16 ticks, air dash (Jerry) at tick 14, from 2032,214; comes down on the flying enemy at 2208,245 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=16 adAt=14 maxT=120 fromFlyer=20 lowBounce=1}   [adash,mario]
+      -> just stomped the oRedParatroopa at 2208,245 (Jerry)
+  10. just stomped the flying enemy, the jump or up held: holding nothing, then right after 8 ticks, air dash (Jerry) at tick 6, from 2208,246; comes down on the flying enemy at 2368,197 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=8 adAt=6 maxT=120 fromFlyer=22}   [adash,mario]
+      -> just stomped the oRedParatroopa at 2368,197 (Jerry)
+  11. just stomped the flying enemy, the jump or up held: holding nothing, then right after 4 ticks, air dash (Jerry) at tick 14, from 2368,198; comes down on the flying enemy at 2672,213 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=4 adAt=14 maxT=120 fromFlyer=24}   [adash,mario]
+      -> just stomped the oRedParatroopa at 2672,213 (Jerry)
+  12. just stomped the flying enemy, neither the jump nor up held: holding right, air dash (Jerry) at tick 14, from 2672,214; comes down on the flying enemy at 2960,261 and stomps it (the Mario Ability Set) {move ch=0 dir=1 adAt=14 maxT=120 fromFlyer=28 lowBounce=1}   [adash,mario]
+      -> just stomped the oRedParatroopa at 2960,261 (Jerry)
+  13. just stomped the flying enemy, the jump or up held: holding right, then nothing after 4 ticks, air dash (Jerry) at tick 14, from 2960,262; lands at 3150,177 {move ch=0 dir=1 h2=0 hDelay=4 adAt=14 maxT=120 fromFlyer=34}   [adash]
+      -> standing at x 3130-3158, y 177
+  14. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 3130,177; lands at 3345,113 {move ch=0 dir=1 jumpAt=0 adAt=10}   [adash]
+      -> standing at x 3306-3472, y 113
+  15. standing at 3438,113, presses up at it
+      -> out 3440,80

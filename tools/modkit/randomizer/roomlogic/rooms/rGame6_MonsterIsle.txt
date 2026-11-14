@@ -13,6 +13,8 @@ out 1008,656   # to rGame6_Overworld at 1448,136; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -26,31 +28,31 @@ from in 48,688
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 48,688 -> out 0,656: -
      coming in at 48,688
-   1. coming in: holding nothing, from 48,688; lands at 48,689
+   1. coming in: holding nothing, from 48,688; lands at 48,689 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-249, y 689
    2. standing at 0,689, goes into it
       -> out 0,656
 how in 48,688 -> out 1008,656: adash
      coming in at 48,688
-   1. coming in: holding nothing, from 48,688; lands at 48,689
+   1. coming in: holding nothing, from 48,688; lands at 48,689 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-249, y 689
-   2. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 32,689; lands at 265,609   [adash]
+   2. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 32,689; lands at 265,609 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
       -> standing at x 250-422, y 609
-   3. walk off the edge, holding right once in the air, from 250,609; lands at 521,689
+   3. walk off the edge, holding right once in the air, from 250,609; lands at 521,689 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> standing at x 455-569, y 689
-   4. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 455,689; lands at 677,609   [adash]
+   4. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 455,689; lands at 677,609 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
       -> standing at x 602-774, y 609
-   5. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 602,609; touches it on the way   [adash]
+   5. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 602,609; touches it on the way {move ch=0 dir=1 adAt=6 noInputTillAir=1 adClear=1}   [adash]
       -> out 1008,656
 how in 48,688 -> out 1008,656: djump
      coming in at 48,688
-   1. coming in: holding nothing, from 48,688; lands at 48,689
+   1. coming in: holding nothing, from 48,688; lands at 48,689 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-249, y 689
-   2. jump (held 21 ticks), holding right, double jump at tick 15, from 32,689; lands at 259,609   [djump]
+   2. jump (held 21 ticks), holding right, double jump at tick 15, from 32,689; lands at 259,609 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
       -> standing at x 250-422, y 609
-   3. walk off the edge, holding right once in the air, from 250,609; lands at 521,689
+   3. walk off the edge, holding right once in the air, from 250,609; lands at 521,689 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> standing at x 455-569, y 689
-   4. jump (held 21 ticks), holding right, double jump at tick 10, from 455,689; lands at 623,609   [djump]
+   4. jump (held 21 ticks), holding right, double jump at tick 10, from 455,689; lands at 623,609 {move ch=1 dir=1 jumpAt=0 djAt=10}   [djump]
       -> standing at x 602-774, y 609
-   5. walk off the edge, holding right once in the air, double jump at tick 8, from 606,609; touches it on the way   [djump]
+   5. walk off the edge, holding right once in the air, double jump at tick 8, from 606,609; touches it on the way {move ch=1 dir=1 djAt=8 noInputTillAir=1}   [djump]
       -> out 1008,656

@@ -21,6 +21,7 @@ if oKeyCodes.kCodePressed[3]=1 and activateTime=0 and global.gamePaused=false an
   if global.rmDeaths>=5 {global.chaoRecognition=1}
   global.rmDeaths=0; global.hitsTaken=0
   global.evgFight=type
+  global.evgRoom=evgRoom
   transition_steps=10
   transition_kind=21
   room_goto_fixed(evgRoom)

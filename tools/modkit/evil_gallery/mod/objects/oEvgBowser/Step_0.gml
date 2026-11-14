@@ -1,6 +1,6 @@
 //Evil Boss Gallery: Evil Bowser's step: Bowser's (oBowser), with his evil moves (see Create). atkProg: 0 stand (hops
 //and fireballs), 1-4 Bowser's stomp (jump, air time, fall, landing), 10-12 hammers, 20-23 meteor (then the fall and the
-//landing are the stomp's, 3 and 4, faster: meteorFall), 30-32 inferno
+//landing are the stomp's, 3 and 4, faster: meteorFall), 30-31 inferno
 if global.gamePaused=false
 {
   if activateBoss=1
@@ -276,7 +276,7 @@ if global.gamePaused=false
         atkProg=3
       }
     }
-    else if atkProg=30 //---------- Inferno: the roar (the first two Paratroopas fly in) ----------
+    else if atkProg=30 //---------- Inferno: the roar ----------
     {
       evgTime+=1*gDeltaTime
       xVel=0
@@ -286,46 +286,28 @@ if global.gamePaused=false
         var tFlash;
         tFlash=instance_create(0,0,oScreenFlash)
         tFlash.image_blend=make_color_rgb(150,40,90); tFlash.image_alpha=0.5; tFlash.fadeSpeed=0.04
-        paraNum=0
-        evgSpawnPara()
-        evgSpawnPara()
         shakeTime=12
       }
       if evgTime>=30
       {
         evgTime=0
+        infernoNum=0
+        infernoNext=0
+        //(the first strips to burn are the ones the player isn't on)
+        infernoGroup=1-(median(0,floor((oPlayer1.x-576)/32),8) mod 2)
         atkProg=31
       }
     }
-    else if atkProg=31 //---------- Inferno: embers rising from the floor ----------
+    else if atkProg=31 //---------- Inferno: the floor's strips burn in turn, each glowing first; his fireballs over them ----------
     {
       evgTime+=1*gDeltaTime
       xVel=0
-      if gDeltaDoTicks
+      if infernoNum<infernoWaves and evgTime>=infernoNext
       {
-        var tEffect;
-        tEffect=instance_create(584+random(272),272-random(4),oEffect)
-        tEffect.sprite_index=sEvgPoeFlame; tEffect.image_speed=0.3; tEffect.image_xscale=0.4; tEffect.image_yscale=0.4
-        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=-1-random(1)
-      }
-      if evgTime>=40
-      {
-        evgTime=0
-        paraTime=0
-        playSound(global.snd_Flame1,0,0.8,1)
-        evgInfernoLight()
-        atkProg=32
-      }
-    }
-    else if atkProg=32 //---------- Inferno: burning (more Paratroopas, and his fireballs, slower) ----------
-    {
-      evgTime+=1*gDeltaTime
-      xVel=0
-      paraTime+=1*gDeltaTime
-      if paraTime>=35
-      {
-        paraTime-=35
-        evgSpawnPara()
+        evgInfernoLight(infernoGroup,infernoWarn)
+        infernoGroup=1-infernoGroup
+        infernoNum+=1
+        infernoNext+=infernoGap
       }
       fireTime+=1*gDeltaTime
       if fireTime>=fireDelay+20
@@ -333,9 +315,8 @@ if global.gamePaused=false
         evgBowserFire(0)
         fireTime=0
       }
-      if evgTime>=infernoLen
+      if infernoNum>=infernoWaves and !instance_exists(oEvgFloorFlame)
       {
-        with (oEvgParatroopa) {leaving=1}
         sprite_index=sEvgBowserStand; image_index=0
         atkTime=0
         atkProg=0
@@ -391,7 +372,7 @@ if global.gamePaused=false
     if y>room_height+48 //---------- End fight: back to the evil gallery, at his door ----------
     {
       with oEProjectileBase {instance_destroy()}
-      with oEvgParatroopa {instance_destroy()}
+      with oEvgFloorFlame {instance_destroy()}
       with oEvgBulletBill {instance_destroy()}
       evgTally(1)
       global.newMapX=264; global.newMapY=1376; room_goto(rEvgGallery)

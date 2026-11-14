@@ -3,6 +3,7 @@
 # Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
 # Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
 # middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [as the other ways in make the room]
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
 in 48,288   # from rMega4_StormB out 3920,384
@@ -15,6 +16,8 @@ out 0,256   # to rMega4_StormB at 3896,416; the player goes into it
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 9 65   # weapon upgrade 65, at 5855,151
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -32,50 +35,52 @@ from in 6104,288
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 48,288 -> out 6128,256: -
-     coming in at 48,288
-   1. coming in: holding nothing, from 48,288; lands at 48,289
-      -> standing at x 0-1897, y 129-289
-   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1897,136; lands at 1838,161
-      -> standing at x 1719-1847, y -24-263
-   3. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 1719,-24; lands at 1830,81
-      -> standing at x 1769-6144, y 81-289
+     [as the other ways in make the room] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as the other ways in make the room] standing at x 0-1897, y 129-289
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1897,136; lands at 1838,161 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> [as the other ways in make the room] standing at x 1719-1847, y -24-263
+   3. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 1719,-24; lands at 1830,81 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> [as the other ways in make the room] standing at x 1769-6144, y 81-289
    4. standing at 6126,289, goes into it
       -> out 6128,256
 how in 48,288 -> out 0,256: -
-     coming in at 48,288
-   1. coming in: holding nothing, from 48,288; lands at 48,289
-      -> standing at x 0-1897, y 129-289
+     [as the other ways in make the room] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as the other ways in make the room] standing at x 0-1897, y 129-289
    2. standing at 0,289, goes into it
       -> out 0,256
 how in 48,288 -> loc 9 65: -
-     coming in at 48,288
-   1. coming in: holding nothing, from 48,288; lands at 48,289
-      -> standing at x 0-1897, y 129-289
-   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1897,136; lands at 1838,161
-      -> standing at x 1719-1847, y -24-263
-   3. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 1719,-24; lands at 1830,81
-      -> standing at x 1769-6144, y 81-289
-   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5735,210; touches it on the way
+     [as the other ways in make the room] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as the other ways in make the room] standing at x 0-1897, y 129-289
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1897,136; lands at 1838,161 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> [as the other ways in make the room] standing at x 1719-1847, y -24-263
+   3. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 1719,-24; lands at 1830,81 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> [as the other ways in make the room] standing at x 1769-6144, y 81-289
+   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5735,210; touches it on the way {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> loc 9 65
 how in 6104,288 -> out 6128,256: -
-     coming in at 6104,288
-   1. coming in: holding nothing, from 6104,288; lands at 6104,289
-      -> standing at x 1769-6144, y 81-289
+     [as coming in at 6104,288 makes the room] coming in at 6104,288
+   1. coming in: holding nothing, from 6104,288; lands at 6104,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 6104,288 makes the room] standing at x 1769-6144, y 81-289
    2. standing at 6126,289, goes into it
       -> out 6128,256
 how in 6104,288 -> out 0,256: -
-     coming in at 6104,288
-   1. coming in: holding nothing, from 6104,288; lands at 6104,289
-      -> standing at x 1769-6144, y 81-289
-   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1769,82; clings to the wall at 1719,31
-      -> standing at x 1719-1847, y -24-263
-   3. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 1847,162; clings to the wall at 1897,152
-      -> standing at x 0-1897, y 129-289
-   4. standing at 0,289, goes into it
+     [as coming in at 6104,288 makes the room] coming in at 6104,288
+   1. coming in: holding nothing, from 6104,288; lands at 6104,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 6104,288 makes the room] standing at x 1769-6144, y 81-289
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1769,82; clings to the wall at 1719,31 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> [as coming in at 6104,288 makes the room] standing at x 1719-1847, y -24-263
+   3. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 1847,162; clings to the wall at 1897,152 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> [as coming in at 6104,288 makes the room] standing at x 297-1897, y 129-391
+   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 297,290; clings to the wall at 103,369 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> [as coming in at 6104,288 makes the room] standing at x 0-103, y 289-449
+   5. standing at 0,289, goes into it
       -> out 0,256
 how in 6104,288 -> loc 9 65: -
-     coming in at 6104,288
-   1. coming in: holding nothing, from 6104,288; lands at 6104,289
-      -> standing at x 1769-6144, y 81-289
-   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5735,210; touches it on the way
+     [as coming in at 6104,288 makes the room] coming in at 6104,288
+   1. coming in: holding nothing, from 6104,288; lands at 6104,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 6104,288 makes the room] standing at x 1769-6144, y 81-289
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5735,210; touches it on the way {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> loc 9 65

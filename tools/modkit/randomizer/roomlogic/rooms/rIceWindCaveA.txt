@@ -16,6 +16,8 @@ out 600,160   # to rIceWindCaveB at 144,288; the player presses up at it
 loc 3 29   # arrow quiver 29, at 1511,118
 loc 10 82   # skill point 82, at 735,223
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -36,37 +38,37 @@ from in 608,192
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 112,1536 -> out 104,1504: -
      coming in at 112,1536
-   1. coming in: holding nothing, from 112,1536; lands at 112,1537
+   1. coming in: holding nothing, from 112,1536; lands at 112,1537 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 71-377, y 1537
    2. standing at 102,1537, presses up at it
       -> out 104,1504
 how in 608,192 -> out 104,1504: -
      coming in at 608,192
-   1. coming in: holding nothing, from 608,192; lands at 608,193
+   1. coming in: holding nothing, from 608,192; lands at 608,193 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 538-678, y 193
-   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 538,193; lands at 504,385
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 538,193; lands at 504,385 {move ch=1 dir=-1 h2=0 hDelay=1 noInputTillAir=1}
       -> standing at x 455-582, y 385
-   3. walk off the edge, holding right, then nothing after 1 ticks in the air, from 455,385; lands at 626,961
+   3. walk off the edge, holding right, then nothing after 1 ticks in the air, from 455,385; lands at 626,961 {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
       -> standing at x 570-646, y 961
-   4. walk off the edge, holding right, then left after 1 ticks in the air, from 570,961; lands at 455,1473
+   4. walk off the edge, holding right, then left after 1 ticks in the air, from 570,961; lands at 455,1473 {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}
       -> standing at x 455-486, y 1473
-   5. jump (held 21 ticks), holding left, from 455,1473; lands at 382,1409
+   5. jump (held 21 ticks), holding left, from 455,1473; lands at 382,1409 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 378-454, y 1409
-   6. walk off the edge, holding left once in the air, from 378,1409; lands at 254,1537
+   6. walk off the edge, holding left once in the air, from 378,1409; lands at 254,1537 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> standing at x 71-377, y 1537
    7. standing at 102,1537, presses up at it
       -> out 104,1504
 how in 608,192 -> out 600,160: -
      coming in at 608,192
-   1. coming in: holding nothing, from 608,192; lands at 608,193
+   1. coming in: holding nothing, from 608,192; lands at 608,193 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 538-678, y 193
-   2. jump (held 2 ticks), holding left, from 538,193; lands at 433,257
+   2. jump (held 2 ticks), holding left, from 538,193; lands at 433,257 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 378-454, y 257
-   3. running right, jump (held 21 ticks), holding right, from 446,257; touches it on the way
+   3. running right, jump (held 21 ticks), holding right, from 446,257; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0}
       -> out 600,160
 how in 608,192 -> loc 10 82: -
      coming in at 608,192
-   1. coming in: holding nothing, from 608,192; lands at 608,193
+   1. coming in: holding nothing, from 608,192; lands at 608,193 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 538-678, y 193
-   2. walk off the edge, holding right once in the air, from 538,193; touches it on the way
+   2. walk off the edge, holding right once in the air, from 538,193; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> loc 10 82

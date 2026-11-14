@@ -13,28 +13,30 @@ out 480,212   # to rNGC_Elevator at 368,228; the player presses up at it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 48,288
-  out 0,256     -
-  out 480,212   -
+  out 0,256      -
+  out 480,212    -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 48,288 -> out 0,256: -
      coming in at 48,288
-   1. coming in: holding nothing, from 48,288; lands at 48,289
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-137, y 289
    2. standing at 0,289, goes into it
       -> out 0,256
 how in 48,288 -> out 480,212: -
      coming in at 48,288
-   1. coming in: holding nothing, from 48,288; lands at 48,289
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-137, y 289
-   2. running right, jump (held 6 ticks), holding right, from 64,289; lands at 189,245
+   2. running right, jump (held 6 ticks), holding right, from 64,289; lands at 189,245 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> standing at x 138-302, y 245
-   3. running right, jump (held 21 ticks), holding right, from 272,245; touches it on the way
+   3. running right, jump (held 21 ticks), holding right, from 272,245; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0}
       -> out 480,212

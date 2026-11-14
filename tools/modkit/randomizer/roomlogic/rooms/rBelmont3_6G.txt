@@ -14,6 +14,8 @@ out 1568,992   # to rBelmont3_7A at 48,272; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -30,31 +32,31 @@ from in 1536,1024
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 112,240 -> out 112,208: -
      coming in at 112,240
-   1. coming in: holding nothing, from 112,240; lands at 112,241
+   1. coming in: holding nothing, from 112,240; lands at 112,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 74-150, y 241
-   2. walk off the edge, holding left once in the air, from 74,241; lands at 55,257
+   2. walk off the edge, holding left once in the air, from 74,241; lands at 55,257 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> standing at x 55-73, y 257
-   3. jump (held 2 ticks), holding right, from 55,257; touches it on the way
+   3. jump (held 2 ticks), holding right, from 55,257; touches it on the way {move ch=1 dir=1 jumpAt=0 jumpHold=2}
       -> out 112,208
 how in 112,240 -> out 1568,992: -
      coming in at 112,240
-   1. coming in: holding nothing, from 112,240; lands at 112,241
+   1. coming in: holding nothing, from 112,240; lands at 112,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 74-150, y 241
-   2. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 74,241; lands at 207,257
+   2. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 74,241; lands at 207,257 {move ch=1 dir=-1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> standing at x 151-1584, y 257-1025
    3. standing at 1566,1025, goes into it
       -> out 1568,992
 how in 1536,1024 -> out 112,208: -
      coming in at 1536,1024
-   1. coming in: holding nothing, from 1536,1024; lands at 1536,1025
+   1. coming in: holding nothing, from 1536,1024; lands at 1536,1025 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 151-1584, y 257-1025
-   2. running left, jump (held 2 ticks), holding left, from 151,257; lands at 55,257
+   2. running left, jump (held 2 ticks), holding left, from 151,257; lands at 55,257 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> standing at x 55-73, y 257
-   3. jump (held 2 ticks), holding right, from 55,257; touches it on the way
+   3. jump (held 2 ticks), holding right, from 55,257; touches it on the way {move ch=1 dir=1 jumpAt=0 jumpHold=2}
       -> out 112,208
 how in 1536,1024 -> out 1568,992: -
      coming in at 1536,1024
-   1. coming in: holding nothing, from 1536,1024; lands at 1536,1025
+   1. coming in: holding nothing, from 1536,1024; lands at 1536,1025 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 151-1584, y 257-1025
    2. standing at 1566,1025, goes into it
       -> out 1568,992

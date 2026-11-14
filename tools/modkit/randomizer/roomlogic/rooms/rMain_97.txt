@@ -16,6 +16,8 @@ out 2600,232   # to this room at 288,80; the player presses down at it
 loc 10 92   # skill point 92, at 2399,159
 loc 2 73   # treasure chest 73, at 1456,163
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -23,26 +25,386 @@ loc 2 73   # treasure chest 73, at 1456,163
 # the locked door whose objectNum is N.
 from in 48,272
   out 0,240      -
-  out 2600,232   never
-  loc 10 92      never
-  loc 2 73       never
+  out 2600,232   gdash,mario | adash,mario | djump,mario
+  loc 10 92      adash,mario | djump,mario | gdash,mario
+  loc 2 73       adash,mario | gdash,mario | djump,mario
 from in 288,80
   out 0,240      -
-  out 2600,232   never
-  loc 10 92      never
-  loc 2 73       never
+  out 2600,232   gdash,mario | adash,mario | djump,mario
+  loc 10 92      adash,mario | djump,mario | gdash,mario
+  loc 2 73       adash,mario | gdash,mario | djump,mario
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 48,272 -> out 0,240: -
      coming in at 48,272
-   1. coming in: holding nothing, from 48,272; lands at 48,273
+   1. coming in: holding nothing, from 48,272; lands at 48,273 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-582, y 209-367
    2. standing at 0,273, goes into it
       -> out 0,240
+how in 48,272 -> out 2600,232: gdash,mario
+     coming in at 48,272
+   1. coming in: holding nothing, from 48,272; lands at 48,273 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-582, y 209-367
+   2. dash right (Jerry), jump (held 21 ticks), holding right, from 432,209; comes down on the flying enemy at 736,212 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=4 gdAt=0}   [gdash,mario]
+      -> just stomped the oWingedMelon at 736,212 (Jerry)
+   3. just stomped the flying enemy, the jump or up held: holding right, from 736,213; comes down on the flying enemy at 896,180 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=0}   [mario]
+      -> just stomped the oWingedMelon at 896,180 (Jerry)
+   4. just stomped the flying enemy, the jump or up held: holding right, from 896,181; comes down on the flying enemy at 1056,148 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=4}   [mario]
+      -> just stomped the oWingedMelon at 1056,148 (Jerry)
+   5. just stomped the flying enemy, the jump or up held: holding right, from 1056,149; comes down on the flying enemy at 1216,116 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=8}   [mario]
+      -> just stomped the oWingedMelon at 1216,116 (Jerry)
+   6. just stomped the flying enemy, the jump or up held: holding right, from 1216,117; lands at 1419,184 {move ch=0 dir=1 maxT=120 fromFlyer=12}
+      -> standing at x 1394-1518, y 177-193
+   7. dash right (Jerry), jump (held 21 ticks), holding right, from 1440,177; comes down on the flying enemy at 1760,212 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=4 gdAt=0}   [gdash,mario]
+      -> just stomped the oWingedMelon at 1760,212 (Jerry)
+   8. just stomped the flying enemy, the jump or up held: holding nothing, then right after 8 ticks, from 1760,213; comes down on the flying enemy at 1856,196 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=8 maxT=120 fromFlyer=14}   [mario]
+      -> just stomped the oWingedMelon at 1856,196 (Jerry)
+   9. just stomped the flying enemy, the jump or up held: holding nothing, then right after 8 ticks, from 1856,197; comes down on the flying enemy at 1952,180 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=8 maxT=120 fromFlyer=16}   [mario]
+      -> just stomped the oWingedMelon at 1952,180 (Jerry)
+  10. just stomped the flying enemy, the jump or up held: holding nothing, then right after 8 ticks, from 1952,181; comes down on the flying enemy at 2048,164 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=8 maxT=120 fromFlyer=18}   [mario]
+      -> just stomped the oWingedMelon at 2048,164 (Jerry)
+  11. just stomped the flying enemy, the jump or up held: holding nothing, then right after 8 ticks, from 2048,165; comes down on the flying enemy at 2144,148 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=8 maxT=120 fromFlyer=20}   [mario]
+      -> just stomped the oWingedMelon at 2144,148 (Jerry)
+  12. just stomped the flying enemy, the jump or up held: holding right, from 2144,149; lands at 2334,193 {move ch=0 dir=1 maxT=120 fromFlyer=22}
+      -> standing at x 2314-2486, y 193
+  13. dash right (Jerry), jump (held 21 ticks), holding right, from 2314,193; touches it on the way {move ch=0 dir=1 jumpAt=1 gdAt=0}   [gdash]
+      -> out 2600,232
+how in 48,272 -> out 2600,232: adash,mario
+     coming in at 48,272
+   1. coming in: holding nothing, from 48,272; lands at 48,273 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-582, y 209-367
+   2. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 400,209; comes down on the flying enemy at 736,212 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,mario]
+      -> just stomped the oWingedMelon at 736,212 (Jerry)
+   3. just stomped the flying enemy, the jump or up held: holding right, from 736,213; comes down on the flying enemy at 896,180 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=0}   [mario]
+      -> just stomped the oWingedMelon at 896,180 (Jerry)
+   4. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 10, from 896,181; comes down on the flying enemy at 1136,132 and stomps it (the Mario Ability Set) {move ch=0 dir=1 adAt=10 maxT=120 fromFlyer=4}   [adash,mario]
+      -> just stomped the oWingedMelon at 1136,132 (Jerry)
+   5. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 6, from 1136,133; lands at 1417,185 {move ch=0 dir=1 adAt=6 maxT=120 fromFlyer=10}   [adash]
+      -> standing at x 1394-1518, y 177-193
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1424,181; comes down on the flying enemy at 1760,212 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,mario]
+      -> just stomped the oWingedMelon at 1760,212 (Jerry)
+   7. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 14, from 1760,213; comes down on the flying enemy at 2048,164 and stomps it (the Mario Ability Set) {move ch=0 dir=1 adAt=14 maxT=120 fromFlyer=14}   [adash,mario]
+      -> just stomped the oWingedMelon at 2048,164 (Jerry)
+   8. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 12, from 2048,165; lands at 2374,193 {move ch=0 dir=1 adAt=12 maxT=120 fromFlyer=20}   [adash]
+      -> standing at x 2314-2486, y 193
+   9. jump (held 21 ticks), holding right, air dash (Claire) at tick 10, from 2318,193; touches it on the way {move ch=1 dir=1 jumpAt=0 adAt=10}   [adash]
+      -> out 2600,232
+how in 48,272 -> out 2600,232: djump,mario
+     coming in at 48,272
+   1. coming in: holding nothing, from 48,272; lands at 48,273 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-582, y 209-367
+   2. jump (held 21 ticks), holding right, double jump at tick 15, from 448,209; comes down on the flying enemy at 736,212 and stomps it (the Mario Ability Set) {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump,mario]
+      -> just stomped the oWingedMelon at 736,212 (Claire)
+   3. just stomped the flying enemy, the jump or up held: holding right, from 736,213; comes down on the flying enemy at 896,180 and stomps it (the Mario Ability Set) {move ch=1 dir=1 maxT=120 fromFlyer=1}   [mario]
+      -> just stomped the oWingedMelon at 896,180 (Claire)
+   4. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 12, from 896,181; comes down on the flying enemy at 1136,132 and stomps it (the Mario Ability Set) {move ch=1 dir=1 djAt=12 maxT=120 fromFlyer=5}   [djump,mario]
+      -> just stomped the oWingedMelon at 1136,132 (Claire)
+   5. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 12, from 1136,133; lands at 1437,177 {move ch=1 dir=1 djAt=12 maxT=120 fromFlyer=11}   [djump]
+      -> standing at x 1394-1518, y 177-193
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1456,177; comes down on the flying enemy at 1760,212 and stomps it (the Mario Ability Set) {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump,mario]
+      -> just stomped the oWingedMelon at 1760,212 (Claire)
+   7. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 18, from 1760,213; comes down on the flying enemy at 2048,164 and stomps it (the Mario Ability Set) {move ch=1 dir=1 djAt=18 maxT=120 fromFlyer=15}   [djump,mario]
+      -> just stomped the oWingedMelon at 2048,164 (Claire)
+   8. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 12, from 2048,165; lands at 2341,193 {move ch=1 dir=1 djAt=12 maxT=120 fromFlyer=21}   [djump]
+      -> standing at x 2314-2486, y 193
+   9. jump (held 21 ticks), holding right, double jump at tick 10, from 2336,193; touches it on the way {move ch=1 dir=1 jumpAt=0 djAt=10}   [djump]
+      -> out 2600,232
+how in 48,272 -> loc 10 92: adash,mario
+     coming in at 48,272
+   1. coming in: holding nothing, from 48,272; lands at 48,273 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-582, y 209-367
+   2. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 400,209; comes down on the flying enemy at 736,212 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,mario]
+      -> just stomped the oWingedMelon at 736,212 (Jerry)
+   3. just stomped the flying enemy, the jump or up held: holding right, from 736,213; comes down on the flying enemy at 896,180 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=0}   [mario]
+      -> just stomped the oWingedMelon at 896,180 (Jerry)
+   4. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 10, from 896,181; comes down on the flying enemy at 1136,132 and stomps it (the Mario Ability Set) {move ch=0 dir=1 adAt=10 maxT=120 fromFlyer=4}   [adash,mario]
+      -> just stomped the oWingedMelon at 1136,132 (Jerry)
+   5. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 6, from 1136,133; lands at 1417,185 {move ch=0 dir=1 adAt=6 maxT=120 fromFlyer=10}   [adash]
+      -> standing at x 1394-1518, y 177-193
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1424,181; comes down on the flying enemy at 1760,212 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,mario]
+      -> just stomped the oWingedMelon at 1760,212 (Jerry)
+   7. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 14, from 1760,213; comes down on the flying enemy at 2048,164 and stomps it (the Mario Ability Set) {move ch=0 dir=1 adAt=14 maxT=120 fromFlyer=14}   [adash,mario]
+      -> just stomped the oWingedMelon at 2048,164 (Jerry)
+   8. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 12, from 2048,165; lands at 2374,193 {move ch=0 dir=1 adAt=12 maxT=120 fromFlyer=20}   [adash]
+      -> standing at x 2314-2486, y 193
+   9. standing at 2392,193, touches it
+      -> loc 10 92
+how in 48,272 -> loc 10 92: djump,mario
+     coming in at 48,272
+   1. coming in: holding nothing, from 48,272; lands at 48,273 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-582, y 209-367
+   2. jump (held 21 ticks), holding right, double jump at tick 15, from 448,209; comes down on the flying enemy at 736,212 and stomps it (the Mario Ability Set) {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump,mario]
+      -> just stomped the oWingedMelon at 736,212 (Claire)
+   3. just stomped the flying enemy, the jump or up held: holding right, from 736,213; comes down on the flying enemy at 896,180 and stomps it (the Mario Ability Set) {move ch=1 dir=1 maxT=120 fromFlyer=1}   [mario]
+      -> just stomped the oWingedMelon at 896,180 (Claire)
+   4. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 12, from 896,181; comes down on the flying enemy at 1136,132 and stomps it (the Mario Ability Set) {move ch=1 dir=1 djAt=12 maxT=120 fromFlyer=5}   [djump,mario]
+      -> just stomped the oWingedMelon at 1136,132 (Claire)
+   5. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 12, from 1136,133; lands at 1437,177 {move ch=1 dir=1 djAt=12 maxT=120 fromFlyer=11}   [djump]
+      -> standing at x 1394-1518, y 177-193
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1456,177; comes down on the flying enemy at 1760,212 and stomps it (the Mario Ability Set) {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump,mario]
+      -> just stomped the oWingedMelon at 1760,212 (Claire)
+   7. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 18, from 1760,213; comes down on the flying enemy at 2048,164 and stomps it (the Mario Ability Set) {move ch=1 dir=1 djAt=18 maxT=120 fromFlyer=15}   [djump,mario]
+      -> just stomped the oWingedMelon at 2048,164 (Claire)
+   8. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 12, from 2048,165; lands at 2341,193 {move ch=1 dir=1 djAt=12 maxT=120 fromFlyer=21}   [djump]
+      -> standing at x 2314-2486, y 193
+   9. standing at 2392,193, touches it
+      -> loc 10 92
+how in 48,272 -> loc 10 92: gdash,mario
+     coming in at 48,272
+   1. coming in: holding nothing, from 48,272; lands at 48,273 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-582, y 209-367
+   2. dash right (Jerry), jump (held 21 ticks), holding right, from 432,209; comes down on the flying enemy at 736,212 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=4 gdAt=0}   [gdash,mario]
+      -> just stomped the oWingedMelon at 736,212 (Jerry)
+   3. just stomped the flying enemy, the jump or up held: holding right, from 736,213; comes down on the flying enemy at 896,180 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=0}   [mario]
+      -> just stomped the oWingedMelon at 896,180 (Jerry)
+   4. just stomped the flying enemy, the jump or up held: holding right, from 896,181; comes down on the flying enemy at 1056,148 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=4}   [mario]
+      -> just stomped the oWingedMelon at 1056,148 (Jerry)
+   5. just stomped the flying enemy, the jump or up held: holding right, from 1056,149; comes down on the flying enemy at 1216,116 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=8}   [mario]
+      -> just stomped the oWingedMelon at 1216,116 (Jerry)
+   6. just stomped the flying enemy, the jump or up held: holding right, from 1216,117; lands at 1419,184 {move ch=0 dir=1 maxT=120 fromFlyer=12}
+      -> standing at x 1394-1518, y 177-193
+   7. dash right (Jerry), jump (held 21 ticks), holding right, from 1440,177; comes down on the flying enemy at 1760,212 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=4 gdAt=0}   [gdash,mario]
+      -> just stomped the oWingedMelon at 1760,212 (Jerry)
+   8. just stomped the flying enemy, the jump or up held: holding nothing, then right after 8 ticks, from 1760,213; comes down on the flying enemy at 1856,196 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=8 maxT=120 fromFlyer=14}   [mario]
+      -> just stomped the oWingedMelon at 1856,196 (Jerry)
+   9. just stomped the flying enemy, the jump or up held: holding nothing, then right after 8 ticks, from 1856,197; comes down on the flying enemy at 1952,180 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=8 maxT=120 fromFlyer=16}   [mario]
+      -> just stomped the oWingedMelon at 1952,180 (Jerry)
+  10. just stomped the flying enemy, the jump or up held: holding nothing, then right after 8 ticks, from 1952,181; comes down on the flying enemy at 2048,164 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=8 maxT=120 fromFlyer=18}   [mario]
+      -> just stomped the oWingedMelon at 2048,164 (Jerry)
+  11. just stomped the flying enemy, the jump or up held: holding nothing, then right after 8 ticks, from 2048,165; comes down on the flying enemy at 2144,148 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=8 maxT=120 fromFlyer=20}   [mario]
+      -> just stomped the oWingedMelon at 2144,148 (Jerry)
+  12. just stomped the flying enemy, the jump or up held: holding right, from 2144,149; lands at 2334,193 {move ch=0 dir=1 maxT=120 fromFlyer=22}
+      -> standing at x 2314-2486, y 193
+  13. standing at 2392,193, touches it
+      -> loc 10 92
+how in 48,272 -> loc 2 73: adash,mario
+     coming in at 48,272
+   1. coming in: holding nothing, from 48,272; lands at 48,273 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-582, y 209-367
+   2. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 400,209; comes down on the flying enemy at 736,212 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,mario]
+      -> just stomped the oWingedMelon at 736,212 (Jerry)
+   3. just stomped the flying enemy, the jump or up held: holding right, from 736,213; comes down on the flying enemy at 896,180 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=0}   [mario]
+      -> just stomped the oWingedMelon at 896,180 (Jerry)
+   4. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 10, from 896,181; comes down on the flying enemy at 1136,132 and stomps it (the Mario Ability Set) {move ch=0 dir=1 adAt=10 maxT=120 fromFlyer=4}   [adash,mario]
+      -> just stomped the oWingedMelon at 1136,132 (Jerry)
+   5. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 6, from 1136,133; lands at 1417,185 {move ch=0 dir=1 adAt=6 maxT=120 fromFlyer=10}   [adash]
+      -> standing at x 1394-1518, y 177-193
+   6. standing at 1446,177, touches it
+      -> loc 2 73
+how in 48,272 -> loc 2 73: gdash,mario
+     coming in at 48,272
+   1. coming in: holding nothing, from 48,272; lands at 48,273 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-582, y 209-367
+   2. dash right (Jerry), jump (held 21 ticks), holding right, from 432,209; comes down on the flying enemy at 736,212 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=4 gdAt=0}   [gdash,mario]
+      -> just stomped the oWingedMelon at 736,212 (Jerry)
+   3. just stomped the flying enemy, the jump or up held: holding right, from 736,213; comes down on the flying enemy at 896,180 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=0}   [mario]
+      -> just stomped the oWingedMelon at 896,180 (Jerry)
+   4. just stomped the flying enemy, the jump or up held: holding right, from 896,181; comes down on the flying enemy at 1056,148 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=4}   [mario]
+      -> just stomped the oWingedMelon at 1056,148 (Jerry)
+   5. just stomped the flying enemy, the jump or up held: holding right, from 1056,149; comes down on the flying enemy at 1216,116 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=8}   [mario]
+      -> just stomped the oWingedMelon at 1216,116 (Jerry)
+   6. just stomped the flying enemy, the jump or up held: holding right, from 1216,117; lands at 1419,184 {move ch=0 dir=1 maxT=120 fromFlyer=12}
+      -> standing at x 1394-1518, y 177-193
+   7. standing at 1446,177, touches it
+      -> loc 2 73
+how in 48,272 -> loc 2 73: djump,mario
+     coming in at 48,272
+   1. coming in: holding nothing, from 48,272; lands at 48,273 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-582, y 209-367
+   2. jump (held 21 ticks), holding right, double jump at tick 15, from 448,209; comes down on the flying enemy at 736,212 and stomps it (the Mario Ability Set) {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump,mario]
+      -> just stomped the oWingedMelon at 736,212 (Claire)
+   3. just stomped the flying enemy, the jump or up held: holding right, from 736,213; comes down on the flying enemy at 896,180 and stomps it (the Mario Ability Set) {move ch=1 dir=1 maxT=120 fromFlyer=1}   [mario]
+      -> just stomped the oWingedMelon at 896,180 (Claire)
+   4. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 12, from 896,181; comes down on the flying enemy at 1136,132 and stomps it (the Mario Ability Set) {move ch=1 dir=1 djAt=12 maxT=120 fromFlyer=5}   [djump,mario]
+      -> just stomped the oWingedMelon at 1136,132 (Claire)
+   5. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 12, from 1136,133; lands at 1437,177 {move ch=1 dir=1 djAt=12 maxT=120 fromFlyer=11}   [djump]
+      -> standing at x 1394-1518, y 177-193
+   6. standing at 1446,177, touches it
+      -> loc 2 73
 how in 288,80 -> out 0,240: -
      coming in at 288,80
-   1. coming in: holding nothing, from 288,80; lands at 288,209
+   1. coming in: holding nothing, from 288,80; lands at 288,209 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-582, y 209-367
    2. standing at 0,273, goes into it
       -> out 0,240
+how in 288,80 -> out 2600,232: gdash,mario
+     coming in at 288,80
+   1. coming in: holding nothing, from 288,80; lands at 288,209 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-582, y 209-367
+   2. dash right (Jerry), jump (held 21 ticks), holding right, from 432,209; comes down on the flying enemy at 736,212 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=4 gdAt=0}   [gdash,mario]
+      -> just stomped the oWingedMelon at 736,212 (Jerry)
+   3. just stomped the flying enemy, the jump or up held: holding right, from 736,213; comes down on the flying enemy at 896,180 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=0}   [mario]
+      -> just stomped the oWingedMelon at 896,180 (Jerry)
+   4. just stomped the flying enemy, the jump or up held: holding right, from 896,181; comes down on the flying enemy at 1056,148 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=4}   [mario]
+      -> just stomped the oWingedMelon at 1056,148 (Jerry)
+   5. just stomped the flying enemy, the jump or up held: holding right, from 1056,149; comes down on the flying enemy at 1216,116 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=8}   [mario]
+      -> just stomped the oWingedMelon at 1216,116 (Jerry)
+   6. just stomped the flying enemy, the jump or up held: holding right, from 1216,117; lands at 1419,184 {move ch=0 dir=1 maxT=120 fromFlyer=12}
+      -> standing at x 1394-1518, y 177-193
+   7. dash right (Jerry), jump (held 21 ticks), holding right, from 1440,177; comes down on the flying enemy at 1760,212 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=4 gdAt=0}   [gdash,mario]
+      -> just stomped the oWingedMelon at 1760,212 (Jerry)
+   8. just stomped the flying enemy, the jump or up held: holding nothing, then right after 8 ticks, from 1760,213; comes down on the flying enemy at 1856,196 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=8 maxT=120 fromFlyer=14}   [mario]
+      -> just stomped the oWingedMelon at 1856,196 (Jerry)
+   9. just stomped the flying enemy, the jump or up held: holding nothing, then right after 8 ticks, from 1856,197; comes down on the flying enemy at 1952,180 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=8 maxT=120 fromFlyer=16}   [mario]
+      -> just stomped the oWingedMelon at 1952,180 (Jerry)
+  10. just stomped the flying enemy, the jump or up held: holding nothing, then right after 8 ticks, from 1952,181; comes down on the flying enemy at 2048,164 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=8 maxT=120 fromFlyer=18}   [mario]
+      -> just stomped the oWingedMelon at 2048,164 (Jerry)
+  11. just stomped the flying enemy, the jump or up held: holding nothing, then right after 8 ticks, from 2048,165; comes down on the flying enemy at 2144,148 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=8 maxT=120 fromFlyer=20}   [mario]
+      -> just stomped the oWingedMelon at 2144,148 (Jerry)
+  12. just stomped the flying enemy, the jump or up held: holding right, from 2144,149; lands at 2334,193 {move ch=0 dir=1 maxT=120 fromFlyer=22}
+      -> standing at x 2314-2486, y 193
+  13. dash right (Jerry), jump (held 21 ticks), holding right, from 2314,193; touches it on the way {move ch=0 dir=1 jumpAt=1 gdAt=0}   [gdash]
+      -> out 2600,232
+how in 288,80 -> out 2600,232: adash,mario
+     coming in at 288,80
+   1. coming in: holding nothing, from 288,80; lands at 288,209 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-582, y 209-367
+   2. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 400,209; comes down on the flying enemy at 736,212 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,mario]
+      -> just stomped the oWingedMelon at 736,212 (Jerry)
+   3. just stomped the flying enemy, the jump or up held: holding right, from 736,213; comes down on the flying enemy at 896,180 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=0}   [mario]
+      -> just stomped the oWingedMelon at 896,180 (Jerry)
+   4. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 10, from 896,181; comes down on the flying enemy at 1136,132 and stomps it (the Mario Ability Set) {move ch=0 dir=1 adAt=10 maxT=120 fromFlyer=4}   [adash,mario]
+      -> just stomped the oWingedMelon at 1136,132 (Jerry)
+   5. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 6, from 1136,133; lands at 1417,185 {move ch=0 dir=1 adAt=6 maxT=120 fromFlyer=10}   [adash]
+      -> standing at x 1394-1518, y 177-193
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1424,181; comes down on the flying enemy at 1760,212 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,mario]
+      -> just stomped the oWingedMelon at 1760,212 (Jerry)
+   7. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 14, from 1760,213; comes down on the flying enemy at 2048,164 and stomps it (the Mario Ability Set) {move ch=0 dir=1 adAt=14 maxT=120 fromFlyer=14}   [adash,mario]
+      -> just stomped the oWingedMelon at 2048,164 (Jerry)
+   8. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 12, from 2048,165; lands at 2374,193 {move ch=0 dir=1 adAt=12 maxT=120 fromFlyer=20}   [adash]
+      -> standing at x 2314-2486, y 193
+   9. jump (held 21 ticks), holding right, air dash (Claire) at tick 10, from 2318,193; touches it on the way {move ch=1 dir=1 jumpAt=0 adAt=10}   [adash]
+      -> out 2600,232
+how in 288,80 -> out 2600,232: djump,mario
+     coming in at 288,80
+   1. coming in: holding nothing, from 288,80; lands at 288,209 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-582, y 209-367
+   2. jump (held 21 ticks), holding right, double jump at tick 15, from 448,209; comes down on the flying enemy at 736,212 and stomps it (the Mario Ability Set) {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump,mario]
+      -> just stomped the oWingedMelon at 736,212 (Claire)
+   3. just stomped the flying enemy, the jump or up held: holding right, from 736,213; comes down on the flying enemy at 896,180 and stomps it (the Mario Ability Set) {move ch=1 dir=1 maxT=120 fromFlyer=1}   [mario]
+      -> just stomped the oWingedMelon at 896,180 (Claire)
+   4. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 12, from 896,181; comes down on the flying enemy at 1136,132 and stomps it (the Mario Ability Set) {move ch=1 dir=1 djAt=12 maxT=120 fromFlyer=5}   [djump,mario]
+      -> just stomped the oWingedMelon at 1136,132 (Claire)
+   5. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 12, from 1136,133; lands at 1437,177 {move ch=1 dir=1 djAt=12 maxT=120 fromFlyer=11}   [djump]
+      -> standing at x 1394-1518, y 177-193
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1456,177; comes down on the flying enemy at 1760,212 and stomps it (the Mario Ability Set) {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump,mario]
+      -> just stomped the oWingedMelon at 1760,212 (Claire)
+   7. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 18, from 1760,213; comes down on the flying enemy at 2048,164 and stomps it (the Mario Ability Set) {move ch=1 dir=1 djAt=18 maxT=120 fromFlyer=15}   [djump,mario]
+      -> just stomped the oWingedMelon at 2048,164 (Claire)
+   8. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 12, from 2048,165; lands at 2341,193 {move ch=1 dir=1 djAt=12 maxT=120 fromFlyer=21}   [djump]
+      -> standing at x 2314-2486, y 193
+   9. jump (held 21 ticks), holding right, double jump at tick 10, from 2336,193; touches it on the way {move ch=1 dir=1 jumpAt=0 djAt=10}   [djump]
+      -> out 2600,232
+how in 288,80 -> loc 10 92: adash,mario
+     coming in at 288,80
+   1. coming in: holding nothing, from 288,80; lands at 288,209 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-582, y 209-367
+   2. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 400,209; comes down on the flying enemy at 736,212 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,mario]
+      -> just stomped the oWingedMelon at 736,212 (Jerry)
+   3. just stomped the flying enemy, the jump or up held: holding right, from 736,213; comes down on the flying enemy at 896,180 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=0}   [mario]
+      -> just stomped the oWingedMelon at 896,180 (Jerry)
+   4. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 10, from 896,181; comes down on the flying enemy at 1136,132 and stomps it (the Mario Ability Set) {move ch=0 dir=1 adAt=10 maxT=120 fromFlyer=4}   [adash,mario]
+      -> just stomped the oWingedMelon at 1136,132 (Jerry)
+   5. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 6, from 1136,133; lands at 1417,185 {move ch=0 dir=1 adAt=6 maxT=120 fromFlyer=10}   [adash]
+      -> standing at x 1394-1518, y 177-193
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1424,181; comes down on the flying enemy at 1760,212 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,mario]
+      -> just stomped the oWingedMelon at 1760,212 (Jerry)
+   7. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 14, from 1760,213; comes down on the flying enemy at 2048,164 and stomps it (the Mario Ability Set) {move ch=0 dir=1 adAt=14 maxT=120 fromFlyer=14}   [adash,mario]
+      -> just stomped the oWingedMelon at 2048,164 (Jerry)
+   8. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 12, from 2048,165; lands at 2374,193 {move ch=0 dir=1 adAt=12 maxT=120 fromFlyer=20}   [adash]
+      -> standing at x 2314-2486, y 193
+   9. standing at 2392,193, touches it
+      -> loc 10 92
+how in 288,80 -> loc 10 92: djump,mario
+     coming in at 288,80
+   1. coming in: holding nothing, from 288,80; lands at 288,209 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-582, y 209-367
+   2. jump (held 21 ticks), holding right, double jump at tick 15, from 448,209; comes down on the flying enemy at 736,212 and stomps it (the Mario Ability Set) {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump,mario]
+      -> just stomped the oWingedMelon at 736,212 (Claire)
+   3. just stomped the flying enemy, the jump or up held: holding right, from 736,213; comes down on the flying enemy at 896,180 and stomps it (the Mario Ability Set) {move ch=1 dir=1 maxT=120 fromFlyer=1}   [mario]
+      -> just stomped the oWingedMelon at 896,180 (Claire)
+   4. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 12, from 896,181; comes down on the flying enemy at 1136,132 and stomps it (the Mario Ability Set) {move ch=1 dir=1 djAt=12 maxT=120 fromFlyer=5}   [djump,mario]
+      -> just stomped the oWingedMelon at 1136,132 (Claire)
+   5. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 12, from 1136,133; lands at 1437,177 {move ch=1 dir=1 djAt=12 maxT=120 fromFlyer=11}   [djump]
+      -> standing at x 1394-1518, y 177-193
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1456,177; comes down on the flying enemy at 1760,212 and stomps it (the Mario Ability Set) {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump,mario]
+      -> just stomped the oWingedMelon at 1760,212 (Claire)
+   7. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 18, from 1760,213; comes down on the flying enemy at 2048,164 and stomps it (the Mario Ability Set) {move ch=1 dir=1 djAt=18 maxT=120 fromFlyer=15}   [djump,mario]
+      -> just stomped the oWingedMelon at 2048,164 (Claire)
+   8. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 12, from 2048,165; lands at 2341,193 {move ch=1 dir=1 djAt=12 maxT=120 fromFlyer=21}   [djump]
+      -> standing at x 2314-2486, y 193
+   9. standing at 2392,193, touches it
+      -> loc 10 92
+how in 288,80 -> loc 10 92: gdash,mario
+     coming in at 288,80
+   1. coming in: holding nothing, from 288,80; lands at 288,209 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-582, y 209-367
+   2. dash right (Jerry), jump (held 21 ticks), holding right, from 432,209; comes down on the flying enemy at 736,212 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=4 gdAt=0}   [gdash,mario]
+      -> just stomped the oWingedMelon at 736,212 (Jerry)
+   3. just stomped the flying enemy, the jump or up held: holding right, from 736,213; comes down on the flying enemy at 896,180 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=0}   [mario]
+      -> just stomped the oWingedMelon at 896,180 (Jerry)
+   4. just stomped the flying enemy, the jump or up held: holding right, from 896,181; comes down on the flying enemy at 1056,148 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=4}   [mario]
+      -> just stomped the oWingedMelon at 1056,148 (Jerry)
+   5. just stomped the flying enemy, the jump or up held: holding right, from 1056,149; comes down on the flying enemy at 1216,116 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=8}   [mario]
+      -> just stomped the oWingedMelon at 1216,116 (Jerry)
+   6. just stomped the flying enemy, the jump or up held: holding right, from 1216,117; lands at 1419,184 {move ch=0 dir=1 maxT=120 fromFlyer=12}
+      -> standing at x 1394-1518, y 177-193
+   7. dash right (Jerry), jump (held 21 ticks), holding right, from 1440,177; comes down on the flying enemy at 1760,212 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=4 gdAt=0}   [gdash,mario]
+      -> just stomped the oWingedMelon at 1760,212 (Jerry)
+   8. just stomped the flying enemy, the jump or up held: holding nothing, then right after 8 ticks, from 1760,213; comes down on the flying enemy at 1856,196 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=8 maxT=120 fromFlyer=14}   [mario]
+      -> just stomped the oWingedMelon at 1856,196 (Jerry)
+   9. just stomped the flying enemy, the jump or up held: holding nothing, then right after 8 ticks, from 1856,197; comes down on the flying enemy at 1952,180 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=8 maxT=120 fromFlyer=16}   [mario]
+      -> just stomped the oWingedMelon at 1952,180 (Jerry)
+  10. just stomped the flying enemy, the jump or up held: holding nothing, then right after 8 ticks, from 1952,181; comes down on the flying enemy at 2048,164 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=8 maxT=120 fromFlyer=18}   [mario]
+      -> just stomped the oWingedMelon at 2048,164 (Jerry)
+  11. just stomped the flying enemy, the jump or up held: holding nothing, then right after 8 ticks, from 2048,165; comes down on the flying enemy at 2144,148 and stomps it (the Mario Ability Set) {move ch=0 dir=1 h1=0 hDelay=8 maxT=120 fromFlyer=20}   [mario]
+      -> just stomped the oWingedMelon at 2144,148 (Jerry)
+  12. just stomped the flying enemy, the jump or up held: holding right, from 2144,149; lands at 2334,193 {move ch=0 dir=1 maxT=120 fromFlyer=22}
+      -> standing at x 2314-2486, y 193
+  13. standing at 2392,193, touches it
+      -> loc 10 92
+how in 288,80 -> loc 2 73: adash,mario
+     coming in at 288,80
+   1. coming in: holding nothing, from 288,80; lands at 288,209 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-582, y 209-367
+   2. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 400,209; comes down on the flying enemy at 736,212 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash,mario]
+      -> just stomped the oWingedMelon at 736,212 (Jerry)
+   3. just stomped the flying enemy, the jump or up held: holding right, from 736,213; comes down on the flying enemy at 896,180 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=0}   [mario]
+      -> just stomped the oWingedMelon at 896,180 (Jerry)
+   4. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 10, from 896,181; comes down on the flying enemy at 1136,132 and stomps it (the Mario Ability Set) {move ch=0 dir=1 adAt=10 maxT=120 fromFlyer=4}   [adash,mario]
+      -> just stomped the oWingedMelon at 1136,132 (Jerry)
+   5. just stomped the flying enemy, the jump or up held: holding right, air dash (Jerry) at tick 6, from 1136,133; lands at 1417,185 {move ch=0 dir=1 adAt=6 maxT=120 fromFlyer=10}   [adash]
+      -> standing at x 1394-1518, y 177-193
+   6. standing at 1446,177, touches it
+      -> loc 2 73
+how in 288,80 -> loc 2 73: gdash,mario
+     coming in at 288,80
+   1. coming in: holding nothing, from 288,80; lands at 288,209 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-582, y 209-367
+   2. dash right (Jerry), jump (held 21 ticks), holding right, from 432,209; comes down on the flying enemy at 736,212 and stomps it (the Mario Ability Set) {move ch=0 dir=1 jumpAt=4 gdAt=0}   [gdash,mario]
+      -> just stomped the oWingedMelon at 736,212 (Jerry)
+   3. just stomped the flying enemy, the jump or up held: holding right, from 736,213; comes down on the flying enemy at 896,180 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=0}   [mario]
+      -> just stomped the oWingedMelon at 896,180 (Jerry)
+   4. just stomped the flying enemy, the jump or up held: holding right, from 896,181; comes down on the flying enemy at 1056,148 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=4}   [mario]
+      -> just stomped the oWingedMelon at 1056,148 (Jerry)
+   5. just stomped the flying enemy, the jump or up held: holding right, from 1056,149; comes down on the flying enemy at 1216,116 and stomps it (the Mario Ability Set) {move ch=0 dir=1 maxT=120 fromFlyer=8}   [mario]
+      -> just stomped the oWingedMelon at 1216,116 (Jerry)
+   6. just stomped the flying enemy, the jump or up held: holding right, from 1216,117; lands at 1419,184 {move ch=0 dir=1 maxT=120 fromFlyer=12}
+      -> standing at x 1394-1518, y 177-193
+   7. standing at 1446,177, touches it
+      -> loc 2 73
+how in 288,80 -> loc 2 73: djump,mario
+     coming in at 288,80
+   1. coming in: holding nothing, from 288,80; lands at 288,209 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-582, y 209-367
+   2. jump (held 21 ticks), holding right, double jump at tick 15, from 448,209; comes down on the flying enemy at 736,212 and stomps it (the Mario Ability Set) {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump,mario]
+      -> just stomped the oWingedMelon at 736,212 (Claire)
+   3. just stomped the flying enemy, the jump or up held: holding right, from 736,213; comes down on the flying enemy at 896,180 and stomps it (the Mario Ability Set) {move ch=1 dir=1 maxT=120 fromFlyer=1}   [mario]
+      -> just stomped the oWingedMelon at 896,180 (Claire)
+   4. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 12, from 896,181; comes down on the flying enemy at 1136,132 and stomps it (the Mario Ability Set) {move ch=1 dir=1 djAt=12 maxT=120 fromFlyer=5}   [djump,mario]
+      -> just stomped the oWingedMelon at 1136,132 (Claire)
+   5. just stomped the flying enemy, the jump or up held: holding right, double jump at tick 12, from 1136,133; lands at 1437,177 {move ch=1 dir=1 djAt=12 maxT=120 fromFlyer=11}   [djump]
+      -> standing at x 1394-1518, y 177-193
+   6. standing at 1446,177, touches it
+      -> loc 2 73

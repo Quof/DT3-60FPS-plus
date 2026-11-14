@@ -13,6 +13,13 @@ out 4288,144   # to rBT_BrianB at 144,304; the player presses up at it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Spots: somewhere whose reaching opens a way (the barriers that wait for it need event:rBT_BrianA/<spot>, and
+# solve.py makes that what reaching the spot needs)
+spot diamond1   # a colored switch the partner can be left standing on (party split), at 2520,72
+spot diamond2   # a colored switch the partner can be left standing on (party split), at 1608,88
+
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -21,12 +28,14 @@ out 4288,144   # to rBT_BrianB at 144,304; the player presses up at it
 from in 72,304
   out 64,272     -
   out 4288,144   never
+  spot diamond1  never
+  spot diamond2  never
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 72,304 -> out 64,272: -
      coming in at 72,304
-   1. coming in: holding nothing, from 72,304; lands at 72,305
+   1. coming in: holding nothing, from 72,304; lands at 72,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-582, y 289-305
    2. standing at 62,305, presses up at it
       -> out 64,272

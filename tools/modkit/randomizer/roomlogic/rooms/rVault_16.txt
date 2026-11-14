@@ -16,6 +16,8 @@ out 2016,272   # to rVault_17 at 48,304; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -38,41 +40,41 @@ from in 1984,304
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 160,256 -> out 0,192: -
      coming in at 160,256
-   1. coming in: holding nothing, from 160,256; lands at 160,257
+   1. coming in: holding nothing, from 160,256; lands at 160,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 138-182, y 257
-   2. jump (held 2 ticks), holding left, from 138,257; lands at 76,225
+   2. jump (held 2 ticks), holding left, from 138,257; lands at 76,225 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 0-118, y 225
    3. standing at 0,225, goes into it
       -> out 0,192
 how in 160,256 -> out 360,176: -
      coming in at 160,256
-   1. coming in: holding nothing, from 160,256; lands at 160,257
+   1. coming in: holding nothing, from 160,256; lands at 160,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 138-182, y 257
-   2. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 138,257; lands at 251,273
+   2. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 138,257; lands at 251,273 {move ch=1 dir=-1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> standing at x 183-1385, y 273
-   3. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 320,273; touches it on the way
+   3. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 320,273; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> out 360,176
 how in 48,224 -> out 0,192: -
      coming in at 48,224
-   1. coming in: holding nothing, from 48,224; lands at 48,225
+   1. coming in: holding nothing, from 48,224; lands at 48,225 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-118, y 225
    2. standing at 0,225, goes into it
       -> out 0,192
 how in 48,224 -> out 360,176: -
      coming in at 48,224
-   1. coming in: holding nothing, from 48,224; lands at 48,225
+   1. coming in: holding nothing, from 48,224; lands at 48,225 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-118, y 225
-   2. running right, jump (held 2 ticks), holding right, from 48,225; lands at 202,273
+   2. running right, jump (held 2 ticks), holding right, from 48,225; lands at 202,273 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
       -> standing at x 183-1385, y 273
-   3. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 320,273; touches it on the way
+   3. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 320,273; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> out 360,176
 how in 1984,304 -> out 2016,272: -
      coming in at 1984,304
-   1. coming in: holding nothing, from 1984,304; lands at 1984,305
+   1. coming in: holding nothing, from 1984,304; lands at 1984,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 1911-2032, y 305
-   2. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1936,305; lands at 1911,241
+   2. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1936,305; lands at 1911,241 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> standing at x 1911-1942, y 241
-   3. jump (held 6 ticks), holding left, from 1911,241; lands at 1852,193
+   3. jump (held 6 ticks), holding left, from 1911,241; lands at 1852,193 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 1674-1910, y 193
-   4. walk off the edge, holding right once in the air, from 1674,193; touches it on the way
+   4. walk off the edge, holding right once in the air, from 1674,193; touches it on the way {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> out 2016,272

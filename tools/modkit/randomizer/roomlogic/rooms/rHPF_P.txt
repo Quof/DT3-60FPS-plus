@@ -14,6 +14,8 @@ out 2032,224   # to rHPF_Q at 48,832; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -21,22 +23,70 @@ out 2032,224   # to rHPF_Q at 48,832; the player goes into it
 # the locked door whose objectNum is N.
 from in 48,768
   out 0,736      -
-  out 2032,224   never
+  out 2032,224   djump
 from in 2000,256
-  out 0,736      never
+  out 0,736      -
   out 2032,224   -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 48,768 -> out 0,736: -
      coming in at 48,768
-   1. coming in: holding nothing, from 48,768; lands at 48,769
-      -> standing at x 0-262, y 769
+   1. coming in: holding nothing, from 48,768; lands at 48,769 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-441, y 769-771
    2. standing at 0,769, goes into it
+      -> out 0,736
+how in 48,768 -> out 2032,224: djump
+     coming in at 48,768
+   1. coming in: holding nothing, from 48,768; lands at 48,769 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 0-441, y 769-771
+   2. running right, jump (held 21 ticks), holding right, from 304,769; lands at 458,705 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 442-569, y 705
+   3. jump (held 21 ticks), holding right, from 446,705; lands at 577,641 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 570-697, y 641
+   4. jump (held 21 ticks), holding left, from 570,641; lands at 439,577 {move ch=1 dir=-1 jumpAt=0}
+      -> standing at x 378-582, y 577-579
+   5. jump (held 2 ticks), holding left, from 378,577; lands at 313,545 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
+      -> standing at x 250-326, y 545-547
+   6. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 250,545; lands at 286,481 {move ch=1 dir=-1 run=1 jumpAt=0 h2=-1 hDelay=6}
+      -> standing at x 250-326, y 481-483
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 318,481; lands at 515,385 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 506-569, y 385
+   8. jump (held 14 ticks), holding left, double jump at tick 21, from 508,385; lands at 252,321 {move ch=1 dir=-1 jumpAt=0 jumpHold=14 djAt=21 maxT=120}   [djump]
+      -> standing at x 71-262, y 321
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 71,321; lands at 268,225 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 250-313, y 225
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 288,225; lands at 588,257 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> standing at x 570-1337, y 257-259
+  11. step onto moving platform 7 at 1223,257
+      -> riding moving platform 7 (waiting for it where it goes)
+  12. ride moving platform 7 and step off at 1223,769
+      -> standing at x 1223-1593, y 769-771
+  13. step onto moving platform 9 at 1479,769
+      -> riding moving platform 9 (waiting for it where it goes)
+  14. ride moving platform 9 and step off at 1479,257
+      -> standing at x 1479-2048, y 257-259
+  15. standing at 2030,257, goes into it
+      -> out 2032,224
+how in 2000,256 -> out 0,736: -
+     coming in at 2000,256
+   1. coming in: holding nothing, from 2000,256; lands at 2000,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 1479-2048, y 257-259
+   2. step onto moving platform 9 at 1479,257
+      -> riding moving platform 9 (waiting for it where it goes)
+   3. ride moving platform 9 and step off at 1479,769
+      -> standing at x 1223-1593, y 769-771
+   4. step onto moving platform 7 at 1223,769
+      -> riding moving platform 7 (waiting for it where it goes)
+   5. ride moving platform 7 and step off at 1223,257
+      -> standing at x 570-1337, y 257-259
+   6. walk off the edge, holding left once in the air, from 570,257; lands at 211,769 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> standing at x 0-441, y 769-771
+   7. standing at 0,769, goes into it
       -> out 0,736
 how in 2000,256 -> out 2032,224: -
      coming in at 2000,256
-   1. coming in: holding nothing, from 2000,256; lands at 2000,257
-      -> standing at x 1594-2048, y 257
+   1. coming in: holding nothing, from 2000,256; lands at 2000,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 1479-2048, y 257-259
    2. standing at 2030,257, goes into it
       -> out 2032,224

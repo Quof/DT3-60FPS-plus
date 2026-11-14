@@ -15,143 +15,145 @@ out 0,2800   # to rMega4_IntroB at 3752,288; the player goes into it
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 9 61   # weapon upgrade 61, at 207,87
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 48,2832
-  out 464,208   djump | adash
-  out 0,2800    -
-  loc 9 61      djump | adash
+  out 464,208    djump | adash
+  out 0,2800     -
+  loc 9 61       djump | adash
 from in 440,240
-  out 464,208   -
-  out 0,2800    -
-  loc 9 61      -
+  out 464,208    -
+  out 0,2800     -
+  loc 9 61       -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 48,2832 -> out 464,208: djump
      coming in at 48,2832
-   1. coming in: holding nothing, from 48,2832; lands at 48,2833
+   1. coming in: holding nothing, from 48,2832; lands at 48,2833 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-425, y 2668-2833
-   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 425,2704; lands at 278,2689
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 425,2704; lands at 278,2689 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 185-295, y 2689-2743
-   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 185,2690; clings to the wall at 135,2639
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 185,2690; clings to the wall at 135,2639 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> on the wall at x 135, y 1708-2647
-   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 135,1744; clings to the wall at 233,1697
+   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 135,1744; clings to the wall at 233,1697 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 233-263, y 1648-1704
-   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,1664; clings to the wall at 151,1612
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,1664; clings to the wall at 151,1612 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 149-151, y 945-1687
-   6. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 151,946; clings to the wall at 135,874
+   6. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 151,946; clings to the wall at 135,874 {move ch=1 dir=-1 jumpAt=0 maxT=160 wallMode=0 fromWall=1}
       -> on the wall at x 135, y 408-931
-   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, double jump at tick 10, from 135,408; clings to the wall at 225,407   [djump]
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, double jump at tick 10, from 135,408; clings to the wall at 225,407 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 djAt=10 fromWall=1}   [djump]
       -> standing at x 225-255, y 367-409
-   8. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 225,368; clings to the wall at 297,378
+   8. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 225,368; clings to the wall at 297,378 {move ch=1 dir=1 jumpAt=0 maxT=160 wallMode=0 fromWall=1}
       -> standing at x 297-480, y 241-407
-   9. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 298,241; clings to the wall at 247,146   [djump]
+   9. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 298,241; clings to the wall at 247,146 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14 djAt=12}   [djump]
       -> standing at x 183-247, y 88-151
-  10. walk off the edge, holding right once in the air, double jump at tick 16, from 183,97; touches it on the way   [djump]
+  10. walk off the edge, holding right once in the air, double jump at tick 16, from 183,97; touches it on the way {move ch=1 dir=1 djAt=16 noInputTillAir=1}   [djump]
       -> out 464,208
 how in 48,2832 -> out 464,208: adash
      coming in at 48,2832
-   1. coming in: holding nothing, from 48,2832; lands at 48,2833
+   1. coming in: holding nothing, from 48,2832; lands at 48,2833 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-425, y 2668-2833
-   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 425,2704; lands at 278,2689
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 425,2704; lands at 278,2689 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 185-295, y 2689-2743
-   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 185,2690; clings to the wall at 135,2639
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 185,2690; clings to the wall at 135,2639 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> on the wall at x 135, y 1708-2647
-   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 135,1744; clings to the wall at 233,1697
+   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 135,1744; clings to the wall at 233,1697 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 233-263, y 1648-1704
-   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,1664; clings to the wall at 151,1612
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,1664; clings to the wall at 151,1612 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 149-151, y 945-1687
-   6. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 151,946; clings to the wall at 135,874
+   6. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 151,946; clings to the wall at 135,874 {move ch=1 dir=-1 jumpAt=0 maxT=160 wallMode=0 fromWall=1}
       -> on the wall at x 135, y 408-931
-   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, air dash back right (Jerry) at tick 5, from 135,408; clings to the wall at 225,399   [adash]
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, air dash back right (Jerry) at tick 5, from 135,408; clings to the wall at 225,399 {move ch=0 dir=-1 jumpAt=0 h2=-1 hDelay=1 adAt=5 adDir=1 fromWall=1}   [adash]
       -> standing at x 225-255, y 367-409
-   8. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 225,368; clings to the wall at 297,378
+   8. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 225,368; clings to the wall at 297,378 {move ch=1 dir=1 jumpAt=0 maxT=160 wallMode=0 fromWall=1}
       -> standing at x 297-480, y 241-407
    9. standing at 462,241, goes into it
       -> out 464,208
 how in 48,2832 -> out 0,2800: -
      coming in at 48,2832
-   1. coming in: holding nothing, from 48,2832; lands at 48,2833
+   1. coming in: holding nothing, from 48,2832; lands at 48,2833 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-425, y 2668-2833
    2. standing at 0,2833, goes into it
       -> out 0,2800
 how in 48,2832 -> loc 9 61: djump
      coming in at 48,2832
-   1. coming in: holding nothing, from 48,2832; lands at 48,2833
+   1. coming in: holding nothing, from 48,2832; lands at 48,2833 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-425, y 2668-2833
-   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 425,2704; lands at 278,2689
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 425,2704; lands at 278,2689 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 185-295, y 2689-2743
-   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 185,2690; clings to the wall at 135,2639
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 185,2690; clings to the wall at 135,2639 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> on the wall at x 135, y 1708-2647
-   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 135,1744; clings to the wall at 233,1697
+   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 135,1744; clings to the wall at 233,1697 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 233-263, y 1648-1704
-   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,1664; clings to the wall at 151,1612
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,1664; clings to the wall at 151,1612 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 149-151, y 945-1687
-   6. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 151,946; clings to the wall at 135,874
+   6. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 151,946; clings to the wall at 135,874 {move ch=1 dir=-1 jumpAt=0 maxT=160 wallMode=0 fromWall=1}
       -> on the wall at x 135, y 408-931
-   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, double jump at tick 10, from 135,408; clings to the wall at 225,407   [djump]
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, double jump at tick 10, from 135,408; clings to the wall at 225,407 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 djAt=10 fromWall=1}   [djump]
       -> standing at x 225-255, y 367-409
-   8. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 225,368; clings to the wall at 297,378
+   8. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 225,368; clings to the wall at 297,378 {move ch=1 dir=1 jumpAt=0 maxT=160 wallMode=0 fromWall=1}
       -> standing at x 297-480, y 241-407
-   9. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 298,241; clings to the wall at 247,146   [djump]
+   9. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 298,241; clings to the wall at 247,146 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=14 djAt=12}   [djump]
       -> standing at x 183-247, y 88-151
   10. standing at 202,97, touches it
       -> loc 9 61
 how in 48,2832 -> loc 9 61: adash
      coming in at 48,2832
-   1. coming in: holding nothing, from 48,2832; lands at 48,2833
+   1. coming in: holding nothing, from 48,2832; lands at 48,2833 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-425, y 2668-2833
-   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 425,2704; lands at 278,2689
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 425,2704; lands at 278,2689 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 185-295, y 2689-2743
-   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 185,2690; clings to the wall at 135,2639
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 185,2690; clings to the wall at 135,2639 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> on the wall at x 135, y 1708-2647
-   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 135,1744; clings to the wall at 233,1697
+   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 135,1744; clings to the wall at 233,1697 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 233-263, y 1648-1704
-   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,1664; clings to the wall at 151,1612
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,1664; clings to the wall at 151,1612 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 149-151, y 945-1687
-   6. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 151,946; clings to the wall at 135,874
+   6. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 151,946; clings to the wall at 135,874 {move ch=1 dir=-1 jumpAt=0 maxT=160 wallMode=0 fromWall=1}
       -> on the wall at x 135, y 408-931
-   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, air dash back right (Jerry) at tick 5, from 135,408; clings to the wall at 225,399   [adash]
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, air dash back right (Jerry) at tick 5, from 135,408; clings to the wall at 225,399 {move ch=0 dir=-1 jumpAt=0 h2=-1 hDelay=1 adAt=5 adDir=1 fromWall=1}   [adash]
       -> standing at x 225-255, y 367-409
-   8. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 225,368; clings to the wall at 183,320
+   8. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 225,368; clings to the wall at 183,320 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> on the wall at x 183, y 152-407
-   9. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, air dash back right (Jerry) at tick 5, from 183,160; clings to the wall at 393,176   [adash]
+   9. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, air dash back right (Jerry) at tick 5, from 183,160; clings to the wall at 393,176 {move ch=0 dir=-1 jumpAt=0 h2=-1 hDelay=1 adAt=5 adDir=1 fromWall=1}   [adash]
       -> on the wall at x 393, y 88-215
-  10. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, air dash back left (Jerry) at tick 5, from 393,88; clings to the wall at 247,103   [adash]
+  10. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, air dash back left (Jerry) at tick 5, from 393,88; clings to the wall at 247,103 {move ch=0 dir=1 jumpAt=0 h2=-1 hDelay=1 adAt=5 adDir=-1 fromWall=1}   [adash]
       -> standing at x 183-247, y 88-151
   11. standing at 202,97, touches it
       -> loc 9 61
 how in 440,240 -> out 464,208: -
      coming in at 440,240
-   1. coming in: holding nothing, from 440,240; lands at 440,241
+   1. coming in: holding nothing, from 440,240; lands at 440,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 297-480, y 241-407
    2. standing at 462,241, goes into it
       -> out 464,208
 how in 440,240 -> out 0,2800: -
      coming in at 440,240
-   1. coming in: holding nothing, from 440,240; lands at 440,241
+   1. coming in: holding nothing, from 440,240; lands at 440,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 297-480, y 241-407
-   2. walk off the edge, holding left, then right after 1 ticks in the air, from 298,241; clings to the wall at 345,472
+   2. walk off the edge, holding left, then right after 1 ticks in the air, from 298,241; clings to the wall at 345,472 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}
       -> on the wall at x 345, y 408-931
-   3. on the wall to the right: holding left, from 345,656; clings to the wall at 151,964
+   3. on the wall to the right: holding left, from 345,656; clings to the wall at 151,964 {move ch=1 dir=1 h1=-1 h2=-1 fromWall=1}
       -> standing at x 149-151, y 945-1687
-   4. on the wall to the left: holding right, from 151,1424; clings to the wall at 345,1732
+   4. on the wall to the left: holding right, from 151,1424; clings to the wall at 345,1732 {move ch=1 dir=-1 h1=-1 h2=-1 fromWall=1}
       -> on the wall at x 345, y 1708-2647
-   5. on the wall to the right: kick off it (wall jump), holding right, then nothing after 1 ticks, from 345,1952; lands at 318,2833
+   5. on the wall to the right: kick off it (wall jump), holding right, then nothing after 1 ticks, from 345,1952; lands at 318,2833 {move ch=1 dir=1 jumpAt=0 h2=0 hDelay=1 fromWall=1}
       -> standing at x 0-425, y 2668-2833
    6. standing at 0,2833, goes into it
       -> out 0,2800
 how in 440,240 -> loc 9 61: -
      coming in at 440,240
-   1. coming in: holding nothing, from 440,240; lands at 440,241
+   1. coming in: holding nothing, from 440,240; lands at 440,241 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 297-480, y 241-407
-   2. jump (held 6 ticks), holding right, from 298,241; clings to the wall at 393,200
+   2. jump (held 6 ticks), holding right, from 298,241; clings to the wall at 393,200 {move ch=1 dir=1 jumpAt=0 jumpHold=6}
       -> on the wall at x 393, y 88-215
-   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 393,144; clings to the wall at 247,140
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 393,144; clings to the wall at 247,140 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 183-247, y 88-151
    4. standing at 202,97, touches it
       -> loc 9 61

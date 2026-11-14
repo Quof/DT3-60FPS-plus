@@ -15,6 +15,8 @@ out 3344,224   # to rHPF_E at 48,256; the player goes into it
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 3 26   # arrow quiver 26, at 2151,278
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -33,37 +35,37 @@ from in 3312,256
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 48,224 -> out 0,192: -
      coming in at 48,224
-   1. coming in: holding nothing, from 48,224; lands at 48,225
+   1. coming in: holding nothing, from 48,224; lands at 48,225 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-326, y 225
    2. standing at 0,225, goes into it
       -> out 0,192
 how in 48,224 -> out 3344,224: djump
      coming in at 48,224
-   1. coming in: holding nothing, from 48,224; lands at 48,225
+   1. coming in: holding nothing, from 48,224; lands at 48,225 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-326, y 225
-   2. walk off the edge, holding right once in the air, from 32,225; lands at 391,257
+   2. walk off the edge, holding right once in the air, from 32,225; lands at 391,257 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> standing at x 327-1145, y 257-289
-   3. running right, jump (held 21 ticks), holding right, from 976,289; lands at 1167,257
+   3. running right, jump (held 21 ticks), holding right, from 976,289; lands at 1167,257 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 1146-1190, y 257
-   4. jump (held 21 ticks), holding right, double jump at tick 15, from 1146,257; lands at 1267,161   [djump]
+   4. jump (held 21 ticks), holding right, double jump at tick 15, from 1146,257; lands at 1267,161 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
       -> standing at x 1210-2278, y 161
-   5. walk off the edge, holding right once in the air, double jump at tick 16, from 1872,161; lands at 2583,257   [djump]
+   5. walk off the edge, holding right once in the air, double jump at tick 16, from 1872,161; lands at 2583,257 {move ch=1 dir=1 djAt=16 noInputTillAir=1}   [djump]
       -> standing at x 2522-2713, y 257
-   6. jump (held 21 ticks), holding right, double jump at tick 15, from 2525,257; lands at 2722,161   [djump]
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 2525,257; lands at 2722,161 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
       -> standing at x 2714-2822, y 161
-   7. walk off the edge, holding right once in the air, from 2714,161; lands at 2904,225
+   7. walk off the edge, holding right once in the air, from 2714,161; lands at 2904,225 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> standing at x 2823-3238, y 225
-   8. walk off the edge, holding right once in the air, from 2823,225; lands at 3299,257
+   8. walk off the edge, holding right once in the air, from 2823,225; lands at 3299,257 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> standing at x 3239-3360, y 257
    9. standing at 3342,257, goes into it
       -> out 3344,224
 how in 48,224 -> loc 3 26: samus:2
      coming in at 48,224
-   1. coming in: holding nothing, from 48,224; lands at 48,225
+   1. coming in: holding nothing, from 48,224; lands at 48,225 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-326, y 225
-   2. walk off the edge, holding right once in the air, from 32,225; lands at 391,257
+   2. walk off the edge, holding right once in the air, from 32,225; lands at 391,257 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> standing at x 327-1145, y 257-289
-   3. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 1040,289; lands at 1238,289   [samus:2]
+   3. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 1040,289; lands at 1238,289 {move ch=1 dir=1 run=1 jumpAt=0 autoMorph=1}   [samus:2]
       -> as the Morph Ball at x 1191-2169, y 289
    4. turn back from the Morph Ball at 2087,289
       -> standing at x 2087-2169, y 289
@@ -71,65 +73,65 @@ how in 48,224 -> loc 3 26: samus:2
       -> loc 3 26
 how in 3312,256 -> out 0,192: adash
      coming in at 3312,256
-   1. coming in: holding nothing, from 3312,256; lands at 3312,257
+   1. coming in: holding nothing, from 3312,256; lands at 3312,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 3239-3360, y 257
-   2. jump (held 2 ticks), holding left, from 3239,257; lands at 3196,225
+   2. jump (held 2 ticks), holding left, from 3239,257; lands at 3196,225 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 2823-3238, y 225
-   3. jump (held 21 ticks), holding left, from 2823,225; lands at 2750,161
+   3. jump (held 21 ticks), holding left, from 2823,225; lands at 2750,161 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 2714-2822, y 161
-   4. walk off the edge, holding left once in the air, from 2714,161; lands at 2612,257
+   4. walk off the edge, holding left once in the air, from 2714,161; lands at 2612,257 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> standing at x 2522-2713, y 257
-   5. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 2522,257; lands at 2294,193   [adash]
+   5. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 2522,257; lands at 2294,193 {move ch=0 dir=-1 jumpAt=0 adAt=16}   [adash]
       -> standing at x 2279-2310, y 193
-   6. jump (held 2 ticks), holding left, from 2279,193; lands at 2236,161
+   6. jump (held 2 ticks), holding left, from 2279,193; lands at 2236,161 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 1210-2278, y 161
-   7. walk off the edge, holding left once in the air, from 1210,161; lands at 1086,289
+   7. walk off the edge, holding left once in the air, from 1210,161; lands at 1086,289 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> standing at x 327-1145, y 257-289
-   8. jump (held 2 ticks), holding left, from 327,257; lands at 284,225
+   8. jump (held 2 ticks), holding left, from 327,257; lands at 284,225 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 0-326, y 225
    9. standing at 0,225, goes into it
       -> out 0,192
 how in 3312,256 -> out 0,192: djump
      coming in at 3312,256
-   1. coming in: holding nothing, from 3312,256; lands at 3312,257
+   1. coming in: holding nothing, from 3312,256; lands at 3312,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 3239-3360, y 257
-   2. jump (held 2 ticks), holding left, from 3239,257; lands at 3196,225
+   2. jump (held 2 ticks), holding left, from 3239,257; lands at 3196,225 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 2823-3238, y 225
-   3. jump (held 21 ticks), holding left, from 2823,225; lands at 2750,161
+   3. jump (held 21 ticks), holding left, from 2823,225; lands at 2750,161 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 2714-2822, y 161
-   4. running left, jump (held 6 ticks), holding left, from 2714,161; lands at 2472,289
+   4. running left, jump (held 6 ticks), holding left, from 2714,161; lands at 2472,289 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=6}
       -> standing at x 2279-2521, y 289
-   5. jump (held 21 ticks), holding left, double jump at tick 15, from 2320,289; lands at 2279,193   [djump]
+   5. jump (held 21 ticks), holding left, double jump at tick 15, from 2320,289; lands at 2279,193 {move ch=1 dir=-1 jumpAt=0 djAt=15}   [djump]
       -> standing at x 2279-2310, y 193
-   6. jump (held 2 ticks), holding left, from 2279,193; lands at 2236,161
+   6. jump (held 2 ticks), holding left, from 2279,193; lands at 2236,161 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 1210-2278, y 161
-   7. walk off the edge, holding left once in the air, from 1210,161; lands at 1086,289
+   7. walk off the edge, holding left once in the air, from 1210,161; lands at 1086,289 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> standing at x 327-1145, y 257-289
-   8. jump (held 2 ticks), holding left, from 327,257; lands at 284,225
+   8. jump (held 2 ticks), holding left, from 327,257; lands at 284,225 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 0-326, y 225
    9. standing at 0,225, goes into it
       -> out 0,192
 how in 3312,256 -> out 3344,224: -
      coming in at 3312,256
-   1. coming in: holding nothing, from 3312,256; lands at 3312,257
+   1. coming in: holding nothing, from 3312,256; lands at 3312,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 3239-3360, y 257
    2. standing at 3342,257, goes into it
       -> out 3344,224
 how in 3312,256 -> loc 3 26: adash,samus:2
      coming in at 3312,256
-   1. coming in: holding nothing, from 3312,256; lands at 3312,257
+   1. coming in: holding nothing, from 3312,256; lands at 3312,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 3239-3360, y 257
-   2. jump (held 2 ticks), holding left, from 3239,257; lands at 3196,225
+   2. jump (held 2 ticks), holding left, from 3239,257; lands at 3196,225 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 2823-3238, y 225
-   3. jump (held 21 ticks), holding left, from 2823,225; lands at 2750,161
+   3. jump (held 21 ticks), holding left, from 2823,225; lands at 2750,161 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 2714-2822, y 161
-   4. walk off the edge, holding left once in the air, from 2714,161; lands at 2612,257
+   4. walk off the edge, holding left once in the air, from 2714,161; lands at 2612,257 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> standing at x 2522-2713, y 257
-   5. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 2522,257; lands at 2294,193   [adash]
+   5. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 2522,257; lands at 2294,193 {move ch=0 dir=-1 jumpAt=0 adAt=16}   [adash]
       -> standing at x 2279-2310, y 193
-   6. jump (held 2 ticks), holding left, from 2279,193; lands at 2236,161
+   6. jump (held 2 ticks), holding left, from 2279,193; lands at 2236,161 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 1210-2278, y 161
-   7. walk off the edge, holding left, then right after 1 ticks in the air, turn into the Morph Ball where the body meets a wall or ceiling, from 1210,161; lands at 1241,289   [samus:2]
+   7. walk off the edge, holding left, then right after 1 ticks in the air, turn into the Morph Ball where the body meets a wall or ceiling, from 1210,161; lands at 1241,289 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1 autoMorph=1}   [samus:2]
       -> as the Morph Ball at x 1191-2169, y 289
    8. turn back from the Morph Ball at 2087,289
       -> standing at x 2087-2169, y 289
@@ -137,19 +139,19 @@ how in 3312,256 -> loc 3 26: adash,samus:2
       -> loc 3 26
 how in 3312,256 -> loc 3 26: djump,samus:2
      coming in at 3312,256
-   1. coming in: holding nothing, from 3312,256; lands at 3312,257
+   1. coming in: holding nothing, from 3312,256; lands at 3312,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 3239-3360, y 257
-   2. jump (held 2 ticks), holding left, from 3239,257; lands at 3196,225
+   2. jump (held 2 ticks), holding left, from 3239,257; lands at 3196,225 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 2823-3238, y 225
-   3. jump (held 21 ticks), holding left, from 2823,225; lands at 2750,161
+   3. jump (held 21 ticks), holding left, from 2823,225; lands at 2750,161 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 2714-2822, y 161
-   4. running left, jump (held 6 ticks), holding left, from 2714,161; lands at 2472,289
+   4. running left, jump (held 6 ticks), holding left, from 2714,161; lands at 2472,289 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=6}
       -> standing at x 2279-2521, y 289
-   5. jump (held 21 ticks), holding left, double jump at tick 15, from 2320,289; lands at 2279,193   [djump]
+   5. jump (held 21 ticks), holding left, double jump at tick 15, from 2320,289; lands at 2279,193 {move ch=1 dir=-1 jumpAt=0 djAt=15}   [djump]
       -> standing at x 2279-2310, y 193
-   6. jump (held 2 ticks), holding left, from 2279,193; lands at 2236,161
+   6. jump (held 2 ticks), holding left, from 2279,193; lands at 2236,161 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 1210-2278, y 161
-   7. walk off the edge, holding left, then right after 1 ticks in the air, turn into the Morph Ball where the body meets a wall or ceiling, from 1210,161; lands at 1241,289   [samus:2]
+   7. walk off the edge, holding left, then right after 1 ticks in the air, turn into the Morph Ball where the body meets a wall or ceiling, from 1210,161; lands at 1241,289 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1 autoMorph=1}   [samus:2]
       -> as the Morph Ball at x 1191-2169, y 289
    8. turn back from the Morph Ball at 2087,289
       -> standing at x 2087-2169, y 289

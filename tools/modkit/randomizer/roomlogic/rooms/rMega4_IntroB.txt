@@ -14,6 +14,8 @@ out 0,224   # to rMega4_IntroA at 4056,256; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -30,47 +32,45 @@ from in 3752,288
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 48,256 -> out 3776,256: -
      coming in at 48,256
-   1. coming in: holding nothing, from 48,256; lands at 48,257
+   1. coming in: holding nothing, from 48,256; lands at 48,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-359, y 193-417
-   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 359,194; clings to the wall at 473,376
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 359,194; clings to the wall at 473,376 {move ch=1 dir=-1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 473-2455, y 161-417
-   3. running right, jump (held 21 ticks), holding right, from 2448,225; lands at 2596,154
-      -> standing at x 2591-2721, y 149-154
-   4. running right, jump (held 21 ticks), holding right, from 2713,154; lands at 2860,184
-      -> standing at x 2851-2934, y 184-186
-   5. running right, jump (held 21 ticks), holding right, from 2931,185; lands at 3144,240
-      -> standing at x 3137-3220, y 240-242
-   6. running right, jump (held 21 ticks), holding right, from 3213,240; clings to the wall at 3465,328
+   3. running right, jump (held 21 ticks), holding right, from 2400,225; lands at 2570,167 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 2561-2751, y 144-173
+   4. running right, jump (held 21 ticks), holding right, from 2688,161; lands at 2851,195 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 2839-2917, y 195-201
+   5. running right, jump (held 21 ticks), holding right, from 2909,195; lands at 3144,237 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 3136-3214, y 237-243
+   6. running right, jump (held 21 ticks), holding right, from 3212,242; clings to the wall at 3465,338 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 3465-3792, y 177-417
    7. standing at 3774,289, goes into it
       -> out 3776,256
 how in 48,256 -> out 0,224: -
      coming in at 48,256
-   1. coming in: holding nothing, from 48,256; lands at 48,257
+   1. coming in: holding nothing, from 48,256; lands at 48,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-359, y 193-417
    2. standing at 0,257, goes into it
       -> out 0,224
 how in 3752,288 -> out 3776,256: -
      coming in at 3752,288
-   1. coming in: holding nothing, from 3752,288; lands at 3752,289
+   1. coming in: holding nothing, from 3752,288; lands at 3752,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 3465-3792, y 177-417
    2. standing at 3774,289, goes into it
       -> out 3776,256
 how in 3752,288 -> out 0,224: -
      coming in at 3752,288
-   1. coming in: holding nothing, from 3752,288; lands at 3752,289
+   1. coming in: holding nothing, from 3752,288; lands at 3752,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 3465-3792, y 177-417
-   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3465,178; lands at 3325,152
-      -> standing at x 3258-3341, y 152-154
-   3. jump (held 2 ticks), holding left, from 3258,152; lands at 3200,133
-      -> standing at x 3183-3313, y 133-138
-   4. running left, jump (held 21 ticks), holding left, from 3183,136; lands at 3036,210
-      -> standing at x 2972-3055, y 210-212
-   5. running left, jump (held 21 ticks), holding left, from 2992,210; lands at 2764,241
-      -> standing at x 2689-2772, y 241-243
-   6. running left, jump (held 21 ticks), holding left, from 2689,243; clings to the wall at 2455,303
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3465,178; lands at 3324,146 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
+      -> standing at x 3153-3343, y 128-157
+   3. jump (held 2 ticks), holding left, from 3153,151; lands at 3044,209 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
+      -> standing at x 2978-3056, y 209-215
+   4. running left, jump (held 21 ticks), holding left, from 2978,209; lands at 2764,208 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> standing at x 2694-2773, y 208-213
+   5. jump (held 21 ticks), holding left, from 2694,208; clings to the wall at 2455,316 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 473-2455, y 161-417
-   7. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 473,162; clings to the wall at 359,375
+   6. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 473,162; clings to the wall at 359,375 {move ch=1 dir=1 jumpAt=0 h2=-1 hDelay=1 fromWall=1}
       -> standing at x 0-359, y 193-417
-   8. standing at 0,257, goes into it
+   7. standing at 0,257, goes into it
       -> out 0,224

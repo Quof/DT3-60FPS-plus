@@ -9,8 +9,10 @@ event_inherited()
 //             They fly over someone standing close to him
 //  M meteor   a leap up to the ceiling, where he follows the player along it (meteorSpd, for meteorHunt ticks), then
 //             flashes (locked on) and drops straight down, fast: a shockwave each way, and a slow one after it
-//  I inferno  a roar, embers rising from the floor, then every column's top brick on fire (oEvgFloorFlame) for
-//             infernoLen ticks; Paratroopas fly in and keep coming (oEvgParatroopa), to be bounced on over the fire
+//  I inferno  a roar, then the floor burns in 32px strips, every other one at a time (oEvgFloorFlame): each wave's strips
+//             glow for infernoWarn ticks first, burn, and are out a moment (15 ticks) before the others light, so
+//             walking over to the dark strips is enough; his fireballs keep coming over them (infernoWaves waves,
+//             infernoGap apart)
 //His hop fireballs come in bursts from the second row down (evgBowserFire: chest high, then foot high, in turn), and in
 //the last phase Bullet Bills (oEvgBulletBill) cross the arena from each side, low and high in turn. The top row's
 //bricks are reinforced (the room's code: evgHard): his first stomp on one only cracks it, and the stomp that cracked it
@@ -44,18 +46,18 @@ waveSpd=3.5
 fireBurst=0
 fireBurstT=0
 fireBurstK=0
-infernoLen=120
-paraTime=0
-paraSide=1
-paraNum=0
-evgParaY[0]=214
-evgParaY[1]=182
-evgParaY[2]=198
+infernoWaves=4
+infernoWarn=32
+infernoBurn=34
+infernoGap=52
+infernoNum=0
+infernoNext=0
+infernoGroup=0
 billTime=0
 billNum=0
 shakeTime=0
 viewFix=noone
-jeremyText="Bowser's back, and he's brought friends. He shakes the floor when he lands now, he throws hammers, and when he roars the whole floor goes up in flames. The Paratroopas he calls in are your way over it: land on them holding jump."
+jeremyText="Bowser's back and he's furious. He shakes the floor when he lands now, he throws hammers, and when he roars the floor burns in strips. Watch for the glow: get to the dark bricks before it lights, and hop his fireballs while you wait."
 chaoText="He's so angry! I don't think he even cares about Peach anymore."
 devText=""
 extraInfo="Immune to everything. Same as before: make him dig."

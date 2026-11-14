@@ -15,6 +15,8 @@ out 3160,128   # to this room at 240,112; the player presses down at it
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 2 13   # treasure chest 13, at 3040,99
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -33,151 +35,151 @@ from in 240,112
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 128,48 -> out 96,-32: -
      coming in at 128,48
-   1. coming in: holding left, from 128,48; lands at 83,87
+   1. coming in: holding left, from 128,48; lands at 83,87 {move ch=1 dir=1 h1=-1 h2=-1 entering=1}
       -> standing at x 0-102, y 81-96
-   2. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 0,81; touches it on the way
+   2. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 0,81; touches it on the way {move ch=1 dir=-1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> out 96,-32
 how in 128,48 -> out 3160,128: -
      coming in at 128,48
-   1. coming in: holding nothing, from 128,48; lands at 128,161
+   1. coming in: holding nothing, from 128,48; lands at 128,161 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-422, y 161-208
-   2. running right, jump (held 21 ticks), holding right, from 288,161; lands at 517,187
-      -> standing at x 506-614, y 177-193
-   3. running right, jump (held 21 ticks), holding right, from 576,177; lands at 774,162
+   2. running right, jump (held 21 ticks), holding right, from 288,161; lands at 517,187 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 506-614, y 177-192
+   3. running right, jump (held 21 ticks), holding right, from 576,177; lands at 774,162 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 762-838, y 162-164
-   4. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 784,162; lands at 919,162
+   4. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 784,162; lands at 919,162 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=8}
       -> standing at x 906-982, y 162-163
-   5. jump (held 21 ticks), holding right, from 944,162; lands at 1105,120
-      -> standing at x 1091-1174, y 120-122
-   6. running right, jump (held 21 ticks), holding right, from 1136,120; lands at 1378,177
-      -> standing at x 1370-1453, y 177-179
-   7. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 1453,177; lands at 1500,101
-      -> standing at x 1477-1553, y 101-106
-   8. jump (held 21 ticks), holding right, from 1477,101; lands at 1675,113
+   5. running right, jump (held 21 ticks), holding right, from 960,162; lands at 1130,101 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 1115-1195, y 98-106
+   6. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1168,99; lands at 1263,111 {move ch=1 dir=-1 run=1 jumpAt=0 h2=-1 hDelay=6}
+      -> standing at x 1237-1267, y 111-113
+   7. jump (held 21 ticks), holding right, from 1259,111; lands at 1442,99 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 1434-1557, y 98-106
+   8. jump (held 21 ticks), holding right, from 1456,98; lands at 1662,118 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 1642-1878, y 113-192
-   9. walk off the edge, holding right once in the air, from 1642,129; lands at 1944,225
+   9. walk off the edge, holding right once in the air, from 1642,128; lands at 1944,225 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> standing at x 1930-1990, y 225
-  10. jump (held 21 ticks), holding right, from 1952,225; lands at 2083,161
+  10. jump (held 21 ticks), holding right, from 1952,225; lands at 2083,161 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 2066-2110, y 161
-  11. jump (held 6 ticks), holding right, from 2102,161; lands at 2248,177
+  11. jump (held 6 ticks), holding right, from 2102,161; lands at 2248,177 {move ch=1 dir=1 jumpAt=0 jumpHold=6}
       -> standing at x 2229-2254, y 177
-  12. jump (held 21 ticks), holding right, from 2249,177; lands at 2476,241
+  12. jump (held 21 ticks), holding right, from 2249,177; lands at 2476,241 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 2466-2510, y 241
-  13. running right, jump (held 2 ticks), holding right, from 2496,241; lands at 2606,225
+  13. running right, jump (held 2 ticks), holding right, from 2496,241; lands at 2606,225 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
       -> standing at x 2594-2619, y 225
-  14. jump (held 21 ticks), holding right, from 2594,225; lands at 2762,193
+  14. jump (held 21 ticks), holding right, from 2594,225; lands at 2762,193 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 2754-2798, y 193
-  15. running right, jump (held 21 ticks), holding right, from 2794,193; lands at 2949,123
-      -> standing at x 2938-3142, y 113-129
-  16. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2938,129; touches it on the way
+  15. running right, jump (held 21 ticks), holding right, from 2794,193; lands at 2949,123 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 2938-3142, y 113-128
+  16. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2938,128; touches it on the way {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
       -> out 3160,128
 how in 128,48 -> loc 2 13: -
      coming in at 128,48
-   1. coming in: holding nothing, from 128,48; lands at 128,161
+   1. coming in: holding nothing, from 128,48; lands at 128,161 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-422, y 161-208
-   2. running right, jump (held 21 ticks), holding right, from 288,161; lands at 517,187
-      -> standing at x 506-614, y 177-193
-   3. running right, jump (held 21 ticks), holding right, from 576,177; lands at 774,162
+   2. running right, jump (held 21 ticks), holding right, from 288,161; lands at 517,187 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 506-614, y 177-192
+   3. running right, jump (held 21 ticks), holding right, from 576,177; lands at 774,162 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 762-838, y 162-164
-   4. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 784,162; lands at 919,162
+   4. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 784,162; lands at 919,162 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=8}
       -> standing at x 906-982, y 162-163
-   5. jump (held 21 ticks), holding right, from 944,162; lands at 1105,120
-      -> standing at x 1091-1174, y 120-122
-   6. running right, jump (held 21 ticks), holding right, from 1136,120; lands at 1378,177
-      -> standing at x 1370-1453, y 177-179
-   7. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 1453,177; lands at 1500,101
-      -> standing at x 1477-1553, y 101-106
-   8. jump (held 21 ticks), holding right, from 1477,101; lands at 1675,113
+   5. running right, jump (held 21 ticks), holding right, from 960,162; lands at 1130,101 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 1115-1195, y 98-106
+   6. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1168,99; lands at 1263,111 {move ch=1 dir=-1 run=1 jumpAt=0 h2=-1 hDelay=6}
+      -> standing at x 1237-1267, y 111-113
+   7. jump (held 21 ticks), holding right, from 1259,111; lands at 1442,99 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 1434-1557, y 98-106
+   8. jump (held 21 ticks), holding right, from 1456,98; lands at 1662,118 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 1642-1878, y 113-192
-   9. walk off the edge, holding right once in the air, from 1642,129; lands at 1944,225
+   9. walk off the edge, holding right once in the air, from 1642,128; lands at 1944,225 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> standing at x 1930-1990, y 225
-  10. jump (held 21 ticks), holding right, from 1952,225; lands at 2083,161
+  10. jump (held 21 ticks), holding right, from 1952,225; lands at 2083,161 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 2066-2110, y 161
-  11. jump (held 6 ticks), holding right, from 2102,161; lands at 2248,177
+  11. jump (held 6 ticks), holding right, from 2102,161; lands at 2248,177 {move ch=1 dir=1 jumpAt=0 jumpHold=6}
       -> standing at x 2229-2254, y 177
-  12. jump (held 21 ticks), holding right, from 2249,177; lands at 2476,241
+  12. jump (held 21 ticks), holding right, from 2249,177; lands at 2476,241 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 2466-2510, y 241
-  13. running right, jump (held 2 ticks), holding right, from 2496,241; lands at 2606,225
+  13. running right, jump (held 2 ticks), holding right, from 2496,241; lands at 2606,225 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
       -> standing at x 2594-2619, y 225
-  14. jump (held 21 ticks), holding right, from 2594,225; lands at 2762,193
+  14. jump (held 21 ticks), holding right, from 2594,225; lands at 2762,193 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 2754-2798, y 193
-  15. running right, jump (held 2 ticks), holding right, from 2784,193; lands at 2872,161
+  15. running right, jump (held 2 ticks), holding right, from 2784,193; lands at 2872,161 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
       -> standing at x 2850-2894, y 161
-  16. jump (held 21 ticks), holding right, from 2880,161; touches it on the way
+  16. jump (held 21 ticks), holding right, from 2880,161; touches it on the way {move ch=1 dir=1 jumpAt=0}
       -> loc 2 13
 how in 240,112 -> out 96,-32: -
      coming in at 240,112
-   1. coming in: holding nothing, from 240,112; lands at 240,161
+   1. coming in: holding nothing, from 240,112; lands at 240,161 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-422, y 161-208
-   2. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 96,161; lands at 81,86
+   2. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 96,161; lands at 81,86 {move ch=1 dir=1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> standing at x 0-102, y 81-96
-   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 0,81; touches it on the way
+   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 0,81; touches it on the way {move ch=1 dir=-1 run=1 jumpAt=0 h2=-1 hDelay=6}
       -> out 96,-32
 how in 240,112 -> out 3160,128: -
      coming in at 240,112
-   1. coming in: holding nothing, from 240,112; lands at 240,161
+   1. coming in: holding nothing, from 240,112; lands at 240,161 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-422, y 161-208
-   2. running right, jump (held 21 ticks), holding right, from 288,161; lands at 517,187
-      -> standing at x 506-614, y 177-193
-   3. running right, jump (held 21 ticks), holding right, from 576,177; lands at 774,162
+   2. running right, jump (held 21 ticks), holding right, from 288,161; lands at 517,187 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 506-614, y 177-192
+   3. running right, jump (held 21 ticks), holding right, from 576,177; lands at 774,162 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 762-838, y 162-164
-   4. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 784,162; lands at 919,162
+   4. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 784,162; lands at 919,162 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=8}
       -> standing at x 906-982, y 162-163
-   5. jump (held 21 ticks), holding right, from 944,162; lands at 1105,120
-      -> standing at x 1091-1174, y 120-122
-   6. running right, jump (held 21 ticks), holding right, from 1136,120; lands at 1378,177
-      -> standing at x 1370-1453, y 177-179
-   7. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 1453,177; lands at 1500,101
-      -> standing at x 1477-1553, y 101-106
-   8. jump (held 21 ticks), holding right, from 1477,101; lands at 1675,113
+   5. running right, jump (held 21 ticks), holding right, from 960,162; lands at 1130,101 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 1115-1195, y 98-106
+   6. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1168,99; lands at 1263,111 {move ch=1 dir=-1 run=1 jumpAt=0 h2=-1 hDelay=6}
+      -> standing at x 1237-1267, y 111-113
+   7. jump (held 21 ticks), holding right, from 1259,111; lands at 1442,99 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 1434-1557, y 98-106
+   8. jump (held 21 ticks), holding right, from 1456,98; lands at 1662,118 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 1642-1878, y 113-192
-   9. walk off the edge, holding right once in the air, from 1642,129; lands at 1944,225
+   9. walk off the edge, holding right once in the air, from 1642,128; lands at 1944,225 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> standing at x 1930-1990, y 225
-  10. jump (held 21 ticks), holding right, from 1952,225; lands at 2083,161
+  10. jump (held 21 ticks), holding right, from 1952,225; lands at 2083,161 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 2066-2110, y 161
-  11. jump (held 6 ticks), holding right, from 2102,161; lands at 2248,177
+  11. jump (held 6 ticks), holding right, from 2102,161; lands at 2248,177 {move ch=1 dir=1 jumpAt=0 jumpHold=6}
       -> standing at x 2229-2254, y 177
-  12. jump (held 21 ticks), holding right, from 2249,177; lands at 2476,241
+  12. jump (held 21 ticks), holding right, from 2249,177; lands at 2476,241 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 2466-2510, y 241
-  13. running right, jump (held 2 ticks), holding right, from 2496,241; lands at 2606,225
+  13. running right, jump (held 2 ticks), holding right, from 2496,241; lands at 2606,225 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
       -> standing at x 2594-2619, y 225
-  14. jump (held 21 ticks), holding right, from 2594,225; lands at 2762,193
+  14. jump (held 21 ticks), holding right, from 2594,225; lands at 2762,193 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 2754-2798, y 193
-  15. running right, jump (held 21 ticks), holding right, from 2794,193; lands at 2949,123
-      -> standing at x 2938-3142, y 113-129
-  16. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2938,129; touches it on the way
+  15. running right, jump (held 21 ticks), holding right, from 2794,193; lands at 2949,123 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 2938-3142, y 113-128
+  16. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2938,128; touches it on the way {move ch=1 dir=1 h2=0 hDelay=1 noInputTillAir=1}
       -> out 3160,128
 how in 240,112 -> loc 2 13: -
      coming in at 240,112
-   1. coming in: holding nothing, from 240,112; lands at 240,161
+   1. coming in: holding nothing, from 240,112; lands at 240,161 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-422, y 161-208
-   2. running right, jump (held 21 ticks), holding right, from 288,161; lands at 517,187
-      -> standing at x 506-614, y 177-193
-   3. running right, jump (held 21 ticks), holding right, from 576,177; lands at 774,162
+   2. running right, jump (held 21 ticks), holding right, from 288,161; lands at 517,187 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 506-614, y 177-192
+   3. running right, jump (held 21 ticks), holding right, from 576,177; lands at 774,162 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 762-838, y 162-164
-   4. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 784,162; lands at 919,162
+   4. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 784,162; lands at 919,162 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=8}
       -> standing at x 906-982, y 162-163
-   5. jump (held 21 ticks), holding right, from 944,162; lands at 1105,120
-      -> standing at x 1091-1174, y 120-122
-   6. running right, jump (held 21 ticks), holding right, from 1136,120; lands at 1378,177
-      -> standing at x 1370-1453, y 177-179
-   7. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 1453,177; lands at 1500,101
-      -> standing at x 1477-1553, y 101-106
-   8. jump (held 21 ticks), holding right, from 1477,101; lands at 1675,113
+   5. running right, jump (held 21 ticks), holding right, from 960,162; lands at 1130,101 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 1115-1195, y 98-106
+   6. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1168,99; lands at 1263,111 {move ch=1 dir=-1 run=1 jumpAt=0 h2=-1 hDelay=6}
+      -> standing at x 1237-1267, y 111-113
+   7. jump (held 21 ticks), holding right, from 1259,111; lands at 1442,99 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 1434-1557, y 98-106
+   8. jump (held 21 ticks), holding right, from 1456,98; lands at 1662,118 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 1642-1878, y 113-192
-   9. walk off the edge, holding right once in the air, from 1642,129; lands at 1944,225
+   9. walk off the edge, holding right once in the air, from 1642,128; lands at 1944,225 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> standing at x 1930-1990, y 225
-  10. jump (held 21 ticks), holding right, from 1952,225; lands at 2083,161
+  10. jump (held 21 ticks), holding right, from 1952,225; lands at 2083,161 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 2066-2110, y 161
-  11. jump (held 6 ticks), holding right, from 2102,161; lands at 2248,177
+  11. jump (held 6 ticks), holding right, from 2102,161; lands at 2248,177 {move ch=1 dir=1 jumpAt=0 jumpHold=6}
       -> standing at x 2229-2254, y 177
-  12. jump (held 21 ticks), holding right, from 2249,177; lands at 2476,241
+  12. jump (held 21 ticks), holding right, from 2249,177; lands at 2476,241 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 2466-2510, y 241
-  13. running right, jump (held 2 ticks), holding right, from 2496,241; lands at 2606,225
+  13. running right, jump (held 2 ticks), holding right, from 2496,241; lands at 2606,225 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
       -> standing at x 2594-2619, y 225
-  14. jump (held 21 ticks), holding right, from 2594,225; lands at 2762,193
+  14. jump (held 21 ticks), holding right, from 2594,225; lands at 2762,193 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 2754-2798, y 193
-  15. running right, jump (held 2 ticks), holding right, from 2784,193; lands at 2872,161
+  15. running right, jump (held 2 ticks), holding right, from 2784,193; lands at 2872,161 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
       -> standing at x 2850-2894, y 161
-  16. jump (held 21 ticks), holding right, from 2880,161; touches it on the way
+  16. jump (held 21 ticks), holding right, from 2880,161; touches it on the way {move ch=1 dir=1 jumpAt=0}
       -> loc 2 13

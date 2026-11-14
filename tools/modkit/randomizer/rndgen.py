@@ -62,6 +62,13 @@ STORY_DEFAULT_SPRITE = "sHiJumpBoots"   # (oStoryObject's own, for one whose cre
 # at one of the story's ability pickups (STORY_SPOTS: rndGenerate, the Archipelago world's pre_fill). The game's code
 # for them asks global.bNightmareMode: the mod's copies of it ask the item too (SCRIPT_PATCHES, GAME_PATCHES)
 NIGHTMARE = ["Sword Wave", "Charge Storage", "Dagger Spam", "Power Bomb"]
+# the lists of ways into rooms and of exits (rndVisitData's: their numbering) of earlier builds, whose saves' marks (the
+# ways in come in by, rndERVisit; the exits gone through, rndERExit) still load: (the ways in's list's hash, the exits'
+# list's hash, this build's ways in that list hadn't, its exits that list hadn't). b116 to b118: before the Sacred
+# Temple's main door to the Lost Entrance's left side (b119, roomlogic\roomdata.py's EVENT_EXITS); b119 to b123: before
+# the Discombobulated I's warp to its first room (b124, roomlogic\gamestate.txt: the rooms as the game makes them)
+VISIT_LEGACY = [("5259605dcecf", "b3eba2432b8f", ["rMain_19:240,416"], ["rSacredTemple:1008,1520", "rDiscoI:1808,256"]),
+                ("012db37f74fb", "88e2a07d977c", [], ["rDiscoI:1808,256"])]
 # Gate 4's stages go one way: each room's exit at its end leads into the next room, and nothing leads back. In a
 # Randomizer game each of those rooms gets a way back, an exit at its edge where the player comes in (as the forward
 # ones are: oExit, walked into, its arrow shown), leading to the end of the room before, beside that room's own exit and
@@ -119,7 +126,7 @@ IK = dict(HP=1, MONEY=2, EQUIP=3, AQ=4, HE=5, MP=6, GP=7, AU=8, WB=9, WL=10, AP=
 # (MONEYX: Internetz too, the story's ability pickups' (locations_items), which a Program Chip never takes the place of:
 # chip_slots takes MONEY's)
 # the Program Chips (the new game's option Chip Randomizer): chip N opens Access Gate N's portal, and the Nightmare Gate
-# portal beside it, wherever Entrance Rando has them lead (roomlogic\overrides.txt's need lines for the portals; the
+# portal beside it, wherever Entrance Rando has them lead (roomlogic\overrides.txt's require lines for the portals; the
 # mod's portals can't be used without it: portal_chips, rndPortalChip). Their item: kind CHIP, the gate's number; the
 # logic's number KEY_BASE+CHIP_KEY+N. With the option on they're among the items, in the place of the six smallest
 # Internetz chests (chip_slots); off, the player has them all from the start and those chests hold their Internetz
@@ -154,7 +161,7 @@ LT_ITEM = {1: "HP", 3: "AQ", 4: "HE", 5: "MP", 6: "GP", 7: "AU", 8: "WB", 10: "A
 # (hasAbilToken[0]: jumping on Mario enemies, hitting blocks from below). varia: the Varia Suit (Gate 5's lava harmless:
 # the mod's oMetLava). cursed: the Trial Master's three cursed equipment pieces (equipment 10-12), which the trials need on.
 # instr: the instruments (only with Instrument Randomization: else each is at its gate's reward). air: the Air Upgrades
-# (a second of air each underwater), which the underwater rooms need some of (roomlogic\overrides.txt's also lines);
+# (a second of air each underwater), which the underwater rooms need some of (roomlogic\overrides.txt's require lines);
 # placed before the rest, at random, as other items are (rndGenerate), the logic counting the ones at places it's got to
 PROG = ["jump", "gdash", "adash", "djump", "hijump", "mario", "link", "belmont", "megaman", "samus", "gamej", "gamec",
         "varia", "cursed", "instr", "air", "keys"]
@@ -501,10 +508,10 @@ def instances(room):
 
 
 def portal_chips():
-    """the gates' portals and the Program Chip each takes (Chip Randomizer): roomlogic\\overrides.txt's need lines whose
-    requirement is a chip, each "chip N" alone on an Access Gate portal (oAccessGate) placed where its exit is (the mod
-    finds a portal by its room and that place, rndPortalChip, and asks for that one chip): [(room, x, y, N, where the
-    game's own connection leads)], by room and place"""
+    """the gates' portals and the Program Chip each takes (Chip Randomizer): roomlogic\\overrides.txt's "require <room>
+    out <exit>" lines whose requirement is a chip, each "chip N" alone on an Access Gate portal (oAccessGate) placed where
+    its exit is (the mod finds a portal by its room and that place, rndPortalChip, and asks for that one chip): [(room,
+    x, y, N, where the game's own connection leads)], by room and place"""
     rooms = solve.load_rooms()
     conn = solve.load_connections()
     solve.load_overrides(rooms, conn)
@@ -514,14 +521,14 @@ def portal_chips():
         if not chips: continue
         a = alts[0]
         if len(alts) != 1 or len(chips) != 1 or len(a.k) != 1 or any(a.c) or a.o:
-            raise SystemExit("overrides.txt: need %s out %s: a Program Chip there must be 'chip N' alone (a gate's portal "
+            raise SystemExit("overrides.txt: require %s out %s: a Program Chip there must be 'chip N' alone (a gate's portal "
                              "asks for one chip: the mod's rndPortalChip)" % (room, o))
         x, y = [int(v) for v in o.split(",")]
         if not any(obj == "oAccessGate" and (ix, iy) == (x, y) for obj, ix, iy, iid, code in instances(room)):
-            raise SystemExit("overrides.txt: need %s out %s takes a Program Chip, but no Access Gate portal (oAccessGate) "
+            raise SystemExit("overrides.txt: require %s out %s takes a Program Chip, but no Access Gate portal (oAccessGate) "
                              "is placed there: the mod only stops a portal" % (room, o))
         to = conn.links.get((room, o))
-        if not to: raise SystemExit("overrides.txt: need %s out %s: connections.txt has no such exit" % (room, o))
+        if not to: raise SystemExit("overrides.txt: require %s out %s: connections.txt has no such exit" % (room, o))
         out.append((room, x, y, chips.pop(), to[0]))
     return out
 
@@ -1210,6 +1217,20 @@ def er_check(rows, items, out, bosses):
          "global.rndVisitN=%d" % len(keys),
          "global.rndVisitHash=%s" % gml_str(hashlib.md5("|".join(keys).encode()).hexdigest()[:12]),
          "global.rndExitHash=%s" % gml_str(hashlib.md5("|".join(xkeys).encode()).hexdigest()[:12])]
+    # (earlier builds' lists, VISIT_LEGACY: a save kept with one of their hashes has its marks put where this build's
+    # ways in and exits are, the ones that list lacks unmarked: "1" each of this build's that the old list lacks)
+    V.append("global.rndVisitLegN=%d" % len(VISIT_LEGACY))
+    for k, (vh, xh, vnew, xnew) in enumerate(VISIT_LEGACY):
+        for what, cur, h, missing in (("visit", keys, vh, vnew), ("exit", xkeys, xh, xnew)):
+            if any(m not in cur for m in missing):
+                raise SystemExit("VISIT_LEGACY: %s isn't one of this build's %s list" % ([m for m in missing if m not in cur], what))
+            olds = [c for c in cur if c not in missing]
+            if hashlib.md5("|".join(olds).encode()).hexdigest()[:12] != h:
+                raise SystemExit("VISIT_LEGACY: this build's %s list without %s isn't the one of hash %s" % (what, missing, h))
+        V.append("global.rndVisitLegHash[%d]=%s; global.rndVisitLegSkip[%d]=%s" % (
+            k, gml_str(vh), k, gml_str("".join("1" if c in vnew else "0" for c in keys))))
+        V.append("global.rndExitLegHash[%d]=%s; global.rndExitLegSkip[%d]=%s" % (
+            k, gml_str(xh), k, gml_str("".join("1" if c in xnew else "0" for c in xkeys))))
     done = set()
     for e, k in enumerate(keys):
         if "-99999" in k or k in done: continue

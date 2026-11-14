@@ -1,0 +1,391 @@
+# directions.txt: each room's doors two by two (an exit and the way in beside it, as Entrance Rando pairs a door's
+# exits), each way on its own, made by graph.py: from a door's way in to the other door's way out. A way back is its
+# own simulation (rooms\<room>.txt, from that way in), never the way there turned round; a way one way only is
+# normal (a drop, a one-way door, a room that only goes on)
+#   1661 pairs of doors: 1203 both ways, 164 one way, 294 neither way (each needing what the room doesn't have from there)
+
+# where overrides.txt has a way otherwise than the room logic (its lines: a playtest's correction, the room logic's
+# simulation to look at; or what it can't see):  <room>: from <way in> to <way out>: <as the logic has it>  (the room
+# logic: <its own>; overrides.txt lines)
+rBelmont3_3B: from in 40 48,1408 (to rBelmont3_3A) to out 46 624,128 (to rBelmont3_3C): link:2 | megaman:2 | belmont:3 | samus:5 | djump,link:1,megaman:1 | djump,belmont:1,megaman:1 | djump,belmont:2 | djump,link:1,samus:1 | djump,belmont:1,samus:1 | djump,samus:4  (the room logic: djump,megaman:1 | djump,samus:1 | djump,link:2 | djump,belmont:2; overrides.txt 960 drop, 961 add)
+rBelmont3_3B: from in 42 592,1408 (to rBelmont3_3B_Secret) to out 46 624,128 (to rBelmont3_3C): gdash,link:2 | adash,link:2 | djump,link:2 | gdash,megaman:2 | adash,megaman:2 | djump,megaman:2 | gdash,belmont:3 | adash,belmont:3 | gdash,samus:5 | adash,samus:5 | djump,link:1,megaman:1 | djump,belmont:1,megaman:1 | djump,belmont:2 | djump,link:1,samus:1 | djump,belmont:1,samus:1 | djump,samus:4  (the room logic: djump,megaman:1 | djump,samus:1 | djump,link:2 | djump,belmont:2; overrides.txt 962 drop, 963 add)
+rBelmont3_3D: from in 47 48,224 (to rBelmont3_3C) to out 53 2720,224 (to rBelmont3_3E): belmont:2  (the room logic: never; overrides.txt 52 add)
+rBelmont3_3D: from in 48 2688,256 (to rBelmont3_3E) to out 52 0,192 (to rBelmont3_3C): belmont:2  (the room logic: never; overrides.txt 53 add)
+rBelmont3_3E: from in 49 48,448 (to rBelmont3_3D) to out 56 0,128 (to rBelmont3_3E_Secret): megaman:4 | djump,adash  (the room logic: megaman:4; overrides.txt 892 add)
+rBelmont3_3E: from in 50 784,160 (to rBelmont3_3F) to out 56 0,128 (to rBelmont3_3E_Secret): megaman:4 | djump,adash  (the room logic: megaman:4; overrides.txt 893 add)
+rBelmont3_5A: from in 82 48,192 (to rBelmont3_5C) to out 89 1840,176 (to rBelmont3_5A_Secret): adash,megaman:4  (the room logic: never; overrides.txt 470 add)
+rBelmont3_5D: from in 92 2000,160 (to rBelmont3_5C) to out 98 0,176 (to rBelmont3_5E): adash | djump  (the room logic: never; overrides.txt 738 add)
+rBelmont3_5G: from in 100 48,240 (to rBelmont3_5B) to out 106 1184,144 (to rBelmont3_5H): adash | gdash,belmont:2  (the room logic: adash,gdash | djump,adash; overrides.txt 966 add)
+rBelmont3_6A: from in 106 48,608 (to rBelmont3_5H) to out 115 1248,320 (to rBelmont3_6G): -  (the room logic: djump,samus:2; overrides.txt 968 add)
+rBelmont3_7B: from in 126 48,1328 (to rBelmont3_7A) to out 133 560,-16 (to rBelmont3_7E): -  (the room logic: never; overrides.txt 465 add)
+rBelmont3_7B: from in 126 48,1328 (to rBelmont3_7A) to out 134 944,288 (to rBelmont3_7B_Secret): djump,belmont:1 | adash,belmont:1  (the room logic: never; overrides.txt 464 add)
+rBelmont3_7B: from in 127 912,1328 (to rBelmont3_7C) to out 133 560,-16 (to rBelmont3_7E): -  (the room logic: never; overrides.txt 465 add)
+rBelmont3_7B: from in 128 592,96 (to rBelmont3_7E) to out 134 944,288 (to rBelmont3_7B_Secret): djump,belmont:1 | adash,belmont:1  (the room logic: never; overrides.txt 464 add)
+rBelmont3_7B: from in 127 912,1328 (to rBelmont3_7C) to out 134 944,288 (to rBelmont3_7B_Secret): djump,belmont:1 | adash,belmont:1  (the room logic: never; overrides.txt 464 add)
+rBelmont3_7E: from in 134 128,320 (to rBelmont3_7B) to out 140 2064,176 (to rBelmont3_7F): belmont:1  (the room logic: never; overrides.txt 606 add)
+rBubbleTowerA2: from in 147 72,960 (to rBubbleTowerA1) to out 153 168,128 (to rBubbleTowerA3): djump | link:3  (the room logic: djump; overrides.txt 451 add)
+rBubbleTowerA3: from in 149 360,960 (to rBubbleTowerA2) to out 156 56,144 (to rBubbleTowerA4): link:1 | megaman:2 | samus:1 | belmont:1,megaman:1  (the room logic: samus:2; overrides.txt 976 drop, 977 add)
+rBubbleTowerA4: from in 151 360,960 (to rBubbleTowerA3) to out 159 48,96 (to rBubbleTowerA5): -  (the room logic: adash | djump; overrides.txt 978 add)
+rBubbleTowerA5: from in 153 360,960 (to rBubbleTowerA4) to out 162 48,64 (to rBubbleTowerA6): -  (the room logic: never; overrides.txt 599 add)
+rCCity_CCC: from in 177 432,848 (to rCCity_CCD) to out 185 0,944 (to rCCity_CCCExtA): link:3 | samus:6  (the room logic: never; overrides.txt 447 add)
+rCCity_CCC: from in 176 104,144 (to rCCity_CCB) to out 185 0,944 (to rCCity_CCCExtA): link:3 | samus:6  (the room logic: never; overrides.txt 447 add)
+rCCity_SouthA: from in 217 48,288 (to rCCity_Bridge) to out 225 48,64 (to rMain_20): djump,adash | djump,megaman:4 | adash,megaman:4 | djump,samus:2 | adash,samus:2  (the room logic: djump,adash | djump,megaman:4 | adash,megaman:4 | djump,samus:2; overrides.txt 727 add)
+rCCity_SouthA: from in 221 1152,288 (to rCCity_SA_S1) to out 225 48,64 (to rMain_20): djump,adash | djump,megaman:4 | adash,megaman:4 | djump,samus:2 | adash,samus:2  (the room logic: djump,adash | djump,megaman:4 | adash,megaman:4 | djump,samus:2; overrides.txt 727 add)
+rCCity_SouthA: from in 220 1264,288 (to rCCity_SAlley) to out 225 48,64 (to rMain_20): djump,adash | djump,megaman:4 | adash,megaman:4 | djump,samus:2 | adash,samus:2  (the room logic: djump,adash | djump,megaman:4 | adash,megaman:4 | djump,samus:2; overrides.txt 727 add)
+rCCity_SouthA: from in 223 1760,256 (to rCCity_SAShopB) to out 225 48,64 (to rMain_20): djump,adash | djump,megaman:4 | adash,megaman:4 | djump,samus:2 | adash,samus:2  (the room logic: djump,adash | djump,megaman:4 | adash,megaman:4 | djump,samus:2; overrides.txt 727 add)
+rCCity_SouthA: from in 222 2128,256 (to rMain_42) to out 225 48,64 (to rMain_20): djump,adash | djump,megaman:4 | adash,megaman:4 | djump,samus:2 | adash,samus:2  (the room logic: djump,adash | djump,megaman:4 | adash,megaman:4 | djump,samus:2; overrides.txt 727 add)
+rCCity_SouthA: from in 219 576,288 (to rCCity_SAShopA) to out 225 48,64 (to rMain_20): djump,adash | djump,megaman:4 | adash,megaman:4 | djump,samus:2 | adash,samus:2  (the room logic: djump,adash | djump,megaman:4 | adash,megaman:4 | djump,samus:2; overrides.txt 727 add)
+rCaveNetwork_B: from in 226 48,640 (to rCaveNetwork_A) to out 234 2032,192 (to rCaveNetwork_C): link:3 | samus:6  (the room logic: never; overrides.txt 450 add)
+rDCS_L: from in 263 112,128 (to rDCS_E) to out 272 1936,256 (to rDCS_M): adash,samus:2 | djump,samus:2  (the room logic: djump,adash,samus:2; overrides.txt 573 add)
+rDCS_M: from in 265 48,288 (to rDCS_L) to out 274 1936,256 (to rDCS_N): samus:1  (the room logic: never; overrides.txt 649 add)
+rGame6_CoDB: from in 394 48,1008 (to rGame6_CoDA) to out 413 1904,272 (to rGame6_CoDC): djump | adash  (the room logic: never; overrides.txt 137 add)
+rGame6_CoDD: from in 400 48,304 (to rGame6_CoDC) to out 419 1792,752 (to rGame6_CoDE): djump | adash  (the room logic: adash,link:1 | djump,gamec:1 | djump,belmont:1 | djump,link:1; overrides.txt 171 add)
+rGame6_CoDF: from in 406 48,688 (to rGame6_CoDI) to out 423 1904,336 (to rGame6_CoDG): djump,key:14  (the room logic: djump,belmont:1,key:14 | djump,gamec:1,key:14 | djump,link:1,key:14 | djump,adash,key:14,key:15; overrides.txt 146 add)
+rGame6_CoDF: from in 405 1872,368 (to rGame6_CoDG) to out 424 0,656 (to rGame6_CoDI): djump,key:14 | adash,key:14  (the room logic: djump,belmont:1,key:14 | djump,gamec:1,key:14 | djump,link:1,key:14 | adash,link:1,key:14; overrides.txt 148 add)
+rGame6_CoDF: from in 406 48,688 (to rGame6_CoDI) to out 425 864,-16 (to rGame6_CoDO): djump,key:14  (the room logic: djump,key:14,key:15; overrides.txt 156 add)
+rGame6_CoDF: from in 407 896,112 (to rGame6_CoDO) to out 424 0,656 (to rGame6_CoDI): key:14,key:15 | djump,key:14 | adash,key:14  (the room logic: key:14,key:15 | djump,link:1,key:14 | adash,link:1,key:14 | djump,gamec:1,key:14 | djump,belmont:1,key:14; overrides.txt 150 add)
+rGame6_CoDF: from in 405 1872,368 (to rGame6_CoDG) to out 425 864,-16 (to rGame6_CoDO): djump | adash  (the room logic: djump,belmont:1,key:15 | djump,gamec:1,key:15 | djump,link:1,key:15; overrides.txt 154 add)
+rGame6_CoDF: from in 407 896,112 (to rGame6_CoDO) to out 423 1904,336 (to rGame6_CoDG): adash | gamec:1 | link:1 | djump  (the room logic: adash | gamec:1 | link:1 | djump,belmont:1; overrides.txt 144 add)
+rGame6_CoDH: from in 413 48,976 (to rGame6_CoDG) to out 433 1792,192 (to rGame6_CoDL): djump,key:16 | adash,key:16  (the room logic: djump,link:1,key:16 | djump,gamec:1,key:16; overrides.txt 177 add)
+rGame6_CoDH: from in 412 48,128 (to rGame6_CoDG) to out 433 1792,192 (to rGame6_CoDL): djump,key:16 | adash,key:16  (the room logic: djump,link:1,key:16 | djump,gamec:1,key:16; overrides.txt 176 add)
+rGame6_CoDI: from in 417 48,288 (to rGame6_CoDJ) to out 434 2384,256 (to rGame6_CoDF): adash,link:1,gamec:1 | djump  (the room logic: djump,gamec:1 | djump,link:1 | adash,link:1,gamec:1; overrides.txt 186 add)
+rGame6_CoDI: from in 416 2352,288 (to rGame6_CoDF) to out 435 0,256 (to rGame6_CoDJ): adash,link:1 | djump  (the room logic: djump,gamec:1 | djump,link:1 | adash,link:1 | djump,belmont:1; overrides.txt 184 add)
+rGame6_CoDJ: from in 420 48,240 (to rGame6_CoDK) to out 436 2384,256 (to rGame6_CoDI): never  (the room logic: djump,belmont:1,gamec:1; overrides.txt 1018 drop)
+rGame6_CoDJ: from in 419 2352,288 (to rGame6_CoDI) to out 437 0,208 (to rGame6_CoDK): djump,link:1 | djump,belmont:1 | djump,gamec:1  (the room logic: never; overrides.txt 1020 add)
+rGame6_CoDL: from in 422 48,288 (to rGame6_CoDH) to out 441 2384,208 (to rGame6_CoDM): djump,belmont:1 | djump,link:1 | djump,gamec:1  (the room logic: djump,belmont:1 | link:1 | gamec:1; overrides.txt 645 drop, 646 add)
+rGame6_CoDM: from in 425 48,240 (to rGame6_CoDL) to out 443 2384,240 (to rGame6_CoDN): djump,gamec:1 | djump,link:1 | djump,belmont:1 | djump,samus:1  (the room logic: never; overrides.txt 877 add)
+rGame6_CoDO: from in 429 2336,368 (to rGame6_CoDP) to out 446 96,496 (to rGame6_CoDF): adash,gdash | djump,gdash  (the room logic: never; overrides.txt 581 add)
+rGame6_CoDO: from in 428 192,480 (to rGame6_CoDF) to out 447 2368,336 (to rGame6_CoDP): djump,gdash  (the room logic: never; overrides.txt 582 add)
+rGame6_CoDS: from in 436 3280,272 (to rGame6_CoD_ESC) to out 453 0,256 (to rGame6_CoDR): link:1 | djump | adash  (the room logic: link:1 | djump,gamec:1 | djump,belmont:1; overrides.txt 169 add)
+rGame6_DreamWoodsE: from in 454 3296,272 (to rGame6_DreamWoodsF) to out 473 0,240 (to rGame6_DreamWoodsD): djump | adash  (the room logic: djump,gamec:1 | djump,link:1 | adash,link:1 | djump,belmont:1; overrides.txt 187 add)
+rGame6_EarthA: from in 458 48,288 (to rGame6_Overworld) to out 478 2544,192 (to rGame6_EarthB): -  (the room logic: never; overrides.txt 191 add)
+rGame6_EarthD: from in 465 48,288 (to rGame6_EarthC) to out 485 3376,160 (to rGame6_EarthE): link:1 | belmont:1 | gamec:1  (the room logic: never; overrides.txt 203 add, 206 drop, 207 add)
+rGame6_EarthD: from in 466 3344,192 (to rGame6_EarthE) to out 484 0,256 (to rGame6_EarthC): link:1 | belmont:1 | gamec:1  (the room logic: never; overrides.txt 203 add, 208 drop, 209 add)
+rGame6_EarthF: from in 470 48,192 (to rGame6_EarthE) to out 490 2928,160 (to rGame6_EarthG): -  (the room logic: never; overrides.txt 195 add)
+rGame6_EarthF: from in 472 2896,192 (to rGame6_EarthG) to out 488 0,160 (to rGame6_EarthE): -  (the room logic: never; overrides.txt 195 add)
+rGame6_EarthF: from in 470 48,192 (to rGame6_EarthE) to out 489 2928,288 (to rGame6_EarthG): -  (the room logic: never; overrides.txt 195 add)
+rGame6_EarthF: from in 471 2896,320 (to rGame6_EarthG) to out 488 0,160 (to rGame6_EarthE): -  (the room logic: never; overrides.txt 195 add)
+rGame6_EarthG: from in 473 48,256 (to rGame6_EarthF) to out 492 0,96 (to rGame6_EarthF): -  (the room logic: never; overrides.txt 212 add)
+rGame6_EarthG: from in 475 2672,256 (to rGame6_EarthH) to out 491 0,224 (to rGame6_EarthF): belmont:1 | gamec:1 | gamej:1 | link:1 | megaman:1 | samus:1  (the room logic: djump,belmont:1 | djump,gamec:1 | djump,gamej:1 | djump,link:1 | djump,megaman:1 | djump,samus:1; overrides.txt 212 add, 217 drop, 218 add)
+rGame6_EarthG: from in 475 2672,256 (to rGame6_EarthH) to out 492 0,96 (to rGame6_EarthF): belmont:1 | gamec:1 | gamej:1 | link:1 | megaman:1 | samus:1  (the room logic: never; overrides.txt 212 add, 219 drop, 220 add)
+rGame6_EarthH: from in 477 1936,256 (to rGame6_EarthI) to out 494 0,224 (to rGame6_EarthG): -  (the room logic: djump; overrides.txt 196 add)
+rGame6_WaterA: from in 540 48,992 (to rGame6_Overworld) to out 565 1072,448 (to rGame6_WaterB): -  (the room logic: djump; overrides.txt 1002 add)
+rGame6_WaterCaveA: from in 543 48,288 (to rGame6_Overworld) to out 568 2288,192 (to rGame6_WaterCaveB): belmont:1,air:3 | gamec:1,air:3 | gamej:1,air:3 | link:1,air:3 | megaman:1,air:3 | samus:1,air:3  (the room logic: belmont:1 | gamec:1 | gamej:1 | link:1 | megaman:1 | samus:1; overrides.txt 691 require)
+rGame6_WaterCaveA: from in 544 2256,224 (to rGame6_WaterCaveB) to out 567 0,256 (to rGame6_Overworld): belmont:1,air:3 | gamec:1,air:3 | gamej:1,air:3 | link:1,air:3 | megaman:1,air:3 | samus:1,air:3  (the room logic: belmont:1 | gamec:1 | gamej:1 | link:1 | megaman:1 | samus:1; overrides.txt 691 require)
+rGame6_WaterCaveB: from in 545 48,1536 (to rGame6_WaterCaveA) to out 570 464,96 (to rGame6_WaterCaveC): djump,air:3  (the room logic: djump; overrides.txt 692 require)
+rGame6_WaterCaveB: from in 546 432,128 (to rGame6_WaterCaveC) to out 569 0,1504 (to rGame6_WaterCaveA): air:3  (the room logic: -; overrides.txt 692 require)
+rGame6_WaterCaveC: from in 547 48,80 (to rGame6_WaterCaveB) to out 572 2288,144 (to rGame6_WaterCaveD): adash,air:3 | djump,air:3  (the room logic: adash | djump; overrides.txt 693 require)
+rGame6_WindA: from in 551 48,992 (to rGame6_Overworld) to out 578 1736,144 (to rGame6_WindB): djump  (the room logic: never; overrides.txt 113 add)
+rGame6_WindB: from in 556 176,256 (to rGame6_WindC) to out 580 72,768 (to rGame6_WindA): djump  (the room logic: never; overrides.txt 116 drop, 117 add)
+rGame6_WindB: from in 555 80,800 (to rGame6_WindA) to out 581 168,224 (to rGame6_WindC): djump  (the room logic: never; overrides.txt 116 drop, 117 add)
+rGame6_WindC: from in 557 48,288 (to rGame6_WindB) to out 583 680,256 (to rGame6_WindD): belmont:1 | gamec:1 | gamej:1 | link:1 | megaman:1 | samus:1  (the room logic: belmont:1 | gamec:1 | gamej:2 | link:1 | megaman:2 | samus:4; overrides.txt 118 drop, 119 add)
+rGame6_WindC: from in 558 688,288 (to rGame6_WindD) to out 582 40,256 (to rGame6_WindB): belmont:1 | gamec:1 | gamej:1 | link:1 | megaman:1 | samus:1  (the room logic: belmont:1 | gamec:1 | gamej:2 | link:1 | megaman:2 | samus:4; overrides.txt 118 drop, 119 add)
+rGame6_WindD: from in 559 112,896 (to rGame6_WindC) to out 585 1400,448 (to rGame6_WindE): djump  (the room logic: never; overrides.txt 120 drop, 121 add)
+rGame6_WindD: from in 560 1408,480 (to rGame6_WindE) to out 584 104,864 (to rGame6_WindC): djump  (the room logic: -; overrides.txt 120 drop, 121 add)
+rGame6_WindE: from in 562 1792,240 (to rGame6_WindF) to out 586 88,960 (to rGame6_WindD): djump  (the room logic: -; overrides.txt 122 drop, 123 add)
+rGame6_WindE: from in 561 96,992 (to rGame6_WindD) to out 587 1784,208 (to rGame6_WindF): djump  (the room logic: djump,adash | adash,gdash; overrides.txt 122 drop, 123 add)
+rGame6_WindF: from in 563 48,288 (to rGame6_WindE) to out 589 680,256 (to rGame6_WindG): djump  (the room logic: belmont:1 | gamec:1 | gamej:1 | link:1 | megaman:1 | samus:1; overrides.txt 124 drop, 125 add)
+rGame6_WindF: from in 564 688,288 (to rGame6_WindG) to out 588 40,256 (to rGame6_WindE): djump  (the room logic: belmont:1 | gamec:1 | gamej:1 | link:1 | megaman:1 | samus:1; overrides.txt 124 drop, 125 add)
+rGame6_WindG: from in 566 1856,368 (to rGame6_WindH) to out 590 920,864 (to rGame6_WindF): -  (the room logic: never; overrides.txt 128 add)
+rGame6_WindG: from in 565 928,896 (to rGame6_WindF) to out 591 1848,336 (to rGame6_WindH): -  (the room logic: never; overrides.txt 128 add)
+rGame6_WindH: from in 567 80,288 (to rGame6_WindG) to out 593 5672,224 (to rGame6_WindI): djump  (the room logic: never; overrides.txt 131 drop, 132 add)
+rGame6_WindI: from in 569 48,288 (to rGame6_WindH) to out 595 680,256 (to rGame6_WindJ): djump  (the room logic: djump | adash; overrides.txt 133 drop, 134 add)
+rGame6_WindI: from in 570 688,288 (to rGame6_WindJ) to out 594 40,256 (to rGame6_WindH): djump  (the room logic: djump | adash; overrides.txt 133 drop, 134 add)
+rHPF_A: from in 572 112,288 (to rCCity_NA_S1) to out 599 2384,240 (to rHPF_B): djump,megaman:4 | adash,link:3,megaman:4  (the room logic: djump,megaman:4; overrides.txt 1007 add)
+rHPF_A: from in 574 256,288 (to rHPF_T) to out 599 2384,240 (to rHPF_B): djump,megaman:4 | adash,link:3,megaman:4  (the room logic: djump,megaman:4; overrides.txt 1008 add)
+rHPF_L: from in 595 48,416 (to rHPF_K) to out 622 3056,384 (to rHPF_M): -  (the room logic: never; overrides.txt 799 add)
+rHPF_O: from in 604 48,704 (to rHPF_N) to out 631 2032,480 (to rHPF_P): link:1 | belmont:1 | megaman:1 | samus:1  (the room logic: never; overrides.txt 251 add)
+rIceWindCaveA: from in 622 112,1536 (to rMain_64) to out 650 600,160 (to rIceWindCaveB): djump  (the room logic: never; overrides.txt 543 add)
+rLavaCaveA: from in 626 32,192 (to rLowFacS) to out 654 9584,256 (to rLavaCaveB): djump,adash,mario  (the room logic: djump,adash,mario | djump,gdash,mario; overrides.txt 419 add, 423 require)
+rLavaCaveA: from in 629 32,288 (to rMain_71) to out 654 9584,256 (to rLavaCaveB): djump,adash,mario  (the room logic: djump,adash,mario | djump,gdash,mario; overrides.txt 420 add, 424 require)
+rLavaCaveB: from in 630 48,288 (to rLavaCaveA) to out 658 6224,224 (to rLavaCaveC): mario  (the room logic: never; overrides.txt 647 add)
+rLeafCaveA: from in 637 1280,864 (to rMain_14) to out 666 1272,160 (to rLeafCaveB): link:1 | belmont:1 | megaman:1 | samus:1  (the room logic: never; overrides.txt 329 add)
+rLink2_PalaceA_8: from in 729 48,336 (to rLink2_PalaceA_7) to out 771 2032,272 (to rLink2_PalaceA_9): -  (the room logic: never; overrides.txt 458 add)
+rLink2_PalaceW_10: from in 816 48,304 (to rLink2_PalaceW_9) to out 862 1456,496 (to rLink2_PalaceW_12): link:1 | belmont:1 | samus:1 | megaman:1  (the room logic: adash | djump; overrides.txt 952 drop, 953 add)
+rLink2_PalaceW_6: from in 839 192,624 (to rLink2_PalaceW_4) to out 887 1392,448 (to rLink2_PalaceW_7): -  (the room logic: never; overrides.txt 949 add)
+rLink2_PalaceW_7: from in 844 48,480 (to rLink2_PalaceW_6) to out 892 1392,272 (to rLink2_PalaceW_9): -  (the room logic: djump,samus:2 | djump,adash | adash,gdash,samus:2; overrides.txt 747 drop, 748 add, 755 add, 756 add)
+rLink2_PalaceW_7: from in 846 704,176 (to rLink2_PalaceW_8) to out 892 1392,272 (to rLink2_PalaceW_9): -  (the room logic: djump,samus:2 | djump,adash | adash,gdash,samus:2; overrides.txt 749 drop, 750 add, 757 add, 758 add)
+rLink2_PalaceW_7: from in 847 800,512 (to rLink2_PalaceW_8) to out 892 1392,272 (to rLink2_PalaceW_9): -  (the room logic: djump,samus:2 | djump,adash | adash,gdash,samus:2; overrides.txt 753 drop, 754 add, 761 add, 762 add)
+rLowFacH: from in 894 48,352 (to rLowFacG) to out 946 2704,256 (to rLowFacI): djump,adash,megaman:4  (the room logic: never; overrides.txt 583 add)
+rLowFacM: from in 909 2608,320 (to rLowFacN) to out 960 0,288 (to rLowFacL): djump,adash,megaman:4  (the room logic: never; overrides.txt 584 add)
+rMC_B: from in 926 48,384 (to rMC_A) to out 979 1600,288 (to rMC_C): djump,samus:1 | djump,megaman:1  (the room logic: never; overrides.txt 415 add)
+rMC_D: from in 930 48,384 (to rMC_C) to out 983 2384,160 (to rMC_E): djump,adash,megaman:1 | djump,adash,samus:1  (the room logic: never; overrides.txt 648 add)
+rMC_E: from in 932 48,208 (to rMC_D) to out 985 688,2976 (to rMC_F): djump,adash,megaman:4  (the room logic: never; overrides.txt 655 add)
+rMC_K: from in 943 2768,320 (to rMC_A) to out 995 0,384 (to rMC_J): djump,adash,samus:1  (the room logic: never; overrides.txt 416 add)
+rMC_K: from in 945 2896,64 (to rMC_L) to out 995 0,384 (to rMC_J): djump,adash,samus:1  (the room logic: never; overrides.txt 416 add)
+rMC_K: from in 946 2928,320 (to rMC_K_Secret) to out 995 0,384 (to rMC_J): djump,adash,samus:1  (the room logic: never; overrides.txt 416 add)
+rMain_13: from in 967 96,1936 (to rMain_12) to out 1020 448,112 (to rMain_14): djump | adash | mario | gdash  (the room logic: djump | adash; overrides.txt 957 add)
+rMain_14: from in 970 96,256 (to rMain_13) to out 1025 8,320 (to rLeafCaveA): adash | djump | gdash | link:1  (the room logic: adash | djump | gdash; overrides.txt 344 add)
+rMain_14: from in 971 1984,176 (to rMain_14Gate) to out 1025 8,320 (to rLeafCaveA): adash | djump | gdash | link:1  (the room logic: adash | djump | gdash; overrides.txt 344 add)
+rMain_14: from in 972 1952,576 (to rMain_77) to out 1025 8,320 (to rLeafCaveA): adash | djump | gdash | link:1  (the room logic: adash | djump | gdash; overrides.txt 344 add)
+rMain_26: from in 1015 48,192 (to rMain_27) to out 1066 392,384 (to rMain_26ExtA): -  (the room logic: never; overrides.txt 874 add)
+rMain_26: from in 1014 400,144 (to rMain_26ExtA) to out 1066 392,384 (to rMain_26ExtA): -  (the room logic: never; overrides.txt 873 add)
+rMain_26: from in 1012 720,208 (to rMain_25) to out 1066 392,384 (to rMain_26ExtA): -  (the room logic: never; overrides.txt 872 add)
+rMain_32: from in 1039 112,304 (to rMain_31) to out 1094 0,1120 (to rMain_33): link:3 | samus:6  (the room logic: never; overrides.txt 445 add)
+rMain_32: from in 1040 2112,1056 (to rCArena_1) to out 1094 0,1120 (to rMain_33): link:3 | samus:6  (the room logic: never; overrides.txt 445 add)
+rMain_32: from in 1042 2272,240 (to rMain_34) to out 1094 0,1120 (to rMain_33): link:3 | samus:6  (the room logic: never; overrides.txt 445 add)
+rMain_36: from in 1056 48,240 (to rMain_38) to out 1107 4336,-16 (to rMain_37): link:3 | samus:6  (the room logic: never; overrides.txt 446 add)
+rMain_36: from in 1054 4352,304 (to rMain_35) to out 1107 4336,-16 (to rMain_37): link:3 | samus:6  (the room logic: never; overrides.txt 446 add)
+rMain_42: from in 1072 48,384 (to rCCity_SouthA) to out 1127 4248,352 (to rMain_44): -  (the room logic: djump,adash; overrides.txt 1004 add)
+rMain_44: from in 1080 48,384 (to rMain_45) to out 1134 1416,160 (to rMain_48): adash | djump | link:3  (the room logic: adash | djump; overrides.txt 985 add)
+rMain_44: from in 1083 416,400 (to rMain_44_Curse) to out 1134 1416,160 (to rMain_48): adash | djump,link:1 | djump,belmont:1 | djump,samus:1 | djump,megaman:1 | djump,gdash | link:3  (the room logic: adash,samus:2 | djump,samus:2; overrides.txt 986 add)
+rMain_44: from in 1079 4224,160 (to rMain_42) to out 1134 1416,160 (to rMain_48): adash | djump | link:3  (the room logic: djump,adash; overrides.txt 983 add)
+rMain_44: from in 1082 4272,400 (to rMain_50) to out 1134 1416,160 (to rMain_48): adash,samus:2 | djump,samus:2 | link:3,samus:2  (the room logic: djump,adash,samus:2; overrides.txt 984 add)
+rMain_44: from in 1079 4224,160 (to rMain_42) to out 1133 40,352 (to rMain_45): adash | djump,link:1 | djump,belmont:1 | djump,samus:1 | djump,megaman:1 | djump,gdash | link:3  (the room logic: never; overrides.txt 987 add)
+rMain_44: from in 1082 4272,400 (to rMain_50) to out 1133 40,352 (to rMain_45): adash,samus:2 | djump,samus:2 | link:3,samus:2  (the room logic: never; overrides.txt 988 add)
+rMain_68: from in 1158 4752,240 (to rMain_61) to out 1211 56,240 (to rMain_67): never  (the room logic: belmont:3 | link:3 | megaman:1 | samus:1; overrides.txt 920 drop)
+rMain_72: from in 1164 1584,1424 (to rMain_73) to out 1218 1712,272 (to rMain_98): adash,megaman:4 | djump,megaman:4  (the room logic: never; overrides.txt 347 add, 905 require)
+rMain_72: from in 1164 1584,1424 (to rMain_73) to out 1217 72,112 (to rMain_74): djump,adash,mario,megaman:4  (the room logic: never; overrides.txt 355 drop, 356 add)
+rMain_72: from in 1163 48,1392 (to rMain_1) to out 1218 1712,272 (to rMain_98): adash,megaman:4 | djump,megaman:4  (the room logic: never; overrides.txt 347 add, 904 require)
+rMain_72: from in 1166 1680,304 (to rMain_98) to out 1217 72,112 (to rMain_74): djump,adash,mario,megaman:4  (the room logic: never; overrides.txt 357 drop, 358 add)
+rMain_72: from in 1165 80,144 (to rMain_74) to out 1218 1712,272 (to rMain_98): adash,link:1 | adash,belmont:1 | adash,megaman:1 | adash,samus:1 | djump,link:1 | djump,belmont:1 | djump,megaman:1 | djump,samus:1  (the room logic: never; overrides.txt 347 add)
+rMain_72: from in 1163 48,1392 (to rMain_1) to out 1217 72,112 (to rMain_74): djump,adash,mario,megaman:4  (the room logic: never; overrides.txt 353 drop, 354 add)
+rMain_8: from in 1184 2512,1296 (to rCCity_NorthA) to out 1236 136,128 (to rMain_8Gate): -  (the room logic: djump; overrides.txt 947 add)
+rMain_81: from in 1192 48,256 (to rMain_80) to out 1246 3824,96 (to rMain_96): adash,megaman:4 | djump,megaman:4  (the room logic: never; overrides.txt 561 add)
+rMain_81: from in 1194 1968,96 (to rMain_84) to out 1246 3824,96 (to rMain_96): adash,megaman:4 | djump,megaman:4  (the room logic: never; overrides.txt 561 add)
+rMain_81: from in 1193 304,688 (to rMain_82) to out 1246 3824,96 (to rMain_96): adash,megaman:4 | djump,megaman:4  (the room logic: never; overrides.txt 561 add)
+rMario1_10: from in 1222 56,240 (to rMario1_9) to out 1273 2896,112 (to rMario1_11): djump | mario | adash,link:3  (the room logic: djump; overrides.txt 945 add)
+rMario1_7: from in 1253 1520,384 (to rMario1_8) to out 1302 1448,104 (to rMario1_7Secret): -  (the room logic: djump,adash; overrides.txt 765 add)
+rMario1_7: from in 1251 48,208 (to rMario1_6) to out 1302 1448,104 (to rMario1_7Secret): -  (the room logic: djump,adash; overrides.txt 765 add)
+rMega4_IntroC: from in 1308 48,2832 (to rMega4_IntroB) to out 1360 464,208 (to rMega4_IntroD): -  (the room logic: djump | adash; overrides.txt 970 add)
+rMega4_OstrichB: from in 1316 48,240 (to rMega4_OstrichA) to out 1374 8352,256 (to rMega4_OstrichC): -  (the room logic: never; overrides.txt 59 add)
+rMega4_SigmaA3: from in 1328 48,3008 (to rMega4_SigmaA2) to out 1387 464,160 (to rMega4_SigmaA4): gdash,link:1 | gdash,belmont:1 | gdash,samus:1 | gdash,megaman:1 | adash,link:1 | adash,belmont:1 | adash,samus:1 | adash,megaman:1 | djump,link:1 | djump,belmont:1 | djump,samus:1 | djump,megaman:1  (the room logic: djump | adash; overrides.txt 972 drop, 973 add)
+rMega4_SigmaB2: from in 1334 48,288 (to rMega4_SigmaB1) to out 1393 3312,96 (to rMega4_SigmaB3): gdash,megaman:3  (the room logic: never; overrides.txt 476 add)
+rMega4_SigmaB4: from in 1338 48,3008 (to rMega4_SigmaB3) to out 1397 656,160 (to rMega4_SigmaB5): megaman:3  (the room logic: belmont:1 | link:1 | megaman:1 | samus:1; overrides.txt 843 require)
+rMega4_SigmaB6: from in 1342 48,448 (to rMega4_SigmaB5) to out 1401 1904,160 (to rMega4_SigmaB7): gdash,samus:2 | gdash,megaman:3 | adash,samus:2 | adash,megaman:3  (the room logic: never; overrides.txt 613 add)
+rMega4_SigmaB6: from in 1343 1880,192 (to rMega4_SigmaB7) to out 1402 0,416 (to rMega4_SigmaB5): adash,gdash | djump,gdash | djump,adash  (the room logic: never; overrides.txt 610 add)
+rMega4_SigmaC3: from in 1350 64,2048 (to rMega4_SigmaC2) to out 1409 464,128 (to rMega4_SigmaC4): gdash  (the room logic: never; overrides.txt 73 add)
+rMountTemple_A: from in 1374 1920,592 (to rMountTemple_E) to out 1433 192,-16 (to rMountTemple_B): -  (the room logic: event:rMountTemple_A/step1 | event:rMountTemple_A/step2; overrides.txt 912 add)
+rMountTemple_A: from in 1373 224,144 (to rMountTemple_B) to out 1434 1912,560 (to rMountTemple_E): -  (the room logic: event:rMountTemple_A/step1 | event:rMountTemple_A/step2; overrides.txt 229 add)
+rMountTemple_A: from in 1374 1920,592 (to rMountTemple_E) to out 1432 72,512 (to rMain_24): -  (the room logic: event:rMountTemple_A/step1 | event:rMountTemple_A/step2; overrides.txt 913 add)
+rMountTemple_A: from in 1372 80,544 (to rMain_24) to out 1434 1912,560 (to rMountTemple_E): -  (the room logic: event:rMountTemple_A/step1 | event:rMountTemple_A/step2; overrides.txt 229 add)
+rMountTemple_A: from in 1374 1920,592 (to rMountTemple_E) to out 1435 72,752 (to rMountTemple_J): -  (the room logic: event:rMountTemple_A/step1 | event:rMountTemple_A/step2; overrides.txt 914 add)
+rMountTemple_A: from in 1375 80,784 (to rMountTemple_J) to out 1434 1912,560 (to rMountTemple_E): -  (the room logic: event:rMountTemple_A/step1 | event:rMountTemple_A/step2; overrides.txt 229 add)
+rMountTemple_E: from in 1383 112,144 (to rMountTemple_A) to out 1444 2032,928 (to rMountTemple_F): -  (the room logic: never; overrides.txt 715 add)
+rMountTemple_E: from in 1385 2000,368 (to rMountTemple_F) to out 1444 2032,928 (to rMountTemple_F): -  (the room logic: never; overrides.txt 718 add)
+rMountTemple_F: from in 1386 48,928 (to rMountTemple_E) to out 1447 0,160 (to rMountTemple_E): adash,link:1 | adash,belmont:1 | adash,megaman:1 | adash,samus:1  (the room logic: djump,adash,samus:2 | adash,gdash,samus:2; overrides.txt 236 add)
+rMountTemple_F: from in 1386 48,928 (to rMountTemple_E) to out 1448 1936,176 (to rMountTemple_G): adash,link:1 | adash,belmont:1 | adash,megaman:1 | adash,samus:1  (the room logic: never; overrides.txt 237 add)
+rMountTemple_G: from in 1390 1888,960 (to rMountTemple_H) to out 1449 0,336 (to rMountTemple_F): -  (the room logic: djump,adash,samus:2; overrides.txt 231 add)
+rNGC_RB_B: from in 1424 360,2320 (to rNGC_RB_C) to out 1484 64,128 (to rNGC_RB_A): samus:2  (the room logic: never; overrides.txt 818 add)
+rSF_C: from in 1454 48,480 (to rSF_B) to out 1517 6224,192 (to rSF_D): adash | djump  (the room logic: never; overrides.txt 814 add)
+rSF_D: from in 1456 48,384 (to rSF_C) to out 1519 6224,448 (to rSF_E): adash,samus:2 | djump,samus:2  (the room logic: never; overrides.txt 815 add)
+rSamus5_Lv0_A: from in 1483 64,496 (to rSamus5_Gate) to out 1542 1184,80 (to rSamus5_Lv0_E): djump,link:1 | djump,belmont:1 | djump,megaman:1 | djump,samus:1 | hijump:1,link:1 | hijump:1,belmont:1 | hijump:1,samus:1 | hijump:1,megaman:1 | adash,link:3  (the room logic: djump,link:1 | djump,belmont:1 | djump,megaman:1 | djump,samus:1; overrides.txt 990 add)
+rSamus5_Lv0_H: from in 1509 960,928 (to rSamus5_Lv0_A) to out 1565 0,96 (to rSamus5_Lv0_Ele3): djump,link:1 | djump,belmont:1 | djump,megaman:1 | djump,samus:1 | hijump:1,link:1 | hijump:1,belmont:1 | hijump:1,samus:1 | hijump:1,megaman:1 | adash,link:3  (the room logic: djump,link:1 | djump,belmont:1 | djump,megaman:1 | djump,samus:1; overrides.txt 991 add)
+rSamus5_Lv1_A: from in 1514 248,176 (to rSamus5_Lv0_Ele1) to out 1572 464,704 (to rSamus5_Lv1_K): adash,link:1 | adash,belmont:1 | adash,megaman:1 | adash,samus:1 | djump,link:1 | djump,belmont:1 | djump,megaman:1 | djump,samus:1 | hijump:1,link:1 | hijump:1,belmont:1 | hijump:1,megaman:1 | hijump:1,samus:1 | link:3 | megaman:4  (the room logic: adash,link:1 | adash,belmont:1 | adash,megaman:1 | adash,samus:1 | djump,link:1 | djump,belmont:1 | djump,megaman:1 | djump,samus:1 | hijump:1,link:1 | hijump:1,belmont:1 | hijump:1,megaman:1 | hijump:1,samus:1; overrides.txt 1022 add)
+rSamus5_Lv1_O: from in 1557 64,1152 (to rSamus5_Lv1_T) to out 1614 1184,224 (to rSamus5_Lv1_W): djump,adash,megaman:4 | adash,gdash,link:1 | adash,gdash,belmont:1 | adash,gdash,megaman:1 | adash,gdash,samus:1  (the room logic: djump,adash,megaman:4; overrides.txt 495 add)
+rSamus5_Lv1_O: from in 1555 64,320 (to rSamus5_Lv1_N) to out 1614 1184,224 (to rSamus5_Lv1_W): djump,adash,megaman:4 | adash,gdash,link:1 | adash,gdash,belmont:1 | adash,gdash,megaman:1 | adash,gdash,samus:1  (the room logic: djump,adash,megaman:4; overrides.txt 495 add)
+rSamus5_Lv1_O: from in 1556 1136,1104 (to rSamus5_Lv1_P) to out 1614 1184,224 (to rSamus5_Lv1_W): djump,adash,megaman:4 | adash,gdash,link:1 | adash,gdash,belmont:1 | adash,gdash,megaman:1 | adash,gdash,samus:1  (the room logic: djump,adash,megaman:4; overrides.txt 495 add)
+rSamus5_Lv1_S: from in 1570 1280,304 (to rSamus5_Lv1_R) to out 1627 0,272 (to rSamus5_Lv1_Boss): hijump:2,samus:4 | hijump:2,megaman:2 | hijump:2,link:1 | hijump:2,belmont:1  (the room logic: djump,hijump:2,belmont:1 | djump,hijump:2,link:1 | djump,hijump:2,megaman:1 | djump,hijump:2,samus:1; overrides.txt 994 drop, 995 add)
+rSamus5_Lv1_U: from in 1574 64,304 (to rSamus5_Lv1_P) to out 1631 352,336 (to rSamus5_Lv1_V): samus:2  (the room logic: djump,samus:2 | hijump:1,samus:2 | adash,samus:2; overrides.txt 497 add)
+rSamus5_Lv2_G: from in 1597 64,272 (to rSamus5_Lv2_C) to out 1655 1232,352 (to rSamus5_Lv2_O): samus:6,varia  (the room logic: never; overrides.txt 499 add)
+rSamus5_Lv2_G: from in 1597 64,272 (to rSamus5_Lv2_C) to out 1654 1904,240 (to rSamus5_Lv2_H): gdash,link:1,varia | gdash,belmont:1,varia | gdash,megaman:1,varia | gdash,samus:1,varia | adash,link:1,varia | adash,belmont:1,varia | adash,megaman:1,varia | adash,samus:1,varia  (the room logic: never; overrides.txt 730 add)
+rSamus5_Lv2_G: from in 1598 1856,272 (to rSamus5_Lv2_H) to out 1653 0,240 (to rSamus5_Lv2_C): gdash,link:1,varia | gdash,belmont:1,varia | gdash,megaman:1,varia | gdash,samus:1,varia | adash,link:1,varia | adash,belmont:1,varia | adash,megaman:1,varia | adash,samus:1,varia  (the room logic: never; overrides.txt 731 add)
+rSamus5_Lv2_J: from in 1607 64,1712 (to rSamus5_Lv2_I) to out 1666 464,1488 (to rSamus5_Lv2_M): hijump:2,link:1 | hijump:2,belmont:1 | hijump:2,megaman:1 | hijump:2,samus:1 | djump,hijump:1,link:1 | djump,hijump:1,belmont:1 | djump,hijump:1,megaman:1 | djump,hijump:1,samus:1  (the room logic: hijump:2,link:1 | hijump:2,belmont:1 | hijump:2,megaman:1 | hijump:2,samus:1; overrides.txt 821 add)
+rSamus5_Lv2_J: from in 1609 64,112 (to rSamus5_Lv2_L) to out 1666 464,1488 (to rSamus5_Lv2_M): hijump:2,link:1 | hijump:2,belmont:1 | hijump:2,megaman:1 | hijump:2,samus:1 | djump,hijump:1,link:1 | djump,hijump:1,belmont:1 | djump,hijump:1,megaman:1 | djump,hijump:1,samus:1  (the room logic: hijump:2,link:1 | hijump:2,belmont:1 | hijump:2,megaman:1 | hijump:2,samus:1; overrides.txt 823 add)
+rSamus5_Lv2_J: from in 1608 416,112 (to rSamus5_Lv2_K) to out 1666 464,1488 (to rSamus5_Lv2_M): hijump:2,link:1 | hijump:2,belmont:1 | hijump:2,megaman:1 | hijump:2,samus:1 | djump,hijump:1,link:1 | djump,hijump:1,belmont:1 | djump,hijump:1,megaman:1 | djump,hijump:1,samus:1  (the room logic: hijump:2,link:1 | hijump:2,belmont:1 | hijump:2,megaman:1 | hijump:2,samus:1; overrides.txt 822 add)
+rSamus5_Lv2_L: from in 1614 1856,208 (to rSamus5_Lv2_J) to out 1668 0,272 (to rSamus5_Lv2_A): link:1 | belmont:1 | megaman:1 | samus:1  (the room logic: samus:6; overrides.txt 734 add)
+rSamus5_Lv3_M: from in 1670 1056,1008 (to rSamus5_Lv3_N) to out 1725 0,400 (to rSamus5_Lv3_L): hijump:1,samus:2  (the room logic: never; overrides.txt 507 add)
+rSamus5_Lv4_B: from in 1680 64,320 (to rSamus5_Lv4_A) to out 1736 1904,256 (to rSamus5_Lv4_C): djump,link:1 | adash,link:1 | hijump:1,link:1 | djump,belmont:1 | adash,belmont:1 | hijump:1,belmont:1 | djump,megaman:1 | adash,megaman:1 | hijump:1,megaman:1 | djump,samus:1 | adash,samus:1 | hijump:1,samus:1 | samus:7  (the room logic: djump,link:1 | adash,link:1 | hijump:1,link:1 | djump,belmont:1 | adash,belmont:1 | hijump:1,belmont:1 | djump,megaman:1 | adash,megaman:1 | hijump:1,megaman:1 | djump,samus:1 | adash,samus:1 | hijump:1,samus:1; overrides.txt 511 add)
+rSamus5_Lv4_Boss: from in 1682 1760,240 (to rSamus5_Lv4_J) to out 1738 0,192 (to rSamus5_Lv4_K): samus:2  (the room logic: adash,samus:2 | djump,samus:2; overrides.txt 1000 add)
+rSamus5_Lv4_C: from in 1684 64,288 (to rSamus5_Lv4_B) to out 1740 1600,144 (to rSamus5_Lv4_D): adash,hijump:2,samus:2 | djump,hijump:2,samus:2 | hijump:2,link:3,samus:2  (the room logic: djump,hijump:2,samus:2; overrides.txt 625 drop, 626 add)
+rSamus5_Lv4_L: from in 1703 1856,272 (to rSamus5_Lv4_K) to out 1760 0,96 (to rSamus5_Lv4_M): djump,hijump:2,samus:2 | adash,hijump:2,samus:2  (the room logic: djump,hijump:2,samus:2; overrides.txt 998 add)
+rSkyCaveA: from in 1714 80,848 (to rMain_96) to out 1771 1272,112 (to rSkyCaveB): adash,link:1 | djump,samus:1  (the room logic: never; overrides.txt 596 add)
+rVault_16: from in 1738 48,224 (to rVault_15) to out 1798 2016,272 (to rVault_17): adash  (the room logic: never; overrides.txt 480 add)
+rVault_18: from in 1743 48,208 (to rVault_17) to out 1803 2176,240 (to rVault_19): adash,link:3  (the room logic: never; overrides.txt 604 add)
+rVault_20: from in 1750 48,272 (to rVault_19) to out 1810 3504,240 (to rVault_21): link:1 | belmont:1 | megaman:1 | samus:1  (the room logic: never; overrides.txt 925 add)
+rVault_21: from in 1753 48,272 (to rVault_20) to out 1813 4432,240 (to rVault_22): -  (the room logic: never; overrides.txt 927 add)
+rVault_9: from in 1777 48,224 (to rVault_8) to out 1836 3024,160 (to rVault_10): samus:1 | megaman:1 | belmont:2 | link:3  (the room logic: link:3,belmont:2,megaman:3,samus:5; overrides.txt 835 add)
+rWarshipA: from in 1809 5424,176 (to rWarshipB) to out 1868 1152,416 (to rWarshipN): djump,samus:2 | djump,adash,belmont:1,megaman:4 | djump,adash,megaman:4,samus:1  (the room logic: djump,samus:2; overrides.txt 262 drop, 263 add)
+rWarshipA: from in 1810 5424,288 (to rWarshipB) to out 1868 1152,416 (to rWarshipN): djump,samus:2 | djump,adash,belmont:1,megaman:4 | djump,adash,megaman:4,samus:1  (the room logic: djump,megaman:4; overrides.txt 269 drop, 270 add)
+rWarshipA: from in 1809 5424,176 (to rWarshipB) to out 1867 5456,256 (to rWarshipB): -  (the room logic: djump,megaman:4,samus:2; overrides.txt 261 add)
+rWarshipA: from in 1810 5424,288 (to rWarshipB) to out 1866 5456,144 (to rWarshipB): -  (the room logic: djump,megaman:4,samus:2; overrides.txt 268 add)
+rWarshipA: from in 1809 5424,176 (to rWarshipB) to out 1865 976,416 (to rMC_N): djump,samus:2 | djump,adash,belmont:1,megaman:4 | djump,adash,megaman:4,samus:1  (the room logic: djump,samus:2; overrides.txt 259 drop, 260 add)
+rWarshipA: from in 1810 5424,288 (to rWarshipB) to out 1865 976,416 (to rMC_N): djump,samus:2 | djump,adash,belmont:1,megaman:4 | djump,adash,megaman:4,samus:1  (the room logic: djump,megaman:4; overrides.txt 266 drop, 267 add)
+rWarshipB: from in 1812 48,176 (to rWarshipA) to out 1870 0,256 (to rWarshipA): -  (the room logic: djump,megaman:4,samus:2 | adash,megaman:4,samus:2; overrides.txt 273 add)
+rWarshipC: from in 1815 48,240 (to rWarshipB) to out 1873 3632,144 (to rWarshipD): djump | adash | link:3  (the room logic: djump | adash; overrides.txt 1012 add)
+rWarshipC: from in 1816 3632,192 (to rWarshipD) to out 1872 0,208 (to rWarshipB): djump,megaman:4 | adash,megaman:4 | djump,adash | djump,link:3  (the room logic: djump,adash,samus:2; overrides.txt 1013 drop, 1014 add)
+rWarshipH: from in 1825 112,240 (to rWarshipG) to out 1883 9448,192 (to rWarshipI): -  (the room logic: never; overrides.txt 283 add)
+rWarshipH: from in 1826 9448,240 (to rWarshipI) to out 1882 112,192 (to rWarshipG): djump,adash,gdash,mario,link:3,belmont:3,megaman:4,samus:7  (the room logic: never; overrides.txt 312 add)
+rWarshipO: from in 1843 48,240 (to rWarshipN) to out 1901 4032,208 (to rWarshipP): djump,adash,gdash,mario,link:3,belmont:3,megaman:4,samus:7  (the room logic: never; overrides.txt 315 add)
+rWarshipO: from in 1844 4000,240 (to rWarshipP) to out 1900 0,208 (to rWarshipN): djump,adash,gdash,mario,link:3,belmont:3,megaman:4,samus:7  (the room logic: never; overrides.txt 317 add)
+rWarshipO: from in 1845 272,256 (to rWarshipP) to out 1901 4032,208 (to rWarshipP): djump,adash,gdash,mario,link:3,belmont:3,megaman:4,samus:7  (the room logic: never; overrides.txt 316 add)
+rWarshipO: from in 1844 4000,240 (to rWarshipP) to out 1902 272,256 (to rWarshipP): djump,adash,gdash,mario,link:3,belmont:3,megaman:4,samus:7  (the room logic: never; overrides.txt 318 add)
+rWarshipZ_A: from in 1850 48,256 (to rWarshipN) to out 1908 4784,192 (to rWarshipZ_B): djump,mario  (the room logic: never; overrides.txt 295 only, 319 add)
+rWarshipZ_A: from in 1851 4752,224 (to rWarshipZ_B) to out 1907 0,224 (to rWarshipN): djump,mario  (the room logic: never; overrides.txt 295 only, 320 add)
+rWarshipZ_B: from in 1852 48,224 (to rWarshipZ_A) to out 1910 4016,160 (to rWarshipZ_C): djump  (the room logic: adash | djump; overrides.txt 296 only)
+rWarshipZ_B: from in 1853 3984,192 (to rWarshipZ_C) to out 1909 0,192 (to rWarshipZ_A): djump  (the room logic: djump | adash; overrides.txt 296 only)
+rWarshipZ_C: from in 1854 48,192 (to rWarshipZ_B) to out 1912 3728,160 (to rWarshipZ_D): djump,mario  (the room logic: never; overrides.txt 297 only, 321 add)
+rWarshipZ_D: from in 1856 48,192 (to rWarshipZ_C) to out 1914 3728,224 (to rWarshipZ_E1): djump,mario  (the room logic: never; overrides.txt 298 only, 323 add)
+rWarshipZ_D: from in 1857 3696,256 (to rWarshipZ_E1) to out 1913 0,160 (to rWarshipZ_C): djump,mario  (the room logic: never; overrides.txt 298 only, 324 add)
+rWarshipZ_G: from in 1869 4912,256 (to rWarshipZ_H) to out 1927 0,224 (to rWarshipZ_F): never  (the room logic: djump,adash; overrides.txt 302 only)
+rWarshipZ_H: from in 1871 48,256 (to rWarshipZ_G) to out 1930 4448,176 (to rWarshipZ_I): djump,mario  (the room logic: never; overrides.txt 303 only, 325 add)
+rWepFacA: from in 1875 48,272 (to rWepFacB) to out 1933 624,240 (to rMain_67): -  (the room logic: samus:2; overrides.txt 742 add)
+rWepFacG: from in 1892 2352,304 (to rWepFacF) to out 1952 0,224 (to rWepFacH): djump,adash,megaman:4  (the room logic: never; overrides.txt 585 add)
+rWepFacI: from in 1897 48,288 (to rWepFacJ) to out 1955 3120,224 (to rWepFacH): djump,adash,megaman:4  (the room logic: never; overrides.txt 586 add)
+
+# one way only (as the logic has it, overrides.txt's lines in):  <room>: from <way in> to <way out>: <what it takes>; back:
+# never
+rBelmont3_3B: from in 42 592,1408 (to rBelmont3_3B_Secret) to out 46 624,128 (to rBelmont3_3C): gdash,link:2 | adash,link:2 | djump,link:2 | gdash,megaman:2 | adash,megaman:2 | djump,megaman:2 | gdash,belmont:3 | adash,belmont:3 | gdash,samus:5 | adash,samus:5 | djump,link:1,megaman:1 | djump,belmont:1,megaman:1 | djump,belmont:2 | djump,link:1,samus:1 | djump,belmont:1,samus:1 | djump,samus:4
+rBelmont3_5A: from in 82 48,192 (to rBelmont3_5C) to out 84 0,1024 (to rBelmont3_4I): -
+rBelmont3_5A: from in 84 1808,208 (to rBelmont3_5A_Secret) to out 84 0,1024 (to rBelmont3_4I): -
+rBelmont3_5A: from in 82 48,192 (to rBelmont3_5C) to out 88 0,512 (to rBelmont3_5C): -
+rBelmont3_5A: from in 82 48,192 (to rBelmont3_5C) to out 89 1840,176 (to rBelmont3_5A_Secret): adash,megaman:4
+rBelmont3_5A: from in 82 48,192 (to rBelmont3_5C) to out 86 1840,640 (to rBelmont3_5B): -
+rBelmont3_5A: from in 82 48,192 (to rBelmont3_5C) to out 85 1840,960 (to rBelmont3_5B): -
+rBelmont3_5A: from in 84 1808,208 (to rBelmont3_5A_Secret) to out 88 0,512 (to rBelmont3_5C): -
+rBelmont3_5A: from in 84 1808,208 (to rBelmont3_5A_Secret) to out 86 1840,640 (to rBelmont3_5B): -
+rBelmont3_5A: from in 84 1808,208 (to rBelmont3_5A_Secret) to out 85 1840,960 (to rBelmont3_5B): -
+rBelmont3_5D: from in 92 2000,160 (to rBelmont3_5C) to out 98 0,176 (to rBelmont3_5E): adash | djump
+rBubbleTowerA5: from in 153 360,960 (to rBubbleTowerA4) to out 162 48,64 (to rBubbleTowerA6): -
+rCCity_NA_S1: from in 188 432,176 (to rCCity_NorthA) to out 194 0,320 (to rCCity_NorthA): -
+rCCity_NA_S1: from in 188 432,176 (to rCCity_NorthA) to out 196 88,560 (to rHPF_A): -
+rDCS_S: from in 276 4272,288 (to rDCS_T) to out 283 120,224 (to rDCS_E): djump
+rDesertedTowerA: from in 286 800,160 (to rDesertedTowerB) to out 296 568,816 (to rDesertedTowerD): -
+rDesertedTowerA: from in 286 800,160 (to rDesertedTowerB) to out 295 616,816 (to rDesertedTowerB): -
+rDesertedTowerA: from in 286 800,160 (to rDesertedTowerB) to out 293 712,832 (to rMain_50): -
+rDesertedTowerB: from in 291 48,2704 (to rDesertedTowerC) to out 299 0,2736 (to rDesertedTowerC): samus:2
+rDesertedTowerB: from in 290 112,2704 (to rDesertedTowerA) to out 299 0,2736 (to rDesertedTowerC): samus:2
+rDiscoE: from in 309 592,160 (to rDiscoInvasion) to out 317 0,1664 (to rDiscoD): -
+rExtGateH_4: from in 385 64,304 (to rExtGateH_2) to out 403 488,272 (to rExtGateH_6): -
+rGame6_CoDH: from in 412 48,128 (to rGame6_CoDG) to out 430 0,944 (to rGame6_CoDG): -
+rGame6_CoDH: from in 412 48,128 (to rGame6_CoDG) to out 433 1792,192 (to rGame6_CoDL): djump,key:16 | adash,key:16
+rGame6_CoDJ: from in 419 2352,288 (to rGame6_CoDI) to out 437 0,208 (to rGame6_CoDK): djump,link:1 | djump,belmont:1 | djump,gamec:1
+rGame6_CoDM: from in 425 48,240 (to rGame6_CoDL) to out 443 2384,240 (to rGame6_CoDN): djump,gamec:1 | djump,link:1 | djump,belmont:1 | djump,samus:1
+rGame6_EarthA: from in 458 48,288 (to rGame6_Overworld) to out 478 2544,192 (to rGame6_EarthB): -
+rGame6_EarthI: from in 478 48,256 (to rGame6_EarthH) to out 497 1712,256 (to rGame6_EarthJ): -
+rGame6_FireB: from in 488 96,64 (to rGame6_FireA) to out 505 3328,256 (to rGame6_FireC): -
+rGame6_WaterCaveC: from in 547 48,80 (to rGame6_WaterCaveB) to out 572 2288,144 (to rGame6_WaterCaveD): adash,air:3 | djump,air:3
+rGame6_WindH: from in 567 80,288 (to rGame6_WindG) to out 593 5672,224 (to rGame6_WindI): djump
+rHPF_L: from in 595 48,416 (to rHPF_K) to out 622 3056,384 (to rHPF_M): -
+rHPF_N: from in 601 224,256 (to rHPF_M) to out 627 2032,672 (to rHPF_O): -
+rHPF_O: from in 604 48,704 (to rHPF_N) to out 631 2032,480 (to rHPF_P): link:1 | belmont:1 | megaman:1 | samus:1
+rLavaCaveB: from in 630 48,288 (to rLavaCaveA) to out 658 6224,224 (to rLavaCaveC): mario
+rLeafCaveA: from in 637 1280,864 (to rMain_14) to out 666 1272,160 (to rLeafCaveB): link:1 | belmont:1 | megaman:1 | samus:1
+rLink2_Overworld: from in 687 136,984 (to rLink2_PalaceF_1) to out 719 448,960 (to rLink2_Bridge_A): -
+rLink2_Overworld: from in 691 1256,648 (to rLink2_Waterside) to out 716 912,576 (to rLink2_Checkpoint): -
+rLink2_Overworld: from in 676 1656,392 (to rLink2_SDesert_A) to out 713 1888,384 (to rLink2_BubbleP_A): -
+rLink2_Overworld: from in 688 1944,952 (to rLink2_Overworld2) to out 716 912,576 (to rLink2_Checkpoint): -
+rLink2_Overworld: from in 686 472,968 (to rLink2_Bridge_A) to out 716 912,576 (to rLink2_Checkpoint): -
+rLink2_Overworld: from in 683 88,680 (to rLink2_CaveP_B1) to out 716 912,576 (to rLink2_Checkpoint): -
+rLink2_Overworld: from in 684 872,1112 (to rLink2_Beach_A) to out 716 912,576 (to rLink2_Checkpoint): -
+rLink2_Overworld2: from in 700 1832,744 (to rLink2_PalaceW_1) to out 730 1472,1008 (to rLink2_HotDesert_A): -
+rLink2_PalaceA_1: from in 711 48,304 (to rLink2_Overworld) to out 753 1512,368 (to rLink2_PalaceA_4): -
+rLink2_PalaceA_1: from in 712 2000,304 (to rLink2_PalaceA_2) to out 753 1512,368 (to rLink2_PalaceA_4): -
+rLink2_PalaceB_7: from in 743 48,272 (to rLink2_PalaceB_6) to out 786 1144,368 (to rLink2_PalaceB_8): -
+rLink2_PalaceC_1: from in 746 48,304 (to rLink2_Overworld2) to out 789 1000,368 (to rLink2_PalaceC_2): -
+rLink2_PalaceC_1: from in 748 448,272 (to rLink2_PalaceC_11) to out 789 1000,368 (to rLink2_PalaceC_2): -
+rLink2_PalaceC_11: from in 752 48,304 (to rLink2_PalaceC_6) to out 795 952,368 (to rLink2_PalaceC_12): -
+rLink2_PalaceC_11: from in 752 48,304 (to rLink2_PalaceC_6) to out 796 960,192 (to rLink2_PalaceC_1): -
+rLink2_PalaceC_11: from in 753 1872,304 (to rLink2_PalaceC_10) to out 795 952,368 (to rLink2_PalaceC_12): -
+rLink2_PalaceC_11: from in 753 1872,304 (to rLink2_PalaceC_10) to out 796 960,192 (to rLink2_PalaceC_1): -
+rLink2_PalaceW_10: from in 816 48,304 (to rLink2_PalaceW_9) to out 861 0,624 (to rLink2_PalaceW_9): -
+rLink2_PalaceW_10: from in 816 48,304 (to rLink2_PalaceW_9) to out 862 1456,496 (to rLink2_PalaceW_12): link:1 | belmont:1 | samus:1 | megaman:1
+rLink2_PalaceW_2: from in 826 1392,160 (to rLink2_PalaceW_3) to out 868 0,320 (to rLink2_PalaceW_1): -
+rLink2_PalaceW_2: from in 826 1392,160 (to rLink2_PalaceW_3) to out 870 1424,256 (to rLink2_PalaceW_3): -
+rLink2_PalaceW_2: from in 826 1392,160 (to rLink2_PalaceW_3) to out 871 1424,640 (to rLink2_PalaceW_3): -
+rLink2_PalaceW_3: from in 827 48,160 (to rLink2_PalaceW_2) to out 872 0,640 (to rLink2_PalaceW_2): -
+rLink2_PalaceW_3: from in 827 48,160 (to rLink2_PalaceW_2) to out 875 1408,592 (to rLink2_PalaceW_4): -
+rLink2_PalaceW_3: from in 828 48,288 (to rLink2_PalaceW_2) to out 872 0,640 (to rLink2_PalaceW_2): -
+rLink2_PalaceW_3: from in 828 48,288 (to rLink2_PalaceW_2) to out 875 1408,592 (to rLink2_PalaceW_4): -
+rLink2_PalaceW_3: from in 830 1376,256 (to rLink2_PalaceW_4) to out 872 0,640 (to rLink2_PalaceW_2): -
+rLink2_PalaceW_3: from in 832 784,304 (to rLink2_PalaceW_5) to out 872 0,640 (to rLink2_PalaceW_2): -
+rLink2_PalaceW_3: from in 830 1376,256 (to rLink2_PalaceW_4) to out 875 1408,592 (to rLink2_PalaceW_4): -
+rLink2_PalaceW_3: from in 832 784,304 (to rLink2_PalaceW_5) to out 875 1408,592 (to rLink2_PalaceW_4): -
+rLink2_PalaceW_6: from in 839 192,624 (to rLink2_PalaceW_4) to out 887 1392,448 (to rLink2_PalaceW_7): -
+rLink2_PalaceW_9: from in 855 48,304 (to rLink2_PalaceW_7) to out 902 1392,624 (to rLink2_PalaceW_10): adash
+rLink2_PalaceW_9: from in 856 1360,304 (to rLink2_PalaceW_10) to out 902 1392,624 (to rLink2_PalaceW_10): adash
+rLowFacB: from in 881 48,288 (to rLowFacA) to out 933 2768,320 (to rLowFacC): djump
+rLowFacH: from in 894 48,352 (to rLowFacG) to out 946 2704,256 (to rLowFacI): djump,adash,megaman:4
+rLowFacM: from in 909 2608,320 (to rLowFacN) to out 960 0,288 (to rLowFacL): djump,adash,megaman:4
+rLowFacR: from in 918 48,160 (to rLowFacQ) to out 971 1024,416 (to rLowFacS): adash,samus:2 | gdash,samus:2 | djump,samus:2
+rMC_B: from in 926 48,384 (to rMC_A) to out 979 1600,288 (to rMC_C): djump,samus:1 | djump,megaman:1
+rMC_C: from in 928 48,416 (to rMC_B) to out 981 2224,224 (to rMC_D): megaman:1 | samus:1 | link:2 | belmont:2
+rMC_D: from in 930 48,384 (to rMC_C) to out 983 2384,160 (to rMC_E): djump,adash,megaman:1 | djump,adash,samus:1
+rMC_E: from in 932 48,208 (to rMC_D) to out 985 688,2976 (to rMC_F): djump,adash,megaman:4
+rMC_I: from in 939 48,256 (to rMC_H) to out 992 2928,288 (to rMC_J): djump,link:3,belmont:2,megaman:3,samus:5
+rMain_25: from in 1008 1264,144 (to rMain_25ExtA) to out 1061 0,208 (to rMain_26): -
+rMain_25: from in 1006 2912,112 (to rMain_20) to out 1061 0,208 (to rMain_26): -
+rMain_25: from in 1008 1264,144 (to rMain_25ExtA) to out 1059 264,448 (to rMain_25ExtA): -
+rMain_25: from in 1006 2912,112 (to rMain_20) to out 1059 264,448 (to rMain_25ExtA): -
+rMain_26: from in 1015 48,192 (to rMain_27) to out 1066 392,384 (to rMain_26ExtA): -
+rMain_26: from in 1014 400,144 (to rMain_26ExtA) to out 1066 392,384 (to rMain_26ExtA): -
+rMain_26: from in 1012 720,208 (to rMain_25) to out 1066 392,384 (to rMain_26ExtA): -
+rMain_4: from in 1070 1336,592 (to rMain_5) to out 1122 1272,896 (to rMain_60): link:1 | belmont:1 | samus:2
+rMain_4: from in 1067 64,576 (to rMain_3) to out 1122 1272,896 (to rMain_60): link:1 | belmont:1 | samus:2
+rMain_44: from in 1080 48,384 (to rMain_45) to out 1134 1416,160 (to rMain_48): adash | djump | link:3
+rMain_44: from in 1080 48,384 (to rMain_45) to out 1136 408,368 (to rMain_44_Curse): samus:2
+rMain_61: from in 1138 48,96 (to rMain_68) to out 1188 0,848 (to rMain_8): -
+rMain_61: from in 1138 48,96 (to rMain_68) to out 1189 3056,816 (to rMain_62): adash | djump
+rMain_67: from in 1157 48,256 (to rWepFacA) to out 1207 3056,880 (to rMain_66): -
+rMain_67: from in 1156 64,848 (to rMain_68) to out 1207 3056,880 (to rMain_66): -
+rMain_68: from in 1159 64,272 (to rMain_67) to out 1212 4784,208 (to rMain_61): belmont:3 | link:3 | megaman:1 | samus:1
+rMario1_CCa: from in 1290 48,336 (to rMario1_12) to out 1342 3888,240 (to rMario1_CCb): -
+rMega4_OstrichB: from in 1316 48,240 (to rMega4_OstrichA) to out 1374 8352,256 (to rMega4_OstrichC): -
+rMega4_SigmaA2: from in 1326 48,624 (to rMega4_SigmaA1) to out 1385 3040,128 (to rMega4_SigmaA3): megaman:4
+rMega4_SigmaB2: from in 1334 48,288 (to rMega4_SigmaB1) to out 1393 3312,96 (to rMega4_SigmaB3): gdash,megaman:3
+rMountTemple_E: from in 1385 2000,368 (to rMountTemple_F) to out 1443 104,112 (to rMountTemple_A): -
+rMountTemple_E: from in 1383 112,144 (to rMountTemple_A) to out 1444 2032,928 (to rMountTemple_F): -
+rMountTemple_E: from in 1385 2000,368 (to rMountTemple_F) to out 1444 2032,928 (to rMountTemple_F): -
+rMountTemple_F: from in 1386 48,928 (to rMountTemple_E) to out 1447 0,160 (to rMountTemple_E): adash,link:1 | adash,belmont:1 | adash,megaman:1 | adash,samus:1
+rMountTemple_F: from in 1386 48,928 (to rMountTemple_E) to out 1448 1936,176 (to rMountTemple_G): adash,link:1 | adash,belmont:1 | adash,megaman:1 | adash,samus:1
+rSF_D: from in 1456 48,384 (to rSF_C) to out 1519 6224,448 (to rSF_E): adash,samus:2 | djump,samus:2
+rSF_G: from in 1463 11952,512 (to rSF_H) to out 1524 0,480 (to rSF_F): djump,adash | adash,gdash
+rSamus5_EscapeC: from in 1480 240,128 (to rSamus5_VentShaft) to out 1535 0,2320 (to rSamus5_EscapeB): link:1 | belmont:1 | megaman:1 | samus:1
+rSamus5_Lv1_C: from in 1524 416,240 (to rSamus5_Lv1_L) to out 1579 0,848 (to rSamus5_Lv1_D): samus:6
+rSamus5_Lv1_C: from in 1524 416,240 (to rSamus5_Lv1_L) to out 1578 464,848 (to rSamus5_Lv1_B): samus:6
+rSamus5_Lv1_E: from in 1527 120,64 (to rSamus5_Lv1_D) to out 1585 464,1184 (to rSamus5_Lv1_F): link:1 | belmont:1 | megaman:1 | samus:1
+rSamus5_Lv1_E: from in 1527 120,64 (to rSamus5_Lv1_D) to out 1584 464,976 (to rSamus5_Lv1_F): djump,samus:6 | hijump:2,samus:6
+rSamus5_Lv1_R: from in 1568 64,336 (to rSamus5_Lv1_S) to out 1624 464,304 (to rSamus5_Lv1_T): djump,hijump:2,link:1 | djump,hijump:2,belmont:1 | djump,hijump:2,megaman:1 | djump,hijump:2,samus:1
+rSamus5_Lv1_R: from in 1566 144,112 (to rSamus5_Lv1_I) to out 1624 464,304 (to rSamus5_Lv1_T): djump,hijump:2,link:1 | djump,hijump:2,belmont:1 | djump,hijump:2,megaman:1 | djump,hijump:2,samus:1
+rSamus5_Lv1_R: from in 1567 416,1184 (to rSamus5_Lv1_Q) to out 1624 464,304 (to rSamus5_Lv1_T): djump,hijump:2,link:1 | djump,hijump:2,belmont:1 | djump,hijump:2,megaman:1 | djump,hijump:2,samus:1
+rSamus5_Lv2_G: from in 1597 64,272 (to rSamus5_Lv2_C) to out 1655 1232,352 (to rSamus5_Lv2_O): samus:6,varia
+rSamus5_Lv2_H: from in 1600 64,160 (to rSamus5_Lv2_G) to out 1658 0,976 (to rSamus5_Lv2_O): link:1,varia | belmont:1,varia | megaman:1,varia | samus:1,varia
+rSamus5_Lv2_H: from in 1600 64,160 (to rSamus5_Lv2_G) to out 1659 464,976 (to rSamus5_Lv2_U): link:1,varia | belmont:1,varia | megaman:1,varia | samus:1,varia
+rSamus5_Lv2_H: from in 1601 416,160 (to rSamus5_Lv2_I) to out 1658 0,976 (to rSamus5_Lv2_O): link:1,varia | belmont:1,varia | megaman:1,varia | samus:1,varia
+rSamus5_Lv2_H: from in 1601 416,160 (to rSamus5_Lv2_I) to out 1659 464,976 (to rSamus5_Lv2_U): link:1,varia | belmont:1,varia | megaman:1,varia | samus:1,varia
+rSamus5_Lv2_Q: from in 1624 64,304 (to rSamus5_Lv2_P) to out 1681 1856,224 (to rSamus5_Lv2_R): adash,megaman:4,samus:2
+rSamus5_Lv3_B: from in 1639 64,304 (to rSamus5_Lv3_C) to out 1697 0,960 (to rSamus5_Lv3_C): samus:6
+rSamus5_Lv3_B: from in 1639 64,304 (to rSamus5_Lv3_C) to out 1696 1184,1120 (to rSamus5_Lv3_D): samus:6
+rSamus5_Lv3_B: from in 1639 64,304 (to rSamus5_Lv3_C) to out 1698 864,1184 (to rSamus5_Lv3_I): samus:6
+rSamus5_Lv3_B: from in 1638 1136,304 (to rSamus5_Lv3_A) to out 1697 0,960 (to rSamus5_Lv3_C): samus:6
+rSamus5_Lv3_B: from in 1638 1136,304 (to rSamus5_Lv3_A) to out 1696 1184,1120 (to rSamus5_Lv3_D): samus:6
+rSamus5_Lv3_B: from in 1638 1136,304 (to rSamus5_Lv3_A) to out 1698 864,1184 (to rSamus5_Lv3_I): samus:6
+rSamus5_Lv3_I: from in 1660 1136,560 (to rSamus5_Lv3_D) to out 1718 0,1136 (to rSamus5_Lv3_L): adash,link:1 | adash,belmont:1 | adash,megaman:1 | adash,samus:1 | djump,link:1 | djump,belmont:1 | djump,megaman:1 | djump,samus:1 | hijump:1,link:1 | hijump:1,belmont:1 | hijump:1,megaman:1 | hijump:1,samus:1
+rSamus5_Lv3_I: from in 1660 1136,560 (to rSamus5_Lv3_D) to out 1717 0,528 (to rSamus5_Lv3_J): hijump:2,link:1 | hijump:2,belmont:1 | hijump:2,megaman:1 | hijump:2,samus:1 | djump,link:1 | djump,belmont:1 | djump,megaman:1 | djump,samus:1
+rSamus5_Lv3_I: from in 1660 1136,560 (to rSamus5_Lv3_D) to out 1719 1184,1136 (to rSamus5_Lv3_N): link:1 | belmont:1 | megaman:1 | samus:1
+rSamus5_Lv3_I: from in 1660 1136,560 (to rSamus5_Lv3_D) to out 1715 688,-16 (to rSamus5_Lv3_B): hijump:2,link:1 | djump,link:1 | hijump:2,belmont:1 | djump,belmont:1 | hijump:2,megaman:1 | djump,megaman:1 | hijump:2,samus:1 | djump,samus:1
+rSamus5_Lv4_Boss: from in 1682 1760,240 (to rSamus5_Lv4_J) to out 1738 0,192 (to rSamus5_Lv4_K): samus:2
+rSamus5_Lv4_C: from in 1684 64,288 (to rSamus5_Lv4_B) to out 1740 1600,144 (to rSamus5_Lv4_D): adash,hijump:2,samus:2 | djump,hijump:2,samus:2 | hijump:2,link:3,samus:2
+rSamus5_Lv4_G: from in 1692 416,112 (to rSamus5_Lv4_F) to out 1749 464,1200 (to rSamus5_Lv4_H): adash,hijump:2,samus:2 | djump,adash,samus:2
+rSkyCaveA: from in 1714 80,848 (to rMain_96) to out 1771 1272,112 (to rSkyCaveB): adash,link:1 | djump,samus:1
+rVault_15: from in 1734 48,304 (to rVault_14) to out 1794 2576,192 (to rVault_16): -
+rVault_16: from in 1738 48,224 (to rVault_15) to out 1798 2016,272 (to rVault_17): adash
+rVault_17: from in 1740 48,304 (to rVault_16) to out 1800 1904,176 (to rVault_18): djump | adash
+rVault_18: from in 1743 48,208 (to rVault_17) to out 1803 2176,240 (to rVault_19): adash,link:3
+rVault_20: from in 1750 48,272 (to rVault_19) to out 1810 3504,240 (to rVault_21): link:1 | belmont:1 | megaman:1 | samus:1
+rVault_21: from in 1753 48,272 (to rVault_20) to out 1813 4432,240 (to rVault_22): -
+rVault_6: from in 1770 976,176 (to rVault_7) to out 1825 0,3984 (to rVault_5): -
+rVault_R_A: from in 1783 48,192 (to rVault_R_B) to out 1837 0,912 (to rVault_R_B): -
+rVault_R_A: from in 1783 48,192 (to rVault_R_B) to out 1842 1520,1328 (to rVault_R_B): -
+rVault_R_A: from in 1783 48,192 (to rVault_R_B) to out 1840 1520,160 (to rVault_R_B): djump
+rVault_R_A: from in 1783 48,192 (to rVault_R_B) to out 1841 1520,912 (to rVault_R_B): -
+rVault_R_A: from in 1784 48,944 (to rVault_R_B) to out 1842 1520,1328 (to rVault_R_B): -
+rVault_R_A: from in 1780 1488,192 (to rVault_R_B) to out 1837 0,912 (to rVault_R_B): -
+rVault_R_A: from in 1780 1488,192 (to rVault_R_B) to out 1842 1520,1328 (to rVault_R_B): -
+rVault_R_A: from in 1781 1488,944 (to rVault_R_B) to out 1842 1520,1328 (to rVault_R_B): -
+rVault_R_A: from in 1780 1488,192 (to rVault_R_B) to out 1841 1520,912 (to rVault_R_B): -
+rVault_R_B: from in 1790 48,192 (to rVault_R_A) to out 1845 0,912 (to rVault_R_A): -
+rVault_R_B: from in 1790 48,192 (to rVault_R_A) to out 1849 1520,1328 (to rVault_R_A): -
+rVault_R_B: from in 1790 48,192 (to rVault_R_A) to out 1848 1520,912 (to rVault_R_A): -
+rVault_R_B: from in 1788 1488,192 (to rVault_R_A) to out 1845 0,912 (to rVault_R_A): -
+rVault_R_B: from in 1788 1488,192 (to rVault_R_A) to out 1849 1520,1328 (to rVault_R_A): -
+rVault_R_B: from in 1788 1488,192 (to rVault_R_A) to out 1848 1520,912 (to rVault_R_A): -
+rVault_R_C: from in 1798 48,192 (to rVault_R_D) to out 1852 0,912 (to rVault_R_D): -
+rVault_R_C: from in 1795 1488,192 (to rVault_R_D) to out 1855 1520,912 (to rVault_R_D): -
+rVault_R_D: from in 1806 48,944 (to rVault_R_C) to out 1860 0,1328 (to rVault_R_C): -
+rVault_R_D: from in 1803 1488,944 (to rVault_R_C) to out 1863 1520,1328 (to rVault_R_C): -
+rWarshipZ_C: from in 1854 48,192 (to rWarshipZ_B) to out 1912 3728,160 (to rWarshipZ_D): djump,mario
+rWarshipZ_G: from in 1868 48,256 (to rWarshipZ_F) to out 1928 4944,224 (to rWarshipZ_H): -
+rWarshipZ_H: from in 1871 48,256 (to rWarshipZ_G) to out 1930 4448,176 (to rWarshipZ_I): djump,mario
+rWepFacG: from in 1892 2352,304 (to rWepFacF) to out 1952 0,224 (to rWepFacH): djump,adash,megaman:4
+rWepFacI: from in 1897 48,288 (to rWepFacJ) to out 1955 3120,224 (to rWepFacH): djump,adash,megaman:4

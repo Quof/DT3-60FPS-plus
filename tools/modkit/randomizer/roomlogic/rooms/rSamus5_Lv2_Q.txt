@@ -3,6 +3,7 @@
 # Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
 # Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
 # middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [as the other ways in make the room, as the other ways in make the room]
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
 in 64,304   # from rSamus5_Lv2_P out 464,2480
@@ -14,105 +15,63 @@ out 1856,224   # to rSamus5_Lv2_R at 64,1360; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 64,304
-  out 0,272      link:1 | belmont:1 | megaman:1 | samus:1
+  out 0,272      -
   out 1856,224   adash,megaman:4,samus:2
 from in 1808,256
   out 0,272      never
-  out 1856,224   link:1 | belmont:1 | megaman:1 | samus:1
+  out 1856,224   -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
-how in 64,304 -> out 0,272: link:1
-     coming in at 64,304
-   1. coming in: holding nothing, from 64,304; lands at 64,305
-      -> standing at x 31-217, y 305
-   2. walk from 31,305 to 30,305 into the Metroid door at 0,240   [link:1]
-      -> standing at x 0-30, y 305 (where a gate is)
-   3. standing at 0,305, goes into it
-      -> out 0,272
-how in 64,304 -> out 0,272: belmont:1
-     coming in at 64,304
-   1. coming in: holding nothing, from 64,304; lands at 64,305
-      -> standing at x 31-217, y 305
-   2. walk from 31,305 to 30,305 into the Metroid door at 0,240   [belmont:1]
-      -> standing at x 0-30, y 305 (where a gate is)
-   3. standing at 0,305, goes into it
-      -> out 0,272
-how in 64,304 -> out 0,272: megaman:1
-     coming in at 64,304
-   1. coming in: holding nothing, from 64,304; lands at 64,305
-      -> standing at x 31-217, y 305
-   2. walk from 31,305 to 30,305 into the Metroid door at 0,240   [megaman:1]
-      -> standing at x 0-30, y 305 (where a gate is)
-   3. standing at 0,305, goes into it
-      -> out 0,272
-how in 64,304 -> out 0,272: samus:1
-     coming in at 64,304
-   1. coming in: holding nothing, from 64,304; lands at 64,305
-      -> standing at x 31-217, y 305
-   2. walk from 31,305 to 30,305 into the Metroid door at 0,240   [samus:1]
-      -> standing at x 0-30, y 305 (where a gate is)
-   3. standing at 0,305, goes into it
+how in 64,304 -> out 0,272: -
+     [as coming in at 64,304 makes the room, as the other ways in make the room] coming in at 64,304
+   1. coming in: holding nothing, from 64,304; lands at 64,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] standing at x 0-217, y 305
+   2. standing at 0,305, goes into it
       -> out 0,272
 how in 64,304 -> out 1856,224: adash,megaman:4,samus:2
-     coming in at 64,304
-   1. coming in: holding nothing, from 64,304; lands at 64,305
-      -> standing at x 31-217, y 305
-   2. running right, jump (held 21 ticks), holding right, from 64,305; lands at 240,257
-      -> standing at x 218-278, y 257
-   3. jump (held 21 ticks), holding right, from 218,257; lands at 401,257
-      -> standing at x 378-438, y 257
-   4. walk off the edge, holding right once in the air, air dash (Jerry) at tick 2, from 432,257; fires the Strike Chain at the point at 650,232   [adash,megaman:4]
-      -> hanging from the Strike Chain point at 650,232
+     [as coming in at 64,304 makes the room, as the other ways in make the room] coming in at 64,304
+   1. coming in: holding nothing, from 64,304; lands at 64,305 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] standing at x 0-217, y 305
+   2. running right, jump (held 21 ticks), holding right, from 64,305; lands at 240,257 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] standing at x 218-278, y 257
+   3. jump (held 21 ticks), holding right, from 218,257; lands at 401,257 {move ch=1 dir=1 jumpAt=0}
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] standing at x 378-438, y 257
+   4. walk off the edge, holding right once in the air, air dash (Jerry) at tick 2, from 432,257; fires the Strike Chain at the point at 650,232 {move ch=0 dir=1 adAt=2 noInputTillAir=1}   [adash,megaman:4]
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] hanging from the Strike Chain point at 650,232
    5. hanging there, fire the Strike Chain at the point at 722,232   [megaman:4]
-      -> hanging from the Strike Chain point at 722,232
-   6. off the Strike Chain point: jump (held 21 ticks), holding left, from 722,272; lands at 599,257
-      -> standing at x 599-710, y 257
-   7. walk off the edge, holding right once in the air, air dash (Jerry) at tick 2, from 599,257; fires the Strike Chain at the point at 842,232   [adash,megaman:4]
-      -> hanging from the Strike Chain point at 842,232
-   8. off the Strike Chain point: jump (held 21 ticks), holding nothing, from 842,272; fires the Strike Chain at the point at 866,232   [megaman:4]
-      -> hanging from the Strike Chain point at 866,232
-   9. off the Strike Chain point: jump (held 21 ticks), holding right, air dash (Jerry) at tick 4, from 866,272; fires the Strike Chain at the point at 1058,232   [adash,megaman:4]
-      -> hanging from the Strike Chain point at 1058,232
-  10. off the Strike Chain point: jump (held 21 ticks), holding nothing, then right after 10 ticks, from 1058,272; lands at 1123,241
-      -> standing at x 1114-1142, y 241
-  11. jump (held 6 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 1134,241; lands at 1221,193   [samus:2]
-      -> as the Morph Ball at x 1210-1238, y 193
-  12. as the Morph Ball: roll off the edge, holding right once in the air, turn back once there's room, from 1210,193; lands at 1298,225
-      -> standing at x 1274-1334, y 225
-  13. jump (held 21 ticks), holding right, from 1274,225; lands at 1405,161
-      -> standing at x 1386-1414, y 161
-  14. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1386,161; lands at 1622,257   [adash]
-      -> standing at x 1594-1686, y 257
-  15. walk off the edge, holding right once in the air, air dash (Jerry) at tick 2, from 1600,257, through the Metroid door at 0,240, the Metroid door at 1848,192; touches it on the way   [adash,megaman:1]
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] hanging from the Strike Chain point at 722,232
+   6. off the Strike Chain point: jump (held 21 ticks), holding left, from 722,272; lands at 599,257 {move ch=1 dir=-1 jumpAt=0 fromHang=1}
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] standing at x 599-710, y 257
+   7. walk off the edge, holding right once in the air, air dash (Jerry) at tick 2, from 599,257; fires the Strike Chain at the point at 842,232 {move ch=0 dir=1 adAt=2 noInputTillAir=1}   [adash,megaman:4]
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] hanging from the Strike Chain point at 842,232
+   8. off the Strike Chain point: jump (held 21 ticks), holding nothing, from 842,272; fires the Strike Chain at the point at 866,232 {move ch=1 dir=1 jumpAt=0 h1=0 h2=0 fromHang=1}   [megaman:4]
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] hanging from the Strike Chain point at 866,232
+   9. off the Strike Chain point: jump (held 21 ticks), holding right, air dash (Jerry) at tick 4, from 866,272; fires the Strike Chain at the point at 1082,232 {move ch=0 dir=1 jumpAt=0 adAt=4 fromHang=1}   [adash,megaman:4]
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] hanging from the Strike Chain point at 1082,232
+  10. off the Strike Chain point: jump (held 21 ticks), holding nothing, then right after 16 ticks, from 1082,272; lands at 1133,241 {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=16 fromHang=1}
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] standing at x 1114-1142, y 241
+  11. jump (held 6 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 1134,241; lands at 1221,193 {move ch=1 dir=1 jumpAt=0 jumpHold=6 autoMorph=1}   [samus:2]
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] as the Morph Ball at x 1210-1238, y 193
+  12. as the Morph Ball: roll off the edge, holding right once in the air, turn back once there's room, from 1210,193; lands at 1298,225 {move ch=1 dir=1 hDelay=1 maxT=80 noInputTillAir=1 autoUnmorph=1 morph=1}
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] standing at x 1274-1334, y 225
+  13. jump (held 21 ticks), holding right, from 1274,225; lands at 1405,161 {move ch=1 dir=1 jumpAt=0}
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] standing at x 1386-1414, y 161
+  14. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1386,161; lands at 1622,257 {move ch=0 dir=1 adAt=6 noInputTillAir=1 adClear=1}   [adash]
+      -> [as coming in at 64,304 makes the room, as the other ways in make the room] standing at x 1594-1686, y 257
+  15. walk off the edge, holding right once in the air, air dash (Jerry) at tick 2, from 1600,257, through the Metroid door at 1848,192; touches it on the way {move ch=0 dir=1 adAt=2 noInputTillAir=1}   [adash,megaman:1]
       -> out 1856,224
-how in 1808,256 -> out 1856,224: link:1
-     coming in at 1808,256
-   1. coming in: holding nothing, from 1808,256; lands at 1808,257
-      -> standing at x 1754-1841, y 257
-   2. walk off the edge, holding right once in the air, from 1754,257, through the Metroid door at 0,240, the Metroid door at 1848,192; touches it on the way   [link:1]
-      -> out 1856,224
-how in 1808,256 -> out 1856,224: belmont:1
-     coming in at 1808,256
-   1. coming in: holding nothing, from 1808,256; lands at 1808,257
-      -> standing at x 1754-1841, y 257
-   2. walk off the edge, holding right once in the air, from 1754,257, through the Metroid door at 0,240, the Metroid door at 1848,192; touches it on the way   [belmont:1]
-      -> out 1856,224
-how in 1808,256 -> out 1856,224: megaman:1
-     coming in at 1808,256
-   1. coming in: holding nothing, from 1808,256; lands at 1808,257
-      -> standing at x 1754-1841, y 257
-   2. walk off the edge, holding right once in the air, from 1754,257, through the Metroid door at 0,240, the Metroid door at 1848,192; touches it on the way   [megaman:1]
-      -> out 1856,224
-how in 1808,256 -> out 1856,224: samus:1
-     coming in at 1808,256
-   1. coming in: holding nothing, from 1808,256; lands at 1808,257
-      -> standing at x 1754-1841, y 257
-   2. walk off the edge, holding right once in the air, from 1754,257, through the Metroid door at 0,240, the Metroid door at 1848,192; touches it on the way   [samus:1]
+how in 1808,256 -> out 1856,224: -
+     [as the other ways in make the room, as coming in at 1808,256 makes the room] coming in at 1808,256
+   1. coming in: holding nothing, from 1808,256; lands at 1808,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as the other ways in make the room, as coming in at 1808,256 makes the room] standing at x 1754-1872, y 257
+   2. standing at 1854,257, goes into it
       -> out 1856,224

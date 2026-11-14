@@ -11,7 +11,8 @@ It's worked out in two parts, and both are text files that can be read and check
 
   1. Each room on its own. For each way into the room, what each way out of it and each place in it needs, from the
      moves inside that room alone, with the moves that do it. These are the room files, rooms\<room>.txt (one a room),
-     made by a simulation of the game's own movement (roomlogic.py, about seven minutes).
+     made by a simulation of the game's own movement at 30, 60 and 120fps, each way needing what it needs at all three
+     (a player plays at any of them; roomlogic.py, an hour or two).
   2. The rooms joined. connections.txt says which way in each exit leads to; solve.py follows them from the start and
      adds up what each room on the way needs (a few seconds). overrides.txt holds hand-made changes, applied here.
 
@@ -31,9 +32,65 @@ FILES
   roomlogic.py        makes the room files and connections.txt again, then solve.py's result, and checks it
   roomdata.py, gmleval.py, RoomLogic.cs
                       the simulation (HOW THE ROOM FILES ARE MADE, below)
+  gamestate.txt       the rooms as the game itself makes them, where roomdata.py's reading of their code differs (made
+                      by ..\..\logictest\roomdump.py digest from the running game: don't edit; roomdata.py takes it in)
   bosses.txt          what each boss fight takes (BOSSES below)
   er.py, erflat.py    Entrance Rando's doors and its seeds (ENTRANCE RANDO below)
-  perdoor.py          overrides.txt's lines for a whole room (in *) door by door: what the simulation says getting
+  graph.txt           the whole game as one directed graph (made by graph.py, which roomlogic.py runs after solve.py:
+                      don't edit): every room's ways in (with the states the room carries), ways out, places and spots,
+                      the events and the boss fights; its edges each one way, with what they take and where they come
+                      from (the room logic, a line of overrides.txt with what the room logic had, connections.txt).
+                      Solved alone it gets roomlogic.txt (checked each run). Made beside the rest: the build still goes
+                      by roomlogic.txt and erflat.py's tables
+  ids.txt             the permanent numbers of the ways in, the ways out and Entrance Rando's doors (kept by graph.py:
+                      don't edit). A new one is numbered after all the others; one gone stays, its number never given
+                      again. Numbered at first as b124's lists were (what a save's visit marks and door shuffle go by),
+                      so a number is its place in them; roomlogic.py says when a build's list leaves their order (old
+                      saves then need rndgen.py's VISIT_LEGACY, er.py's LATE_DOORS or erflat.py's ER_LEGACY)
+  directions.txt      each room's doors two by two, each way on its own (made by graph.py): where overrides.txt has a
+                      way otherwise than the room logic (a playtest's correction: the simulation to look at, or what it
+                      can't see), and the ways that go one way only
+  tests.txt           overrides.txt's lines as tests of the simulation alone (made by tests.py, which roomlogic.py runs
+                      after graph.py: don't edit), door by door, each with its comments as its reason: an add line is
+                      sufficient (from that way in, with any one of its alternatives, the target is got to: the
+                      simulation has to get there with as little), after a drop line for the same way sufficient and
+                      necessary (and nothing less gets there), a drop line with no add line after it necessary: never,
+                      a require line necessary (every way there takes it: the simulation's already do). Listed: the
+                      lines the simulation passes (regression tests: it already has them), the ones where it gets
+                      somewhere with less than the lines say (drop: more lenient than the game as the lines have it,
+                      the first to look at), the ones it misses (fail: its gaps to look at; beyond: in a room with a
+                      mechanism it leaves out, roomdata.py's UNMODELLED and ROOM_UNMODELLED, named beside the line: the
+                      bikes, the wind, pressure switches, a mid-air partner swap...), and the rules it can't see
+                      (require lines for an exit or for what it can't see, drop lines naming what the add lines leave out, link lines, only, outoflogic;
+                      bosses.txt's fights, events.txt's events)
+  checks.txt          the logic's automatic checks (made by checks.py, which roomlogic.py runs after tests.py: don't edit),
+                      each listing only what it finds wrong, with its counts: 1. the story run (each boss fight in the
+                      story's order with the abilities the story had given by then, the Boss Gallery's loadouts kept
+                      gate to gate: the logic asking more is too strict there, with the rooms' parts on the way that
+                      ask it); 2. door pairs where one way takes two or more abilities more than the other; 4.
+                      overrides.txt's "from *" lines where the simulation gets to the target from some ways in and
+                      never from others; 5. softlocks (the pause menu's Teleport works anywhere but in a boss fight:
+                      each gate's Teleport place gets out of the gate with nothing); 6. frame rates (the places 30fps
+                      alone has in logic that the logic, with each way needing what it needs at 30, 60 and 120fps, loses
+                      or needs more for, and the frame rate that does it: the game plays differently there); 7. carried
+                      states (a way in the logic gets to in a red/blue, water or crystal state its room's table has no
+                      rows for); 11. regressions (a line the
+                      simulation passed at the baseline and doesn't now, or a line gone: listed till python checks.py
+                      --accept takes a new baseline, checks_baseline.txt)
+  fitcheck.py         every place with every item's look (python fitcheck.py, a minute: fitcheck.txt): where the mod's
+                      rndItemFit moves a pickup that takes its item's look, its collision box has to take in some of the
+                      open pixels of the box the room logic got to; the places where a look's doesn't are listed
+  stress.py           the seed stress test (python stress.py [seeds per option set] [rows to test] [seeds per row], a few
+                      hours at 1000 seeds: stress.txt): seeds made as the mod makes them for each option set the build
+                      checks, each played through; the room parts (rows) on the way to the progression items counted,
+                      and the most used ones each taken away from a sample of seeds to see how often a seed needs them.
+                      The ranking says which room parts to check in the game first
+  trackerplay.py      the tracker playthroughs (python trackerplay.py <a build's folder> <folder> [seeds per option
+                      set]): Entrance Rando seeds made as the mod makes them, and a copy of the build's trackers with
+                      trackerplay.html, which plays each one with only what the Check Tracker shows (every check in
+                      logic taken; with none, an unexplored door gone through): it must never be left with nothing to
+                      do. The page's scripts run only from a web server (python -m http.server)
+  perdoor.py          overrides.txt's lines for a whole room (from *) door by door: what the simulation says getting
                       from each way in to each other way in, and to the space around each place and exit such a line
                       is for, takes (RoomLogic.exe --probes, about 40 minutes; --report again from the last run), in
                       perdoor.txt beside the lines. A line for every way in gives each door the same need, as if the
@@ -163,34 +220,58 @@ way in overrides.txt. The change flows on: everything past it is worked out agai
   python solve.py              (a few seconds: roomlogic.txt again; it says if a line is wrong)
   python ..\rndgen.py <out>    (the mod again, with it)
 
-overrides.txt's lines (the file explains them too):
+overrides.txt's lines (the file explains them too). A line adds a way or a requirement to the simulation's; only a drop
+line takes one of its ways away, and it says why:
 
-  set <room> in <x,y> -> <way out or place> : <requirements>
-      what that way through the room needs, in place of what the room's file says ("in *": from every way in)
-  add <room> in <x,y> -> <way out or place> : <requirements>
-      another way through, as well as the room file's
-  need <room> out <id> : <requirements>
-      going through that exit needs this too
+  add <room> from <x,y> to <way out or place> : <requirements>
+      another way there (sufficient), as well as the simulation's. "from *": from every way in; "to *": to every way
+      out, place and spot; "area <number>" in place of the room (from * to *): every room of the area
+  require <room> from <x,y> to <way out or place> : <requirements>
+      every way there needs this as well (necessary), the simulation's and the add lines' (the underwater rooms: "air
+      3", 3 of the Air Upgrades, which the reach counts at the places it gets to while the mod places the items,
+      rndGenerate)
+  require <room> out <id> : <requirements>
+      going through that exit needs this as well, wherever Entrance Rando has it lead (the portals' Program Chips)
+  drop <room> from <x,y> to <way out or place> because <why>
+      the ways there so far (the simulation's, and the lines' before it) aren't there: the add lines after it give
+      the ones that are, or none (no way there)
+  drop <room> from <x,y> to <way out or place> : <requirements> because <why>
+      the add lines there leave these out on purpose, where every one of the simulation's ways takes them: a weapon
+      ("attack"), a key ("key N"), a Program Chip ("chip N") or an event ("event NAME")
   link <room> out <id> -> <room> in <x,y>
       that exit leads somewhere else
-  room <room> : <requirements>
-      every way through the room (from each way in to each way out, place and spot) needs this, in place of the
-      room file's
-  area <number> : <requirements>
-      the same for every room of the area (a later room line can still change one of them)
   outoflogic <room> loc <place> : <why>
       that place out of logic from every way in, whatever the other lines say (it never holds an ability or key); the
       Check Tracker shows why beside it
-  also <room> : <requirements>
-      every way through the room needs this as well, on top of the rest (the underwater rooms: "air 3", 3 of the Air
-      Upgrades, which the reach counts at the places it gets to while the mod places the items, rndGenerate)
   only <room> : <items>
       the room's code takes the player's other abilities and sets away (the CHAOS Warship's last rooms and Warship Z:
       "djump mario"), so a way through it that needs any other item isn't one; keys and events stay as they are
 
-overrides.txt has these for what the simulation can't work out: the Nightmare Gates (an area line each), the Hidden
-Program Facility, the bike rides, Gate 6's wind temple (a room line each) and latch crystals, rails and the travel
-cannon, and in the CHAOS Warship what its rooms' code changes by the way in (below), the bike, rWarshipM's key
+In a room with carried states, an add, require or drop line's way in can have one after it: "from 48,480 [water 3]"
+is coming in with the water at level 3 only (Water Palace 7's right door: nothing under the ledge's level, the double
+jump over it). Without one, a line is for every state the way in comes in in.
+
+The add and drop lines apply in the file's order (a drop drops what the lines before it added too); then the only
+lines, the require lines and the outoflogic lines.
+
+The build stops (solve.load_overrides, so every tool that reads the file) at an add line that has a way leaving out a
+requirement every one of the simulation's ways there takes, with no drop line saying why: a key, a Program Chip, an
+event, or a weapon, so that fixing a jump doesn't take away a locked door's, a portal's, a switch's or a hatch's
+requirement unseen. A weapon counts where one of the simulation's ways there takes just an ability set's first item
+(its plain attack: a hatch, a barrier, enemies), so a set's later items for moving (the Morph Ball, the Strike Chain)
+don't count as one; a weapon that only comes with a later item in every way (Norfair 12's hatch under the Bombs, its
+only simulated way) isn't seen yet. A drop line for the whole way (its simulation dropped) lets its add lines be
+anything.
+
+There are no set, room, area, need or also lines any more (solve.py stops at one, saying which line takes its place):
+a set line was a drop line and an add line (an add alone where it dropped nothing, a require line where it only put
+something on top of every way), a room or area line the same from * to *, a need line "require <room> out <id>", an
+also line "require <room> from * to *".
+
+overrides.txt has these for what the simulation can't work out: the Nightmare Gates (an area's lines each), the Hidden
+Program Facility, the bike rides, Gate 6's wind temple (a room's lines each) and latch crystals, rails and the travel
+cannon (the simulation has the crystals' climbs and the cannons' flights now: tests.txt says which lines it agrees
+with), and in the CHAOS Warship what its rooms' code changes by the way in (below), the bike, rWarshipM's key
 controller and the rooms that take abilities away; its ways the simulation finds none for need what the whole Warship
 took before (every movement ability and every attack) till they're checked in the game. (The Warship's Screw War
 Turrets make a solid to stand on as they're made: roomdata.py has them, rWarshipG's gap is crossed on them.) Timed switch barriers
@@ -211,9 +292,9 @@ story's past its progCheck: rWarshipM's has its overrides.txt lines.
 Say why in a comment next to each change. Examples:
 
   # the jump from the ledge to the exit is too hard to count (double jump at the last moment)
-  set rMain_62 in 48,1920 -> out 880,96 : never
+  drop rMain_62 from 48,1920 to out 880,96 because the double jump at the last moment is too hard to count
   # the High Jump Boots get there too
-  add rMain_62 in * -> loc skill point 59 : hijump 2
+  add rMain_62 from * to loc skill point 59 : hijump 2
 
 ..\logic.txt can replace what a single place needs (or every place in a room) after all this; it doesn't flow on to
 other places, so use it only where overrides.txt can't say it.
@@ -288,42 +369,121 @@ roomlogic.py runs three steps:
      won there (gameOptTowerDef 6, as the new game's option Skip Tower Defense has it), so its rewards in Central City -
      North are places; without the option the build has them need everything (rndgen.py's COND_GLOBALS). Each object is a
      solid, a jump-through platform, a hazard (spikes, lava: never touched; Gate 5's lava only till the Varia Suit, a
-     gate that's never solid), water, a spring, a gate (solid till
+     gate that's never solid; Nightmare Gate C's spikes' shadows too, away from the nearest flame, but not those a
+     moving flame steers, timed as moving traps are: roomdata.py's gate_c_shadows), water, a spring, a gate (solid till
      something opens it: a key, a sword or whip, bombs, missiles, an event...), a moving platform and its path, an
      elevator, a Strike Chain point (a Ripper's flies along its row), a switch and what it changes (blocks, barriers;
      an ice block's or a platform maker's platform; bricks; the Water Palace's water), a flying enemy the Mario
-     Ability Set bounces off (a Bill Blaster's Bullet Bills), a push rock, a floating platform, a fading platform (a
+     Ability Set bounces off (where it starts; a Bill Blaster's Bullet Bills where they're fired), a push rock, a floating platform, a fading platform (a
      jump-through one: there half the time), an exit (or a menu's: Gate 4's stage select), a door within the room, or
      a place (an exit whose way goes by a Forest Palace crystal is read in both of the crystal's states).
      The enemy traps the Randomizer brings back (..\traps.py: the story's kill rooms, each happening once) add their
      barriers as gates: walls that open with what beats the trap's enemies (an attack of a damage type they all take,
-     or the Mario Ability Set for Mario's), so a way through one, or to a place behind one, needs that.
+     or the Mario Ability Set for Mario's), so a way through one, or to a place behind one, needs that. So do an enemy
+     barrier the room's event opens once no enemy is left (Leaf Cave B: what beats every enemy placed there) and one
+     whose code waits for a key (Gate 6's City of Dreams E: key 15). Things whose code changes them as the player comes
+     near are read as the player meets them: the Hidden Program Facility's blocks that turn to nothing not there, Central
+     City - North B's NPC pipe up, Neo Grime City's Chaos elevators as elevators (64px wide, stopping at their floors,
+     put by their code at the floor the player comes in at), the CHAOS Weapons Facility's alert doors solid from the
+     ways in their code names (from the left: a way-in group, alert_doors) till the item each guards is taken. Not Gate
+     4's intro columns: they drop as the player runs under them, and down, with their spikes, they'd leave no way across
+     the gate's first rooms.
      work\rooms_notes.txt lists what its code left unknown.
+     Then gamestate.txt: what the game itself has in each room as the player comes in (every object's Create, Step and
+     Alarm code and the Randomizer's own changes having run: ..\..\logictest\roomdump.py, which goes into every room by
+     every way in and compares), where the reading above differs: a line the game hasn't is taken out, a still thing
+     it has is put in (a falling pillar's real size, a spike zone something makes, a spring that has dropped to the
+     floor), an exit leads where the game's does. One only some ways in have is there only for them: a group those
+     ways in set (WS x y group 1, in rooms.txt), the line there only in its state ("@group=state" in front of it).
+     A wall an enemy makes and takes away when it's beaten (Contra's wall and its turrets, a junkyard car, a Drill
+     Waying's pillar at its full height) is put in as a gate that opens with what beats the enemy (traps.py's rule).
+     Moving things, places, the barriers something opens and what changes as the player comes near aren't taken in
+     from it (its end lists them). The moving
+     platforms are, from where the game has them go (roomdump.py track: frame by frame for 20 seconds): the way of
+     one roomdata.py reads from its code where the game's differs (a line's ends, a circle), one it leaves out (a
+     crusher, a rail: along its legs corner to corner) put in, and a Strike Chain point that goes round (or along a
+     line) a point every 24px along its way (as a moving platform, the player waits for it where it goes).
   2. RoomLogic.cs (built to work\RoomLogic.exe with the .NET Framework's C# compiler): draws each room from its
-     instances' sprite masks; finds where the player can stand, and joins those places into regions (walking); then
-     runs the game's own 30fps movement (characterStepEvent, pMoveToWrapOrig, moveTo30: checked against the game) from
-     the regions with a set of moves: jumps of different lengths, running and standing, double jumps, air dashes, dash
+     instances' sprite masks (an automatic bounding box worked out from the pixels, as the game does, not the stored
+     numbers); finds where the player can stand, and joins those places into regions (walking); then runs the game's
+     own movement from the regions: characterStepEvent with pMoveToWrapOrig and moveTo30 at 30fps (Sim.Step), and its
+     60fps code with pMoveToWrapNew and pMoveTo's rounding above it (Sim.StepHi). Each matches the game pixel for pixel,
+     frame by frame (..\..\logictest\calib.py plays the logic's moves in the game and compares). The room files are made
+     at 30fps; --fps 60/120 make a frame rate's own (CHECKING IT). The moves: jumps of different lengths, running and
+     standing, double jumps, air dashes, dash
      jumps, wall jumps (where the game has them), drops with a double jump or air dash after, the Morph Ball (rolling,
-     turning into it in the air where the body meets a wall or a ceiling, turning back out in the open, bomb jumps),
-     bounces off flying enemies, springs, moving platforms, elevators and Strike Chain points. A move that lands
+     turning into it in the air where the body meets a wall or a ceiling, turning back out in the open, bomb jumps;
+     turning back where the body would be in a gate, a bomb block over a tunnel, takes the gate open),
+     bounces off flying enemies (each where it starts, come down on from above and stomped with the Mario Ability Set,
+     not in a dash's invulnerability: from there, as from a latch crystal, a node of its own, the moves on, with the
+     jump or up held or not, and the double jump and air dash it gave back, to the next one, a ledge, a place; and off
+     the Mario enemies on the ground, Goombas and the Bros: landed on over the floor they stand on, near where they're
+     placed, jumped onto, waited for or dropped onto), springs (steered at once, or 6
+     or 12 ticks after the bounce: up past a ledge's
+     overhang first), moving platforms, elevators and Strike Chain points. A move that lands
      somewhere joins two regions, with what it took; one that touches a place or an exit reaches it. Then, between
-     places near each other that nothing joins yet, a search of jump timings (how long jump is held, when the double
-     jump and air dash come, when to steer). A room with switches is worked out in each of its states, joined where a
+     regions near each other that nothing joins with nothing yet, and from each region to the places and the flying
+     enemies near it, a search of jump timings (how long jump is held, when the double jump and air dash come, when to
+     steer; off a dash too), and from each flying enemy stomped to the next ones and the ledges near it (when to steer
+     and for how long, the double jump and air dash), only for moves that need less than what gets there already (a
+     way there with the Strike Chain doesn't stop the search for one with the double jump), each counted only where
+     its timings a tick earlier or later work too. A room with switches is worked out in each of its states, joined where a
      switch can be hit: an attack in reach (at the top of a jump too; a Forest Palace crystal takes only the sword or
      the whip), a shot along a clear line (and, while it flies,
      the player can jump somewhere else: onto a block the switch is about to move, say), a block that moves carrying
      the player standing on it; red and blue switches near an enemy's shots or a moving trap change by themselves (the
      player waits). Push rocks: the player gets beside one, pushes it where it's needed (left or right, off edges) and
-     moves off it from there. Elevators (Zelda II's): ridden up and down their shafts, got off where a floor is level.
+     moves off it from there. Elevators (Zelda II's): ridden up and down their shafts, got off where a floor is level;
+     Neo Grime City's wider ones, got on and off at their floors only (jumped up onto, or dropped off, where one rests
+     above the floor beside it). A fading platform is waited on till it fades, and fallen through (as the Morph Ball
+     too: some have only room for it under a low ceiling). Falling pillars (Castlevania's): one stood on shakes and
+     falls 25 ticks later, its column with it, and on its top the player goes down with it till a floor under the feet
+     stops them. Which have fallen is the room's state as the player goes: each move says which pillars it starts, stands
+     and lands on, touches and goes through, so from which states it goes and what has fallen after it; a region a
+     fallen top splits is a node for each part; a pillar just landed on shakes (from there, only the moves off its top,
+     or riding it down); a region's moves near fallen ones are made again with them gone; and a pillar is ridden down
+     (from its top's ends and middle, the feet wholly on it), the moves off it tried every 32px on the way. Latch crystals: jumps with a melee attack pressed again each
+     time it can be, the sword (Jerry), the whip (Claire) or, in Gate 6, the Blade Strike (Claire, 6 swings a move for
+     its weapon energy); a swing's frame on a crystal while the player's in the air bounces them up and gives the air
+     dash and the double jump back, as takeDamage does (..\..\logictest\calib.py's pogo moves match the game's paths
+     pixel for pixel at 30fps). Bounces off enemies aren't counted. A crystal bounced off is a node of its own (hit from
+     its left or right, by Jerry or Claire), as a Strike Chain point is: the moves go on from beside it, in the air with
+     the bounce's push up and slow fall and the double jump and air dash back (a double jump or air dash after, falling,
+     or the attack mashed for the next crystal), so a climb of crystals is a chain of them. Where a hit leaves the player
+     isn't one place, so a move off a crystal counts only for what it does from both of two: 24px off it, the crystal at
+     the body's middle, and 8px lower (the crystal higher up the body).
+     A travel cannon (oTravelCannon): pressing up at it gets in, firing it puts the player ahead of it and up and flies
+     them 16px right and 16px up a tick, with no keys, friction or gravity, for its creation code's launchDuration
+     ticks; then they're let go, with that speed, the double jump and the air dash (held nothing, on, or back, with a
+     double jump or air dash soon or later).
+     Spots the room's own doors wait for: a diamond door (oDiamondDoor) is gone once the room's red diamonds are all
+     taken, so each diamond is a spot and the door a gate needing every one's event; a step door (oStepDoorA) is up
+     while one of its step switches is stood on, and down again about two seconds after the player steps off, so each
+     switch is a spot (stood on) and the door a gate needing either's (its switches are beside it). Off a spring, the
+     double jump and then the Morph Ball a few ticks after it: up past a wall's top into a gap over it too low to stand
+     in (morphing where the body meets the wall would come first, and the ball has no double jump).
      Begonia's fans blow the player along their stream (224px long), as oBegoniaFan does, unless something solid is in
      the way; a fan switch turns its fans on and off (a state of the room's), and a fan with no switch that starts off
      stays off. Water slows a fall, so a move still falling in water when its time runs out gets more time.
+     The Maridia tube (Gate 5's Maridia 4): its walls are its top and bottom for going through it and its sides for
+     passing behind it, the one or the other as its code makes them where the player gets to: a state of the room's,
+     set by standing at the tube's ends or over it (roomdata.py's TUBES). Nightmare Gate D's platforms, there only
+     while a sweeping zone shows them, are stood on while they're there and gone through while they aren't.
      Zelda II's overworld isn't platformed: the icon's walk from each way in (16px steps, each blocked by a solid at its
      point, stopping on an exit's tile) finds the exits it reaches.
      Last, for each way in, the room's ways out and places: the room file, with the moves.
-  3. solve.py: the rooms joined (roomlogic.txt), with overrides.txt; and a check that, without overrides, it gets the
-     same as RoomLogic.exe's own joining (work\roomlogic_check.txt): a difference means a bug in one of them, and
+     It runs three times at once, at 30, 60 and 120fps (--fps 30/60/120, into work\fps30, work\fps60, work\fps120:
+     each its rooms\, connections.txt and log; a folder whose stamp.txt says it was made from the same rooms.txt by the
+     same RoomLogic.exe isn't made again), and combine_fps.py makes the three into rooms\: each way needs what it needs
+     at every frame rate, as a player plays at whichever they pick (the "how" lines are the 30fps moves).
+  3. solve.py: the rooms joined (roomlogic.txt), with overrides.txt; and a check that, without overrides, the 30fps
+     room files get the same as RoomLogic.exe's own joining (work\fps30\roomlogic_check.txt): a difference means a bug
+     in one of them, and
      roomlogic.py ends with an error.
+  4. graph.py: the same, as one directed graph (graph.txt), its ways in, ways out and doors numbered for good
+     (ids.txt), and each room's doors both ways (directions.txt); solved alone, graph.txt has to get roomlogic.txt
+     (work\graph_check.txt), or roomlogic.py ends with an error. "python graph.py" makes them again from the files as
+     they are (after a change to overrides.txt, say); "python graph.py --check" only checks.
 
 Nothing it counts needs pixel-perfect play: the moves' jumps, air dashes and springs are 95% of the game's (Sim.Slack),
 a landing needs floor (or a wall) 4px to either side, a touch is with the player's sprite's box a few pixels in, and a
@@ -334,7 +494,10 @@ says otherwise): steering left and right during a long fall (a move holds one wa
 crushers
 (Sigma's crushing walls count as walls where they start), rails, the Gravity Well's platforms, the bike (overrides
 say what Overdrive Ostrich's rides need); bouncing off enemies other than the Mario Ability Set's flying ones (the
-CHAOS soldiers can't be); the bosses themselves (a boss needs any attack). A room's switches of one kind count as one
+CHAOS soldiers can't be), the sword's bounce off an enemy, being knocked back by a hit; ladders, conveyors, and
+Nightmare Gate F's own ice running and jump (the moves there are the normal ones); the bosses themselves (a boss needs
+any attack). A spring is touched with the logic's small touch box, so it throws the player a tick later than the game's
+(whose collision is the sprite's), and a little lower. A room's switches of one kind count as one
 switch (hitting any changes all their blocks), and so do its ice blocks and platform makers (one hit: all their
 platforms). Timed rings count as needing the dash (the Farreaches' ring barriers). A party split puzzle counts its
 colored switches as all held once reached, though only one character is ever left on one (two at once can't be);
@@ -351,14 +514,35 @@ Made with roomlogic.py's runs (work\ has what these read):
   python blockers.py          the objects in the rooms where it stops (the mechanics it doesn't model)
   drawat.ps1 <room> <x> <y> [w] [h] [out.png]
                               a picture of a room as the logic sees it, with each region's needs
-  work\RoomLogic.exe --draw <project> work\rooms.txt <room> <out.png> work\roomlogic_regions.txt [x y w h] [--state N]
+  work\RoomLogic.exe --draw <project> work\rooms.txt <room> <out.png> work\fps30\roomlogic_regions.txt [x y w h] [--state N]
                               the same, for a room with switches in state N (a bit a group)
+  work\RoomLogic.exe --edges <project> work\rooms.txt <room> [--fps 60|120]
+                              a room's regions, their joins (from > to: needs, and the move) and what each touches, at
+                              that frame rate (for finding the join one frame rate's logic doesn't have)
   work\RoomLogic.exe --trace <project> work\rooms.txt <room> <x> <y> <move> [dir] [--state N] [--slack S]
                               one move (RoomLogic.cs Programs) from a standing place, tick by tick; a hang... move from
                               a Strike Chain point at x,y, a kick... move from beside a wall (dir: its side); the move
                               search: every jump timing from there and where each lands. --slack 1: the game's own jump
                               strength (the logic's is 0.95)
   work\RoomLogic.exe --test   jumps on a flat floor (to check the movement against the game's)
+  work\RoomLogic.exe --move <project> work\rooms.txt <room> <x> <y> [name=value ...] [--slack S]
+                              one move given field by field (ch dir run jumpAt jumpHold h1 h2 hDelay djAt adAt gdAt
+                              hiJump wallMode morphAt afterBounce ... fps=30|60|120 dither=N; morph=1 as the Morph
+                              Ball, open=1 with the gates open), tick by tick and frame by frame in lines a program
+                              reads (..\..\logictest\calib.py)
+  work\RoomLogic.exe <project> <rooms.txt> <out folder> --fps 60|120
+                              the moves at that frame rate alone (each frame rate's own logic; 30fps is the default)
+  work\RoomLogic.exe <project> <rooms.txt> <out folder> --allfps
+                              every move at 30, 60 and 120fps with the same timings, counting what it does at all
+                              three (stricter than a player needs)
+  python combine_fps.py <rooms 30fps> <rooms 60fps> <rooms 120fps> <out rooms>
+                              the three frame rates' room files made into one: each way needs what it needs at each
+                              (a seed finishable at any frame rate; a move may take other timings at each)
+  work\RoomLogic.exe ... --fpsrejects / --slack S
+                              what the 60/120fps check takes away (work\..\fps_rejects.txt); the moves' strength
+  python compare.py <rooms A> <rooms B> [<connections A> <connections B>]
+                              two runs side by side: the rooms whose ways through differ, and what the joined logic
+                              (with overrides.txt) gets from each
 
 
 ENTRANCE RANDO

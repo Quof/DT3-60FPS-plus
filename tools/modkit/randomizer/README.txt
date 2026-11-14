@@ -166,7 +166,7 @@ Playing
     game (Nightmare Gate A with chip 1, B 2, C 3, D 4, F 5, G 6; E, in the Vault, and H take none), wherever Entrance
     Rando has the portal lead. Without the chip, pressing Up at the portal only says which chip opens it (the mod's
     oAccessGate, rndPortalChip). Nothing else into a gate's rooms takes a chip: a door Entrance Rando joined to them, a
-    boss fight. The logic has the same rule: roomlogic\overrides.txt's need lines for the portals ("chip N"), which the
+    boss fight. The logic has the same rule: roomlogic\overrides.txt's require lines for the portals ("chip N"), which the
     build turns into the mod's list of portals (portal_chips), so no chip is ever placed behind a portal it opens; the
     build checks that for its seeds without Entrance Rando, and every seed is played through before the game starts.
     The pause menu shows as many chips as the player has. Off: all six are had from the start, and the logic counts
@@ -482,7 +482,7 @@ Logic
   the checks, so every game's items are placed with it (the door data, data\rndER.txt), shuffled or not.
 
   The underwater rooms (half or more of the room under water, and Gate 6's Water Caves: roomlogic\overrides.txt's
-  also lines) wait for a quarter of the 10 Air Upgrades (3) to be at places in logic: the player's air lasts 20
+  require lines) wait for a quarter of the 10 Air Upgrades (3) to be at places in logic: the player's air lasts 20
   seconds at first, a second more for each. The Air Upgrades are placed before the abilities and keys, at random (as
   the other items are), and the logic counts the ones at the places it gets to; the Check Tracker, the ones the player
   has got. The spoiler log lists them with the abilities and keys, and gives every location's layer.
@@ -507,9 +507,9 @@ Logic
   Why a place needs what it does: python roomlogic\solve.py --explain "skill point 59" lists the rooms on each way
   there and what each room's part needs; the room's file has the moves.
 
-  Where the logic is wrong, roomlogic\overrides.txt changes it: what a way through a room needs (from a way in to a way
-  out or a place), what going through an exit needs, where an exit leads, or that a place is out of logic (and why: the
-  Check Tracker shows it). Everything past it is worked out again
+  Where the logic is wrong, roomlogic\overrides.txt changes it: another way through a room (from a way in to a way out
+  or a place), what a way or an exit needs as well, a way the room logic has dropped (saying why), where an exit leads,
+  or that a place is out of logic (and why: the Check Tracker shows it). Everything past it is worked out again
   with it (roomlogic\README.txt). As a last resort, logic.txt replaces what a single place (or every place in a room)
   needs, with alternatives separated by |, each the items it takes (djump, adash, gdash, hijump 2, mario, link 2,
   belmont 1, megaman 4, samus 6, gamej 1, gamec 1, varia, cursed 3, key 3: the key of the locked door whose objectNum is

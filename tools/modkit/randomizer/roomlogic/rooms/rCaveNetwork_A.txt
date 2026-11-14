@@ -15,6 +15,8 @@ out 2032,608   # to rCaveNetwork_B at 48,640; the player goes into it
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 5 3   # missile tank 3, at 295,423
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -22,7 +24,7 @@ loc 5 3   # missile tank 3, at 295,423
 # the locked door whose objectNum is N.
 from in 112,208
   out 104,176    -
-  out 2032,608   djump
+  out 2032,608   djump | adash,megaman:4
   loc 5 3        link:1 | belmont:1
 from in 2000,640
   out 104,176    -
@@ -33,155 +35,173 @@ from in 2000,640
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 112,208 -> out 104,176: -
      coming in at 112,208
-   1. coming in: holding nothing, from 112,208; lands at 112,209
+   1. coming in: holding nothing, from 112,208; lands at 112,209 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 39-518, y 209
    2. standing at 94,209, presses up at it
       -> out 104,176
 how in 112,208 -> out 2032,608: djump
      coming in at 112,208
-   1. coming in: holding nothing, from 112,208; lands at 112,209
+   1. coming in: holding nothing, from 112,208; lands at 112,209 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 39-518, y 209
-   2. running right, jump (held 21 ticks), holding right, from 496,209; lands at 650,145
+   2. running right, jump (held 21 ticks), holding right, from 496,209; lands at 650,145 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 634-934, y 145
-   3. running right, jump (held 6 ticks), holding right, from 896,145; lands at 1287,641
+   3. running right, jump (held 6 ticks), holding right, from 896,145; lands at 1287,641 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> standing at x 1098-1385, y 641
-   4. jump (held 21 ticks), holding right, double jump at tick 15, from 1200,641; lands at 1397,545   [djump]
+   4. jump (held 21 ticks), holding right, double jump at tick 15, from 1200,641; lands at 1397,545 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
       -> standing at x 1386-1526, y 545
-   5. walk off the edge, holding right once in the air, from 1386,545; lands at 1591,577
+   5. walk off the edge, holding right once in the air, from 1386,545; lands at 1591,577 {move ch=1 dir=1 hDelay=1 noInputTillAir=1}
       -> standing at x 1527-1622, y 577
-   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1584,577; lands at 1906,641   [djump]
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1584,577; lands at 1906,641 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
       -> standing at x 1898-2048, y 641
    7. standing at 2030,641, goes into it
       -> out 2032,608
+how in 112,208 -> out 2032,608: megaman:4
+     coming in at 112,208
+   1. coming in: holding nothing, from 112,208; lands at 112,209 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> standing at x 39-518, y 209
+   2. running right, jump (held 21 ticks), holding right, from 496,209; lands at 650,145 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 634-934, y 145
+   3. running right, jump (held 6 ticks), holding right, from 896,145; lands at 1287,641 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> standing at x 1098-1385, y 641
+   4. running right, jump (held 2 ticks), holding right, from 1216,641; fires the Strike Chain at the point at 1376,576 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}   [megaman:4]
+      -> hanging from the Strike Chain point at 1376,576
+   5. off the Strike Chain point: jump (held 21 ticks), holding right, from 1376,616; lands at 1414,545 {move ch=1 dir=1 jumpAt=0 fromHang=1}
+      -> standing at x 1386-1526, y 545
+   6. running right, jump (held 21 ticks), holding right, from 1488,545; lands at 1752,641 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> standing at x 1719-1814, y 641
+   7. jump (held 21 ticks), holding right, from 1719,641; lands at 1909,641 {move ch=1 dir=1 jumpAt=0}
+      -> standing at x 1898-2048, y 641
+   8. standing at 2030,641, goes into it
+      -> out 2032,608
 how in 112,208 -> loc 5 3: link:1
      coming in at 112,208
-   1. coming in: holding nothing, from 112,208; lands at 112,209
+   1. coming in: holding nothing, from 112,208; lands at 112,209 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 39-518, y 209
-   2. running right, jump (held 6 ticks), holding right, from 464,209; lands at 721,369
+   2. running right, jump (held 6 ticks), holding right, from 464,209; lands at 721,369 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> standing at x 714-761, y 369
-   3. jump (held 2 ticks), holding left, from 757,369; lands at 517,625
+   3. jump (held 2 ticks), holding left, from 757,369; lands at 517,625 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 394-553, y 625
-   4. running left, jump (held 2 ticks), holding left, from 394,625; lands at 269,625
+   4. running left, jump (held 2 ticks), holding left, from 394,625; lands at 269,625 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> standing at x 151-278, y 625
-   5. jump (held 21 ticks), holding left, from 151,625; lands at 87,561
+   5. jump (held 21 ticks), holding left, from 151,625; lands at 87,561 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 87-150, y 561
-   6. jump (held 2 ticks), holding left, from 87,561; lands at 55,529
+   6. jump (held 2 ticks), holding left, from 87,561; lands at 55,529 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 55-86, y 529
-   7. jump (held 21 ticks), holding right, from 55,529; lands at 208,481
+   7. jump (held 21 ticks), holding right, from 55,529; lands at 208,481 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 186-217, y 481
-   8. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 192,481, through the breakable wall at 240,336, the breakable wall at 272,336, the breakable wall at 304,336, ...; touches it on the way   [link:1]
+   8. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 192,481, through the breakable wall at 240,336, the breakable wall at 272,336, the breakable wall at 304,336, ...; touches it on the way {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=8}   [link:1]
       -> loc 5 3
 how in 112,208 -> loc 5 3: belmont:1
      coming in at 112,208
-   1. coming in: holding nothing, from 112,208; lands at 112,209
+   1. coming in: holding nothing, from 112,208; lands at 112,209 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 39-518, y 209
-   2. running right, jump (held 6 ticks), holding right, from 464,209; lands at 721,369
+   2. running right, jump (held 6 ticks), holding right, from 464,209; lands at 721,369 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
       -> standing at x 714-761, y 369
-   3. jump (held 2 ticks), holding left, from 757,369; lands at 517,625
+   3. jump (held 2 ticks), holding left, from 757,369; lands at 517,625 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 394-553, y 625
-   4. running left, jump (held 2 ticks), holding left, from 394,625; lands at 269,625
+   4. running left, jump (held 2 ticks), holding left, from 394,625; lands at 269,625 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> standing at x 151-278, y 625
-   5. jump (held 21 ticks), holding left, from 151,625; lands at 87,561
+   5. jump (held 21 ticks), holding left, from 151,625; lands at 87,561 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 87-150, y 561
-   6. jump (held 2 ticks), holding left, from 87,561; lands at 55,529
+   6. jump (held 2 ticks), holding left, from 87,561; lands at 55,529 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 55-86, y 529
-   7. jump (held 21 ticks), holding right, from 55,529; lands at 208,481
+   7. jump (held 21 ticks), holding right, from 55,529; lands at 208,481 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 186-217, y 481
-   8. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 192,481, through the breakable wall at 240,336, the breakable wall at 272,336, the breakable wall at 304,336, ...; touches it on the way   [belmont:1]
+   8. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 192,481, through the breakable wall at 240,336, the breakable wall at 272,336, the breakable wall at 304,336, ...; touches it on the way {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=8}   [belmont:1]
       -> loc 5 3
 how in 2000,640 -> out 104,176: -
      coming in at 2000,640
-   1. coming in: holding nothing, from 2000,640; lands at 2000,641
+   1. coming in: holding nothing, from 2000,640; lands at 2000,641 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 1898-2048, y 641
-   2. jump (held 2 ticks), holding left, from 1898,641; lands at 1796,641
+   2. jump (held 2 ticks), holding left, from 1898,641; lands at 1796,641 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 1719-1814, y 641
-   3. jump (held 21 ticks), holding left, from 1719,641; lands at 1603,577
+   3. jump (held 21 ticks), holding left, from 1719,641; lands at 1603,577 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 1527-1622, y 577
-   4. jump (held 21 ticks), holding left, from 1527,577; lands at 1315,641
+   4. jump (held 21 ticks), holding left, from 1527,577; lands at 1315,641 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 1098-1385, y 641
-   5. jump (held 2 ticks), holding left, from 1098,641; lands at 996,641
+   5. jump (held 2 ticks), holding left, from 1098,641; lands at 996,641 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 887-1014, y 641
-   6. jump (held 6 ticks), holding left, from 887,641; lands at 855,593
+   6. jump (held 6 ticks), holding left, from 887,641; lands at 855,593 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 855-886, y 593
-   7. jump (held 21 ticks), holding left, from 855,593; lands at 727,545
+   7. jump (held 21 ticks), holding left, from 855,593; lands at 727,545 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 727-758, y 545
-   8. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 730,545; lands at 654,481
+   8. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 730,545; lands at 654,481 {move ch=1 dir=-1 jumpAt=0 h1=0 hDelay=8}
       -> standing at x 650-694, y 481
-   9. jump (held 21 ticks), holding left, from 650,481; lands at 583,417
+   9. jump (held 21 ticks), holding left, from 650,481; lands at 583,417 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 583-630, y 417
-  10. jump (held 21 ticks), holding right, from 583,417; lands at 736,369
+  10. jump (held 21 ticks), holding right, from 583,417; lands at 736,369 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 714-761, y 369
-  11. running left, jump (held 21 ticks), holding left, from 714,369; lands at 560,305
+  11. running left, jump (held 21 ticks), holding left, from 714,369; lands at 560,305 {move ch=1 dir=-1 run=1 jumpAt=0}
       -> standing at x 551-582, y 305
-  12. jump (held 2 ticks), holding left, from 551,305; lands at 519,273
+  12. jump (held 2 ticks), holding left, from 551,305; lands at 519,273 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 519-550, y 273
-  13. jump (held 21 ticks), holding left, from 519,273; lands at 446,209
+  13. jump (held 21 ticks), holding left, from 519,273; lands at 446,209 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 39-518, y 209
   14. standing at 94,209, presses up at it
       -> out 104,176
 how in 2000,640 -> out 2032,608: -
      coming in at 2000,640
-   1. coming in: holding nothing, from 2000,640; lands at 2000,641
+   1. coming in: holding nothing, from 2000,640; lands at 2000,641 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 1898-2048, y 641
    2. standing at 2030,641, goes into it
       -> out 2032,608
 how in 2000,640 -> loc 5 3: link:1
      coming in at 2000,640
-   1. coming in: holding nothing, from 2000,640; lands at 2000,641
+   1. coming in: holding nothing, from 2000,640; lands at 2000,641 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 1898-2048, y 641
-   2. jump (held 2 ticks), holding left, from 1898,641; lands at 1796,641
+   2. jump (held 2 ticks), holding left, from 1898,641; lands at 1796,641 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 1719-1814, y 641
-   3. jump (held 21 ticks), holding left, from 1719,641; lands at 1603,577
+   3. jump (held 21 ticks), holding left, from 1719,641; lands at 1603,577 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 1527-1622, y 577
-   4. jump (held 21 ticks), holding left, from 1527,577; lands at 1315,641
+   4. jump (held 21 ticks), holding left, from 1527,577; lands at 1315,641 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 1098-1385, y 641
-   5. jump (held 2 ticks), holding left, from 1098,641; lands at 996,641
+   5. jump (held 2 ticks), holding left, from 1098,641; lands at 996,641 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 887-1014, y 641
-   6. jump (held 21 ticks), holding left, from 887,641; lands at 792,577
+   6. jump (held 21 ticks), holding left, from 887,641; lands at 792,577 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 791-854, y 577
-   7. jump (held 6 ticks), holding left, from 791,577; lands at 700,529
+   7. jump (held 6 ticks), holding left, from 791,577; lands at 700,529 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 695-726, y 529
-   8. jump (held 6 ticks), holding left, from 695,529; lands at 563,577
+   8. jump (held 6 ticks), holding left, from 695,529; lands at 563,577 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 554-617, y 577
-   9. walk off the edge, holding left once in the air, from 554,577; lands at 481,625
+   9. walk off the edge, holding left once in the air, from 554,577; lands at 481,625 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> standing at x 394-553, y 625
-  10. running left, jump (held 2 ticks), holding left, from 394,625; lands at 269,625
+  10. running left, jump (held 2 ticks), holding left, from 394,625; lands at 269,625 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> standing at x 151-278, y 625
-  11. jump (held 21 ticks), holding left, from 151,625; lands at 87,561
+  11. jump (held 21 ticks), holding left, from 151,625; lands at 87,561 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 87-150, y 561
-  12. jump (held 2 ticks), holding left, from 87,561; lands at 55,529
+  12. jump (held 2 ticks), holding left, from 87,561; lands at 55,529 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 55-86, y 529
-  13. jump (held 21 ticks), holding right, from 55,529; lands at 208,481
+  13. jump (held 21 ticks), holding right, from 55,529; lands at 208,481 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 186-217, y 481
-  14. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 192,481, through the breakable wall at 240,336, the breakable wall at 272,336, the breakable wall at 304,336, ...; touches it on the way   [link:1]
+  14. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 192,481, through the breakable wall at 240,336, the breakable wall at 272,336, the breakable wall at 304,336, ...; touches it on the way {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=8}   [link:1]
       -> loc 5 3
 how in 2000,640 -> loc 5 3: belmont:1
      coming in at 2000,640
-   1. coming in: holding nothing, from 2000,640; lands at 2000,641
+   1. coming in: holding nothing, from 2000,640; lands at 2000,641 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 1898-2048, y 641
-   2. jump (held 2 ticks), holding left, from 1898,641; lands at 1796,641
+   2. jump (held 2 ticks), holding left, from 1898,641; lands at 1796,641 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 1719-1814, y 641
-   3. jump (held 21 ticks), holding left, from 1719,641; lands at 1603,577
+   3. jump (held 21 ticks), holding left, from 1719,641; lands at 1603,577 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 1527-1622, y 577
-   4. jump (held 21 ticks), holding left, from 1527,577; lands at 1315,641
+   4. jump (held 21 ticks), holding left, from 1527,577; lands at 1315,641 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 1098-1385, y 641
-   5. jump (held 2 ticks), holding left, from 1098,641; lands at 996,641
+   5. jump (held 2 ticks), holding left, from 1098,641; lands at 996,641 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 887-1014, y 641
-   6. jump (held 21 ticks), holding left, from 887,641; lands at 792,577
+   6. jump (held 21 ticks), holding left, from 887,641; lands at 792,577 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 791-854, y 577
-   7. jump (held 6 ticks), holding left, from 791,577; lands at 700,529
+   7. jump (held 6 ticks), holding left, from 791,577; lands at 700,529 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 695-726, y 529
-   8. jump (held 6 ticks), holding left, from 695,529; lands at 563,577
+   8. jump (held 6 ticks), holding left, from 695,529; lands at 563,577 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 554-617, y 577
-   9. walk off the edge, holding left once in the air, from 554,577; lands at 481,625
+   9. walk off the edge, holding left once in the air, from 554,577; lands at 481,625 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
       -> standing at x 394-553, y 625
-  10. running left, jump (held 2 ticks), holding left, from 394,625; lands at 269,625
+  10. running left, jump (held 2 ticks), holding left, from 394,625; lands at 269,625 {move ch=1 dir=-1 run=1 jumpAt=0 jumpHold=2}
       -> standing at x 151-278, y 625
-  11. jump (held 21 ticks), holding left, from 151,625; lands at 87,561
+  11. jump (held 21 ticks), holding left, from 151,625; lands at 87,561 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 87-150, y 561
-  12. jump (held 2 ticks), holding left, from 87,561; lands at 55,529
+  12. jump (held 2 ticks), holding left, from 87,561; lands at 55,529 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 55-86, y 529
-  13. jump (held 21 ticks), holding right, from 55,529; lands at 208,481
+  13. jump (held 21 ticks), holding right, from 55,529; lands at 208,481 {move ch=1 dir=1 jumpAt=0}
       -> standing at x 186-217, y 481
-  14. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 192,481, through the breakable wall at 240,336, the breakable wall at 272,336, the breakable wall at 304,336, ...; touches it on the way   [belmont:1]
+  14. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 192,481, through the breakable wall at 240,336, the breakable wall at 272,336, the breakable wall at 304,336, ...; touches it on the way {move ch=1 dir=1 jumpAt=0 h1=0 hDelay=8}   [belmont:1]
       -> loc 5 3

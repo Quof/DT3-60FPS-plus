@@ -1,5 +1,5 @@
 """
-perdoor.py: overrides.txt's lines for a whole room (in *) door by door. A line for every way in gives each door the same
+perdoor.py: overrides.txt's lines for a whole room (from *) door by door. A line for every way in gives each door the same
 need, as if the player were already where whoever wrote it had in mind; from another door of the room the way there can
 take more, or not be there at all. This works out, with the room analysis (RoomLogic.exe --probes), what getting from
 each way in takes to each other way in's place (where it puts the player) and to the space around each place and exit
@@ -30,12 +30,13 @@ def xy(s):
 
 
 def room_wide(rooms):
-    """{room: [(line number, set/add, target text, requirement text)]}: the in * lines of rooms with more than one way in"""
+    """{room: [(line number, add/require, target text, requirement text)]}: the from * lines (to one target) of rooms
+    with more than one way in"""
     out = collections.OrderedDict()
     for ln, raw in enumerate(open(solve.OVERRIDES, encoding="utf-8"), 1):
         line = raw.split("#", 1)[0].strip()
-        m = re.match(r"^(set|add) (\S+) in \* -> (.*?) : (.*)$", line)
-        if m and m.group(2) in rooms and len(rooms[m.group(2)].ins) > 1:
+        m = re.match(r"^(add|require) (\S+) from \* to (.*?) : (.*)$", line)
+        if m and m.group(3).strip() != "*" and m.group(2) in rooms and len(rooms[m.group(2)].ins) > 1:
             out.setdefault(m.group(2), []).append((ln, m.group(1), m.group(3).strip(), m.group(4).strip()))
     return out
 
@@ -123,7 +124,7 @@ def main():
             return out
 
         rep.append("== %s (%s)" % (rm, r.area))
-        for ln, kind, text, req in ls: rep.append("   line %d: %s in * -> %s : %s" % (ln, kind, text, req))
+        for ln, kind, text, req in ls: rep.append("   line %d: %s %s from * to %s : %s" % (ln, kind, rm, text, req))
         for i in r.ins:
             rep.append("   from in %s: to the other ways in: %s" % (i, "; ".join(
                 "%s %s" % (j, solve.alts_text(spot(i, tg[("in", j)]) or [])) for j in r.ins if j != i)))

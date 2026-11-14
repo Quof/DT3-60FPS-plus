@@ -3,6 +3,7 @@
 # Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
 # Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
 # middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [as the other ways in make the room]
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
 in 1632,96   # from rMain_53 out 3768,176
@@ -19,6 +20,8 @@ out 0,256   # to rNGC_A at 4880,320; the player goes into it
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 8 13   # internetz mod 13, at 3039,39
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -27,15 +30,15 @@ loc 8 13   # internetz mod 13, at 3039,39
 from in 1632,96
   out 1624,64    -
   out 1624,256   -
-  out 3328,256   -
+  out 3328,256   belmont:3 | link:3 | megaman:1 | samus:1 | adash | djump | gdash
   out 0,256      -
-  loc 8 13       never
+  loc 8 13       adash | djump
 from in 1632,288
   out 1624,64    -
   out 1624,256   -
-  out 3328,256   -
+  out 3328,256   belmont:3 | link:3 | megaman:1 | samus:1 | adash | djump | gdash
   out 0,256      -
-  loc 8 13       never
+  loc 8 13       adash | djump
 from in 3296,288
   out 1624,64    -
   out 1624,256   -
@@ -45,149 +48,481 @@ from in 3296,288
 from in 48,288
   out 1624,64    -
   out 1624,256   -
-  out 3328,256   -
+  out 3328,256   belmont:3 | link:3 | megaman:1 | samus:1 | adash | djump | gdash
   out 0,256      -
-  loc 8 13       never
+  loc 8 13       adash | djump
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 1632,96 -> out 1624,64: -
-     coming in at 1632,96
-   1. coming in: holding nothing, from 1632,96; lands at 1632,97
-      -> standing at x 1514-1734, y 97-113
-   2. jump (held 6 ticks), holding left, from 1514,113; lands at 1436,65
-      -> standing at x 1306-1494, y 65
-   3. running right, jump (held 21 ticks), holding right, from 1392,65; touches it on the way
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,96
+   1. coming in: holding nothing, from 1632,96; lands at 1632,97 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1514-1734, y 97-113
+   2. jump (held 6 ticks), holding left, from 1514,113; lands at 1436,65 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1306-1494, y 65
+   3. running right, jump (held 21 ticks), holding right, from 1392,65; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0}
       -> out 1624,64
 how in 1632,96 -> out 1624,256: -
-     coming in at 1632,96
-   1. coming in: holding nothing, from 1632,96; lands at 1632,97
-      -> standing at x 1514-1734, y 97-113
-   2. walk off the edge, holding left, then right after 1 ticks in the air, from 1514,113; lands at 1593,289
-      -> standing at x 1002-3344, y 225-289
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,96
+   1. coming in: holding nothing, from 1632,96; lands at 1632,97 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1514-1734, y 97-113
+   2. walk off the edge, holding left, then right after 1 ticks in the air, from 1514,113; lands at 1593,289 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
    3. standing at 1614,289, presses up at it
       -> out 1624,256
-how in 1632,96 -> out 3328,256: -
-     coming in at 1632,96
-   1. coming in: holding nothing, from 1632,96; lands at 1632,97
-      -> standing at x 1514-1734, y 97-113
-   2. walk off the edge, holding left, then right after 1 ticks in the air, from 1514,113; lands at 1593,289
-      -> standing at x 1002-3344, y 225-289
-   3. standing at 3326,289, goes into it
+how in 1632,96 -> out 3328,256: belmont:3
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,96
+   1. coming in: holding nothing, from 1632,96; lands at 1632,97 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1514-1734, y 97-113
+   2. walk off the edge, holding left, then right after 1 ticks in the air, from 1514,113; lands at 1593,289 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   3. running right, jump (held 21 ticks), holding right, from 1920,257; lands at 2126,257 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2113-2793, y 257-289
+   4. running right, walk off the edge, holding right once in the air, from 2592,273, through the oHugeAssWall at 2800,128, the oJunkyardCar at 2022,218; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [belmont:3]
+      -> out 3328,256
+how in 1632,96 -> out 3328,256: link:3
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,96
+   1. coming in: holding nothing, from 1632,96; lands at 1632,97 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1514-1734, y 97-113
+   2. walk off the edge, holding left, then right after 1 ticks in the air, from 1514,113; lands at 1593,289 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   3. running right, jump (held 21 ticks), holding right, from 1920,257; lands at 2126,257 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2113-2793, y 257-289
+   4. running right, walk off the edge, holding right once in the air, from 2592,273, through the oHugeAssWall at 2800,128, the oJunkyardCar at 2022,218; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [link:3]
+      -> out 3328,256
+how in 1632,96 -> out 3328,256: megaman:1
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,96
+   1. coming in: holding nothing, from 1632,96; lands at 1632,97 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1514-1734, y 97-113
+   2. walk off the edge, holding left, then right after 1 ticks in the air, from 1514,113; lands at 1593,289 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   3. running right, jump (held 21 ticks), holding right, from 1920,257; lands at 2126,257 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2113-2793, y 257-289
+   4. running right, walk off the edge, holding right once in the air, from 2592,273, through the oHugeAssWall at 2800,128, the oJunkyardCar at 2022,218; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [megaman:1]
+      -> out 3328,256
+how in 1632,96 -> out 3328,256: samus:1
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,96
+   1. coming in: holding nothing, from 1632,96; lands at 1632,97 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1514-1734, y 97-113
+   2. walk off the edge, holding left, then right after 1 ticks in the air, from 1514,113; lands at 1593,289 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   3. running right, jump (held 21 ticks), holding right, from 1920,257; lands at 2126,257 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2113-2793, y 257-289
+   4. running right, walk off the edge, holding right once in the air, from 2592,273, through the oHugeAssWall at 2800,128, the oJunkyardCar at 2022,218; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [samus:1]
+      -> out 3328,256
+how in 1632,96 -> out 3328,256: adash
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,96
+   1. coming in: holding nothing, from 1632,96; lands at 1632,97 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1514-1734, y 97-113
+   2. running right, jump (held 21 ticks), holding right, from 1584,97; lands at 1797,97 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1786-1926, y 97
+   3. running right, jump (held 21 ticks), holding right, from 1918,97; lands at 2168,161 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2154-2294, y 161
+   4. running right, jump (held 2 ticks), holding right, from 2272,161; lands at 2412,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2378-2598, y 177
+   5. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 2576,177; lands at 2905,193 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2874-2982, y 193
+   6. walk off the edge, holding left once in the air, from 2874,193; lands at 2839,289 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2839-3344, y 257-289
+   7. standing at 3326,289, goes into it
+      -> out 3328,256
+how in 1632,96 -> out 3328,256: djump
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,96
+   1. coming in: holding nothing, from 1632,96; lands at 1632,97 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1514-1734, y 97-113
+   2. running right, jump (held 21 ticks), holding right, from 1584,97; lands at 1797,97 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1786-1926, y 97
+   3. running right, jump (held 21 ticks), holding right, from 1918,97; lands at 2168,161 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2154-2294, y 161
+   4. running right, jump (held 2 ticks), holding right, from 2272,161; lands at 2412,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2378-2598, y 177
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 2598,177; lands at 2883,193 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2874-2982, y 193
+   6. walk off the edge, holding left once in the air, from 2874,193; lands at 2839,289 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2839-3344, y 257-289
+   7. standing at 3326,289, goes into it
+      -> out 3328,256
+how in 1632,96 -> out 3328,256: gdash
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,96
+   1. coming in: holding nothing, from 1632,96; lands at 1632,97 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1514-1734, y 97-113
+   2. running right, jump (held 21 ticks), holding right, from 1584,97; lands at 1797,97 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1786-1926, y 97
+   3. running right, jump (held 21 ticks), holding right, from 1918,97; lands at 2168,161 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2154-2294, y 161
+   4. running right, jump (held 2 ticks), holding right, from 2272,161; lands at 2412,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2378-2598, y 177
+   5. dash right (Jerry), jump (held 21 ticks), holding right, from 2576,177; lands at 2815,129 {move ch=0 dir=1 jumpAt=1 gdAt=0}   [gdash]
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2794-2838, y 129
+   6. walk off the edge, holding right, then left after 1 ticks in the air, from 2794,129; lands at 2839,289 {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2839-3344, y 257-289
+   7. standing at 3326,289, goes into it
       -> out 3328,256
 how in 1632,96 -> out 0,256: -
-     coming in at 1632,96
-   1. coming in: holding nothing, from 1632,96; lands at 1632,97
-      -> standing at x 1514-1734, y 97-113
-   2. walk off the edge, holding left, then right after 1 ticks in the air, from 1514,113; lands at 1593,289
-      -> standing at x 1002-3344, y 225-289
-   3. running left, jump (held 21 ticks), holding left, from 1002,241; lands at 811,209
-      -> standing at x 0-822, y 193-289
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,96
+   1. coming in: holding nothing, from 1632,96; lands at 1632,97 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1514-1734, y 97-113
+   2. walk off the edge, holding left, then right after 1 ticks in the air, from 1514,113; lands at 1593,289 {move ch=1 dir=-1 h2=-1 hDelay=1 noInputTillAir=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   3. running left, jump (held 21 ticks), holding left, from 1002,241; lands at 811,209 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 0-822, y 193-289
    4. standing at 0,289, goes into it
       -> out 0,256
+how in 1632,96 -> loc 8 13: adash
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,96
+   1. coming in: holding nothing, from 1632,96; lands at 1632,97 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1514-1734, y 97-113
+   2. running right, jump (held 21 ticks), holding right, from 1584,97; lands at 1797,97 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1786-1926, y 97
+   3. running right, jump (held 21 ticks), holding right, from 1918,97; lands at 2168,161 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2154-2294, y 161
+   4. running right, jump (held 2 ticks), holding right, from 2272,161; lands at 2412,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2378-2598, y 177
+   5. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 2544,177; lands at 2819,129 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2794-2838, y 129
+   6. jump (held 21 ticks), holding right, air dash (Claire) at tick 16, from 2802,129; touches it on the way {move ch=1 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> loc 8 13
+how in 1632,96 -> loc 8 13: djump
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,96
+   1. coming in: holding nothing, from 1632,96; lands at 1632,97 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1514-1734, y 97-113
+   2. running right, jump (held 21 ticks), holding right, from 1584,97; lands at 1797,97 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1786-1926, y 97
+   3. running right, jump (held 21 ticks), holding right, from 1918,97; lands at 2168,161 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2154-2294, y 161
+   4. running right, jump (held 2 ticks), holding right, from 2272,161; lands at 2412,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2378-2598, y 177
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 2560,177; lands at 2809,129 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2794-2838, y 129
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 2816,129; touches it on the way {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> loc 8 13
 how in 1632,288 -> out 1624,64: -
-     coming in at 1632,288
-   1. coming in: holding nothing, from 1632,288; lands at 1632,289
-      -> standing at x 1002-3344, y 225-289
-   2. jump (held 6 ticks), holding right, from 1360,245; lands at 1447,193
-      -> standing at x 1418-1526, y 193
-   3. jump (held 6 ticks), holding left, from 1418,193; lands at 1324,145
-      -> standing at x 1274-1382, y 145
-   4. jump (held 21 ticks), holding left, from 1274,145; lands at 1143,81
-      -> standing at x 1066-1174, y 81
-   5. running right, jump (held 21 ticks), holding right, from 1120,81; lands at 1318,65
-      -> standing at x 1306-1494, y 65
-   6. running right, jump (held 21 ticks), holding right, from 1392,65; touches it on the way
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,288
+   1. coming in: holding nothing, from 1632,288; lands at 1632,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   2. running right, jump (held 6 ticks), holding right, from 1904,257; lands at 2044,219 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2019-2112, y 219-247
+   3. jump (held 21 ticks), holding left, from 2019,234; lands at 1880,177 {move ch=1 dir=-1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1786-1926, y 177
+   4. jump (held 21 ticks), holding left, from 1786,177; lands at 1680,101 {move ch=1 dir=-1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1514-1734, y 97-113
+   5. jump (held 6 ticks), holding left, from 1514,113; lands at 1436,65 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1306-1494, y 65
+   6. running right, jump (held 21 ticks), holding right, from 1392,65; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0}
       -> out 1624,64
 how in 1632,288 -> out 1624,256: -
-     coming in at 1632,288
-   1. coming in: holding nothing, from 1632,288; lands at 1632,289
-      -> standing at x 1002-3344, y 225-289
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,288
+   1. coming in: holding nothing, from 1632,288; lands at 1632,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
    2. standing at 1614,289, presses up at it
       -> out 1624,256
-how in 1632,288 -> out 3328,256: -
-     coming in at 1632,288
-   1. coming in: holding nothing, from 1632,288; lands at 1632,289
-      -> standing at x 1002-3344, y 225-289
-   2. standing at 3326,289, goes into it
+how in 1632,288 -> out 3328,256: belmont:3
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,288
+   1. coming in: holding nothing, from 1632,288; lands at 1632,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   2. running right, jump (held 21 ticks), holding right, from 1920,257; lands at 2126,257 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2113-2793, y 257-289
+   3. running right, walk off the edge, holding right once in the air, from 2592,273, through the oHugeAssWall at 2800,128, the oJunkyardCar at 2022,218; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [belmont:3]
+      -> out 3328,256
+how in 1632,288 -> out 3328,256: link:3
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,288
+   1. coming in: holding nothing, from 1632,288; lands at 1632,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   2. running right, jump (held 21 ticks), holding right, from 1920,257; lands at 2126,257 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2113-2793, y 257-289
+   3. running right, walk off the edge, holding right once in the air, from 2592,273, through the oHugeAssWall at 2800,128, the oJunkyardCar at 2022,218; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [link:3]
+      -> out 3328,256
+how in 1632,288 -> out 3328,256: megaman:1
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,288
+   1. coming in: holding nothing, from 1632,288; lands at 1632,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   2. running right, jump (held 21 ticks), holding right, from 1920,257; lands at 2126,257 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2113-2793, y 257-289
+   3. running right, walk off the edge, holding right once in the air, from 2592,273, through the oHugeAssWall at 2800,128, the oJunkyardCar at 2022,218; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [megaman:1]
+      -> out 3328,256
+how in 1632,288 -> out 3328,256: samus:1
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,288
+   1. coming in: holding nothing, from 1632,288; lands at 1632,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   2. running right, jump (held 21 ticks), holding right, from 1920,257; lands at 2126,257 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2113-2793, y 257-289
+   3. running right, walk off the edge, holding right once in the air, from 2592,273, through the oHugeAssWall at 2800,128, the oJunkyardCar at 2022,218; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [samus:1]
+      -> out 3328,256
+how in 1632,288 -> out 3328,256: adash
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,288
+   1. coming in: holding nothing, from 1632,288; lands at 1632,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   2. running right, jump (held 6 ticks), holding right, from 1904,257; lands at 2044,219 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2019-2112, y 219-247
+   3. jump (held 21 ticks), holding right, from 2032,225; lands at 2163,161 {move ch=1 dir=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2154-2294, y 161
+   4. running right, jump (held 2 ticks), holding right, from 2272,161; lands at 2412,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2378-2598, y 177
+   5. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 2576,177; lands at 2905,193 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2874-2982, y 193
+   6. walk off the edge, holding left once in the air, from 2874,193; lands at 2839,289 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2839-3344, y 257-289
+   7. standing at 3326,289, goes into it
+      -> out 3328,256
+how in 1632,288 -> out 3328,256: djump
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,288
+   1. coming in: holding nothing, from 1632,288; lands at 1632,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   2. running right, jump (held 6 ticks), holding right, from 1904,257; lands at 2044,219 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2019-2112, y 219-247
+   3. jump (held 21 ticks), holding right, from 2032,225; lands at 2163,161 {move ch=1 dir=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2154-2294, y 161
+   4. running right, jump (held 2 ticks), holding right, from 2272,161; lands at 2412,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2378-2598, y 177
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 2598,177; lands at 2883,193 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2874-2982, y 193
+   6. walk off the edge, holding left once in the air, from 2874,193; lands at 2839,289 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2839-3344, y 257-289
+   7. standing at 3326,289, goes into it
+      -> out 3328,256
+how in 1632,288 -> out 3328,256: gdash
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,288
+   1. coming in: holding nothing, from 1632,288; lands at 1632,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   2. running right, jump (held 6 ticks), holding right, from 1904,257; lands at 2044,219 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2019-2112, y 219-247
+   3. jump (held 21 ticks), holding right, from 2032,225; lands at 2163,161 {move ch=1 dir=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2154-2294, y 161
+   4. running right, jump (held 2 ticks), holding right, from 2272,161; lands at 2412,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2378-2598, y 177
+   5. dash right (Jerry), jump (held 21 ticks), holding right, from 2576,177; lands at 2815,129 {move ch=0 dir=1 jumpAt=1 gdAt=0}   [gdash]
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2794-2838, y 129
+   6. walk off the edge, holding right, then left after 1 ticks in the air, from 2794,129; lands at 2839,289 {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2839-3344, y 257-289
+   7. standing at 3326,289, goes into it
       -> out 3328,256
 how in 1632,288 -> out 0,256: -
-     coming in at 1632,288
-   1. coming in: holding nothing, from 1632,288; lands at 1632,289
-      -> standing at x 1002-3344, y 225-289
-   2. running left, jump (held 21 ticks), holding left, from 1002,241; lands at 811,209
-      -> standing at x 0-822, y 193-289
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,288
+   1. coming in: holding nothing, from 1632,288; lands at 1632,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   2. running left, jump (held 21 ticks), holding left, from 1002,241; lands at 811,209 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 0-822, y 193-289
    3. standing at 0,289, goes into it
       -> out 0,256
+how in 1632,288 -> loc 8 13: adash
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,288
+   1. coming in: holding nothing, from 1632,288; lands at 1632,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   2. running right, jump (held 6 ticks), holding right, from 1904,257; lands at 2044,219 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2019-2112, y 219-247
+   3. jump (held 21 ticks), holding right, from 2032,225; lands at 2163,161 {move ch=1 dir=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2154-2294, y 161
+   4. running right, jump (held 2 ticks), holding right, from 2272,161; lands at 2412,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2378-2598, y 177
+   5. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 2544,177; lands at 2819,129 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2794-2838, y 129
+   6. jump (held 21 ticks), holding right, air dash (Claire) at tick 16, from 2802,129; touches it on the way {move ch=1 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> loc 8 13
+how in 1632,288 -> loc 8 13: djump
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 1632,288
+   1. coming in: holding nothing, from 1632,288; lands at 1632,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   2. running right, jump (held 6 ticks), holding right, from 1904,257; lands at 2044,219 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2019-2112, y 219-247
+   3. jump (held 21 ticks), holding right, from 2032,225; lands at 2163,161 {move ch=1 dir=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2154-2294, y 161
+   4. running right, jump (held 2 ticks), holding right, from 2272,161; lands at 2412,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2378-2598, y 177
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 2560,177; lands at 2809,129 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2794-2838, y 129
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 2816,129; touches it on the way {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> loc 8 13
 how in 3296,288 -> out 1624,64: -
-     coming in at 3296,288
-   1. coming in: holding nothing, from 3296,288; lands at 3296,289
-      -> standing at x 1002-3344, y 225-289
-   2. jump (held 6 ticks), holding right, from 1360,245; lands at 1447,193
-      -> standing at x 1418-1526, y 193
-   3. jump (held 6 ticks), holding left, from 1418,193; lands at 1324,145
-      -> standing at x 1274-1382, y 145
-   4. jump (held 21 ticks), holding left, from 1274,145; lands at 1143,81
-      -> standing at x 1066-1174, y 81
-   5. running right, jump (held 21 ticks), holding right, from 1120,81; lands at 1318,65
-      -> standing at x 1306-1494, y 65
-   6. running right, jump (held 21 ticks), holding right, from 1392,65; touches it on the way
+     [as the other ways in make the room] coming in at 3296,288
+   1. coming in: holding nothing, from 3296,288; lands at 3296,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as the other ways in make the room] standing at x 2113-3344, y 257-289
+   2. jump (held 2 ticks), holding left, from 2113,257; lands at 2062,221 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
+      -> [as the other ways in make the room] standing at x 2019-2112, y 219-247
+   3. jump (held 21 ticks), holding left, from 2019,234; lands at 1880,177 {move ch=1 dir=-1 jumpAt=0}
+      -> [as the other ways in make the room] standing at x 1786-1926, y 177
+   4. jump (held 21 ticks), holding left, from 1786,177; lands at 1680,101 {move ch=1 dir=-1 jumpAt=0}
+      -> [as the other ways in make the room] standing at x 1514-1734, y 97-113
+   5. jump (held 6 ticks), holding left, from 1514,113; lands at 1436,65 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
+      -> [as the other ways in make the room] standing at x 1306-1494, y 65
+   6. running right, jump (held 21 ticks), holding right, from 1392,65; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0}
       -> out 1624,64
 how in 3296,288 -> out 1624,256: -
-     coming in at 3296,288
-   1. coming in: holding nothing, from 3296,288; lands at 3296,289
-      -> standing at x 1002-3344, y 225-289
-   2. standing at 1614,289, presses up at it
+     [as the other ways in make the room] coming in at 3296,288
+   1. coming in: holding nothing, from 3296,288; lands at 3296,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as the other ways in make the room] standing at x 2113-3344, y 257-289
+   2. jump (held 6 ticks), holding left, from 2113,257; lands at 1974,257 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
+      -> [as the other ways in make the room] standing at x 1002-2015, y 225-289
+   3. standing at 1614,289, presses up at it
       -> out 1624,256
 how in 3296,288 -> out 3328,256: -
-     coming in at 3296,288
-   1. coming in: holding nothing, from 3296,288; lands at 3296,289
-      -> standing at x 1002-3344, y 225-289
+     [as the other ways in make the room] coming in at 3296,288
+   1. coming in: holding nothing, from 3296,288; lands at 3296,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as the other ways in make the room] standing at x 2113-3344, y 257-289
    2. standing at 3326,289, goes into it
       -> out 3328,256
 how in 3296,288 -> out 0,256: -
-     coming in at 3296,288
-   1. coming in: holding nothing, from 3296,288; lands at 3296,289
-      -> standing at x 1002-3344, y 225-289
-   2. running left, jump (held 21 ticks), holding left, from 1002,241; lands at 811,209
-      -> standing at x 0-822, y 193-289
-   3. standing at 0,289, goes into it
+     [as the other ways in make the room] coming in at 3296,288
+   1. coming in: holding nothing, from 3296,288; lands at 3296,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as the other ways in make the room] standing at x 2113-3344, y 257-289
+   2. jump (held 6 ticks), holding left, from 2113,257; lands at 1974,257 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
+      -> [as the other ways in make the room] standing at x 1002-2015, y 225-289
+   3. running left, jump (held 21 ticks), holding left, from 1002,241; lands at 811,209 {move ch=1 dir=-1 run=1 jumpAt=0}
+      -> [as the other ways in make the room] standing at x 0-822, y 193-289
+   4. standing at 0,289, goes into it
       -> out 0,256
 how in 48,288 -> out 1624,64: -
-     coming in at 48,288
-   1. coming in: holding nothing, from 48,288; lands at 48,289
-      -> standing at x 0-822, y 193-289
-   2. running right, jump (held 21 ticks), holding right, from 800,209; lands at 1028,241
-      -> standing at x 1002-3344, y 225-289
-   3. jump (held 6 ticks), holding right, from 1360,245; lands at 1447,193
-      -> standing at x 1418-1526, y 193
-   4. jump (held 6 ticks), holding left, from 1418,193; lands at 1324,145
-      -> standing at x 1274-1382, y 145
-   5. jump (held 21 ticks), holding left, from 1274,145; lands at 1143,81
-      -> standing at x 1066-1174, y 81
-   6. running right, jump (held 21 ticks), holding right, from 1120,81; lands at 1318,65
-      -> standing at x 1306-1494, y 65
-   7. running right, jump (held 21 ticks), holding right, from 1392,65; touches it on the way
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 0-822, y 193-289
+   2. running right, jump (held 21 ticks), holding right, from 800,209; lands at 1028,241 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   3. running right, jump (held 6 ticks), holding right, from 1904,257; lands at 2044,219 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2019-2112, y 219-247
+   4. jump (held 21 ticks), holding left, from 2019,234; lands at 1880,177 {move ch=1 dir=-1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1786-1926, y 177
+   5. jump (held 21 ticks), holding left, from 1786,177; lands at 1680,101 {move ch=1 dir=-1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1514-1734, y 97-113
+   6. jump (held 6 ticks), holding left, from 1514,113; lands at 1436,65 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1306-1494, y 65
+   7. running right, jump (held 21 ticks), holding right, from 1392,65; touches it on the way {move ch=1 dir=1 run=1 jumpAt=0}
       -> out 1624,64
 how in 48,288 -> out 1624,256: -
-     coming in at 48,288
-   1. coming in: holding nothing, from 48,288; lands at 48,289
-      -> standing at x 0-822, y 193-289
-   2. running right, jump (held 21 ticks), holding right, from 800,209; lands at 1028,241
-      -> standing at x 1002-3344, y 225-289
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 0-822, y 193-289
+   2. running right, jump (held 21 ticks), holding right, from 800,209; lands at 1028,241 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
    3. standing at 1614,289, presses up at it
       -> out 1624,256
-how in 48,288 -> out 3328,256: -
-     coming in at 48,288
-   1. coming in: holding nothing, from 48,288; lands at 48,289
-      -> standing at x 0-822, y 193-289
-   2. running right, jump (held 21 ticks), holding right, from 800,209; lands at 1028,241
-      -> standing at x 1002-3344, y 225-289
-   3. standing at 3326,289, goes into it
+how in 48,288 -> out 3328,256: belmont:3
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 0-822, y 193-289
+   2. running right, jump (held 21 ticks), holding right, from 800,209; lands at 1028,241 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   3. running right, jump (held 21 ticks), holding right, from 1920,257; lands at 2126,257 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2113-2793, y 257-289
+   4. running right, walk off the edge, holding right once in the air, from 2592,273, through the oHugeAssWall at 2800,128, the oJunkyardCar at 2022,218; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [belmont:3]
+      -> out 3328,256
+how in 48,288 -> out 3328,256: link:3
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 0-822, y 193-289
+   2. running right, jump (held 21 ticks), holding right, from 800,209; lands at 1028,241 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   3. running right, jump (held 21 ticks), holding right, from 1920,257; lands at 2126,257 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2113-2793, y 257-289
+   4. running right, walk off the edge, holding right once in the air, from 2592,273, through the oHugeAssWall at 2800,128, the oJunkyardCar at 2022,218; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [link:3]
+      -> out 3328,256
+how in 48,288 -> out 3328,256: megaman:1
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 0-822, y 193-289
+   2. running right, jump (held 21 ticks), holding right, from 800,209; lands at 1028,241 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   3. running right, jump (held 21 ticks), holding right, from 1920,257; lands at 2126,257 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2113-2793, y 257-289
+   4. running right, walk off the edge, holding right once in the air, from 2592,273, through the oHugeAssWall at 2800,128, the oJunkyardCar at 2022,218; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [megaman:1]
+      -> out 3328,256
+how in 48,288 -> out 3328,256: samus:1
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 0-822, y 193-289
+   2. running right, jump (held 21 ticks), holding right, from 800,209; lands at 1028,241 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   3. running right, jump (held 21 ticks), holding right, from 1920,257; lands at 2126,257 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2113-2793, y 257-289
+   4. running right, walk off the edge, holding right once in the air, from 2592,273, through the oHugeAssWall at 2800,128, the oJunkyardCar at 2022,218; touches it on the way {move ch=1 dir=1 run=1 hDelay=1 noInputTillAir=1}   [samus:1]
+      -> out 3328,256
+how in 48,288 -> out 3328,256: adash
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 0-822, y 193-289
+   2. running right, jump (held 21 ticks), holding right, from 800,209; lands at 1028,241 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   3. running right, jump (held 6 ticks), holding right, from 1904,257; lands at 2044,219 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2019-2112, y 219-247
+   4. jump (held 21 ticks), holding right, from 2032,225; lands at 2163,161 {move ch=1 dir=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2154-2294, y 161
+   5. running right, jump (held 2 ticks), holding right, from 2272,161; lands at 2412,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2378-2598, y 177
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 2576,177; lands at 2905,193 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2874-2982, y 193
+   7. walk off the edge, holding left once in the air, from 2874,193; lands at 2839,289 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2839-3344, y 257-289
+   8. standing at 3326,289, goes into it
+      -> out 3328,256
+how in 48,288 -> out 3328,256: djump
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 0-822, y 193-289
+   2. running right, jump (held 21 ticks), holding right, from 800,209; lands at 1028,241 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   3. running right, jump (held 6 ticks), holding right, from 1904,257; lands at 2044,219 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2019-2112, y 219-247
+   4. jump (held 21 ticks), holding right, from 2032,225; lands at 2163,161 {move ch=1 dir=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2154-2294, y 161
+   5. running right, jump (held 2 ticks), holding right, from 2272,161; lands at 2412,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2378-2598, y 177
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 2598,177; lands at 2883,193 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2874-2982, y 193
+   7. walk off the edge, holding left once in the air, from 2874,193; lands at 2839,289 {move ch=1 dir=-1 hDelay=1 noInputTillAir=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2839-3344, y 257-289
+   8. standing at 3326,289, goes into it
+      -> out 3328,256
+how in 48,288 -> out 3328,256: gdash
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 0-822, y 193-289
+   2. running right, jump (held 21 ticks), holding right, from 800,209; lands at 1028,241 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   3. running right, jump (held 6 ticks), holding right, from 1904,257; lands at 2044,219 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2019-2112, y 219-247
+   4. jump (held 21 ticks), holding right, from 2032,225; lands at 2163,161 {move ch=1 dir=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2154-2294, y 161
+   5. running right, jump (held 2 ticks), holding right, from 2272,161; lands at 2412,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2378-2598, y 177
+   6. dash right (Jerry), jump (held 21 ticks), holding right, from 2576,177; lands at 2815,129 {move ch=0 dir=1 jumpAt=1 gdAt=0}   [gdash]
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2794-2838, y 129
+   7. walk off the edge, holding right, then left after 1 ticks in the air, from 2794,129; lands at 2839,289 {move ch=1 dir=1 h2=-1 hDelay=1 noInputTillAir=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2839-3344, y 257-289
+   8. standing at 3326,289, goes into it
       -> out 3328,256
 how in 48,288 -> out 0,256: -
-     coming in at 48,288
-   1. coming in: holding nothing, from 48,288; lands at 48,289
-      -> standing at x 0-822, y 193-289
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 0-822, y 193-289
    2. standing at 0,289, goes into it
       -> out 0,256
+how in 48,288 -> loc 8 13: adash
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 0-822, y 193-289
+   2. running right, jump (held 21 ticks), holding right, from 800,209; lands at 1028,241 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   3. running right, jump (held 6 ticks), holding right, from 1904,257; lands at 2044,219 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2019-2112, y 219-247
+   4. jump (held 21 ticks), holding right, from 2032,225; lands at 2163,161 {move ch=1 dir=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2154-2294, y 161
+   5. running right, jump (held 2 ticks), holding right, from 2272,161; lands at 2412,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2378-2598, y 177
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 2544,177; lands at 2819,129 {move ch=0 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2794-2838, y 129
+   7. jump (held 21 ticks), holding right, air dash (Claire) at tick 16, from 2802,129; touches it on the way {move ch=1 dir=1 jumpAt=0 adAt=16}   [adash]
+      -> loc 8 13
+how in 48,288 -> loc 8 13: djump
+     [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289 {move ch=1 dir=1 h1=0 h2=0 entering=1}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 0-822, y 193-289
+   2. running right, jump (held 21 ticks), holding right, from 800,209; lands at 1028,241 {move ch=1 dir=1 run=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 1002-2015, y 225-289
+   3. running right, jump (held 6 ticks), holding right, from 1904,257; lands at 2044,219 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=6}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2019-2112, y 219-247
+   4. jump (held 21 ticks), holding right, from 2032,225; lands at 2163,161 {move ch=1 dir=1 jumpAt=0}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2154-2294, y 161
+   5. running right, jump (held 2 ticks), holding right, from 2272,161; lands at 2412,177 {move ch=1 dir=1 run=1 jumpAt=0 jumpHold=2}
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2378-2598, y 177
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 2560,177; lands at 2809,129 {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> [as coming in at 48,288 or 1632,96 or 1632,288 makes the room] standing at x 2794-2838, y 129
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 2816,129; touches it on the way {move ch=1 dir=1 jumpAt=0 djAt=15}   [djump]
+      -> loc 8 13

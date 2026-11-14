@@ -53,12 +53,14 @@ ER_FEATURES = 6
 # mode's pool instead of the area mode's); and of the builds with the area mode whose exits followed an end (the first
 # with the regions in the hash, then without them); and of b75 to b105 (before CHAOS Weapons Facility 1's left door
 # was one, er.py's LATE_DOORS); and of b106 to b116 (before Doom Castle 13's and Subconscious Filter 3's and 4's); and
-# of b117 and b118 (before The Vault 20's to 22's)
+# of b117 and b118 (before The Vault 20's to 22's); and of b119 to b123 (before Gate 5's Lv0_B-Lv0_I door and Main
+# 36-37's)
 ER_LEGACY = [("a0a71eea481c", 1450, 0, "a4fdb26f53a5"), ("ced7dfcf83e3", 1452, 1, "5d79a76132c0"),
              ("b867e3518338", 1500, 1, "3dd00421ca2d"), ("b49a72cdb1a9", 1500, 3, "3dd00421ca2d"),
              ("bbc776d4e930", 1500, 7, "3dd00421ca2d"), ("83720366892d", 1500, 7, "3dd00421ca2d"),
              ("0d8768d021db", 1500, 7, "3dd00421ca2d"), ("b7a1573f59f3", 1500, 6, "b76d93768d49"),
-             ("7233231ce342", 1502, 6, "1950323ef4f6"), ("d5481cc2581c", 1508, 6, "bf2038635690")]
+             ("7233231ce342", 1502, 6, "1950323ef4f6"), ("d5481cc2581c", 1508, 6, "bf2038635690"),
+             ("813b5d0399b8", 1514, 6, "44dceb0eb834")]
 # an end's class: what the shuffle pairs ends by (only ends of one class). Every end's is "" now (er.py's note above End:
 # a Metroid door in front of an exit, "attack" any weapon or "samus:4" missiles, used to keep its end to ends like it)
 DOOR_CLASSES = ["", "attack", "samus:4"]
@@ -113,7 +115,7 @@ def export(w, pairs, rows, bosses=(), follow=None):
     f.room_resets = [[(f.gnames.index(g), f.gvals[f.gnames.index(g)].index(v)) for g, v in sorted(w.rooms[n].resets.items())] for n in f.rnames]
     f.room_scope = [1 if any(n.startswith(s) for s in f.scope) else 0 for n in f.rnames]
     # (each room's Access Gate, 0 none. The Program Chips are requirement numbers CHIP_BASE+gate, which the gates'
-    # portals take (overrides.txt's need lines: in exit_extra). The rooms' gates are for a save made before that, whose
+    # portals take (overrides.txt's require lines: in exit_extra). The rooms' gates are for a save made before that, whose
     # chips the rooms took: going into a gate's rooms from outside it took its chip, as the mod and the trackers still
     # read such a save: rndChipPortals 0)
     f.room_gate = [solve.gate_of(n) for n in f.rnames]
@@ -695,7 +697,7 @@ def fill(f, part, rows, items, rng, weapons=False, newest=0.7, fight=None, ir=Fa
     nightmare = {i for i in range(N) if fill_[i] >= 0}
     # then the Air Upgrades, each at a free place the logic reaches, at random (as any item but an ability or key goes),
     # as rndGenerate does: the reach counts the ones at places it's got to (au_at), which the underwater rooms need some
-    # of (overrides.txt's also lines)
+    # of (overrides.txt's require lines)
     cand = [i for i in range(N) if fill_[i] < 0 and rows[i]["req"] is not rndgen.EVERYTHING]
     au_at = set()
     for i, it in enumerate(items):

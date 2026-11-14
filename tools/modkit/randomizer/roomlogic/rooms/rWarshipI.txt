@@ -14,6 +14,8 @@ out 3488,208   # to rWarshipJ at 96,416; the player presses up at it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Each need below is what it takes at 30, 60 and 120fps alike (a player plays at any of them); the moves
+# shown under "how" are the 30fps ones.
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -21,7 +23,7 @@ out 3488,208   # to rWarshipJ at 96,416; the player presses up at it
 # the locked door whose objectNum is N.
 from in 112,256
   out 112,208    -
-  out 3488,208   -
+  out 3488,208   adash | gdash | djump
 from in 3488,256
   out 112,208    djump | adash | gdash
   out 3488,208   -
@@ -30,85 +32,85 @@ from in 3488,256
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 112,256 -> out 112,208: -
      coming in at 112,256
-   1. coming in: holding nothing, from 112,256; lands at 112,257
+   1. coming in: holding nothing, from 112,256; lands at 112,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-582, y 257
    2. standing at 94,257, presses up at it
       -> out 112,208
 how in 112,256 -> out 3488,208: -
      coming in at 112,256
-   1. coming in: holding nothing, from 112,256; lands at 112,257
+   1. coming in: holding nothing, from 112,256; lands at 112,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 0-582, y 257
-   2. running right, jump (held 21 ticks), holding right, from 578,257; lands at 769,225
+   2. running right, jump (held 21 ticks), holding right, from 578,257; lands at 769,225 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 762-1702, y 225
-   3. running right, jump (held 21 ticks), holding right, from 1664,225; lands at 1892,257
+   3. running right, jump (held 21 ticks), holding right, from 1664,225; lands at 1892,257 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 1882-2534, y 257
-   4. running right, jump (held 21 ticks), holding right, from 2448,257; lands at 2668,273
+   4. running right, jump (held 21 ticks), holding right, from 2448,257; lands at 2668,273 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 2650-2758, y 273
-   5. running right, jump (held 21 ticks), holding right, from 2704,273; lands at 2895,241
+   5. running right, jump (held 21 ticks), holding right, from 2704,273; lands at 2895,241 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 2874-2982, y 241
-   6. running right, jump (held 21 ticks), holding right, from 2928,241; lands at 3170,289
+   6. running right, jump (held 21 ticks), holding right, from 2928,241; lands at 3170,289 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 3162-3270, y 289
-   7. running right, jump (held 21 ticks), holding right, from 3200,289; lands at 3391,257
+   7. running right, jump (held 21 ticks), holding right, from 3200,289; lands at 3391,257 {move ch=1 dir=1 run=1 jumpAt=0}
       -> standing at x 3370-3568, y 257
    8. standing at 3470,257, presses up at it
       -> out 3488,208
 how in 3488,256 -> out 112,208: djump
      coming in at 3488,256
-   1. coming in: holding nothing, from 3488,256; lands at 3488,257
+   1. coming in: holding nothing, from 3488,256; lands at 3488,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 3370-3568, y 257
-   2. jump (held 2 ticks), holding left, from 3370,257; lands at 3246,289
+   2. jump (held 2 ticks), holding left, from 3370,257; lands at 3246,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 3162-3270, y 289
-   3. jump (held 21 ticks), holding left, double jump at tick 10, from 3162,289; lands at 2957,241   [djump]
+   3. jump (held 21 ticks), holding left, double jump at tick 10, from 3162,289; lands at 2957,241 {move ch=1 dir=-1 jumpAt=0 djAt=10}   [djump]
       -> standing at x 2874-2982, y 241
-   4. jump (held 2 ticks), holding left, from 2874,241; lands at 2750,273
+   4. jump (held 2 ticks), holding left, from 2874,241; lands at 2750,273 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 2650-2758, y 273
-   5. jump (held 6 ticks), holding left, from 2650,273; lands at 2519,257
+   5. jump (held 6 ticks), holding left, from 2650,273; lands at 2519,257 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 1882-2534, y 257
-   6. running left, jump (held 21 ticks), holding left, from 1882,257; lands at 1691,225
+   6. running left, jump (held 21 ticks), holding left, from 1882,257; lands at 1691,225 {move ch=1 dir=-1 run=1 jumpAt=0}
       -> standing at x 762-1702, y 225
-   7. jump (held 21 ticks), holding left, from 762,225; lands at 557,257
+   7. jump (held 21 ticks), holding left, from 762,225; lands at 557,257 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-582, y 257
    8. standing at 94,257, presses up at it
       -> out 112,208
 how in 3488,256 -> out 112,208: adash
      coming in at 3488,256
-   1. coming in: holding nothing, from 3488,256; lands at 3488,257
+   1. coming in: holding nothing, from 3488,256; lands at 3488,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 3370-3568, y 257
-   2. jump (held 2 ticks), holding left, from 3370,257; lands at 3246,289
+   2. jump (held 2 ticks), holding left, from 3370,257; lands at 3246,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 3162-3270, y 289
-   3. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 3162,289; lands at 2938,241   [adash]
+   3. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 3162,289; lands at 2938,241 {move ch=0 dir=-1 jumpAt=0 adAt=10}   [adash]
       -> standing at x 2874-2982, y 241
-   4. jump (held 2 ticks), holding left, from 2874,241; lands at 2750,273
+   4. jump (held 2 ticks), holding left, from 2874,241; lands at 2750,273 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 2650-2758, y 273
-   5. jump (held 6 ticks), holding left, from 2650,273; lands at 2519,257
+   5. jump (held 6 ticks), holding left, from 2650,273; lands at 2519,257 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 1882-2534, y 257
-   6. running left, jump (held 21 ticks), holding left, from 1882,257; lands at 1691,225
+   6. running left, jump (held 21 ticks), holding left, from 1882,257; lands at 1691,225 {move ch=1 dir=-1 run=1 jumpAt=0}
       -> standing at x 762-1702, y 225
-   7. jump (held 21 ticks), holding left, from 762,225; lands at 557,257
+   7. jump (held 21 ticks), holding left, from 762,225; lands at 557,257 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-582, y 257
    8. standing at 94,257, presses up at it
       -> out 112,208
 how in 3488,256 -> out 112,208: gdash
      coming in at 3488,256
-   1. coming in: holding nothing, from 3488,256; lands at 3488,257
+   1. coming in: holding nothing, from 3488,256; lands at 3488,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 3370-3568, y 257
-   2. jump (held 2 ticks), holding left, from 3370,257; lands at 3246,289
+   2. jump (held 2 ticks), holding left, from 3370,257; lands at 3246,289 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 3162-3270, y 289
-   3. dash left (Jerry), jump (held 21 ticks), holding left, from 3184,289; lands at 2965,241   [gdash]
+   3. dash left (Jerry), jump (held 21 ticks), holding left, from 3184,289; lands at 2965,241 {move ch=0 dir=-1 jumpAt=1 gdAt=0}   [gdash]
       -> standing at x 2874-2982, y 241
-   4. jump (held 2 ticks), holding left, from 2874,241; lands at 2750,273
+   4. jump (held 2 ticks), holding left, from 2874,241; lands at 2750,273 {move ch=1 dir=-1 jumpAt=0 jumpHold=2}
       -> standing at x 2650-2758, y 273
-   5. jump (held 6 ticks), holding left, from 2650,273; lands at 2519,257
+   5. jump (held 6 ticks), holding left, from 2650,273; lands at 2519,257 {move ch=1 dir=-1 jumpAt=0 jumpHold=6}
       -> standing at x 1882-2534, y 257
-   6. running left, jump (held 21 ticks), holding left, from 1882,257; lands at 1691,225
+   6. running left, jump (held 21 ticks), holding left, from 1882,257; lands at 1691,225 {move ch=1 dir=-1 run=1 jumpAt=0}
       -> standing at x 762-1702, y 225
-   7. jump (held 21 ticks), holding left, from 762,225; lands at 557,257
+   7. jump (held 21 ticks), holding left, from 762,225; lands at 557,257 {move ch=1 dir=-1 jumpAt=0}
       -> standing at x 0-582, y 257
    8. standing at 94,257, presses up at it
       -> out 112,208
 how in 3488,256 -> out 3488,208: -
      coming in at 3488,256
-   1. coming in: holding nothing, from 3488,256; lands at 3488,257
+   1. coming in: holding nothing, from 3488,256; lands at 3488,257 {move ch=1 dir=1 h1=0 h2=0 entering=1}
       -> standing at x 3370-3568, y 257
    2. standing at 3470,257, presses up at it
       -> out 3488,208
