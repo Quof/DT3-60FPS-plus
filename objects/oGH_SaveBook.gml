@@ -16,7 +16,8 @@ applies_to=self
 if global.gamePaused=false
 {
   showControls=2
-  if oKeyCodes.kCodePressed[3]=1
+  //if oKeyCodes.kCodePressed[3]=1
+  if oKeyCodesHighFPS.kCodePressed[3]=1 //60fps change: pressed on this frame only (oKeyCodes' press lasts the whole 30fps tick, so above 30fps one press saved 2/4 times)
   {
     global.newMapX=x; global.newMapY=304
     saveData()

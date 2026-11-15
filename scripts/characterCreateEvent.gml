@@ -167,6 +167,7 @@ climbAnimSpeed=0.1         //relates to how fast the climbing animation should g
 departLadderXVel=4         //how fast character should be moving horizontally when he leaves the ladder
 departLadderYVel=-4        //how fast the character should be moving vertically when he leaves the ladder
 maxSlope=4                 //approximately how many pixels the character can climb UPWARDS per step (a value of 5 means the character can climb up a slope of 5)
+slopeClimbLeft=4           //60fps change (added): above 30fps, how many pixels the character can still climb this tick (pMoveToWrapNew)
 maxDownSlope=8             //approximately how many pixels the character can climb DOWNWARDS per step (a value of 5 means the character can climb down a slope of 5)
 canRun=0                   //when the user presses the shift button, should the character be allowed to run?
 canFly=0                   //whether the character can do a fly jump when running at full speed

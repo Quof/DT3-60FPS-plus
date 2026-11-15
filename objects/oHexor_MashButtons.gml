@@ -22,6 +22,10 @@ charAnim=1
 
 idleTime=0
 
+//60fps change (added): the buttons held as the mash starts, for the press check in the Step (a button still held from
+//closing the last message isn't a hit)
+for(i=1;i<14;i+=1) {mashHeld[i]=scrController(i)}
+
 jerryObj=instance_create(0,0,oMisc)
 jerryObj.sprite_index=sJerryKneel; jerryObj.image_xscale=-1; jerryObj.depth=15
 jerryObj.image_speed=0; jerryObj.type=1
@@ -40,9 +44,21 @@ if bCanHit=1
 {
   var tButtonCheck;
   tButtonCheck=0
-  for(i=0;i<14;i+=1)
+  //for(i=0;i<14;i+=1)
+  //{
+  //  if oKeyCodes.kCodePressed[i]=1 {tButtonCheck=1}
+  //}
+  //60fps change: oKeyCodes' press lasts the whole 30fps tick, so above 30fps one press was 2/4 hits (3/5 when it came
+  //between ticks: keyboard_check_pressed on its own frame, then the tick's press) and the mash ended early.
+  //oKeyCodesHighFPS's Step comes after this object's, so its press shows up here a frame after keyboard_check_pressed and
+  //a key would be 2 hits. A button counts here on the frame it's pressed, as with oKeyCodes at 30fps (its Step comes
+  //before this object's). kCodePressed[0] was never set, so the check starts at 1.
+  var tHeld;
+  for(i=1;i<14;i+=1)
   {
-    if oKeyCodes.kCodePressed[i]=1 {tButtonCheck=1}
+    tHeld=scrController(i)
+    if tHeld and !mashHeld[i] {tButtonCheck=1}
+    mashHeld[i]=tHeld
   }
   if keyboard_check_pressed(vk_anykey) or tButtonCheck=1
   {

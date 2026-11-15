@@ -117,7 +117,14 @@
   if approximatelyZero(xAcc) {xAcc=0}
   if approximatelyZero(yAcc) {yAcc=0}
 
-  effectiveMaxSlope = floor(maxSlope*gDeltaTime+frac(ditherCounter * 0.618))
+  //effectiveMaxSlope = floor(maxSlope*gDeltaTime+frac(ditherCounter * 0.618))
+  //60fps change: the climb allowance refills by maxSlope per 30fps tick, up to maxSlope (at most 15, the bike boost's
+  //30fps value, since the boost sets maxSlope=15/gDeltaTime), and each frame's climb is taken out of it. With only
+  //maxSlope*gDeltaTime a frame (2px at 60fps, 1px at 120fps), a single 3-4px step that 30fps climbs in one tick was a
+  //wall (any 2px step at 120fps): the morph ball stopped on the right side of the Abomination's 2x-scaled body.
+  //A long slope still climbs at most maxSlope per tick, as at 30fps
+  slopeClimbLeft=min(slopeClimbLeft+maxSlope*gDeltaTime,maxSlope,15)
+  effectiveMaxSlope=floor(slopeClimbLeft)
 
   // !!!!EVIL HACK!!!!
   // maxSlope doesn't function as a slope speed penalty at high framerates
@@ -200,6 +207,8 @@
       ratio=1.075
       pMoveTo((xVel*gDeltaTime*ratio*speedmod),(yVel*gDeltaTime*ratio*speedmod+slopeChangeInY))
     }
+    //60fps change (added): the height climbed this frame comes out of the climb allowance (see effectiveMaxSlope above)
+    if slopeChangeInY>0 {slopeClimbLeft-=max(0,min(slopeChangeInY,slopeYPrev-y))}
   }
   else
   {
